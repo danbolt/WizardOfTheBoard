@@ -1,0 +1,8 @@
+*.o
+*.out
+*.elf
+*.z64
+*.map
+*cp.ld
+*.bino
+*.mpk
