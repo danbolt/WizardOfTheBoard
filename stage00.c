@@ -3,6 +3,7 @@
 
 #include "main.h"
 #include "graphic.h"
+#include "tracknumbers.h"
 
 #ifdef N_AUDIO
 #include <nualsgi_n.h>
@@ -101,7 +102,7 @@ void updateGame00(void)
   if(contdata[0].trigger & A_BUTTON)
     {
       nuAuSeqPlayerStop(0);
-      nuAuSeqPlayerSetNo(0, 1);
+      nuAuSeqPlayerSetNo(0, TRACK_1_TEST);
       nuAuSeqPlayerPlay(0);
     }
 
