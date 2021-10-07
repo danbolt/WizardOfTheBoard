@@ -5,6 +5,8 @@
 
 #define TRACK_0_TEST 0
 #define TRACK_1_DRUMS 1
+#define TRACK_2_PITCHED_DRUMS 2
+#define TRACK_3_WOOD_BLOCK_TEST 3
 
 
 #endif
