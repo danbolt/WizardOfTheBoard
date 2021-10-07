@@ -102,7 +102,7 @@ void updateGame00(void)
   if(contdata[0].trigger & A_BUTTON)
     {
       nuAuSeqPlayerStop(0);
-      nuAuSeqPlayerSetNo(0, TRACK_1_TEST);
+      nuAuSeqPlayerSetNo(0, TRACK_0_TEST);
       nuAuSeqPlayerPlay(0);
     }
 
