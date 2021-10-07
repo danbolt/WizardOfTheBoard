@@ -101,7 +101,7 @@ void updateGame00(void)
   if(contdata[0].trigger & A_BUTTON)
     {
       nuAuSeqPlayerStop(0);
-      nuAuSeqPlayerSetNo(0, 0);
+      nuAuSeqPlayerSetNo(0, 1);
       nuAuSeqPlayerPlay(0);
     }
 
