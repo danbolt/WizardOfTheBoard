@@ -10,12 +10,12 @@
 #include <nualsgi.h>
 #endif
 
-void shadetri(Dynamic* dynamicp);
+static float theta;
 
 /* The initialization of stage 0 */
 void initStage00(void)
 {
-
+  theta = 0.f;
 }
 
 static Vtx shade_vtx[] =  {
@@ -43,7 +43,8 @@ void makeDL00(void)
   gfxClearCfb();
 
   guOrtho(&dynamicp->ortho, -(float)SCREEN_WD/2.0F, (float)SCREEN_WD/2.0F, -(float)SCREEN_HT/2.0F, (float)SCREEN_HT/2.0F, 1.0F, 10.0F, 1.0F);
-  guMtxIdent(&dynamicp->modelling);
+  //guMtxIdent(&dynamicp->modelling);
+  guRotate(&dynamicp->modelling, theta, 0.0F, 0.0F, 1.0F);
 
   gSPMatrix(glistp++,OS_K0_TO_PHYSICAL(&(dynamicp->ortho)), G_MTX_PROJECTION | G_MTX_LOAD | G_MTX_NOPUSH);
   gSPMatrix(glistp++,OS_K0_TO_PHYSICAL(&(dynamicp->modelling)), G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH );
@@ -66,10 +67,15 @@ void makeDL00(void)
   nuGfxTaskStart(&gfx_glist[gfx_gtask_no][0], (s32)(glistp - gfx_glist[gfx_gtask_no]) * sizeof (Gfx), NU_GFX_UCODE_F3DEX , NU_SC_NOSWAPBUFFER);
 
   if(contPattern & 0x1)
-    {
+    {s32 state = nuAuSeqPlayerGetState(0);
+
       /* Change character representation positions */
       nuDebConTextPos(0,12,23);
-      sprintf(conbuf,"Hello, world!");
+      sprintf(conbuf,"state :%d", state);
+      nuDebConCPuts(0, conbuf);
+
+      nuDebConTextPos(0,12,24);
+      sprintf(conbuf,"inp :%d", contdata[0].button & A_BUTTON ? 1 : 0);
       nuDebConCPuts(0, conbuf);
     }
   else
@@ -87,7 +93,7 @@ void makeDL00(void)
 
 void updateGame00(void)
 { 
-
+  theta += 0.1f;
   /* Data reading of controller 1 */
   nuContDataGetEx(contdata,0);
 
@@ -98,11 +104,5 @@ void updateGame00(void)
       nuAuSeqPlayerSetNo(0, 0);
       nuAuSeqPlayerPlay(0);
     }
-
-}
-
-/* Draw a square */
-void shadetri(Dynamic* dynamicp)
-{
 
 }
