@@ -11,10 +11,18 @@ LIB = /usr/lib/n64
 LPR = $(LIB)/PR
 INC = /usr/include/n64
 
+N_AUDIO = yes
+
+ifdef N_AUDIO
+NUAUDIOLIB = -lnualsgi_n -ln_audio
+else
+NUAUDIOLIB = -lnualsgi
+endif
+
 LCDEFS =	-DNDEBUG -DF3DEX_GBI_2
 LCINCS =	-I. -I$(NUSYSINCDIR) -I/usr/include/n64/PR
 LCOPTS =	-G 0
-LDFLAGS = $(MKDEPOPT) -L$(LIB) -L$(NUSYSLIBDIR) -lnusys -lultra_rom -L$(N64_LIBGCCDIR) -lgcc
+LDFLAGS = $(MKDEPOPT) -L$(LIB) -L$(NUSYSLIBDIR) $(NUAUDIOLIB) -lnusys -lultra_rom -L$(N64_LIBGCCDIR) -lgcc
 
 LDIRT  =  $(ELF) $(ASMOBJECTS) $(CP_LD_SCRIPT) $(MAP) $(TARGETS)
 
@@ -26,9 +34,9 @@ MAP		= jam2.map
 LD_SCRIPT	= jam2.ld
 CP_LD_SCRIPT	= jam2_cp.ld
 
-HFILES =	main.h graphic.h
+HFILES =	main.h graphic.h segmentinfo.h
 
-ASMFILES	= asm/entry.s asm/rom_header.s
+ASMFILES	= asm/entry.s asm/rom_header.s sound_data.s
 
 ASMOBJECTS	= $(ASMFILES:.s=.o)
 

@@ -3,6 +3,14 @@
 #include <nusys.h>
 #include "main.h"
 
+#include <segmentinfo.h>
+
+#ifdef N_AUDIO
+#include <nualsgi_n.h>
+#else
+#include <nualsgi.h>
+#endif
+
 /* Declaration of the prototype  */
 void stage00(int);
 
@@ -15,6 +23,13 @@ void updateGame00(void);
 NUContData	contdata[1]; /* Read data of 1 controller  */
 u8 contPattern;		     /* The pattern connected to the controller  */
 
+
+void setAudioData(void)
+{
+  nuAuSeqPlayerBankSet(_midibankSegmentRomStart, _midibankSegmentRomEnd - _midibankSegmentRomStart, _miditableSegmentRomStart);
+  nuAuSeqPlayerSeqSet(_seqSegmentRomStart);
+}
+
 /*------------------------
 	Main
 --------------------------*/
@@ -25,6 +40,9 @@ void mainproc(void)
 
   /* The initialization of the controller manager  */
   contPattern = nuContInit();
+
+  nuAuInit();
+  setAudioData();
 
   /* The initialization for stage00()  */
   initStage00();

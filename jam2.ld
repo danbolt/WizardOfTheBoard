@@ -51,6 +51,8 @@ SECTIONS
       asm/entry.o(.text);
       codesegment.o(.text);
       /usr/lib/n64/PR/rspboot.o(.text);
+      /usr/lib/n64/PR/aspMain.o(.text);
+      /usr/lib/n64/PR/n_aspMain.o(.text);
       /usr/lib/n64/PR/gspF3DEX2.fifo.o(.text);
       /usr/lib/n64/PR/gspL3DEX2.fifo.o(.text);
       /usr/lib/n64/PR/gspF3DEX2.Rej.fifo.o(.text);
@@ -61,6 +63,8 @@ SECTIONS
       /* data */
       codesegment.o(.data*);
       /usr/lib/n64/PR/rspboot.o(.data*);
+      /usr/lib/n64/PR/aspMain.o(.data*);
+      /usr/lib/n64/PR/n_aspMain.o(.data*);
       /usr/lib/n64/PR/gspF3DEX2.fifo.o(.data*);
       /usr/lib/n64/PR/gspL3DEX2.fifo.o(.data*);
       /usr/lib/n64/PR/gspF3DEX2.Rej.fifo.o(.data*);
@@ -80,6 +84,13 @@ SECTIONS
       . = ALIGN(0x8);
    }
    END_NOLOAD(code)
+
+   BEGIN_SEG(sound_data, __romPos)
+   {
+      sound_data.o(.data);
+   }
+   END_SEG(sound_data)
+   
    /* Discard everything not specifically mentioned above. */
    /DISCARD/ :
    {

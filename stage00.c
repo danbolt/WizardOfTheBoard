@@ -4,6 +4,12 @@
 #include "main.h"
 #include "graphic.h"
 
+#ifdef N_AUDIO
+#include <nualsgi_n.h>
+#else
+#include <nualsgi.h>
+#endif
+
 void shadetri(Dynamic* dynamicp);
 
 /* The initialization of stage 0 */
@@ -88,7 +94,9 @@ void updateGame00(void)
   // A button poll
   if(contdata[0].trigger & A_BUTTON)
     {
-      //
+      nuAuSeqPlayerStop(0);
+      nuAuSeqPlayerSetNo(0, 0);
+      nuAuSeqPlayerPlay(0);
     }
 
 }
