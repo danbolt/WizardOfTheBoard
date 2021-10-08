@@ -13,9 +13,12 @@
 /*-------------------------- define structure ------------------------------ */
 /* The structure of the projection-matrix  */
 typedef struct {
-  Mtx     ortho;
+  Mtx ortho;
+  Mtx projection;
 
   Mtx modelling;
+
+  Mtx camera;
 } Dynamic;
 
 /*-------------------------------- parameter---------------------------------*/

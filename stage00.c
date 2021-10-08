@@ -2,6 +2,7 @@
 #include <nusys.h>
 
 #include "main.h"
+#include "gamemath.h"
 #include "graphic.h"
 #include "tracknumbers.h"
 
@@ -11,19 +12,23 @@
 #include <nualsgi.h>
 #endif
 
-static float theta;
+#define PLAYER_HEIGHT_ABOVE_GROUND 0.34f
+
+static Vec2 playerPosition;
+static float playerOrientation;
 
 /* The initialization of stage 0 */
 void initStage00(void)
 {
-  theta = 0.f;
+  playerPosition = (Vec2){ 0.f, 0.f };
+  playerOrientation = 0.f;
 }
 
 static Vtx shade_vtx[] =  {
-        {        -64,  64, -5, 0, 0, 0, 0, 0xff, 0, 0xff  },
-        {         64,  64, -5, 0, 0, 0, 0, 0, 0, 0xff },
-        {         64, -64, -5, 0, 0, 0, 0, 0, 0xff, 0xff  },
-        {        -64, -64, -5, 0, 0, 0, 0xff, 0, 0, 0xff  },
+        {         0,  5,  1, 0, 0, 0, 0, 0xff, 0, 0xff  },
+        {         1,  5,  1, 0, 0, 0, 0, 0, 0, 0xff },
+        {         1,  5,  0, 0, 0, 0, 0, 0, 0xff, 0xff  },
+        {         0,  5,  0, 0, 0, 0, 0xff, 0, 0, 0xff  },
 };
 
 
@@ -43,14 +48,17 @@ void makeDL00(void)
   /* Clear the frame and Z-buffer */
   gfxClearCfb();
 
+  // This is used for `gSPPerspNormalize` 
+  u16 perspectiveNorm = 0;
+
   guOrtho(&dynamicp->ortho, -(float)SCREEN_WD/2.0F, (float)SCREEN_WD/2.0F, -(float)SCREEN_HT/2.0F, (float)SCREEN_HT/2.0F, 1.0F, 10.0F, 1.0F);
-  //guMtxIdent(&dynamicp->modelling);
-  guRotate(&dynamicp->modelling, theta, 0.0F, 0.0F, 1.0F);
+  guPerspective(&dynamicp->projection, &perspectiveNorm, ingameFOV, ((float)SCREEN_WD)/((float)SCREEN_HT), 0.3f, 100.f, 1.f);
+  guLookAt(&dynamicp->camera, playerPosition.x, playerPosition.y, PLAYER_HEIGHT_ABOVE_GROUND, playerPosition.x, playerPosition.y + 1, PLAYER_HEIGHT_ABOVE_GROUND, 0.f, 0.f, 1.f);
+  guMtxIdent(&dynamicp->modelling);
 
-  gSPMatrix(glistp++,OS_K0_TO_PHYSICAL(&(dynamicp->ortho)), G_MTX_PROJECTION | G_MTX_LOAD | G_MTX_NOPUSH);
-  gSPMatrix(glistp++,OS_K0_TO_PHYSICAL(&(dynamicp->modelling)), G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH );
-
-  gSPVertex(glistp++,&(shade_vtx[0]),4, 0);
+  gSPMatrix(glistp++,OS_K0_TO_PHYSICAL(&(dynamicp->projection)), G_MTX_PROJECTION | G_MTX_LOAD | G_MTX_NOPUSH);
+  gSPMatrix(glistp++,OS_K0_TO_PHYSICAL(&(dynamicp->camera)), G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH );
+  //gSPMatrix(glistp++,OS_K0_TO_PHYSICAL(&(dynamicp->modelling)), G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH );
 
   gDPPipeSync(glistp++);
   gDPSetCycleType(glistp++,G_CYC_1CYCLE);
@@ -58,6 +66,7 @@ void makeDL00(void)
   gSPClearGeometryMode(glistp++,0xFFFFFFFF);
   gSPSetGeometryMode(glistp++,G_SHADE| G_SHADING_SMOOTH);
 
+  gSPVertex(glistp++,&(shade_vtx[0]),4, 0);
   gSP2Triangles(glistp++,0,1,2,0,0,2,3,0);
 
   gDPFullSync(glistp++);
@@ -68,16 +77,15 @@ void makeDL00(void)
   nuGfxTaskStart(&gfx_glist[gfx_gtask_no][0], (s32)(glistp - gfx_glist[gfx_gtask_no]) * sizeof (Gfx), NU_GFX_UCODE_F3DEX , NU_SC_NOSWAPBUFFER);
 
   if(contPattern & 0x1)
-    {s32 state = nuAuSeqPlayerGetState(0);
-
+    {
       /* Change character representation positions */
-      nuDebConTextPos(0,12,23);
-      sprintf(conbuf,"state :%d", state);
+      nuDebConTextPos(0,4,4);
+      sprintf(conbuf,"x: %2.2f, y:%2.2f", playerPosition.x, playerPosition.y);
       nuDebConCPuts(0, conbuf);
 
-      nuDebConTextPos(0,12,24);
-      sprintf(conbuf,"inp :%d", contdata[0].button & A_BUTTON ? 1 : 0);
-      nuDebConCPuts(0, conbuf);
+      // nuDebConTextPos(0,12,24);
+      // sprintf(conbuf,"inp :%d", contdata[0].button & A_BUTTON ? 1 : 0);
+      // nuDebConCPuts(0, conbuf);
     }
   else
     {
@@ -94,16 +102,15 @@ void makeDL00(void)
 
 void updateGame00(void)
 { 
-  theta += 0.1f;
   /* Data reading of controller 1 */
   nuContDataGetEx(contdata,0);
 
   // A button poll
   if(contdata[0].trigger & A_BUTTON)
     {
-      nuAuSeqPlayerStop(0);
-      nuAuSeqPlayerSetNo(0, TRACK_1_DRUMS );
-      nuAuSeqPlayerPlay(0);
+      // nuAuSeqPlayerStop(0);
+      // nuAuSeqPlayerSetNo(0, TRACK_1_DRUMS );
+      // nuAuSeqPlayerPlay(0);
     }
 
 }

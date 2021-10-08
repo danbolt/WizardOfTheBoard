@@ -23,6 +23,12 @@ void updateGame00(void);
 NUContData	contdata[1]; /* Read data of 1 controller  */
 u8 contPattern;		     /* The pattern connected to the controller  */
 
+float ingameFOV;
+
+
+void initalizeGameData() {
+  ingameFOV = 70.f;
+}
 
 void setAudioData(void)
 {
@@ -35,6 +41,8 @@ void setAudioData(void)
 --------------------------*/
 void mainproc(void)
 {
+  initalizeGameData();
+  
   /* The initialization of graphic  */
   nuGfxInit();
 
