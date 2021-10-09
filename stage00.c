@@ -83,25 +83,25 @@ void generateFloorTiles() {
 }
 
 static Vtx HUDBackgroundVerts[] = {
-  {         0,                    0,  0, 0, 0, 0, 0x1d, 0x61, 0x50, 0xff },
-  { SCREEN_WD,                    0,  0, 0, 0, 0, 0x1d, 0x61, 0x50, 0xff },
-  { SCREEN_WD, ACTION_SAFE_VERTICAL,  0, 0, 0, 0, 0x1d, 0x61, 0x50, 0xff },
-  {         0, ACTION_SAFE_VERTICAL,  0, 0, 0, 0, 0x1d, 0x61, 0x50, 0xff },
+  {         0,                    0,  0, 0,  0 << 5,  0 << 5, 0x1d, 0x61, 0x50, 0xff },
+  { SCREEN_WD,                    0,  0, 0, 16 << 5,  0 << 5, 0x1d, 0x61, 0x50, 0xff },
+  { SCREEN_WD, ACTION_SAFE_VERTICAL,  0, 0, 16 << 5, 16 << 5, 0x1d, 0x61, 0x50, 0xff },
+  {         0, ACTION_SAFE_VERTICAL,  0, 0,  0 << 5, 16 << 5, 0x1d, 0x61, 0x50, 0xff },
 
-  {                      0,                0,  0, 0, 0, 0, 0x1d, 0x61, 0x50, 0xff },
-  { ACTION_SAFE_HORIZONTAL,                0,  0, 0, 0, 0, 0x1d, 0x61, 0x50, 0xff },
-  { ACTION_SAFE_HORIZONTAL,        SCREEN_HT,  0, 0, 0, 0, 0x1d, 0x61, 0x50, 0xff },
-  {                      0,        SCREEN_HT,  0, 0, 0, 0, 0x1d, 0x61, 0x50, 0xff },
+  {                      0,                0,  0, 0,  0 << 5,         0 << 5, 0x1d, 0x61, 0x50, 0xff },
+  { ACTION_SAFE_HORIZONTAL,                0,  0, 0, 16 << 5,         0 << 5, 0x1d, 0x61, 0x50, 0xff },
+  { ACTION_SAFE_HORIZONTAL,        SCREEN_HT,  0, 0, 16 << 5, SCREEN_HT << 5, 0x1d, 0x61, 0x50, 0xff },
+  {                      0,        SCREEN_HT,  0, 0,  0 << 5, SCREEN_HT << 5, 0x1d, 0x61, 0x50, 0xff },
 
-  { SCREEN_WD - ACTION_SAFE_HORIZONTAL,                0,  0, 0, 0, 0, 0x1d, 0x61, 0x50, 0xff },
-  { SCREEN_WD                         ,                0,  0, 0, 0, 0, 0x1d, 0x61, 0x50, 0xff },
-  { SCREEN_WD                         ,        SCREEN_HT,  0, 0, 0, 0, 0x1d, 0x61, 0x50, 0xff },
-  { SCREEN_WD - ACTION_SAFE_HORIZONTAL,        SCREEN_HT,  0, 0, 0, 0, 0x1d, 0x61, 0x50, 0xff },
+  { SCREEN_WD - ACTION_SAFE_HORIZONTAL,                0,  0, 0,  0 << 5,         0 << 5, 0x1d, 0x61, 0x50, 0xff },
+  { SCREEN_WD                         ,                0,  0, 0, 16 << 5,         0 << 5, 0x1d, 0x61, 0x50, 0xff },
+  { SCREEN_WD                         ,        SCREEN_HT,  0, 0, 16 << 5, SCREEN_HT << 5, 0x1d, 0x61, 0x50, 0xff },
+  { SCREEN_WD - ACTION_SAFE_HORIZONTAL,        SCREEN_HT,  0, 0,  0 << 5, SCREEN_HT << 5, 0x1d, 0x61, 0x50, 0xff },
 
-  {         0,   SCREEN_HT - 80,  0, 0, 0, 0, 0x1d, 0x61, 0x50, 0xff },
-  { SCREEN_WD,   SCREEN_HT - 80,  0, 0, 0, 0, 0x1d, 0x61, 0x50, 0xff },
-  { SCREEN_WD,        SCREEN_HT,  0, 0, 0, 0, 0x1d, 0x61, 0x50, 0xff },
-  {         0,        SCREEN_HT,  0, 0, 0, 0, 0x1d, 0x61, 0x50, 0xff },
+  {         0,   SCREEN_HT - 80,  0, 0,         0 << 5,         0 << 5, 0x1d, 0x61, 0x50, 0xff },
+  { SCREEN_WD,   SCREEN_HT - 80,  0, 0, SCREEN_WD << 5,         0 << 5, 0x1d, 0x61, 0x50, 0xff },
+  { SCREEN_WD,        SCREEN_HT,  0, 0, SCREEN_WD << 5, SCREEN_HT << 5, 0x1d, 0x61, 0x50, 0xff },
+  {         0,        SCREEN_HT,  0, 0,         0 << 5, SCREEN_HT << 5, 0x1d, 0x61, 0x50, 0xff },
 };
 
 static Gfx renderHudBackgroundCommands[] = {
