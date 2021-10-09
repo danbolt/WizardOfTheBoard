@@ -24,7 +24,14 @@ static float playerOrientation;
 static float cosCameraRot;
 static float sinCameraRot;
 
+
+#define BOARD_CONTROL_NO_SELECTED 0
+#define BOARD_CONTROL_PIECE_SELECTED 1
+static u32 boardControlState;
+
 static Pos2 chessboardSpotHighlighted;
+
+static int selectedPiece;
 
 static u8 piecesActive[MAX_NUMBER_OF_INGAME_PIECES];
 static Pos2 piecePositions[MAX_NUMBER_OF_INGAME_PIECES];
@@ -54,6 +61,29 @@ int tileIsLight(int x, int y) {
 
 int tileIsDark(int x, int y) {
   return (x % 2) == (y % 2);
+}
+
+// returns -1 if empty, otherwise the index of the occupying piece
+int isSpaceOccupied(int x, int y) {
+
+  for (int i = 0; i < MAX_NUMBER_OF_INGAME_PIECES; i++) {
+    if (!(piecesActive[i])) {
+      continue;
+    }
+
+    if (piecePositions[i].x != x) {
+      continue;
+    }
+
+    if (piecePositions[i].y != y) {
+      continue;
+    }
+
+    // If we've made it here, we've found an occupying piece
+    return i;
+  }
+
+  return -1;
 }
 
 // TODO: let us customize/randomize the textures for this on init time
@@ -194,6 +224,8 @@ void initStage00(void)
 
   chessboardSpotHighlighted = (Pos2){ 2, 2 };
 
+  selectedPiece = -1;
+
   for (int i = 0; i < MAX_NUMBER_OF_INGAME_PIECES; i++) {
     piecePositions[i] = (Pos2){ 0, 0 };
     piecesActive[i] = 0;
@@ -320,7 +352,11 @@ void makeDL00(void)
     const u32 highightedSpotX = HUD_CHESSBOARD_X + (chessboardSpotHighlighted.x * HUD_CELL_WIDTH);
     const u32 highightedSpotY = (HUD_CHESSBOARD_Y + ((BOARD_HEIGHT - 1 - chessboardSpotHighlighted.y) * HUD_CELL_HEIGHT)) - ((16 - HUD_CELL_HEIGHT) / 2);
 
-    gDPSetPrimColor(glistp++, 0, 0, 0x1d, 0xA4, 0xA4, 0xff);
+    if (boardControlState == BOARD_CONTROL_NO_SELECTED) {
+      gDPSetPrimColor(glistp++, 0, 0, N64_C_BUTTONS_RED, N64_C_BUTTONS_GREEN, N64_C_BUTTONS_BLUE, 0xff);
+    } else {
+      gDPSetPrimColor(glistp++, 0, 0, N64_A_BUTTON_RED, N64_A_BUTTON_GREEN, N64_A_BUTTON_BLUE, 0xff);
+    }
     gSPTextureRectangle(glistp++, (highightedSpotX) << 2, (highightedSpotY) << 2, (highightedSpotX + 16) << 2, (highightedSpotY + 16) << 2, 0,  176 << 5, 0 << 5, 1 << 10, 1 << 10);
   }
 
@@ -345,7 +381,12 @@ void makeDL00(void)
 
       /* Change character representation positions */
       nuDebConTextPos(0,2,20);
-      sprintf(conbuf,"%d,%d", (glistp - gfx_glist[gfx_gtask_no]), GFX_GLIST_LEN);
+      sprintf(conbuf,"DL: %d,%d", (glistp - gfx_glist[gfx_gtask_no]), GFX_GLIST_LEN);
+      nuDebConCPuts(0, conbuf);
+
+      /* Change character representation positions */
+      nuDebConTextPos(0,2,24);
+      sprintf(conbuf,"bstate: %u", boardControlState);
       nuDebConCPuts(0, conbuf);
     }
   else
@@ -403,6 +444,10 @@ void updatePlayerInput() {
   playerPosition.x = clamp(playerPosition.x, 0.f, (float)BOARD_WIDTH);
   playerPosition.y = clamp(playerPosition.y, 0.f, (float)BOARD_HEIGHT);
 
+  
+}
+
+void updateBoardControlInput() {
   if(contdata[0].trigger & U_CBUTTONS) {
     chessboardSpotHighlighted.y = (chessboardSpotHighlighted.y + 1) % BOARD_HEIGHT;
   } else if(contdata[0].trigger & D_CBUTTONS) {
@@ -414,6 +459,42 @@ void updatePlayerInput() {
   } else if(contdata[0].trigger & L_CBUTTONS) {
     chessboardSpotHighlighted.x = (chessboardSpotHighlighted.x - 1 + BOARD_WIDTH) % BOARD_WIDTH;
   }
+
+  if (boardControlState == BOARD_CONTROL_NO_SELECTED) {
+    if (contdata[0].trigger & A_BUTTON) {
+      const int pieceAtCursorSpot = isSpaceOccupied(chessboardSpotHighlighted.x, chessboardSpotHighlighted.y);
+
+      if (pieceAtCursorSpot >= 0) {
+        // TODO: unselectable pieces
+
+        boardControlState = BOARD_CONTROL_PIECE_SELECTED;
+        selectedPiece = pieceAtCursorSpot;
+      }
+    }
+  } else if (boardControlState == BOARD_CONTROL_PIECE_SELECTED) {
+    if (contdata[0].trigger & B_BUTTON) {
+      selectedPiece = -1;
+      boardControlState = BOARD_CONTROL_NO_SELECTED;
+      //
+    } else if (contdata[0].trigger & A_BUTTON) {
+      assert(selectedPiece >= 0); // we should have a selected piece here
+      const int pieceAtCursorSpot = isSpaceOccupied(chessboardSpotHighlighted.x, chessboardSpotHighlighted.y);
+
+      // TODO: check if position valid
+      int isSelectedSpotValid = pieceAtCursorSpot < 0;
+
+      if (isSelectedSpotValid) {
+        piecePositions[selectedPiece] = chessboardSpotHighlighted;
+
+        // TODO: play a "complete" sound
+      } else {
+        // TODO: play a "wrong" sound
+      }
+
+      selectedPiece = -1;
+      boardControlState = BOARD_CONTROL_NO_SELECTED;
+    }
+  }
 }
 
 void updateGame00(void)
@@ -423,5 +504,5 @@ void updateGame00(void)
 
   
   updatePlayerInput();
-
+  updateBoardControlInput();
 }

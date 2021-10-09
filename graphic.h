@@ -22,6 +22,14 @@
 
 #define TMEM_SIZE_BYTES 4096
 
+#define N64_C_BUTTONS_RED 0xFC
+#define N64_C_BUTTONS_GREEN 0xd3
+#define N64_C_BUTTONS_BLUE 0x17
+
+#define N64_A_BUTTON_RED 0x02
+#define N64_A_BUTTON_GREEN 0x3b
+#define N64_A_BUTTON_BLUE 0xa2
+
 /*-------------------------- define structure ------------------------------ */
 /* The structure of the projection-matrix  */
 typedef struct {
