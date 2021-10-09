@@ -21,8 +21,9 @@ static float cosCameraRot;
 static float sinCameraRot;
 
 #define VERTS_PER_FLOOR_TILE 4
-#define BOARD_SIZE 8
-#define NUMBER_OF_BOARD_CELLS (BOARD_SIZE * BOARD_SIZE)
+#define BOARD_WIDTH 8
+#define BOARD_HEIGHT 8
+#define NUMBER_OF_BOARD_CELLS (BOARD_WIDTH * BOARD_HEIGHT)
 #define NUMBER_OF_FLOOR_VERTS (NUMBER_OF_BOARD_CELLS * VERTS_PER_FLOOR_TILE)
 static Vtx floorVerts[NUMBER_OF_FLOOR_VERTS];
 
@@ -39,9 +40,9 @@ void generateFloorTiles() {
   Vtx* verts = floorVerts;
   Vtx* lastLoad = verts;
 
-  for (int i = 0; i < 64; i++) {
-    const int x = (i % BOARD_SIZE);
-    const int y = (i / BOARD_SIZE);
+  for (int i = 0; i < NUMBER_OF_BOARD_CELLS; i++) {
+    const int x = (i % BOARD_WIDTH);
+    const int y = (i / BOARD_WIDTH);
 
     *(verts++) = (Vtx){ x + 0, y + 0,  0, 0, 0, 0, 0xff, 0x00, 0x00, 0xff };
     *(verts++) = (Vtx){ x + 1, y + 0,  0, 0, 0, 0, 0x00, 0xff, 0x00, 0xff };
@@ -104,7 +105,7 @@ void makeDL00(void)
 
   gDPPipeSync(glistp++);
   gDPSetCycleType(glistp++,G_CYC_1CYCLE);
-  gDPSetRenderMode(glistp++,G_RM_AA_OPA_SURF, G_RM_AA_OPA_SURF2);
+  gDPSetRenderMode(glistp++,G_RM_OPA_SURF, G_RM_OPA_SURF2);
   gSPClearGeometryMode(glistp++,0xFFFFFFFF);
   gSPSetGeometryMode(glistp++,G_SHADE| G_SHADING_SMOOTH);
   gSPClipRatio(glistp++, FRUSTRATIO_6);
@@ -177,8 +178,8 @@ void updatePlayerInput() {
   playerPosition.x += rotatedXStep * PLAYER_WALK_SPEED;
   playerPosition.y += rotatedYStep * PLAYER_WALK_SPEED;
 
-  playerPosition.x = clamp(playerPosition.x, 0.f, (float)BOARD_SIZE);
-  playerPosition.y = clamp(playerPosition.y, 0.f, (float)BOARD_SIZE);
+  playerPosition.x = clamp(playerPosition.x, 0.f, (float)BOARD_WIDTH);
+  playerPosition.y = clamp(playerPosition.y, 0.f, (float)BOARD_WIDTH);
 }
 
 void updateGame00(void)
