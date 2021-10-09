@@ -35,11 +35,9 @@ static int selectedPiece;
 
 static u8 piecesActive[MAX_NUMBER_OF_INGAME_PIECES];
 static Pos2 piecePositions[MAX_NUMBER_OF_INGAME_PIECES];
+static PieceInfo pieceData[MAX_NUMBER_OF_INGAME_PIECES];
 
 #define VERTS_PER_FLOOR_TILE 4
-#define BOARD_WIDTH 10
-#define BOARD_HEIGHT 8
-#define NUMBER_OF_BOARD_CELLS (BOARD_WIDTH * BOARD_HEIGHT)
 #define NUMBER_OF_FLOOR_VERTS (NUMBER_OF_BOARD_CELLS * VERTS_PER_FLOOR_TILE)
 static Vtx floorVerts[NUMBER_OF_FLOOR_VERTS];
 
@@ -210,6 +208,18 @@ void loadInTextures() {
   nuPiReadRom((u32)(_hud_iconsSegmentRomStart), (void*)(hudIconsTexture), TMEM_SIZE_BYTES);
 }
 
+void initializeStartingPieces() {
+  piecesActive[0] = 1;
+  piecePositions[0] = (Pos2){3, 4};
+  pieceData[0].type = PAWN;
+  pieceData[0].renderCommands = pawn_commands;
+
+  piecesActive[1] = 1;
+  piecePositions[1] = (Pos2){0, 1};
+  pieceData[1].type = ROOK;
+  pieceData[1].renderCommands = pawn_commands;
+}
+
 /* The initialization of stage 0 */
 void initStage00(void)
 {
@@ -231,11 +241,7 @@ void initStage00(void)
     piecesActive[i] = 0;
   }
 
-  piecesActive[0] = 1;
-  piecePositions[0] = (Pos2){3, 4};
-
-  piecesActive[1] = 1;
-  piecePositions[1] = (Pos2){0, 1};
+  initializeStartingPieces();
 }
 
 
@@ -294,7 +300,7 @@ void makeDL00(void)
     gSPMatrix(glistp++, OS_K0_TO_PHYSICAL(&(dynamicp->pieceTransforms[i])), G_MTX_MODELVIEW | G_MTX_MUL | G_MTX_PUSH);
     gSPMatrix(glistp++, OS_K0_TO_PHYSICAL(&dynamicp->blenderExportScale), G_MTX_MODELVIEW | G_MTX_MUL | G_MTX_NOPUSH);
 
-    gSPDisplayList(glistp++, OS_K0_TO_PHYSICAL(pawn_commands));
+    gSPDisplayList(glistp++, OS_K0_TO_PHYSICAL(pieceData[i].renderCommands));
 
     gSPPopMatrix(glistp++, G_MTX_MODELVIEW);
   }
@@ -331,7 +337,7 @@ void makeDL00(void)
     const u32 pieceHUDSpotX = HUD_CHESSBOARD_X + (piecePositions[i].x * HUD_CELL_WIDTH);
     const u32 pieceHUDSpotY = HUD_CHESSBOARD_Y + ((BOARD_HEIGHT - 1 - piecePositions[i].y) * HUD_CELL_HEIGHT) - ((16 - HUD_CELL_HEIGHT) / 2);
 
-    gSPTextureRectangle(glistp++, (pieceHUDSpotX) << 2, (pieceHUDSpotY) << 2, (pieceHUDSpotX + 16) << 2, (pieceHUDSpotY + 16) << 2, 0, 0 << 5, 0 << 5, 1 << 10, 1 << 10);
+    gSPTextureRectangle(glistp++, (pieceHUDSpotX) << 2, (pieceHUDSpotY) << 2, (pieceHUDSpotX + 16) << 2, (pieceHUDSpotY + 16) << 2, 0, ((int)(pieceData[i].type) * 16) << 5, 0 << 5, 1 << 10, 1 << 10);
   }
 
   // Render the player location on the HUD
