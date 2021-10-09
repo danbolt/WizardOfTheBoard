@@ -3,6 +3,8 @@
 #ifndef _GRAPHIC_H_
 #define _GRAPHIC_H_
 
+#include "constants.h"
+
 /* The screen size  */
 #define SCREEN_HT        240
 #define SCREEN_WD        320
@@ -27,6 +29,10 @@ typedef struct {
   Mtx modelling;
 
   Mtx camera;
+
+  Mtx blenderExportScale;
+
+  Mtx pieceTransforms[MAX_NUMBER_OF_INGAME_PIECES];
 } Dynamic;
 
 /*-------------------------------- parameter---------------------------------*/

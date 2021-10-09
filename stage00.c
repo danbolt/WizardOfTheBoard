@@ -1,6 +1,7 @@
 #include <assert.h>
 #include <nusys.h>
 
+#include "constants.h"
 #include "main.h"
 #include "gamemath.h"
 #include "graphic.h"
@@ -23,6 +24,9 @@ static float cosCameraRot;
 static float sinCameraRot;
 
 static Pos2 chessboardSpotHighlighted;
+
+static u8 piecesActive[MAX_NUMBER_OF_INGAME_PIECES];
+static Pos2 piecePositions[MAX_NUMBER_OF_INGAME_PIECES];
 
 #define VERTS_PER_FLOOR_TILE 4
 #define BOARD_WIDTH 10
@@ -181,6 +185,17 @@ void initStage00(void)
   sinCameraRot = 0.f;
 
   chessboardSpotHighlighted = (Pos2){ 2, 2 };
+
+  for (int i = 0; i < MAX_NUMBER_OF_INGAME_PIECES; i++) {
+    piecePositions[i] = (Pos2){ 0, 0 };
+    piecesActive[i] = 0;
+  }
+
+  piecesActive[0] = 1;
+  piecePositions[0] = (Pos2){3, 4};
+
+  piecesActive[1] = 1;
+  piecePositions[1] = (Pos2){0, 1};
 }
 
 
@@ -204,6 +219,8 @@ void makeDL00(void)
   // This is used for `gSPPerspNormalize` 
   u16 perspectiveNorm = 0;
 
+  guScale(&dynamicp->blenderExportScale, 0.005f, 0.005f, 0.005f);
+
   guOrtho(&dynamicp->ortho, 0.f, SCREEN_WD, SCREEN_HT, 0.f, 1.0F, 10.0F, 1.0F);
   guPerspective(&dynamicp->projection, &perspectiveNorm, ingameFOV, ((float)SCREEN_WD)/((float)SCREEN_HT), 0.3f, 100.f, 1.f);
   guLookAt(&dynamicp->camera, playerPosition.x, playerPosition.y, PLAYER_HEIGHT_ABOVE_GROUND, playerPosition.x - sinCameraRot, playerPosition.y + cosCameraRot, PLAYER_HEIGHT_ABOVE_GROUND, 0.f, 0.f, 1.f);
@@ -219,7 +236,32 @@ void makeDL00(void)
   gSPSetGeometryMode(glistp++,G_SHADE| G_SHADING_SMOOTH);
   gSPClipRatio(glistp++, FRUSTRATIO_6);
 
+  // TODO: walls
   gSPDisplayList(glistp++, OS_K0_TO_PHYSICAL(floorDL));
+
+  gDPPipeSync(glistp++);
+  gDPSetRenderMode(glistp++,G_RM_ZB_OPA_SURF, G_RM_ZB_OPA_SURF2);
+  gSPSetGeometryMode(glistp++, G_ZBUFFER);
+
+  for (int i = 0; i < MAX_NUMBER_OF_INGAME_PIECES; i++) {
+    if (!(piecesActive[i])) {
+      continue;
+    }
+
+    guTranslate(&(dynamicp->pieceTransforms[i]), ((float)piecePositions[i].x) + 0.5f, ((float)piecePositions[i].y) + 0.5f, 0.f);
+    gSPMatrix(glistp++, OS_K0_TO_PHYSICAL(&(dynamicp->pieceTransforms[i])), G_MTX_MODELVIEW | G_MTX_MUL | G_MTX_PUSH);
+    gSPMatrix(glistp++, OS_K0_TO_PHYSICAL(&dynamicp->blenderExportScale), G_MTX_MODELVIEW | G_MTX_MUL | G_MTX_NOPUSH);
+
+    gSPDisplayList(glistp++, OS_K0_TO_PHYSICAL(pawn_commands));
+
+  gSPPopMatrix(glistp++, G_MTX_MODELVIEW);
+  }
+
+
+
+  gSPClearGeometryMode(glistp++, G_ZBUFFER);
+  gDPPipeSync(glistp++);
+  gDPSetRenderMode(glistp++,G_RM_OPA_SURF, G_RM_OPA_SURF2);
 
 
   // drawing the HUD

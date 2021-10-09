@@ -134,5 +134,6 @@ Gfx pawn_commands[] = {
   gsSP2Triangles(48, 51, 53, 0, 50, 53, 52, 0),
   gsSP2Triangles(51, 54, 56, 0, 53, 56, 55, 0),
   gsSP2Triangles(47, 57, 59, 0, 45, 58, 57, 0),
+  gsSPEndDisplayList()
 };
 

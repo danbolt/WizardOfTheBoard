@@ -34,7 +34,7 @@ MAP		= jam2.map
 LD_SCRIPT	= jam2.ld
 CP_LD_SCRIPT	= jam2_cp.ld
 
-HFILES =	main.h graphic.h gamemath.h segmentinfo.h tracknumbers.h pieces.h
+HFILES =	main.h graphic.h constants.h gamemath.h segmentinfo.h tracknumbers.h pieces.h
 
 ASMFILES	= asm/entry.s asm/rom_header.s sound_data.s
 
