@@ -23,7 +23,7 @@ static float sinCameraRot;
 static Pos2 chessboardSpotHighlighted;
 
 #define VERTS_PER_FLOOR_TILE 4
-#define BOARD_WIDTH 8
+#define BOARD_WIDTH 10
 #define BOARD_HEIGHT 8
 #define NUMBER_OF_BOARD_CELLS (BOARD_WIDTH * BOARD_HEIGHT)
 #define NUMBER_OF_FLOOR_VERTS (NUMBER_OF_BOARD_CELLS * VERTS_PER_FLOOR_TILE)
@@ -288,7 +288,7 @@ void updatePlayerInput() {
   playerPosition.y += rotatedYStep * PLAYER_WALK_SPEED;
 
   playerPosition.x = clamp(playerPosition.x, 0.f, (float)BOARD_WIDTH);
-  playerPosition.y = clamp(playerPosition.y, 0.f, (float)BOARD_WIDTH);
+  playerPosition.y = clamp(playerPosition.y, 0.f, (float)BOARD_HEIGHT);
 
   if(contdata[0].trigger & U_CBUTTONS) {
     chessboardSpotHighlighted.y = (chessboardSpotHighlighted.y + 1) % BOARD_HEIGHT;
