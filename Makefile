@@ -56,15 +56,20 @@ CODESEGMENT =	codesegment.o
 
 OBJECTS =	$(ASMOBJECTS) $(BOOT_OBJ) $(CODESEGMENT) $(DATAOBJECTS)
 
+RAWDATAOBJ = sprites/hud_icons.bino
+
 default:        $(TARGETS)
 
 include $(COMMONRULES)
 
+$(CODESEGMENT):	$(CODEOBJECTS) Makefile
+	$(LD) -o $(CODESEGMENT) -r $(CODEOBJECTS) $(LDFLAGS)
+
 .s.o:
 	$(AS) -I. -I asm -Wa,-Iasm -o $@ $<
 
-$(CODESEGMENT):	$(CODEOBJECTS) Makefile
-	$(LD) -o $(CODESEGMENT) -r $(CODEOBJECTS) $(LDFLAGS)
+sprites/%.bino: sprites/%.bin
+	mips-n64-objcopy  -I binary -B mips -O elf32-bigmips $< $@
 
 $(BOOT_OBJ): $(BOOT)
 	$(OBJCOPY) -I binary -B mips -O elf32-bigmips $< $@
@@ -72,7 +77,7 @@ $(BOOT_OBJ): $(BOOT)
 $(CP_LD_SCRIPT): $(LD_SCRIPT)
 	cpp -P -Wno-trigraphs -I$(NUSYSINCDIR) -o $@ $<
 
-$(TARGETS): $(OBJECTS) $(CP_LD_SCRIPT)
+$(TARGETS): $(OBJECTS) $(CP_LD_SCRIPT) $(RAWDATAOBJ)
 	$(LD) -L. -T $(CP_LD_SCRIPT) -Map $(MAP) -o $(ELF) 
 	$(OBJCOPY) --pad-to=0x100000 --gap-fill=0xFF $(ELF) $(TARGETS) -O binary
 	makemask $(TARGETS)

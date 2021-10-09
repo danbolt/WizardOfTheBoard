@@ -20,6 +20,8 @@
 #define ACTION_SAFE_HORIZONTAL 16
 #define ACTION_SAFE_VERTICAL 16
 
+#define TMEM_SIZE_BYTES 4096
+
 /*-------------------------- define structure ------------------------------ */
 /* The structure of the projection-matrix  */
 typedef struct {

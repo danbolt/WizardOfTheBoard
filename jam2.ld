@@ -90,6 +90,12 @@ SECTIONS
       sound_data.o(.data);
    }
    END_SEG(sound_data)
+
+   BEGIN_SEG(hud_icons, __romPos)
+   {
+      sprites/hud_icons.bino(.data);
+   }
+   END_SEG(hud_icons)
    
    /* Discard everything not specifically mentioned above. */
    /DISCARD/ :

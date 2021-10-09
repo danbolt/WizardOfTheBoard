@@ -6,6 +6,7 @@
 #include "gamemath.h"
 #include "graphic.h"
 #include "tracknumbers.h"
+#include "segmentinfo.h"
 
 #include "pieces.h"
 
@@ -34,6 +35,8 @@ static Pos2 piecePositions[MAX_NUMBER_OF_INGAME_PIECES];
 #define NUMBER_OF_BOARD_CELLS (BOARD_WIDTH * BOARD_HEIGHT)
 #define NUMBER_OF_FLOOR_VERTS (NUMBER_OF_BOARD_CELLS * VERTS_PER_FLOOR_TILE)
 static Vtx floorVerts[NUMBER_OF_FLOOR_VERTS];
+
+static u8 hudIconsTexture[TMEM_SIZE_BYTES] __attribute__((aligned(8)));
 
 #define INV_BOARD_WIDTH (1.f / (float)BOARD_WIDTH)
 #define INV_BOARD_HEIGHT (1.f / (float)BOARD_HEIGHT)
@@ -168,9 +171,13 @@ void generateHUDChessboard() {
 #define ASCII_START_CAPTIALS 65
 #define ASCCI_START_NUMBERS 48
 
-void boardPosToLetter(register const Pos2* spot, register char* x, register char* y) {
+void boardPosToLetter(const Pos2* spot, char* x, char* y) {
   *x = (char)(spot->x + ASCII_START_CAPTIALS);
   *y = (char)(spot->y + 1 + ASCCI_START_NUMBERS);
+}
+
+void loadInTextures() {
+  nuPiReadRom((u32)(_hud_iconsSegmentRomStart), (void*)(hudIconsTexture), TMEM_SIZE_BYTES);
 }
 
 /* The initialization of stage 0 */
@@ -178,6 +185,7 @@ void initStage00(void)
 {
   generateFloorTiles();
   generateHUDChessboard();
+  loadInTextures();
 
   playerPosition = (Vec2){ 0.f, 0.f };
   playerOrientation = 0.f;
@@ -231,6 +239,8 @@ void makeDL00(void)
 
   gDPPipeSync(glistp++);
   gDPSetCycleType(glistp++,G_CYC_1CYCLE);
+  gDPSetTexturePersp(glistp++, G_TP_NONE);
+  gDPSetTextureFilter(glistp++, G_TF_POINT);
   gDPSetRenderMode(glistp++,G_RM_OPA_SURF, G_RM_OPA_SURF2);
   gSPClearGeometryMode(glistp++,0xFFFFFFFF);
   gSPSetGeometryMode(glistp++,G_SHADE| G_SHADING_SMOOTH);
@@ -254,10 +264,8 @@ void makeDL00(void)
 
     gSPDisplayList(glistp++, OS_K0_TO_PHYSICAL(pawn_commands));
 
-  gSPPopMatrix(glistp++, G_MTX_MODELVIEW);
+    gSPPopMatrix(glistp++, G_MTX_MODELVIEW);
   }
-
-
 
   gSPClearGeometryMode(glistp++, G_ZBUFFER);
   gDPPipeSync(glistp++);
@@ -268,24 +276,52 @@ void makeDL00(void)
   gSPMatrix(glistp++,OS_K0_TO_PHYSICAL(&(dynamicp->ortho)), G_MTX_PROJECTION | G_MTX_LOAD | G_MTX_NOPUSH);
   gSPMatrix(glistp++,OS_K0_TO_PHYSICAL(&(dynamicp->modelling)), G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH );
 
+
+
   gSPDisplayList(glistp++, OS_K0_TO_PHYSICAL(renderHudBackgroundCommands));
 
   gSPDisplayList(glistp++, OS_K0_TO_PHYSICAL(onscreenChessboardCommands));
 
-  // TODO: make this a nice texture
-  {
-    const unsigned int playerHUDXPos = playerPosition.x * INV_BOARD_WIDTH * HUD_CHESSBOARD_WIDTH + HUD_CHESSBOARD_X;
-    const unsigned int playerHUDYPos = (BOARD_HEIGHT - playerPosition.y) * INV_BOARD_HEIGHT * HUD_CHESSBOARD_HEIGHT + HUD_CHESSBOARD_Y;
-    gDPPipeSync(glistp++);
-    gDPSetCycleType(glistp++, G_CYC_FILL);
+  
+  gDPSetCombineMode(glistp++, G_CC_MODULATEIDECALA_PRIM, G_CC_MODULATEIDECALA_PRIM);
+  gDPSetRenderMode(glistp++, G_RM_AA_TEX_EDGE, G_RM_AA_TEX_EDGE2);
+  gDPLoadTextureBlock(glistp++, OS_K0_TO_PHYSICAL(hudIconsTexture), G_IM_FMT_IA, G_IM_SIZ_8b, 256, 16, 0, G_TX_NOMIRROR, G_TX_NOMIRROR, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
+  gDPPipeSync(glistp++);
+  gSPTexture(glistp++, 0xffff, 0xffff, 0, G_TX_RENDERTILE, G_ON);
 
-    gDPSetFillColor(glistp++, GPACK_RGBA5551( 0, 0, 255,1)<<16 | GPACK_RGBA5551( 0, 0, 255,1));
-    gDPFillRectangle(glistp++, HUD_CHESSBOARD_X + (chessboardSpotHighlighted.x * HUD_CELL_WIDTH), HUD_CHESSBOARD_Y + ((BOARD_HEIGHT - 1 - chessboardSpotHighlighted.y) * HUD_CELL_HEIGHT), HUD_CHESSBOARD_X + (chessboardSpotHighlighted.x * HUD_CELL_WIDTH) + HUD_CELL_WIDTH, HUD_CHESSBOARD_Y + ((BOARD_HEIGHT - 1 - chessboardSpotHighlighted.y) * HUD_CELL_HEIGHT) + HUD_CELL_HEIGHT);
-    
-    gDPPipeSync(glistp++);
-    gDPSetFillColor(glistp++, GPACK_RGBA5551(255,180,0,1)<<16 | GPACK_RGBA5551(255,180,0,1));
-    gDPFillRectangle(glistp++, playerHUDXPos - 1, playerHUDYPos - 1, playerHUDXPos + 1, playerHUDYPos + 1);
-    
+  // Render the piece locations on the HUD
+  gDPSetPrimColor(glistp++, 0, 0, 0x99, 0x99, 0x99, 0xff);
+  for (int i = 0; i < MAX_NUMBER_OF_INGAME_PIECES; i++) {
+    if (!(piecesActive[i])) {
+      continue;
+    }
+
+    const u32 pieceHUDSpotX = HUD_CHESSBOARD_X + (piecePositions[i].x * HUD_CELL_WIDTH);
+    const u32 pieceHUDSpotY = HUD_CHESSBOARD_Y + ((BOARD_HEIGHT - 1 - piecePositions[i].y) * HUD_CELL_HEIGHT) - ((16 - HUD_CELL_HEIGHT) / 2);
+
+    gSPTextureRectangle(glistp++, (pieceHUDSpotX) << 2, (pieceHUDSpotY) << 2, (pieceHUDSpotX + 16) << 2, (pieceHUDSpotY + 16) << 2, 0, 0 << 5, 0 << 5, 1 << 10, 1 << 10);
+  }
+
+  // Render the player location on the HUD
+  {
+    // TODO: render the player's FOV
+
+    const u32 playerHUDXPos = (playerPosition.x * INV_BOARD_WIDTH * HUD_CHESSBOARD_WIDTH + HUD_CHESSBOARD_X) - 8;
+    const u32 playerHUDYPos = ((BOARD_HEIGHT - playerPosition.y) * INV_BOARD_HEIGHT * HUD_CHESSBOARD_HEIGHT + HUD_CHESSBOARD_Y) - 8;
+
+    gDPSetPrimColor(glistp++, 0, 0, 0x11, 0x11, 0x99, 0xff);
+    gSPTextureRectangle(glistp++, (playerHUDXPos) << 2, (playerHUDYPos) << 2, (playerHUDXPos + 16) << 2, (playerHUDYPos + 16) << 2, 0, 112 << 5, 0 << 5, 1 << 10, 1 << 10);
+    gDPSetPrimColor(glistp++, 0, 0, 0xAC, 0x84, 0x40, 0xff);
+    gSPTextureRectangle(glistp++, (playerHUDXPos) << 2, (playerHUDYPos) << 2, (playerHUDXPos + 16) << 2, (playerHUDYPos + 16) << 2, 0,  96 << 5, 0 << 5, 1 << 10, 1 << 10);
+  }
+
+  // Render the cursor's location on the HUD
+  {
+    const u32 highightedSpotX = HUD_CHESSBOARD_X + (chessboardSpotHighlighted.x * HUD_CELL_WIDTH);
+    const u32 highightedSpotY = (HUD_CHESSBOARD_Y + ((BOARD_HEIGHT - 1 - chessboardSpotHighlighted.y) * HUD_CELL_HEIGHT)) - ((16 - HUD_CELL_HEIGHT) / 2);
+
+    gDPSetPrimColor(glistp++, 0, 0, 0x1d, 0xA4, 0xA4, 0xff);
+    gSPTextureRectangle(glistp++, (highightedSpotX) << 2, (highightedSpotY) << 2, (highightedSpotX + 16) << 2, (highightedSpotY + 16) << 2, 0,  176 << 5, 0 << 5, 1 << 10, 1 << 10);
   }
 
 
