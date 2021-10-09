@@ -6,6 +6,8 @@
 #include "graphic.h"
 #include "tracknumbers.h"
 
+#include "pieces.h"
+
 #ifdef N_AUDIO
 #include <nualsgi_n.h>
 #else
