@@ -9,6 +9,9 @@
 extern Vtx pawn_verts[];
 extern Gfx pawn_commands[];
 
+extern Vtx rook_verts[];
+extern Gfx rook_commands[];
+
 typedef enum {
 	PAWN = 0,
 	ROOK = 1,

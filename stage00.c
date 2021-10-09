@@ -217,7 +217,7 @@ void initializeStartingPieces() {
   piecesActive[1] = 1;
   piecePositions[1] = (Pos2){0, 1};
   pieceData[1].type = ROOK;
-  pieceData[1].renderCommands = pawn_commands;
+  pieceData[1].renderCommands = rook_commands;
 }
 
 /* The initialization of stage 0 */
