@@ -82,6 +82,37 @@ void generateFloorTiles() {
   gSPEndDisplayList(commands++);
 }
 
+static Vtx HUDBackgroundVerts[] = {
+  {         0,                    0,  0, 0, 0, 0, 0x1d, 0x61, 0x50, 0xff },
+  { SCREEN_WD,                    0,  0, 0, 0, 0, 0x1d, 0x61, 0x50, 0xff },
+  { SCREEN_WD, ACTION_SAFE_VERTICAL,  0, 0, 0, 0, 0x1d, 0x61, 0x50, 0xff },
+  {         0, ACTION_SAFE_VERTICAL,  0, 0, 0, 0, 0x1d, 0x61, 0x50, 0xff },
+
+  {                      0,                0,  0, 0, 0, 0, 0x1d, 0x61, 0x50, 0xff },
+  { ACTION_SAFE_HORIZONTAL,                0,  0, 0, 0, 0, 0x1d, 0x61, 0x50, 0xff },
+  { ACTION_SAFE_HORIZONTAL,        SCREEN_HT,  0, 0, 0, 0, 0x1d, 0x61, 0x50, 0xff },
+  {                      0,        SCREEN_HT,  0, 0, 0, 0, 0x1d, 0x61, 0x50, 0xff },
+
+  { SCREEN_WD - ACTION_SAFE_HORIZONTAL,                0,  0, 0, 0, 0, 0x1d, 0x61, 0x50, 0xff },
+  { SCREEN_WD                         ,                0,  0, 0, 0, 0, 0x1d, 0x61, 0x50, 0xff },
+  { SCREEN_WD                         ,        SCREEN_HT,  0, 0, 0, 0, 0x1d, 0x61, 0x50, 0xff },
+  { SCREEN_WD - ACTION_SAFE_HORIZONTAL,        SCREEN_HT,  0, 0, 0, 0, 0x1d, 0x61, 0x50, 0xff },
+
+  {         0,   SCREEN_HT - 80,  0, 0, 0, 0, 0x1d, 0x61, 0x50, 0xff },
+  { SCREEN_WD,   SCREEN_HT - 80,  0, 0, 0, 0, 0x1d, 0x61, 0x50, 0xff },
+  { SCREEN_WD,        SCREEN_HT,  0, 0, 0, 0, 0x1d, 0x61, 0x50, 0xff },
+  {         0,        SCREEN_HT,  0, 0, 0, 0, 0x1d, 0x61, 0x50, 0xff },
+};
+
+static Gfx renderHudBackgroundCommands[] = {
+  gsSPVertex(HUDBackgroundVerts, 16, 0),
+  gsSP2Triangles(0, 1, 2, 0, 0, 2, 3, 0),
+  gsSP2Triangles(4, 5, 6, 0, 4, 6, 7, 0),
+  gsSP2Triangles(8, 9, 10, 0, 8, 10, 11, 0),
+  gsSP2Triangles(12, 13, 14, 0, 12, 14, 15, 0),
+  gsSPEndDisplayList()
+};
+
 #define HUD_CELL_WIDTH 16
 #define HUD_CELL_HEIGHT 10
 
@@ -192,6 +223,8 @@ void makeDL00(void)
   // drawing the HUD
   gSPMatrix(glistp++,OS_K0_TO_PHYSICAL(&(dynamicp->ortho)), G_MTX_PROJECTION | G_MTX_LOAD | G_MTX_NOPUSH);
   gSPMatrix(glistp++,OS_K0_TO_PHYSICAL(&(dynamicp->modelling)), G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH );
+
+  gSPDisplayList(glistp++, OS_K0_TO_PHYSICAL(renderHudBackgroundCommands));
 
   gSPDisplayList(glistp++, OS_K0_TO_PHYSICAL(onscreenChessboardCommands));
 
