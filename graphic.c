@@ -48,8 +48,7 @@ void gfxClearCfb(void)
     /* Clear the frame buffer  */
   gDPSetColorImage(glistp++, G_IM_FMT_RGBA, G_IM_SIZ_16b, SCREEN_WD,
 		   osVirtualToPhysical(nuGfxCfb_ptr));
-  gDPSetFillColor(glistp++, (GPACK_RGBA5551(0, 0, 0, 1) << 16 | 
-				GPACK_RGBA5551(0, 0, 0, 1)));
+  gDPSetFillColor(glistp++, (GPACK_RGBA5551(61, 61, 61, 1) << 16 | GPACK_RGBA5551(61, 61, 61, 1)));
   gDPFillRectangle(glistp++, 0, 0, SCREEN_WD-1, SCREEN_HT-1);
   gDPPipeSync(glistp++);
 }

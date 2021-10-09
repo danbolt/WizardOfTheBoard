@@ -10,7 +10,7 @@ typedef struct {
 typedef struct {
 	int x;
 	int y;
-} BoardPos2;
+} Pos2;
 
 
 float clamp(float x, float min, float max);

@@ -10,6 +10,14 @@
 /* The maximum length of the display list of one task  */
 #define GFX_GLIST_LEN     2048
 
+/* The title safe area */
+#define TITLE_SAFE_HORIZONTAL 22
+#define TITLE_SAFE_VERTICAL 16
+
+/* The action safe area */
+#define ACTION_SAFE_HORIZONTAL 16
+#define ACTION_SAFE_VERTICAL 16
+
 /*-------------------------- define structure ------------------------------ */
 /* The structure of the projection-matrix  */
 typedef struct {
