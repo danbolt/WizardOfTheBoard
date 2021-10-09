@@ -12,4 +12,7 @@ typedef struct {
 	int y;
 } BoardPos2;
 
+
+float clamp(float x, float min, float max);
+
 #endif

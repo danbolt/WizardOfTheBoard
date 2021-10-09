@@ -176,6 +176,9 @@ void updatePlayerInput() {
   const float rotatedYStep = (sinCameraRot * step.x) + (cosCameraRot * step.y);
   playerPosition.x += rotatedXStep * PLAYER_WALK_SPEED;
   playerPosition.y += rotatedYStep * PLAYER_WALK_SPEED;
+
+  playerPosition.x = clamp(playerPosition.x, 0.f, (float)BOARD_SIZE);
+  playerPosition.y = clamp(playerPosition.y, 0.f, (float)BOARD_SIZE);
 }
 
 void updateGame00(void)
