@@ -235,6 +235,13 @@ void generateHUDChessboard() {
   gSPEndDisplayList(commands++);
 }
 
+static Vtx playerFOVHUDVerts[] = {
+  {  0,  0,  0, 0,  0 << 5,  0 << 5, 0xff, 0xff, 0xff, 0xff },
+  { 16,  0,  0, 0, 16 << 5,  0 << 5, 0xff, 0xff, 0xff, 0xff },
+  { 16, 16,  0, 0, 16 << 5, 16 << 5, 0xff, 0xff, 0xff, 0xff },
+  {  0, 16,  0, 0,  0 << 5, 16 << 5, 0xff, 0xff, 0xff, 0xff },
+};
+
 void loadInTextures() {
   nuPiReadRom((u32)(_hud_iconsSegmentRomStart), (void*)(hudIconsTexture), TMEM_SIZE_BYTES);
   nuPiReadRom((u32)(_floor_tilesSegmentRomStart), (void*)(floorTexture), TMEM_SIZE_BYTES);
@@ -382,7 +389,7 @@ void makeDL00(void)
   gSPDisplayList(glistp++, OS_K0_TO_PHYSICAL(onscreenChessboardCommands));
   
   gDPSetCombineMode(glistp++, G_CC_MODULATEIDECALA_PRIM, G_CC_MODULATEIDECALA_PRIM);
-  gDPSetRenderMode(glistp++, G_RM_AA_TEX_EDGE, G_RM_AA_TEX_EDGE2);
+  gDPSetRenderMode(glistp++, G_RM_TEX_EDGE, G_RM_TEX_EDGE2);
   gDPLoadTextureBlock(glistp++, OS_K0_TO_PHYSICAL(hudIconsTexture), G_IM_FMT_IA, G_IM_SIZ_8b, 256, 16, 0, G_TX_NOMIRROR, G_TX_NOMIRROR, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
   gDPPipeSync(glistp++);
   gSPTexture(glistp++, 0xffff, 0xffff, 0, G_TX_RENDERTILE, G_ON);
@@ -402,10 +409,21 @@ void makeDL00(void)
 
   // Render the player location on the HUD
   {
-    // TODO: render the player's FOV
-
     const u32 playerHUDXPos = (playerPosition.x * INV_BOARD_WIDTH * HUD_CHESSBOARD_WIDTH + HUD_CHESSBOARD_X) - 8;
     const u32 playerHUDYPos = ((BOARD_HEIGHT - playerPosition.y) * INV_BOARD_HEIGHT * HUD_CHESSBOARD_HEIGHT + HUD_CHESSBOARD_Y) - 8;
+
+    // TODO: render the player's FOV
+    guTranslate(&(dynamicp->playerFOVTranslate), playerHUDXPos, playerHUDYPos, 0.f);
+    guRotate(&(dynamicp->playerFOVRotate), (playerOrientation * -INV_PI * 180.f) - 90.f, 0.f, 0.f, 1.f);
+    gSPMatrix(glistp++, OS_K0_TO_PHYSICAL(&(dynamicp->playerFOVTranslate)), G_MTX_MODELVIEW | G_MTX_MUL | G_MTX_PUSH);
+    gSPMatrix(glistp++, OS_K0_TO_PHYSICAL(&(dynamicp->playerFOVRotate)), G_MTX_MODELVIEW | G_MTX_MUL | G_MTX_NOPUSH);
+    
+    gDPSetPrimColor(glistp++, 0, 0, 0xCC, 0x77, 0x22, 0xff);
+    gSPVertex(glistp++, &(playerFOVHUDVerts[0]), 4, 0);
+    gSP2Triangles(glistp++, 0, 1, 2, 0, 0, 2, 3, 0);
+
+    gSPPopMatrix(glistp++, G_MTX_MODELVIEW);
+
 
     gDPSetPrimColor(glistp++, 0, 0, 0x11, 0x99, 0x22, 0xff);
     gSPTextureRectangle(glistp++, (playerHUDXPos) << 2, (playerHUDYPos) << 2, (playerHUDXPos + 16) << 2, (playerHUDYPos + 16) << 2, 0, 112 << 5, 0 << 5, 1 << 10, 1 << 10);

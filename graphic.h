@@ -45,6 +45,9 @@ typedef struct {
   Mtx blenderExportScale;
 
   Mtx pieceTransforms[MAX_NUMBER_OF_INGAME_PIECES];
+
+  Mtx playerFOVTranslate;
+  Mtx playerFOVRotate;
 } Dynamic;
 
 /*-------------------------------- parameter---------------------------------*/

@@ -2,6 +2,10 @@
 #ifndef GAMEMATH_H
 #define GAMEMATH_H
 
+#include <nusys.h>
+
+#define INV_PI (1.f / M_PI)
+
 typedef struct {
 	float x;
 	float y;
