@@ -526,7 +526,7 @@ void updatePlayerInput() {
 void updateMovement() {
   Vec2 desiredSpot = { playerPosition.x + playerVelocity.x, playerPosition.y + playerVelocity.y };
 
-  // TODO: Should we try to "squeeze" the most space? might not be worth it since this is an AABB game
+  // TODO: Should we try to "squeeze" the most space? might not be worth it since this isn't an AABB game
 
   // step x
   if (isSpaceOccupied((int)(desiredSpot.x), (int)(playerPosition.y)) > -1) {
