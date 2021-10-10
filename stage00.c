@@ -244,7 +244,7 @@ void initializeStartingPieces() {
   pieceData[0].renderCommands = pawn_commands;
   pieceData[0].legalCheck = pawnLegalMove;
 
-  for (int i = 0; i < MAX_NUMBER_OF_INGAME_PIECES; i++) {
+  for (int i = 1; i < MAX_NUMBER_OF_INGAME_PIECES; i++) {
     piecesActive[i] = 1;
     piecePositions[i] = (Pos2){i, i};
     pieceData[i].type = ROOK;
