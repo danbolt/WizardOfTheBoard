@@ -15,5 +15,7 @@ extern u8 _miditableSegmentRomEnd[];
 // Sprites
 extern u8 _hud_iconsSegmentRomStart[];
 extern u8 _hud_iconsSegmentRomEnd[];
+extern u8 _floor_tilesSegmentRomStart[];
+extern u8 _floor_tilesSegmentRomEnd[];
 
 #endif /* SEGMENTINFO_H */

@@ -42,6 +42,8 @@ static PieceInfo pieceData[MAX_NUMBER_OF_INGAME_PIECES];
 #define NUMBER_OF_FLOOR_VERTS (NUMBER_OF_BOARD_CELLS * VERTS_PER_FLOOR_TILE)
 static Vtx floorVerts[NUMBER_OF_FLOOR_VERTS];
 
+static u8 floorTexture[TMEM_SIZE_BYTES] __attribute__((aligned(8)));
+
 static u8 hudIconsTexture[TMEM_SIZE_BYTES] __attribute__((aligned(8)));
 
 #define INV_BOARD_WIDTH (1.f / (float)BOARD_WIDTH)
@@ -91,20 +93,26 @@ void generateFloorTiles() {
   Vtx* verts = floorVerts;
   Vtx* lastLoad = verts;
 
+  gDPSetCombineMode(commands++, G_CC_MODULATEI, G_CC_MODULATEI);
+  gDPSetRenderMode(commands++, G_RM_AA_TEX_EDGE, G_RM_AA_TEX_EDGE2);
+  gDPLoadTextureBlock(commands++,  OS_K0_TO_PHYSICAL(floorTexture), G_IM_FMT_I, G_IM_SIZ_8b, 128, 32, 0, G_TX_WRAP, G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
+  gDPPipeSync(commands++);
+  gSPTexture(commands++, 0xffff, 0xffff, 0, G_TX_RENDERTILE, G_ON);
+
   for (int i = 0; i < NUMBER_OF_BOARD_CELLS; i++) {
     const int x = (i % BOARD_WIDTH);
     const int y = (i / BOARD_WIDTH);
 
     if (tileIsDark(x, y)) {
-      *(verts++) = (Vtx){ x + 0, y + 0,  0, 0, 0, 0, 0x11, 0x11, 0x11, 0xff };
-      *(verts++) = (Vtx){ x + 1, y + 0,  0, 0, 0, 0, 0x11, 0x11, 0x11, 0xff };
-      *(verts++) = (Vtx){ x + 1, y + 1,  0, 0, 0, 0, 0x11, 0x11, 0x11, 0xff };
-      *(verts++) = (Vtx){ x + 0, y + 1,  0, 0, 0, 0, 0x11, 0x11, 0x11, 0xff };
+      *(verts++) = (Vtx){ x + 0, y + 0,  0, 0, 32 << 5,  0 << 5, 0xff, 0x11, 0x11, 0xff };
+      *(verts++) = (Vtx){ x + 1, y + 0,  0, 0, 64 << 5,  0 << 5, 0xff, 0x11, 0x11, 0xff };
+      *(verts++) = (Vtx){ x + 1, y + 1,  0, 0, 64 << 5, 32 << 5, 0xff, 0x11, 0x11, 0xff };
+      *(verts++) = (Vtx){ x + 0, y + 1,  0, 0, 32 << 5, 32 << 5, 0xff, 0x11, 0x11, 0xff };
     } else {
-      *(verts++) = (Vtx){ x + 0, y + 0,  0, 0, 0, 0, 0xff, 0xff, 0xff, 0xff };
-      *(verts++) = (Vtx){ x + 1, y + 0,  0, 0, 0, 0, 0xff, 0xff, 0xff, 0xff };
-      *(verts++) = (Vtx){ x + 1, y + 1,  0, 0, 0, 0, 0xff, 0xff, 0xff, 0xff };
-      *(verts++) = (Vtx){ x + 0, y + 1,  0, 0, 0, 0, 0xff, 0xff, 0xff, 0xff };
+      *(verts++) = (Vtx){ x + 0, y + 0,  0, 0,  0 << 5,  0 << 5, 0xff, 0xff, 0xff, 0xff };
+      *(verts++) = (Vtx){ x + 1, y + 0,  0, 0, 32 << 5,  0 << 5, 0xff, 0xff, 0xff, 0xff };
+      *(verts++) = (Vtx){ x + 1, y + 1,  0, 0, 32 << 5, 32 << 5, 0xff, 0xff, 0xff, 0xff };
+      *(verts++) = (Vtx){ x + 0, y + 1,  0, 0,  0 << 5, 32 << 5, 0xff, 0xff, 0xff, 0xff };
     }
 
     if ((verts - lastLoad) >= VERT_BUFFER_SIZE) {
@@ -117,6 +125,7 @@ void generateFloorTiles() {
     }
   }
 
+  gSPTexture(commands++, 0xffff, 0xffff, 0, G_TX_RENDERTILE, G_OFF);
   gSPEndDisplayList(commands++);
 }
 
@@ -207,6 +216,7 @@ void boardPosToLetter(const Pos2* spot, char* x, char* y) {
 
 void loadInTextures() {
   nuPiReadRom((u32)(_hud_iconsSegmentRomStart), (void*)(hudIconsTexture), TMEM_SIZE_BYTES);
+  nuPiReadRom((u32)(_floor_tilesSegmentRomStart), (void*)(floorTexture), TMEM_SIZE_BYTES);
 }
 
 void initializeStartingPieces() {
@@ -281,19 +291,20 @@ void makeDL00(void)
   gSPMatrix(glistp++,OS_K0_TO_PHYSICAL(&(dynamicp->projection)), G_MTX_PROJECTION | G_MTX_LOAD | G_MTX_NOPUSH);
   gSPMatrix(glistp++,OS_K0_TO_PHYSICAL(&(dynamicp->camera)), G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH );
 
-  gDPPipeSync(glistp++);
   gDPSetCycleType(glistp++,G_CYC_1CYCLE);
-  gDPSetTexturePersp(glistp++, G_TP_NONE);
+  gDPSetTexturePersp(glistp++, G_TP_PERSP);
   gDPSetTextureFilter(glistp++, G_TF_POINT);
   gDPSetRenderMode(glistp++,G_RM_OPA_SURF, G_RM_OPA_SURF2);
+  gDPPipeSync(glistp++);
   gSPClearGeometryMode(glistp++,0xFFFFFFFF);
-  gSPSetGeometryMode(glistp++,G_SHADE| G_SHADING_SMOOTH);
+  gSPSetGeometryMode(glistp++,G_SHADE | G_SHADING_SMOOTH);
   gSPClipRatio(glistp++, FRUSTRATIO_6);
 
   // TODO: walls
   gSPDisplayList(glistp++, OS_K0_TO_PHYSICAL(floorDL));
 
   gDPPipeSync(glistp++);
+  gDPSetCombineMode(glistp++, G_CC_SHADE, G_CC_SHADE);
   gDPSetRenderMode(glistp++,G_RM_ZB_OPA_SURF, G_RM_ZB_OPA_SURF2);
   gSPSetGeometryMode(glistp++, G_ZBUFFER);
 
@@ -313,7 +324,7 @@ void makeDL00(void)
 
   gSPClearGeometryMode(glistp++, G_ZBUFFER);
   gDPPipeSync(glistp++);
-  gDPSetRenderMode(glistp++,G_RM_OPA_SURF, G_RM_OPA_SURF2);
+  gDPSetRenderMode(glistp++, G_RM_OPA_SURF, G_RM_OPA_SURF2);
 
 
   // drawing the HUD
@@ -329,6 +340,7 @@ void makeDL00(void)
   
   gDPSetCombineMode(glistp++, G_CC_MODULATEIDECALA_PRIM, G_CC_MODULATEIDECALA_PRIM);
   gDPSetRenderMode(glistp++, G_RM_AA_TEX_EDGE, G_RM_AA_TEX_EDGE2);
+  gDPSetTexturePersp(glistp++, G_TP_NONE);
   gDPLoadTextureBlock(glistp++, OS_K0_TO_PHYSICAL(hudIconsTexture), G_IM_FMT_IA, G_IM_SIZ_8b, 256, 16, 0, G_TX_NOMIRROR, G_TX_NOMIRROR, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
   gDPPipeSync(glistp++);
   gSPTexture(glistp++, 0xffff, 0xffff, 0, G_TX_RENDERTILE, G_ON);
