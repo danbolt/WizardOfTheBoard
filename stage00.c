@@ -28,6 +28,7 @@ static float sinCameraRot;
 #define BOARD_CONTROL_NO_SELECTED 0
 #define BOARD_CONTROL_PIECE_SELECTED 1
 static u32 boardControlState;
+static u8 legalDestinationState[NUMBER_OF_BOARD_CELLS];
 
 static Pos2 chessboardSpotHighlighted;
 
@@ -213,11 +214,13 @@ void initializeStartingPieces() {
   piecePositions[0] = (Pos2){3, 4};
   pieceData[0].type = PAWN;
   pieceData[0].renderCommands = pawn_commands;
+  pieceData[0].legalCheck = pawnLegalMove;
 
   piecesActive[1] = 1;
   piecePositions[1] = (Pos2){0, 1};
   pieceData[1].type = ROOK;
   pieceData[1].renderCommands = rook_commands;
+  pieceData[1].legalCheck = rookLegalMove;
 }
 
 /* The initialization of stage 0 */
@@ -233,6 +236,9 @@ void initStage00(void)
   sinCameraRot = 0.f;
 
   chessboardSpotHighlighted = (Pos2){ 2, 2 };
+  for (int i = 0; i < NUMBER_OF_BOARD_CELLS; i++) {
+    legalDestinationState[i] = 0;
+  }
 
   selectedPiece = -1;
 
@@ -351,6 +357,17 @@ void makeDL00(void)
     gSPTextureRectangle(glistp++, (playerHUDXPos) << 2, (playerHUDYPos) << 2, (playerHUDXPos + 16) << 2, (playerHUDYPos + 16) << 2, 0, 112 << 5, 0 << 5, 1 << 10, 1 << 10);
     gDPSetPrimColor(glistp++, 0, 0, 0xAC, 0x84, 0x40, 0xff);
     gSPTextureRectangle(glistp++, (playerHUDXPos) << 2, (playerHUDYPos) << 2, (playerHUDXPos + 16) << 2, (playerHUDYPos + 16) << 2, 0,  96 << 5, 0 << 5, 1 << 10, 1 << 10);
+  }
+
+  if (boardControlState == BOARD_CONTROL_PIECE_SELECTED) {
+    gDPSetPrimColor(glistp++, 0, 0, 0xff, 0x00, 0x00, 0xff);
+    for (int i = 0; i < NUMBER_OF_BOARD_CELLS; i++) {
+      if (!(legalDestinationState[i])) {
+        const u32 noSpotX = HUD_CHESSBOARD_X + ((i % BOARD_WIDTH) * HUD_CELL_WIDTH);
+        const u32 noSpotY = HUD_CHESSBOARD_Y + ((BOARD_HEIGHT - 1 - (i / BOARD_WIDTH)) * HUD_CELL_HEIGHT) - ((16 - HUD_CELL_HEIGHT) / 2);
+        gSPTextureRectangle(glistp++, (noSpotX) << 2, (noSpotY) << 2, (noSpotX + 16) << 2, (noSpotY + 16) << 2, 0, 192 << 5, 0 << 5, 1 << 10, 1 << 10);
+      }
+    }
   }
 
   // Render the cursor's location on the HUD
@@ -475,6 +492,11 @@ void updateBoardControlInput() {
 
         boardControlState = BOARD_CONTROL_PIECE_SELECTED;
         selectedPiece = pieceAtCursorSpot;
+
+        for (int i = 0; i < NUMBER_OF_BOARD_CELLS; i++) {
+          const Pos2 spot = { i % BOARD_WIDTH, i / BOARD_WIDTH };
+          legalDestinationState[i] = pieceData[selectedPiece].legalCheck(selectedPiece, &spot, piecesActive, piecePositions);
+        }
       }
     }
   } else if (boardControlState == BOARD_CONTROL_PIECE_SELECTED) {
@@ -486,8 +508,12 @@ void updateBoardControlInput() {
       assert(selectedPiece >= 0); // we should have a selected piece here
       const int pieceAtCursorSpot = isSpaceOccupied(chessboardSpotHighlighted.x, chessboardSpotHighlighted.y);
 
-      // TODO: check if position valid
       int isSelectedSpotValid = pieceAtCursorSpot < 0;
+
+      // If the destination isn't legal we can't place it there
+      if (!(legalDestinationState[(chessboardSpotHighlighted.x % BOARD_WIDTH) + (chessboardSpotHighlighted.y * BOARD_WIDTH)])) {
+        isSelectedSpotValid = 0;
+      }
 
       if (isSelectedSpotValid) {
         piecePositions[selectedPiece] = chessboardSpotHighlighted;

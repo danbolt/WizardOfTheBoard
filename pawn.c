@@ -1,6 +1,10 @@
 
 #include "pieces.h"
 
+int pawnLegalMove(u32 ourIndex, const Pos2* desiredSpot, const u8* piecesActive, const Pos2* piecePositions) {
+  return 0;
+}
+
 Vtx pawn_verts[] = {
   { 67, 70, 0, 0, 0, 0, 43, 43, 43, 255 },
   { 67, 70, 35, 0, 0, 0, 189, 189, 189, 255 },

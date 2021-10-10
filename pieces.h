@@ -8,9 +8,11 @@
 
 extern Vtx pawn_verts[];
 extern Gfx pawn_commands[];
+int pawnLegalMove(u32 ourIndex, const Pos2* desiredSpot, const u8* piecesActive, const Pos2* piecePositions);
 
 extern Vtx rook_verts[];
 extern Gfx rook_commands[];
+int rookLegalMove(u32 ourIndex, const Pos2* desiredSpot, const u8* piecesActive, const Pos2* piecePositions);
 
 typedef enum {
 	PAWN = 0,

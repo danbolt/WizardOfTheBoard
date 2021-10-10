@@ -1,6 +1,9 @@
 
 #include "pieces.h"
 
+int rookLegalMove(u32 ourIndex, const Pos2* desiredSpot, const u8* piecesActive, const Pos2* piecePositions) {
+  return desiredSpot->x % 2 == 0;
+}
 
 Vtx rook_verts[] = {
   { 67, -70, 0, 0, 0, 0, 43, 43, 43, 255 },
