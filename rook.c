@@ -1,6 +1,6 @@
 
+#include "board.h"
 #include "pieces.h"
-
 #include "constants.h"
 
 
@@ -9,26 +9,7 @@ void rookLegalMove(u32 ourIndex, const u8* piecesActive, const Pos2* piecePositi
 
   // Check east availability
   for (int stepX = (ourPosition->x + 1); stepX < BOARD_WIDTH; stepX++) {
-
-    const Pos2 desiredSpot = { stepX, ourPosition->y };
-    u32 broken = 0;
-    for (int i = 0; i < MAX_NUMBER_OF_INGAME_PIECES; i++) {
-      if (i == ourIndex) {
-        continue;
-      }
-
-      if (!(piecesActive[i])) {
-        continue;
-      }
-
-      // If our desired spot matches a piece, it's occupied and we can't move forward
-      if ((piecePositions[i].x == desiredSpot.x) && (piecePositions[i].y == desiredSpot.y)) {
-        broken = 1;
-        break;
-      }
-    }
-
-    if (broken) {
+    if (isSpaceOccupied(stepX, ourPosition->y) > -1) {
       break;
     }
 
@@ -37,26 +18,7 @@ void rookLegalMove(u32 ourIndex, const u8* piecesActive, const Pos2* piecePositi
 
   // Check west availability
   for (int stepX = (ourPosition->x - 1); stepX >= 0; stepX--) {
-
-    const Pos2 desiredSpot = { stepX, ourPosition->y };
-    u32 broken = 0;
-    for (int i = 0; i < MAX_NUMBER_OF_INGAME_PIECES; i++) {
-      if (i == ourIndex) {
-        continue;
-      }
-
-      if (!(piecesActive[i])) {
-        continue;
-      }
-
-      // If our desired spot matches a piece, it's occupied and we can't move forward
-      if ((piecePositions[i].x == desiredSpot.x) && (piecePositions[i].y == desiredSpot.y)) {
-        broken = 1;
-        break;
-      }
-    }
-
-    if (broken) {
+    if (isSpaceOccupied(stepX, ourPosition->y) > -1) {
       break;
     }
 
@@ -65,26 +27,7 @@ void rookLegalMove(u32 ourIndex, const u8* piecesActive, const Pos2* piecePositi
 
   // Check north availability
   for (int stepY = (ourPosition->y + 1); stepY < BOARD_HEIGHT; stepY++) {
-
-    const Pos2 desiredSpot = { ourPosition->x, stepY };
-    u32 broken = 0;
-    for (int i = 0; i < MAX_NUMBER_OF_INGAME_PIECES; i++) {
-      if (i == ourIndex) {
-        continue;
-      }
-
-      if (!(piecesActive[i])) {
-        continue;
-      }
-
-      // If our desired spot matches a piece, it's occupied and we can't move forward
-      if ((piecePositions[i].x == desiredSpot.x) && (piecePositions[i].y == desiredSpot.y)) {
-        broken = 1;
-        break;
-      }
-    }
-
-    if (broken) {
+    if (isSpaceOccupied(ourPosition->x, stepY) > -1) {
       break;
     }
 
@@ -93,26 +36,7 @@ void rookLegalMove(u32 ourIndex, const u8* piecesActive, const Pos2* piecePositi
 
   // Check south availability
   for (int stepY = (ourPosition->y - 1); stepY >= 0; stepY--) {
-
-    const Pos2 desiredSpot = { ourPosition->x, stepY };
-    u32 broken = 0;
-    for (int i = 0; i < MAX_NUMBER_OF_INGAME_PIECES; i++) {
-      if (i == ourIndex) {
-        continue;
-      }
-
-      if (!(piecesActive[i])) {
-        continue;
-      }
-
-      // If our desired spot matches a piece, it's occupied and we can't move forward
-      if ((piecePositions[i].x == desiredSpot.x) && (piecePositions[i].y == desiredSpot.y)) {
-        broken = 1;
-        break;
-      }
-    }
-
-    if (broken) {
+    if (isSpaceOccupied(ourPosition->x, stepY) > -1) {
       break;
     }
 
