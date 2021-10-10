@@ -20,6 +20,7 @@
 #define PLAYER_WALK_SPEED 0.05f
 
 static Vec2 playerPosition;
+static Vec2 playerVelocity;
 static float playerOrientation;
 static float cosCameraRot;
 static float sinCameraRot;
@@ -267,6 +268,7 @@ void initStage00(void)
   loadInTextures();
 
   playerPosition = (Vec2){ 0.f, 0.f };
+  playerVelocity = (Vec2){ 0.f, 0.f };
   playerOrientation = 0.f;
   cosCameraRot = 1.f;
   sinCameraRot = 0.f;
@@ -476,7 +478,7 @@ void makeDL00(void)
 
 // TODO: Make this delta-dependent
 void updatePlayerInput() {
-  Vec2 step = { 0.f, 0.f };
+  Vec2 inputDir = { 0.f, 0.f };
 
   // Update rotation
   if((contdata[0].button & L_TRIG) || (contdata[0].stick_x < -7)) {
@@ -497,33 +499,51 @@ void updatePlayerInput() {
 
 
   if (contdata[0].stick_y > 7) {
-    step.y = 1.f;
+    inputDir.y = 1.f;
   } else if (contdata[0].stick_y < -7) {
-    step.y = -1.f;
+    inputDir.y = -1.f;
   }
 
   // Update position
   if(contdata[0].button & U_JPAD) {
-    step.y = 1.f;
+    inputDir.y = 1.f;
   } else if(contdata[0].button & D_JPAD) {
-    step.y = -1.f;
+    inputDir.y = -1.f;
   }
 
   if(contdata[0].button & R_JPAD) {
-    step.x = 1.f;
+    inputDir.x = 1.f;
   } else if(contdata[0].button & L_JPAD) {
-    step.x = -1.f;
+    inputDir.x = -1.f;
   }
 
-  const float rotatedXStep = (cosCameraRot * step.x) - (sinCameraRot * step.y);
-  const float rotatedYStep = (sinCameraRot * step.x) + (cosCameraRot * step.y);
-  playerPosition.x += rotatedXStep * PLAYER_WALK_SPEED;
-  playerPosition.y += rotatedYStep * PLAYER_WALK_SPEED;
+  const float rotatedXStep = (cosCameraRot * inputDir.x) - (sinCameraRot * inputDir.y);
+  const float rotatedYStep = (sinCameraRot * inputDir.x) + (cosCameraRot * inputDir.y);
+  playerVelocity.x = rotatedXStep * PLAYER_WALK_SPEED;
+  playerVelocity.y = rotatedYStep * PLAYER_WALK_SPEED;
+}
 
+void updateMovement() {
+  Vec2 desiredSpot = { playerPosition.x + playerVelocity.x, playerPosition.y + playerVelocity.y };
+
+  // TODO: Should we try to "squeeze" the most space? might not be worth it since this is an AABB game
+
+  // step x
+  if (isSpaceOccupied((int)(desiredSpot.x), (int)(playerPosition.y)) > -1) {
+    desiredSpot.x = playerPosition.x;
+  }
+
+  // step y
+  if (isSpaceOccupied((int)(desiredSpot.x), (int)(desiredSpot.y)) > -1) {
+    desiredSpot.y = playerPosition.y;
+  }
+
+  playerPosition.x = desiredSpot.x;
+  playerPosition.y = desiredSpot.y;
+
+  // Don't let the player leave the area
   playerPosition.x = clamp(playerPosition.x, 0.f, (float)BOARD_WIDTH);
   playerPosition.y = clamp(playerPosition.y, 0.f, (float)BOARD_HEIGHT);
-
-  
 }
 
 void updateBoardControlInput() {
@@ -593,4 +613,6 @@ void updateGame00(void)
   
   updatePlayerInput();
   updateBoardControlInput();
+
+  updateMovement();
 }
