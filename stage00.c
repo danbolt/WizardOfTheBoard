@@ -54,6 +54,10 @@ static u8 hudIconsTexture[TMEM_SIZE_BYTES] __attribute__((aligned(8)));
 #define COMMANDS_END_DL_SIZE 1
 static Gfx floorDL[(NUMBER_OF_BOARD_CELLS * 2) + COMMANDS_END_DL_SIZE];
 
+
+static Vtx wallVerts[((BOARD_WIDTH * 2) + (BOARD_HEIGHT * 2)) * VERTS_PER_FLOOR_TILE];
+static Gfx wallDL[(BOARD_WIDTH * 2) + (BOARD_HEIGHT * 2) + 4 + COMMANDS_END_DL_SIZE];
+
 // copied from:
 // https://gamedev.stackexchange.com/questions/44979/elegant-solution-for-coloring-chess-tiles
 int tileIsLight(int x, int y) {
@@ -95,7 +99,7 @@ void generateFloorTiles() {
 
   gDPSetCombineMode(commands++, G_CC_MODULATEI, G_CC_MODULATEI);
   gDPSetRenderMode(commands++, G_RM_AA_TEX_EDGE, G_RM_AA_TEX_EDGE2);
-  gDPLoadTextureBlock(commands++,  OS_K0_TO_PHYSICAL(floorTexture), G_IM_FMT_I, G_IM_SIZ_8b, 128, 32, 0, G_TX_WRAP, G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
+  gDPLoadTextureBlock(commands++,  OS_K0_TO_PHYSICAL(floorTexture), G_IM_FMT_I, G_IM_SIZ_8b, 128, 32, 0, G_TX_MIRROR, G_TX_MIRROR, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
   gDPPipeSync(commands++);
   gSPTexture(commands++, 0xffff, 0xffff, 0, G_TX_RENDERTILE, G_ON);
 
@@ -125,9 +129,68 @@ void generateFloorTiles() {
     }
   }
 
-  gSPTexture(commands++, 0xffff, 0xffff, 0, G_TX_RENDERTILE, G_OFF);
   gSPEndDisplayList(commands++);
 }
+
+#define WALL_HEIGHT 4
+
+// TODO: let us customize/randomize the textures for this on init time
+void generateWalls() {
+  Gfx* commands = wallDL;
+  Vtx* verts = wallVerts;
+  Vtx* lastLoad = verts;
+
+  for (int i = 0; i < BOARD_WIDTH; i++) {
+    *(verts++) = (Vtx){ i + 0, 0,  0, 0,  64 << 5,  0 << 5, 0x46, 0x55, 0x6b, 0xff };
+    *(verts++) = (Vtx){ i + 1, 0,  0, 0,  96 << 5,  0 << 5, 0x46, 0x55, 0x6b, 0xff };
+    *(verts++) = (Vtx){ i + 1, 0,  WALL_HEIGHT, 0,  96 << 5, 32 << 5, 0x46, 0x55, 0x6b, 0xff };
+    *(verts++) = (Vtx){ i + 0, 0,  WALL_HEIGHT, 0,  64 << 5, 32 << 5, 0x46, 0x55, 0x6b, 0xff };
+  }
+  gSPVertex(commands++, &(lastLoad[0]), (BOARD_WIDTH * 4), 0);
+  for (int j = 0; j < (BOARD_WIDTH * 4); j += 4) {
+    gSP2Triangles(commands++, j + 0, j + 1, j + 2, 0, j + 0, j + 2, j + 3, 0);
+  }
+  lastLoad = verts;
+
+  for (int i = 0; i < BOARD_WIDTH; i++) {
+    *(verts++) = (Vtx){ i + 0, BOARD_HEIGHT,  0, 0,  64 << 5,  0 << 5, 0x46, 0x55, 0x6b, 0xff };
+    *(verts++) = (Vtx){ i + 1, BOARD_HEIGHT,  0, 0,  96 << 5,  0 << 5, 0x46, 0x55, 0x6b, 0xff };
+    *(verts++) = (Vtx){ i + 1, BOARD_HEIGHT,  WALL_HEIGHT, 0,  96 << 5, 32 << 5, 0x46, 0x55, 0x6b, 0xff };
+    *(verts++) = (Vtx){ i + 0, BOARD_HEIGHT,  WALL_HEIGHT, 0,  64 << 5, 32 << 5, 0x46, 0x55, 0x6b, 0xff };
+  }
+  gSPVertex(commands++, &(lastLoad[0]), (BOARD_WIDTH * 4), 0);
+  for (int j = 0; j < (BOARD_WIDTH * 4); j += 4) {
+    gSP2Triangles(commands++, j + 0, j + 1, j + 2, 0, j + 0, j + 2, j + 3, 0);
+  }
+  lastLoad = verts;
+
+  for (int i = 0; i < BOARD_HEIGHT; i++) {
+    *(verts++) = (Vtx){ 0, i + 0,  0, 0,  64 << 5,  0 << 5, 0x46, 0x55, 0x6b, 0xff };
+    *(verts++) = (Vtx){ 0, i + 1,  0, 0,  96 << 5,  0 << 5, 0x46, 0x55, 0x6b, 0xff };
+    *(verts++) = (Vtx){ 0, i + 1,  WALL_HEIGHT, 0,  96 << 5, 32 << 5, 0x46, 0x55, 0x6b, 0xff };
+    *(verts++) = (Vtx){ 0, i + 0,  WALL_HEIGHT, 0,  64 << 5, 32 << 5, 0x46, 0x55, 0x6b, 0xff };
+  }
+  gSPVertex(commands++, &(lastLoad[0]), (BOARD_HEIGHT * 4), 0);
+  for (int j = 0; j < (BOARD_HEIGHT * 4); j += 4) {
+    gSP2Triangles(commands++, j + 0, j + 1, j + 2, 0, j + 0, j + 2, j + 3, 0);
+  }
+  lastLoad = verts;
+
+  for (int i = 0; i < BOARD_HEIGHT; i++) {
+    *(verts++) = (Vtx){ BOARD_WIDTH, i + 0,  0, 0,  64 << 5,  0 << 5, 0x46, 0x55, 0x6b, 0xff };
+    *(verts++) = (Vtx){ BOARD_WIDTH, i + 1,  0, 0,  96 << 5,  0 << 5, 0x46, 0x55, 0x6b, 0xff };
+    *(verts++) = (Vtx){ BOARD_WIDTH, i + 1,  WALL_HEIGHT, 0,  96 << 5, 32 << 5, 0x46, 0x55, 0x6b, 0xff };
+    *(verts++) = (Vtx){ BOARD_WIDTH, i + 0,  WALL_HEIGHT, 0,  64 << 5, 32 << 5, 0x46, 0x55, 0x6b, 0xff };
+  }
+  gSPVertex(commands++, &(lastLoad[0]), (BOARD_HEIGHT * 4), 0);
+  for (int j = 0; j < (BOARD_HEIGHT * 4); j += 4) {
+    gSP2Triangles(commands++, j + 0, j + 1, j + 2, 0, j + 0, j + 2, j + 3, 0);
+  }
+  lastLoad = verts;
+
+  gSPEndDisplayList(commands++);
+}
+
 
 static Vtx HUDBackgroundVerts[] = {
   {         0,                    0,  0, 0,  0 << 5,  0 << 5, 0x1d, 0x61, 0x50, 0xff },
@@ -182,10 +245,10 @@ void generateHUDChessboard() {
     const int y = HUD_CHESSBOARD_HEIGHT - ((i / BOARD_WIDTH) * HUD_CELL_HEIGHT) + HUD_CHESSBOARD_Y;
 
     if (tileIsDark(i % BOARD_WIDTH, i / BOARD_WIDTH)) {
-      *(verts++) = (Vtx){ x + 0             , y + 0              ,  0, 0, 0, 0, 0x11, 0x11, 0x11, 0xff };
-      *(verts++) = (Vtx){ x + HUD_CELL_WIDTH, y + 0              ,  0, 0, 0, 0, 0x11, 0x11, 0x11, 0xff };
-      *(verts++) = (Vtx){ x + HUD_CELL_WIDTH, y - HUD_CELL_HEIGHT,  0, 0, 0, 0, 0x11, 0x11, 0x11, 0xff };
-      *(verts++) = (Vtx){ x + 0             , y - HUD_CELL_HEIGHT,  0, 0, 0, 0, 0x11, 0x11, 0x11, 0xff };
+      *(verts++) = (Vtx){ x + 0             , y + 0              ,  0, 0, 0, 0, 0x11, 0x11, 0x50, 0xff };
+      *(verts++) = (Vtx){ x + HUD_CELL_WIDTH, y + 0              ,  0, 0, 0, 0, 0x11, 0x11, 0x50, 0xff };
+      *(verts++) = (Vtx){ x + HUD_CELL_WIDTH, y - HUD_CELL_HEIGHT,  0, 0, 0, 0, 0x11, 0x11, 0x50, 0xff };
+      *(verts++) = (Vtx){ x + 0             , y - HUD_CELL_HEIGHT,  0, 0, 0, 0, 0x11, 0x11, 0x50, 0xff };
     } else {
       *(verts++) = (Vtx){ x + 0             , y + 0              ,  0, 0, 0, 0, 0xff, 0xff, 0xff, 0xff };
       *(verts++) = (Vtx){ x + HUD_CELL_WIDTH, y + 0              ,  0, 0, 0, 0, 0xff, 0xff, 0xff, 0xff };
@@ -226,17 +289,22 @@ void initializeStartingPieces() {
   pieceData[0].renderCommands = pawn_commands;
   pieceData[0].legalCheck = pawnLegalMove;
 
-  piecesActive[1] = 1;
-  piecePositions[1] = (Pos2){0, 4};
-  pieceData[1].type = ROOK;
-  pieceData[1].renderCommands = rook_commands;
-  pieceData[1].legalCheck = rookLegalMove;
+  for (int i = 0; i < MAX_NUMBER_OF_INGAME_PIECES; i++) {
+    piecesActive[i] = 1;
+    piecePositions[i] = (Pos2){i, i};
+    pieceData[i].type = ROOK;
+    pieceData[i].renderCommands = rook_commands;
+    pieceData[i].legalCheck = rookLegalMove;
+  }
+
+  
 }
 
 /* The initialization of stage 0 */
 void initStage00(void)
 {
   generateFloorTiles();
+  generateWalls();
   generateHUDChessboard();
   loadInTextures();
 
@@ -302,6 +370,9 @@ void makeDL00(void)
 
   // TODO: walls
   gSPDisplayList(glistp++, OS_K0_TO_PHYSICAL(floorDL));
+  gSPDisplayList(glistp++, OS_K0_TO_PHYSICAL(wallDL));
+
+  gSPTexture(glistp++, 0xffff, 0xffff, 0, G_TX_RENDERTILE, G_OFF);
 
   gDPPipeSync(glistp++);
   gDPSetCombineMode(glistp++, G_CC_SHADE, G_CC_SHADE);
@@ -365,7 +436,7 @@ void makeDL00(void)
     const u32 playerHUDXPos = (playerPosition.x * INV_BOARD_WIDTH * HUD_CHESSBOARD_WIDTH + HUD_CHESSBOARD_X) - 8;
     const u32 playerHUDYPos = ((BOARD_HEIGHT - playerPosition.y) * INV_BOARD_HEIGHT * HUD_CHESSBOARD_HEIGHT + HUD_CHESSBOARD_Y) - 8;
 
-    gDPSetPrimColor(glistp++, 0, 0, 0x11, 0x11, 0x99, 0xff);
+    gDPSetPrimColor(glistp++, 0, 0, 0x11, 0x99, 0x22, 0xff);
     gSPTextureRectangle(glistp++, (playerHUDXPos) << 2, (playerHUDYPos) << 2, (playerHUDXPos + 16) << 2, (playerHUDYPos + 16) << 2, 0, 112 << 5, 0 << 5, 1 << 10, 1 << 10);
     gDPSetPrimColor(glistp++, 0, 0, 0xAC, 0x84, 0x40, 0xff);
     gSPTextureRectangle(glistp++, (playerHUDXPos) << 2, (playerHUDYPos) << 2, (playerHUDXPos + 16) << 2, (playerHUDYPos + 16) << 2, 0,  96 << 5, 0 << 5, 1 << 10, 1 << 10);
@@ -416,7 +487,7 @@ void makeDL00(void)
 
       /* Change character representation positions */
       nuDebConTextPos(0,2,20);
-      sprintf(conbuf,"DL: %d,%d", (glistp - gfx_glist[gfx_gtask_no]), GFX_GLIST_LEN);
+      sprintf(conbuf,"DL: %03d,%03d", (glistp - gfx_glist[gfx_gtask_no]), GFX_GLIST_LEN);
       nuDebConCPuts(0, conbuf);
 
       /* Change character representation positions */
