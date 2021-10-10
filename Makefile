@@ -26,7 +26,7 @@ LDFLAGS = $(MKDEPOPT) -L$(LIB) -L$(NUSYSLIBDIR) $(NUAUDIOLIB) -lnusys -lultra_ro
 
 LDIRT  =  $(ELF) $(ASMOBJECTS) $(CP_LD_SCRIPT) $(MAP) $(TARGETS)
 
-OPTIMIZER =	-O2
+OPTIMIZER =	-g
 
 ELF		= jam2.elf
 TARGETS	= jam2.z64

@@ -3,10 +3,12 @@
 #define BOARD_H
 
 #include "constants.h"
+#include "gamemath.h"
 #include "pieces.h"
 
 extern u8 piecesActive[MAX_NUMBER_OF_INGAME_PIECES];
 extern Pos2 piecePositions[MAX_NUMBER_OF_INGAME_PIECES];
+extern Vec2 pieceViewPos[MAX_NUMBER_OF_INGAME_PIECES];
 extern PieceInfo pieceData[MAX_NUMBER_OF_INGAME_PIECES];
 
 int tileIsLight(int x, int y);

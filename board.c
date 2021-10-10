@@ -5,6 +5,7 @@
 
 u8 piecesActive[MAX_NUMBER_OF_INGAME_PIECES];
 Pos2 piecePositions[MAX_NUMBER_OF_INGAME_PIECES];
+Vec2 pieceViewPos[MAX_NUMBER_OF_INGAME_PIECES];
 PieceInfo pieceData[MAX_NUMBER_OF_INGAME_PIECES];
 
 // copied from:

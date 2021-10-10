@@ -244,9 +244,10 @@ void loadInTextures() {
 void initializeStartingPieces() {
   piecesActive[0] = 1;
   piecePositions[0] = (Pos2){3, 4};
-  pieceData[0].type = PAWN;
-  pieceData[0].renderCommands = pawn_commands;
-  pieceData[0].legalCheck = pawnLegalMove;
+  pieceData[0].type = ROOK;
+  pieceData[0].renderCommands = rook_commands;
+  pieceData[0].legalCheck = rookLegalMove;
+  pieceViewPos[0] = (Vec2){ piecePositions[0].x + 0.5f, piecePositions[0].y + 0.5f };
 
   for (int i = 1; i < MAX_NUMBER_OF_INGAME_PIECES; i++) {
     piecesActive[i] = 1;
@@ -254,6 +255,7 @@ void initializeStartingPieces() {
     pieceData[i].type = ROOK;
     pieceData[i].renderCommands = rook_commands;
     pieceData[i].legalCheck = rookLegalMove;
+    pieceViewPos[i] = (Vec2){ piecePositions[i].x + 0.5f, piecePositions[i].y + 0.5f };
   }
 
   
@@ -344,7 +346,7 @@ void makeDL00(void)
       continue;
     }
 
-    guTranslate(&(dynamicp->pieceTransforms[i]), ((float)piecePositions[i].x) + 0.5f, ((float)piecePositions[i].y) + 0.5f, 0.f);
+    guTranslate(&(dynamicp->pieceTransforms[i]), pieceViewPos[i].x, pieceViewPos[i].y, 0.f);
     gSPMatrix(glistp++, OS_K0_TO_PHYSICAL(&(dynamicp->pieceTransforms[i])), G_MTX_MODELVIEW | G_MTX_MUL | G_MTX_PUSH);
     gSPMatrix(glistp++, OS_K0_TO_PHYSICAL(&dynamicp->blenderExportScale), G_MTX_MODELVIEW | G_MTX_MUL | G_MTX_NOPUSH);
 
@@ -391,8 +393,8 @@ void makeDL00(void)
       continue;
     }
 
-    const u32 pieceHUDSpotX = HUD_CHESSBOARD_X + (piecePositions[i].x * HUD_CELL_WIDTH);
-    const u32 pieceHUDSpotY = HUD_CHESSBOARD_Y + ((BOARD_HEIGHT - 1 - piecePositions[i].y) * HUD_CELL_HEIGHT) - ((16 - HUD_CELL_HEIGHT) / 2);
+    const u32 pieceHUDSpotX = HUD_CHESSBOARD_X + ((pieceViewPos[i].x - 0.5f) * HUD_CELL_WIDTH);
+    const u32 pieceHUDSpotY = HUD_CHESSBOARD_Y + ((BOARD_HEIGHT - pieceViewPos[i].y - 0.5f) * HUD_CELL_HEIGHT) - ((16 - HUD_CELL_HEIGHT) / 2);
 
     gSPTextureRectangle(glistp++, (pieceHUDSpotX) << 2, (pieceHUDSpotY) << 2, (pieceHUDSpotX + 16) << 2, (pieceHUDSpotY + 16) << 2, 0, ((int)(pieceData[i].type) * 16) << 5, 0 << 5, 1 << 10, 1 << 10);
   }
@@ -593,6 +595,7 @@ void updateBoardControlInput() {
 
       if (isSelectedSpotValid) {
         piecePositions[selectedPiece] = chessboardSpotHighlighted;
+        pieceViewPos[selectedPiece] = (Vec2){ piecePositions[selectedPiece].x + 0.5f, piecePositions[selectedPiece].y + 0.5f };
 
         // TODO: play a "complete" sound
       } else {
