@@ -236,10 +236,10 @@ void generateHUDChessboard() {
 }
 
 static Vtx playerFOVHUDVerts[] = {
-  {  0,  0,  0, 0,  0 << 5,  0 << 5, 0xff, 0xff, 0xff, 0xff },
-  { 16,  0,  0, 0, 16 << 5,  0 << 5, 0xff, 0xff, 0xff, 0xff },
-  { 16, 16,  0, 0, 16 << 5, 16 << 5, 0xff, 0xff, 0xff, 0xff },
-  {  0, 16,  0, 0,  0 << 5, 16 << 5, 0xff, 0xff, 0xff, 0xff },
+  {  0, -20,  0, 0, 128 << 5,  0 << 5, 0xff, 0xff, 0xff, 0xff },
+  { 20, -20,  0, 0, 144 << 5,  0 << 5, 0xff, 0xff, 0xff, 0xff },
+  { 20,  20,  0, 0, 144 << 5, 16 << 5, 0xff, 0xff, 0xff, 0xff },
+  {  0,  20,  0, 0, 128 << 5, 16 << 5, 0xff, 0xff, 0xff, 0xff },
 };
 
 void loadInTextures() {
@@ -394,6 +394,29 @@ void makeDL00(void)
   gDPPipeSync(glistp++);
   gSPTexture(glistp++, 0xffff, 0xffff, 0, G_TX_RENDERTILE, G_ON);
 
+  const u32 playerHUDXPos = (playerPosition.x * INV_BOARD_WIDTH * HUD_CHESSBOARD_WIDTH + HUD_CHESSBOARD_X) - 8;
+  const u32 playerHUDYPos = ((BOARD_HEIGHT - playerPosition.y) * INV_BOARD_HEIGHT * HUD_CHESSBOARD_HEIGHT + HUD_CHESSBOARD_Y) - 8;
+
+  // Render the player's FOV
+  {
+    guTranslate(&(dynamicp->playerFOVTranslate), playerHUDXPos + 8, playerHUDYPos + 8, 0.f);
+    guRotate(&(dynamicp->playerFOVRotate), (playerOrientation * -INV_PI * 180.f) - 90.f, 0.f, 0.f, 1.f);
+    gSPMatrix(glistp++, OS_K0_TO_PHYSICAL(&(dynamicp->playerFOVTranslate)), G_MTX_MODELVIEW | G_MTX_MUL | G_MTX_PUSH);
+    gSPMatrix(glistp++, OS_K0_TO_PHYSICAL(&(dynamicp->playerFOVRotate)), G_MTX_MODELVIEW | G_MTX_MUL | G_MTX_NOPUSH);
+
+    gDPPipeSync(glistp++);
+    gDPSetTexturePersp(glistp++, G_TP_PERSP);
+    
+    gDPSetPrimColor(glistp++, 0, 0, 0xCC, 0x77, 0x22, 0xff);
+    gSPVertex(glistp++, &(playerFOVHUDVerts[0]), 4, 0);
+    gSP2Triangles(glistp++, 0, 1, 2, 0, 0, 2, 3, 0);
+
+    gDPPipeSync(glistp++);
+    gDPSetTexturePersp(glistp++, G_TP_NONE);
+
+    gSPPopMatrix(glistp++, G_MTX_MODELVIEW);
+  }
+
   // Render the piece locations on the HUD
   gDPSetPrimColor(glistp++, 0, 0, 0x99, 0x99, 0x99, 0xff);
   for (int i = 0; i < MAX_NUMBER_OF_INGAME_PIECES; i++) {
@@ -409,22 +432,6 @@ void makeDL00(void)
 
   // Render the player location on the HUD
   {
-    const u32 playerHUDXPos = (playerPosition.x * INV_BOARD_WIDTH * HUD_CHESSBOARD_WIDTH + HUD_CHESSBOARD_X) - 8;
-    const u32 playerHUDYPos = ((BOARD_HEIGHT - playerPosition.y) * INV_BOARD_HEIGHT * HUD_CHESSBOARD_HEIGHT + HUD_CHESSBOARD_Y) - 8;
-
-    // TODO: render the player's FOV
-    guTranslate(&(dynamicp->playerFOVTranslate), playerHUDXPos, playerHUDYPos, 0.f);
-    guRotate(&(dynamicp->playerFOVRotate), (playerOrientation * -INV_PI * 180.f) - 90.f, 0.f, 0.f, 1.f);
-    gSPMatrix(glistp++, OS_K0_TO_PHYSICAL(&(dynamicp->playerFOVTranslate)), G_MTX_MODELVIEW | G_MTX_MUL | G_MTX_PUSH);
-    gSPMatrix(glistp++, OS_K0_TO_PHYSICAL(&(dynamicp->playerFOVRotate)), G_MTX_MODELVIEW | G_MTX_MUL | G_MTX_NOPUSH);
-    
-    gDPSetPrimColor(glistp++, 0, 0, 0xCC, 0x77, 0x22, 0xff);
-    gSPVertex(glistp++, &(playerFOVHUDVerts[0]), 4, 0);
-    gSP2Triangles(glistp++, 0, 1, 2, 0, 0, 2, 3, 0);
-
-    gSPPopMatrix(glistp++, G_MTX_MODELVIEW);
-
-
     gDPSetPrimColor(glistp++, 0, 0, 0x11, 0x99, 0x22, 0xff);
     gSPTextureRectangle(glistp++, (playerHUDXPos) << 2, (playerHUDYPos) << 2, (playerHUDXPos + 16) << 2, (playerHUDYPos + 16) << 2, 0, 112 << 5, 0 << 5, 1 << 10, 1 << 10);
     gDPSetPrimColor(glistp++, 0, 0, 0xAC, 0x84, 0x40, 0xff);
