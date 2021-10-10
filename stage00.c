@@ -7,7 +7,7 @@
 #include "graphic.h"
 #include "tracknumbers.h"
 #include "segmentinfo.h"
-
+#include "board.h"
 #include "pieces.h"
 
 #ifdef N_AUDIO
@@ -34,10 +34,6 @@ static Pos2 chessboardSpotHighlighted;
 
 static int selectedPiece;
 
-static u8 piecesActive[MAX_NUMBER_OF_INGAME_PIECES];
-static Pos2 piecePositions[MAX_NUMBER_OF_INGAME_PIECES];
-static PieceInfo pieceData[MAX_NUMBER_OF_INGAME_PIECES];
-
 #define VERTS_PER_FLOOR_TILE 4
 #define NUMBER_OF_FLOOR_VERTS (NUMBER_OF_BOARD_CELLS * VERTS_PER_FLOOR_TILE)
 static Vtx floorVerts[NUMBER_OF_FLOOR_VERTS];
@@ -57,39 +53,6 @@ static Gfx floorDL[(NUMBER_OF_BOARD_CELLS * 2) + COMMANDS_END_DL_SIZE];
 
 static Vtx wallVerts[((BOARD_WIDTH * 2) + (BOARD_HEIGHT * 2)) * VERTS_PER_FLOOR_TILE];
 static Gfx wallDL[(BOARD_WIDTH * 2) + (BOARD_HEIGHT * 2) + 4 + COMMANDS_END_DL_SIZE];
-
-// copied from:
-// https://gamedev.stackexchange.com/questions/44979/elegant-solution-for-coloring-chess-tiles
-int tileIsLight(int x, int y) {
-  return (x % 2) == (y % 2);
-}
-
-int tileIsDark(int x, int y) {
-  return (x % 2) == (y % 2);
-}
-
-// returns -1 if empty, otherwise the index of the occupying piece
-int isSpaceOccupied(int x, int y) {
-
-  for (int i = 0; i < MAX_NUMBER_OF_INGAME_PIECES; i++) {
-    if (!(piecesActive[i])) {
-      continue;
-    }
-
-    if (piecePositions[i].x != x) {
-      continue;
-    }
-
-    if (piecePositions[i].y != y) {
-      continue;
-    }
-
-    // If we've made it here, we've found an occupying piece
-    return i;
-  }
-
-  return -1;
-}
 
 // TODO: let us customize/randomize the textures for this on init time
 void generateFloorTiles() {
@@ -267,14 +230,6 @@ void generateHUDChessboard() {
   }
 
   gSPEndDisplayList(commands++);
-}
-
-#define ASCII_START_CAPTIALS 65
-#define ASCCI_START_NUMBERS 48
-
-void boardPosToLetter(const Pos2* spot, char* x, char* y) {
-  *x = (char)(spot->x + ASCII_START_CAPTIALS);
-  *y = (char)(spot->y + 1 + ASCCI_START_NUMBERS);
 }
 
 void loadInTextures() {
