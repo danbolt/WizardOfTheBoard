@@ -1,12 +1,27 @@
 
 
 #include "board.h"
-
+#include "pieces.h"
 
 u8 piecesActive[MAX_NUMBER_OF_INGAME_PIECES];
 Pos2 piecePositions[MAX_NUMBER_OF_INGAME_PIECES];
 Vec2 pieceViewPos[MAX_NUMBER_OF_INGAME_PIECES];
+u8 pieceIsLerping[MAX_NUMBER_OF_INGAME_PIECES];
+Vec2 oldPiecePos[MAX_NUMBER_OF_INGAME_PIECES];
+float pieceLerpValue[MAX_NUMBER_OF_INGAME_PIECES];
 PieceInfo pieceData[MAX_NUMBER_OF_INGAME_PIECES];
+
+void initPieceStates() {
+  for (int i = 0; i < MAX_NUMBER_OF_INGAME_PIECES; i++) {
+    piecesActive[i] = 0;
+    pieceIsLerping[i] = 0;
+    piecePositions[i] = (Pos2){ 0, 0 };
+    pieceViewPos[i] = (Vec2){ 0.f, 0.f };
+    pieceData[i].type = ROOK;
+    pieceData[i].renderCommands = rook_commands;
+    pieceData[i].legalCheck = rookLegalMove;
+  }
+}
 
 // copied from:
 // https://gamedev.stackexchange.com/questions/44979/elegant-solution-for-coloring-chess-tiles

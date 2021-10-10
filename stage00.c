@@ -242,6 +242,8 @@ void loadInTextures() {
 }
 
 void initializeStartingPieces() {
+  initPieceStates();
+
   piecesActive[0] = 1;
   piecePositions[0] = (Pos2){3, 4};
   pieceData[0].type = ROOK;
@@ -258,7 +260,6 @@ void initializeStartingPieces() {
     pieceViewPos[i] = (Vec2){ piecePositions[i].x + 0.5f, piecePositions[i].y + 0.5f };
   }
 
-  
 }
 
 /* The initialization of stage 0 */
@@ -269,7 +270,7 @@ void initStage00(void)
   generateHUDChessboard();
   loadInTextures();
 
-  playerPosition = (Vec2){ 0.f, 0.f };
+  playerPosition = (Vec2){ 0.5f, 0.5f };
   playerVelocity = (Vec2){ 0.f, 0.f };
   playerOrientation = 0.f;
   cosCameraRot = 1.f;

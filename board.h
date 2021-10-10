@@ -9,7 +9,12 @@
 extern u8 piecesActive[MAX_NUMBER_OF_INGAME_PIECES];
 extern Pos2 piecePositions[MAX_NUMBER_OF_INGAME_PIECES];
 extern Vec2 pieceViewPos[MAX_NUMBER_OF_INGAME_PIECES];
+extern u8 pieceIsLerping[MAX_NUMBER_OF_INGAME_PIECES];
+extern Vec2 oldPiecePos[MAX_NUMBER_OF_INGAME_PIECES];
+extern float pieceLerpValue[MAX_NUMBER_OF_INGAME_PIECES];
 extern PieceInfo pieceData[MAX_NUMBER_OF_INGAME_PIECES];
+
+void initPieceStates();
 
 int tileIsLight(int x, int y);
 int tileIsDark(int x, int y);
