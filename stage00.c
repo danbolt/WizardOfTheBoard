@@ -513,13 +513,13 @@ void updatePlayerInput() {
   Vec2 step = { 0.f, 0.f };
 
   // Update rotation
-  if(contdata[0].button & L_TRIG) {
+  if((contdata[0].button & L_TRIG) || (contdata[0].stick_x < -7)) {
     playerOrientation += 0.05f;
 
     if (playerOrientation > M_PI) {
       playerOrientation = -M_PI;
     }
-  } else if(contdata[0].button & R_TRIG) {
+  } else if((contdata[0].button & R_TRIG) || (contdata[0].stick_x > 7)) {
     playerOrientation -= 0.05f;
 
     if (playerOrientation < -M_PI) {
@@ -528,6 +528,13 @@ void updatePlayerInput() {
   }
   cosCameraRot = cosf(playerOrientation);
   sinCameraRot = sinf(playerOrientation);
+
+
+  if (contdata[0].stick_y > 7) {
+    step.y = 1.f;
+  } else if (contdata[0].stick_y < -7) {
+    step.y = -1.f;
+  }
 
   // Update position
   if(contdata[0].button & U_JPAD) {
