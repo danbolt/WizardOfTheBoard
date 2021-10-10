@@ -42,6 +42,8 @@ static u8 floorTexture[TMEM_SIZE_BYTES] __attribute__((aligned(8)));
 
 static u8 hudIconsTexture[TMEM_SIZE_BYTES] __attribute__((aligned(8)));
 
+static u8 hudNoiseBackgroundsTextre[TMEM_SIZE_BYTES] __attribute__((aligned(8)));
+
 #define INV_BOARD_WIDTH (1.f / (float)BOARD_WIDTH)
 #define INV_BOARD_HEIGHT (1.f / (float)BOARD_HEIGHT)
 
@@ -62,7 +64,7 @@ void generateFloorTiles() {
 
   gDPSetCombineMode(commands++, G_CC_MODULATEI, G_CC_MODULATEI);
   gDPSetRenderMode(commands++, G_RM_AA_TEX_EDGE, G_RM_AA_TEX_EDGE2);
-  gDPLoadTextureBlock(commands++,  OS_K0_TO_PHYSICAL(floorTexture), G_IM_FMT_I, G_IM_SIZ_8b, 128, 32, 0, G_TX_MIRROR, G_TX_MIRROR, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
+  gDPLoadTextureBlock(commands++,  OS_K0_TO_PHYSICAL(floorTexture), G_IM_FMT_I, G_IM_SIZ_8b, 128, 32, 0, G_TX_NOMIRROR, G_TX_NOMIRROR, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
   gDPPipeSync(commands++);
   gSPTexture(commands++, 0xffff, 0xffff, 0, G_TX_RENDERTILE, G_ON);
 
@@ -156,10 +158,10 @@ void generateWalls() {
 
 
 static Vtx HUDBackgroundVerts[] = {
-  {         0,                    0,  0, 0,  0 << 5,  0 << 5, 0x1d, 0x61, 0x50, 0xff },
-  { SCREEN_WD,                    0,  0, 0, 16 << 5,  0 << 5, 0x1d, 0x61, 0x50, 0xff },
-  { SCREEN_WD, ACTION_SAFE_VERTICAL,  0, 0, 16 << 5, 16 << 5, 0x1d, 0x61, 0x50, 0xff },
-  {         0, ACTION_SAFE_VERTICAL,  0, 0,  0 << 5, 16 << 5, 0x1d, 0x61, 0x50, 0xff },
+  {             ACTION_SAFE_HORIZONTAL,                    0,  0, 0,               ACTION_SAFE_HORIZONTAL << 5,  0 << 5, 0x1d, 0x61, 0x50, 0xff },
+  { SCREEN_WD - ACTION_SAFE_HORIZONTAL,                    0,  0, 0, (SCREEN_WD - ACTION_SAFE_HORIZONTAL) << 5,  0 << 5, 0x1d, 0x61, 0x50, 0xff },
+  { SCREEN_WD - ACTION_SAFE_HORIZONTAL, ACTION_SAFE_VERTICAL,  0, 0, (SCREEN_WD - ACTION_SAFE_HORIZONTAL) << 5, (ACTION_SAFE_VERTICAL) << 5, 0x1d, 0x61, 0x50, 0xff },
+  {             ACTION_SAFE_HORIZONTAL, ACTION_SAFE_VERTICAL,  0, 0,               ACTION_SAFE_HORIZONTAL << 5, (ACTION_SAFE_VERTICAL) << 5, 0x1d, 0x61, 0x50, 0xff },
 
   {                      0,                0,  0, 0,  0 << 5,         0 << 5, 0x1d, 0x61, 0x50, 0xff },
   { ACTION_SAFE_HORIZONTAL,                0,  0, 0, 16 << 5,         0 << 5, 0x1d, 0x61, 0x50, 0xff },
@@ -171,8 +173,8 @@ static Vtx HUDBackgroundVerts[] = {
   { SCREEN_WD                         ,        SCREEN_HT,  0, 0, 16 << 5, SCREEN_HT << 5, 0x1d, 0x61, 0x50, 0xff },
   { SCREEN_WD - ACTION_SAFE_HORIZONTAL,        SCREEN_HT,  0, 0,  0 << 5, SCREEN_HT << 5, 0x1d, 0x61, 0x50, 0xff },
 
-  {         0,   SCREEN_HT - 80,  0, 0,         0 << 5,         0 << 5, 0x1d, 0x61, 0x50, 0xff },
-  { SCREEN_WD,   SCREEN_HT - 80,  0, 0, SCREEN_WD << 5,         0 << 5, 0x1d, 0x61, 0x50, 0xff },
+  {         0,   SCREEN_HT - 80,  0, 0,         0 << 5,         (SCREEN_HT - 80) << 5, 0x1d, 0x61, 0x50, 0xff },
+  { SCREEN_WD,   SCREEN_HT - 80,  0, 0, SCREEN_WD << 5,         (SCREEN_HT - 80) << 5, 0x1d, 0x61, 0x50, 0xff },
   { SCREEN_WD,        SCREEN_HT,  0, 0, SCREEN_WD << 5, SCREEN_HT << 5, 0x1d, 0x61, 0x50, 0xff },
   {         0,        SCREEN_HT,  0, 0,         0 << 5, SCREEN_HT << 5, 0x1d, 0x61, 0x50, 0xff },
 };
@@ -235,6 +237,7 @@ void generateHUDChessboard() {
 void loadInTextures() {
   nuPiReadRom((u32)(_hud_iconsSegmentRomStart), (void*)(hudIconsTexture), TMEM_SIZE_BYTES);
   nuPiReadRom((u32)(_floor_tilesSegmentRomStart), (void*)(floorTexture), TMEM_SIZE_BYTES);
+  nuPiReadRom((u32)(_noise_backgroundsSegmentRomStart), (void*)(hudNoiseBackgroundsTextre), TMEM_SIZE_BYTES);
 }
 
 void initializeStartingPieces() {
@@ -358,15 +361,23 @@ void makeDL00(void)
   gSPMatrix(glistp++,OS_K0_TO_PHYSICAL(&(dynamicp->modelling)), G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH );
 
 
-
+  gDPPipeSync(glistp++);
+  gDPSetCombineMode(glistp++, G_CC_MODULATEI, G_CC_MODULATEI);
+  gDPSetRenderMode(glistp++, G_RM_AA_TEX_EDGE, G_RM_AA_TEX_EDGE2);
+  gDPSetTexturePersp(glistp++, G_TP_NONE);
+  gDPLoadTextureBlock(glistp++,  OS_K0_TO_PHYSICAL(hudNoiseBackgroundsTextre), G_IM_FMT_I, G_IM_SIZ_8b, 256, 16, 0, G_TX_NOMIRROR, G_TX_NOMIRROR, 4, 4, G_TX_NOLOD, G_TX_NOLOD);
+  gSPTexture(glistp++, 0xffff, 0xffff, 0, G_TX_RENDERTILE, G_ON);
   gSPDisplayList(glistp++, OS_K0_TO_PHYSICAL(renderHudBackgroundCommands));
 
-  gSPDisplayList(glistp++, OS_K0_TO_PHYSICAL(onscreenChessboardCommands));
 
+  gDPPipeSync(glistp++);
+  gDPSetCombineMode(glistp++, G_CC_SHADE, G_CC_SHADE);
+  gDPSetRenderMode(glistp++, G_RM_OPA_SURF, G_RM_OPA_SURF2);
+  gSPTexture(glistp++, 0xffff, 0xffff, 0, G_TX_RENDERTILE, G_OFF);
+  gSPDisplayList(glistp++, OS_K0_TO_PHYSICAL(onscreenChessboardCommands));
   
   gDPSetCombineMode(glistp++, G_CC_MODULATEIDECALA_PRIM, G_CC_MODULATEIDECALA_PRIM);
   gDPSetRenderMode(glistp++, G_RM_AA_TEX_EDGE, G_RM_AA_TEX_EDGE2);
-  gDPSetTexturePersp(glistp++, G_TP_NONE);
   gDPLoadTextureBlock(glistp++, OS_K0_TO_PHYSICAL(hudIconsTexture), G_IM_FMT_IA, G_IM_SIZ_8b, 256, 16, 0, G_TX_NOMIRROR, G_TX_NOMIRROR, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
   gDPPipeSync(glistp++);
   gSPTexture(glistp++, 0xffff, 0xffff, 0, G_TX_RENDERTILE, G_ON);

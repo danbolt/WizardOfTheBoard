@@ -102,6 +102,12 @@ SECTIONS
       sprites/floor_tiles.bino(.data);
    }
    END_SEG(floor_tiles)
+
+   BEGIN_SEG(noise_backgrounds, __romPos)
+   {
+      sprites/noise_backgrounds.bino(.data);
+   }
+   END_SEG(noise_backgrounds)
    
    /* Discard everything not specifically mentioned above. */
    /DISCARD/ :

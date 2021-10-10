@@ -56,7 +56,7 @@ CODESEGMENT =	codesegment.o
 
 OBJECTS =	$(ASMOBJECTS) $(BOOT_OBJ) $(CODESEGMENT) $(DATAOBJECTS)
 
-RAWDATAOBJ = sprites/hud_icons.bino sprites/floor_tiles.bino
+RAWDATAOBJ = sprites/hud_icons.bino sprites/floor_tiles.bino sprites/noise_backgrounds.bino
 
 default:        $(TARGETS)
 
