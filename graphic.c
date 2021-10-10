@@ -3,8 +3,8 @@
 #include <nusys.h>
 #include "graphic.h"
 
-Gfx          gfx_glist[2][GFX_GLIST_LEN];
-Dynamic      gfx_dynamic[2];
+Gfx          gfx_glist[BUFFER_COUNT][GFX_GLIST_LEN];
+Dynamic      gfx_dynamic[BUFFER_COUNT];
 Gfx*         glistp;
 u32          gfx_gtask_no = 0;
 

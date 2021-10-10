@@ -460,7 +460,7 @@ void makeDL00(void)
   nuDebConDisp(NU_SC_SWAPBUFFER);
 
   /* Switch display list buffers */
-  gfx_gtask_no ^= 1;
+  gfx_gtask_no = (gfx_gtask_no + 1) % BUFFER_COUNT;
 }
 
 // TODO: Make this delta-dependent

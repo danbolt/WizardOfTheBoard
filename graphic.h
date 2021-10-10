@@ -5,6 +5,8 @@
 
 #include "constants.h"
 
+#define BUFFER_COUNT 3
+
 /* The screen size  */
 #define SCREEN_HT        240
 #define SCREEN_WD        320
