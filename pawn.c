@@ -1,8 +1,35 @@
 
 #include "pieces.h"
 
-int pawnLegalMove(u32 ourIndex, const Pos2* desiredSpot, const u8* piecesActive, const Pos2* piecePositions) {
-  return 0;
+#include "constants.h"
+
+void pawnLegalMove(u32 ourIndex, const u8* piecesActive, const Pos2* piecePositions, u8* legalSpots) {
+  const Pos2* ourPosition = &(piecePositions[ourIndex]);
+
+  // If our pawn is at the end of the board, we aren't going to be able to move it
+  if (ourPosition->y >= (BOARD_HEIGHT - 1)) {
+    return;
+  }
+
+
+  const Pos2 desiredSpot = { ourPosition->x, ourPosition->y + 1 };
+  for (int i = 0; i < MAX_NUMBER_OF_INGAME_PIECES; i++) {
+    if (i == ourIndex) {
+      continue;
+    }
+
+    if (!(piecesActive[i])) {
+      continue;
+    }
+
+    // If our desired spot matches a piece, it's occupied and we can't move forward
+    if ((piecePositions[i].x == desiredSpot.x) && (piecePositions[i].y == desiredSpot.y)) {
+      return;
+    }
+  }
+
+  // If we've made it this far, then we can mark our desired spot as legal
+  legalSpots[desiredSpot.x + (desiredSpot.y * BOARD_WIDTH)] = 1;
 }
 
 Vtx pawn_verts[] = {

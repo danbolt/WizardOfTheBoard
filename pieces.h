@@ -8,11 +8,11 @@
 
 extern Vtx pawn_verts[];
 extern Gfx pawn_commands[];
-int pawnLegalMove(u32 ourIndex, const Pos2* desiredSpot, const u8* piecesActive, const Pos2* piecePositions);
+void pawnLegalMove(u32 ourIndex, const u8* piecesActive, const Pos2* piecePositions, u8* legalSpots);
 
 extern Vtx rook_verts[];
 extern Gfx rook_commands[];
-int rookLegalMove(u32 ourIndex, const Pos2* desiredSpot, const u8* piecesActive, const Pos2* piecePositions);
+void rookLegalMove(u32 ourIndex, const u8* piecesActive, const Pos2* piecePositions, u8* legalSpots);
 
 typedef enum {
 	PAWN = 0,
@@ -23,7 +23,7 @@ typedef enum {
 	KING = 5,
 } PieceType;
 
-typedef int (*LegalMoveCheck)(u32 ourIndex, const Pos2* desiredSpot, const u8* piecesActive, const Pos2* piecePositions);
+typedef void (*LegalMoveCheck)(u32 ourIndex, const u8* piecesActive, const Pos2* piecePositions, u8* legalSpots);
 
 typedef struct {
 	PieceType type;

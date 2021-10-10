@@ -217,7 +217,7 @@ void initializeStartingPieces() {
   pieceData[0].legalCheck = pawnLegalMove;
 
   piecesActive[1] = 1;
-  piecePositions[1] = (Pos2){0, 1};
+  piecePositions[1] = (Pos2){0, 4};
   pieceData[1].type = ROOK;
   pieceData[1].renderCommands = rook_commands;
   pieceData[1].legalCheck = rookLegalMove;
@@ -494,9 +494,9 @@ void updateBoardControlInput() {
         selectedPiece = pieceAtCursorSpot;
 
         for (int i = 0; i < NUMBER_OF_BOARD_CELLS; i++) {
-          const Pos2 spot = { i % BOARD_WIDTH, i / BOARD_WIDTH };
-          legalDestinationState[i] = pieceData[selectedPiece].legalCheck(selectedPiece, &spot, piecesActive, piecePositions);
+          legalDestinationState[i] = 0;
         }
+        pieceData[selectedPiece].legalCheck(selectedPiece, piecesActive, piecePositions, legalDestinationState);
       }
     }
   } else if (boardControlState == BOARD_CONTROL_PIECE_SELECTED) {
