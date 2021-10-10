@@ -595,8 +595,11 @@ void updateBoardControlInput() {
       }
 
       if (isSelectedSpotValid) {
+        oldPiecePos[selectedPiece] = (Vec2){ piecePositions[selectedPiece].x + 0.5f, piecePositions[selectedPiece].y + 0.5f };
+
         piecePositions[selectedPiece] = chessboardSpotHighlighted;
-        pieceViewPos[selectedPiece] = (Vec2){ piecePositions[selectedPiece].x + 0.5f, piecePositions[selectedPiece].y + 0.5f };
+        pieceIsLerping[selectedPiece] = 1;
+        pieceLerpValue[selectedPiece] = 0.f;
 
         // TODO: play a "complete" sound
       } else {
@@ -605,6 +608,31 @@ void updateBoardControlInput() {
 
       selectedPiece = -1;
       boardControlState = BOARD_CONTROL_NO_SELECTED;
+    }
+  }
+}
+
+void updateMovingPieces() {
+  for (int i = 0; i < MAX_NUMBER_OF_INGAME_PIECES; i++) {
+    if (!(piecesActive[i])) {
+      continue;
+    }
+
+    if (!(pieceIsLerping[i])) {
+      continue;
+    }
+
+    pieceLerpValue[i] += 0.05f;
+
+    if (pieceLerpValue[i] >= 1.f) {
+      pieceLerpValue[i] = 0.f;
+      pieceIsLerping[i] = 0;
+
+      pieceViewPos[i] = (Vec2){ piecePositions[i].x + 0.5f, piecePositions[i].y + 0.5f };
+    } else {
+
+      //
+      pieceViewPos[i] = (Vec2){ lerp(oldPiecePos[i].x, piecePositions[i].x + 0.5f, pieceLerpValue[i]), lerp(oldPiecePos[i].y, piecePositions[i].y + 0.5f, pieceLerpValue[i]) };
     }
   }
 }
@@ -619,4 +647,6 @@ void updateGame00(void)
   updateBoardControlInput();
 
   updateMovement();
+
+  updateMovingPieces();
 }

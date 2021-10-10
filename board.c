@@ -17,6 +17,7 @@ void initPieceStates() {
     pieceIsLerping[i] = 0;
     piecePositions[i] = (Pos2){ 0, 0 };
     pieceViewPos[i] = (Vec2){ 0.f, 0.f };
+    pieceLerpValue[i] = 0.f;
     pieceData[i].type = ROOK;
     pieceData[i].renderCommands = rook_commands;
     pieceData[i].legalCheck = rookLegalMove;

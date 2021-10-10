@@ -12,6 +12,7 @@ typedef struct {
 	int y;
 } Pos2;
 
+float lerp(float a, float b, float f);
 
 float clamp(float x, float min, float max);
 
