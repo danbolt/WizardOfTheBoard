@@ -44,7 +44,7 @@ BOOT		= /usr/lib/n64/PR/bootcode/boot.6102
 
 BOOT_OBJ	= boot.6102.o
 
-CODEFILES   = 	main.c stage00.c graphic.c gfxinit.c gamemath.c pieces.c pawn.c rook.c board.c
+CODEFILES   = 	main.c stage00.c graphic.c gfxinit.c gamemath.c pieces.c pawn.c rook.c board.c cursor.c
 
 CODEOBJECTS =	$(CODEFILES:.c=.o)  $(NUSYSLIBDIR)/nusys_rom.o
 

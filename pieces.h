@@ -6,6 +6,10 @@
 
 #include "gamemath.h"
 
+// Not technically a piece but a nice spot for now
+extern Vtx cursor_verts[];
+extern Gfx cursor_commands[];
+
 extern Vtx pawn_verts[];
 extern Gfx pawn_commands[];
 void pawnLegalMove(u32 ourIndex, const u8* piecesActive, const Pos2* piecePositions, u8* legalSpots);

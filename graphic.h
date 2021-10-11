@@ -7,6 +7,8 @@
 
 #define BUFFER_COUNT 3
 
+#define BLENDER_EXPORT_MODEL_SCALE 0.005f
+
 /* The screen size  */
 #define SCREEN_HT        240
 #define SCREEN_WD        320
@@ -43,6 +45,8 @@ typedef struct {
   Mtx camera;
 
   Mtx blenderExportScale;
+
+  Mtx cursorTransform;
 
   Mtx pieceTransforms[MAX_NUMBER_OF_INGAME_PIECES];
 

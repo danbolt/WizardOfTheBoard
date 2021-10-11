@@ -98,7 +98,7 @@ void generateFloorTiles() {
   gSPEndDisplayList(commands++);
 }
 
-#define WALL_HEIGHT 4
+#define WALL_HEIGHT 1
 
 // TODO: let us customize/randomize the textures for this on init time
 void generateWalls() {
@@ -319,12 +319,14 @@ void makeDL00(void)
   // This is used for `gSPPerspNormalize` 
   u16 perspectiveNorm = 0;
 
-  guScale(&dynamicp->blenderExportScale, 0.005f, 0.005f, 0.005f);
+  guScale(&dynamicp->blenderExportScale, BLENDER_EXPORT_MODEL_SCALE, BLENDER_EXPORT_MODEL_SCALE, BLENDER_EXPORT_MODEL_SCALE);
 
   guOrtho(&dynamicp->ortho, 0.f, SCREEN_WD, SCREEN_HT, 0.f, 1.0F, 10.0F, 1.0F);
   guPerspective(&dynamicp->projection, &perspectiveNorm, ingameFOV, ((float)SCREEN_WD)/((float)SCREEN_HT), 0.3f, 100.f, 1.f);
   guLookAt(&dynamicp->camera, playerPosition.x, playerPosition.y, PLAYER_HEIGHT_ABOVE_GROUND, playerPosition.x - sinCameraRot, playerPosition.y + cosCameraRot, PLAYER_HEIGHT_ABOVE_GROUND, 0.f, 0.f, 1.f);
   guMtxIdent(&dynamicp->modelling);
+
+  guTranslate(&dynamicp->cursorTransform, chessboardSpotHighlighted.x + 0.5f, chessboardSpotHighlighted.y + 0.5f, 0.f);
 
   gSPMatrix(glistp++,OS_K0_TO_PHYSICAL(&(dynamicp->projection)), G_MTX_PROJECTION | G_MTX_LOAD | G_MTX_NOPUSH);
   gSPMatrix(glistp++,OS_K0_TO_PHYSICAL(&(dynamicp->camera)), G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH );
@@ -362,6 +364,13 @@ void makeDL00(void)
 
     gSPPopMatrix(glistp++, G_MTX_MODELVIEW);
   }
+
+
+  // Draw the cursor
+  gSPMatrix(glistp++, OS_K0_TO_PHYSICAL(&(dynamicp->cursorTransform)), G_MTX_MODELVIEW | G_MTX_MUL | G_MTX_PUSH);
+  gSPMatrix(glistp++, OS_K0_TO_PHYSICAL(&dynamicp->blenderExportScale), G_MTX_MODELVIEW | G_MTX_MUL | G_MTX_NOPUSH);
+  gSPDisplayList(glistp++, OS_K0_TO_PHYSICAL(&(cursor_commands)));
+  gSPPopMatrix(glistp++, G_MTX_MODELVIEW);
 
   gSPClearGeometryMode(glistp++, G_ZBUFFER);
   gDPPipeSync(glistp++);
