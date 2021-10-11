@@ -45,6 +45,8 @@ static u8 hudIconsTexture[TMEM_SIZE_BYTES] __attribute__((aligned(8)));
 
 static u8 hudNoiseBackgroundsTextre[TMEM_SIZE_BYTES] __attribute__((aligned(8)));
 
+static u8 displayTextTexture[TMEM_SIZE_BYTES] __attribute__((aligned(8)));
+
 #define INV_BOARD_WIDTH (1.f / (float)BOARD_WIDTH)
 #define INV_BOARD_HEIGHT (1.f / (float)BOARD_HEIGHT)
 
@@ -246,6 +248,7 @@ void loadInTextures() {
   nuPiReadRom((u32)(_hud_iconsSegmentRomStart), (void*)(hudIconsTexture), TMEM_SIZE_BYTES);
   nuPiReadRom((u32)(_floor_tilesSegmentRomStart), (void*)(floorTexture), TMEM_SIZE_BYTES);
   nuPiReadRom((u32)(_noise_backgroundsSegmentRomStart), (void*)(hudNoiseBackgroundsTextre), TMEM_SIZE_BYTES);
+  nuPiReadRom((u32)(_display_textSegmentRomStart), (void*)(displayTextTexture), TMEM_SIZE_BYTES);
 }
 
 void initializeStartingPieces() {
@@ -298,7 +301,29 @@ void initStage00(void)
   initializeStartingPieces();
 }
 
+#define DISPLAY_FONT_LETTER_WIDTH 13
+#define DISPLAY_FONT_LETTER_HEIGHT 16
+void renderDisplayText(int x, int y, const char* text) {
+  int advance = x;
 
+  gDPSetPrimColor(glistp++, 0, 0, 0xff, 0xff, 0xff, 0xff);
+  for (int i = 0; text[i] != '\0'; i++) {
+
+    const char letter = text[i];
+    u32 s = 0;
+    if ((letter >= 65) && (letter <= 89)) {
+      s = ((letter - 65) + 2) * DISPLAY_FONT_LETTER_WIDTH;
+    } else if ((letter >= 48) && (letter <= 57)) {
+      s = (((letter - 48)) * DISPLAY_FONT_LETTER_WIDTH) + 364;
+    }
+    gSPTextureRectangle(glistp++, (advance) << 2, (y) << 2, (advance + DISPLAY_FONT_LETTER_WIDTH) << 2, (y + DISPLAY_FONT_LETTER_HEIGHT) << 2, 0, s << 5, 0 << 5, 1 << 10, 1 << 10);
+    advance += DISPLAY_FONT_LETTER_WIDTH;
+
+    if (letter == 'I') {
+      advance -= 6;
+    } 
+  }
+}
 
 /* Make the display list and activate the task */
 void makeDL00(void)
@@ -462,14 +487,15 @@ void makeDL00(void)
   {
     const u32 highightedSpotX = HUD_CHESSBOARD_X + (chessboardSpotHighlighted.x * HUD_CELL_WIDTH);
     const u32 highightedSpotY = (HUD_CHESSBOARD_Y + ((BOARD_HEIGHT - 1 - chessboardSpotHighlighted.y) * HUD_CELL_HEIGHT)) - ((16 - HUD_CELL_HEIGHT) / 2);
-
-    if (boardControlState == BOARD_CONTROL_NO_SELECTED) {
-      gDPSetPrimColor(glistp++, 0, 0, N64_C_BUTTONS_RED, N64_C_BUTTONS_GREEN, N64_C_BUTTONS_BLUE, 0xff);
-    } else {
-      gDPSetPrimColor(glistp++, 0, 0, N64_A_BUTTON_RED, N64_A_BUTTON_GREEN, N64_A_BUTTON_BLUE, 0xff);
-    }
+    
+    gDPSetPrimColor(glistp++, 0, 0, N64_C_BUTTONS_RED, N64_C_BUTTONS_GREEN, N64_C_BUTTONS_BLUE, 0xff);
     gSPTextureRectangle(glistp++, (highightedSpotX) << 2, (highightedSpotY) << 2, (highightedSpotX + 16) << 2, (highightedSpotY + 16) << 2, 0,  176 << 5, 0 << 5, 1 << 10, 1 << 10);
   }
+
+  char cursorSpotString[] = { '\0', '\0', '\0'};
+  boardPosToLetter(&chessboardSpotHighlighted, &(cursorSpotString[0]), &(cursorSpotString[1]));
+  gDPLoadTextureBlock_4b(glistp++, OS_K0_TO_PHYSICAL(displayTextTexture), G_IM_FMT_IA, 512, 16, 0, G_TX_NOMIRROR, G_TX_NOMIRROR, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
+  renderDisplayText(HUD_CHESSBOARD_X - (27), HUD_CHESSBOARD_Y + 18, cursorSpotString);
 
 
   gDPFullSync(glistp++);
@@ -481,23 +507,9 @@ void makeDL00(void)
 
   if(contPattern & 0x1)
     {
-      char x = 0;
-      char y = 0;
-      boardPosToLetter(&chessboardSpotHighlighted, &x, &y);
-
       /* Change character representation positions */
       nuDebConTextPos(0,4,4);
-      sprintf(conbuf,"%c, %c", x, y);
-      nuDebConCPuts(0, conbuf);
-
-      /* Change character representation positions */
-      nuDebConTextPos(0,2,20);
-      sprintf(conbuf,"DL: %03d,%03d", (glistp - gfx_glist[gfx_gtask_no]), GFX_GLIST_LEN);
-      nuDebConCPuts(0, conbuf);
-
-      /* Change character representation positions */
-      nuDebConTextPos(0,2,24);
-      sprintf(conbuf,"bstate: %u", boardControlState);
+      sprintf(conbuf,"DL: %04d/%04d", (glistp - gfx_glist[gfx_gtask_no]), GFX_GLIST_LEN);
       nuDebConCPuts(0, conbuf);
     }
   else

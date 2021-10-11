@@ -108,6 +108,12 @@ SECTIONS
       sprites/noise_backgrounds.bino(.data);
    }
    END_SEG(noise_backgrounds)
+
+   BEGIN_SEG(display_text, __romPos)
+   {
+      sprites/display_text.bino(.data);
+   }
+   END_SEG(display_text)
    
    /* Discard everything not specifically mentioned above. */
    /DISCARD/ :

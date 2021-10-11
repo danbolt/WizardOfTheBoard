@@ -19,5 +19,9 @@ extern u8 _floor_tilesSegmentRomStart[];
 extern u8 _floor_tilesSegmentRomEnd[];
 extern u8 _noise_backgroundsSegmentRomStart[];
 extern u8 _noise_backgroundsSegmentRomEnd[];
+extern u8 _display_textSegmentRomStart[];
+extern u8 _display_textSegmentRomEnd[];
+
+
 
 #endif /* SEGMENTINFO_H */
