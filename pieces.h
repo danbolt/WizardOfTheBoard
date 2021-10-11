@@ -34,6 +34,7 @@ typedef struct {
 	LegalMoveCheck legalCheck;
 
 	Gfx* renderCommands;
+	const char* displayName;
 } PieceInfo;
 
 #endif

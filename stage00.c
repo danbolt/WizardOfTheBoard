@@ -59,6 +59,8 @@ static Gfx floorDL[(NUMBER_OF_BOARD_CELLS * 2) + COMMANDS_END_DL_SIZE];
 static Vtx wallVerts[((BOARD_WIDTH * 2) + (BOARD_HEIGHT * 2)) * VERTS_PER_FLOOR_TILE];
 static Gfx wallDL[(BOARD_WIDTH * 2) + (BOARD_HEIGHT * 2) + 4 + COMMANDS_END_DL_SIZE];
 
+const char* highlightedPieceText;
+
 // TODO: let us customize/randomize the textures for this on init time
 void generateFloorTiles() {
   Gfx* commands = floorDL;
@@ -256,9 +258,10 @@ void initializeStartingPieces() {
 
   piecesActive[0] = 1;
   piecePositions[0] = (Pos2){3, 4};
-  pieceData[0].type = ROOK;
-  pieceData[0].renderCommands = rook_commands;
-  pieceData[0].legalCheck = rookLegalMove;
+  pieceData[0].type = PAWN;
+  pieceData[0].renderCommands = pawn_commands;
+  pieceData[0].legalCheck = pawnLegalMove;
+  pieceData[0].displayName = "PAWN";
   pieceViewPos[0] = (Vec2){ piecePositions[0].x + 0.5f, piecePositions[0].y + 0.5f };
 
   for (int i = 1; i < MAX_NUMBER_OF_INGAME_PIECES; i++) {
@@ -267,6 +270,7 @@ void initializeStartingPieces() {
     pieceData[i].type = ROOK;
     pieceData[i].renderCommands = rook_commands;
     pieceData[i].legalCheck = rookLegalMove;
+    pieceData[i].displayName = "ROOK";
     pieceViewPos[i] = (Vec2){ piecePositions[i].x + 0.5f, piecePositions[i].y + 0.5f };
   }
 
@@ -279,6 +283,8 @@ void initStage00(void)
   generateWalls();
   generateHUDChessboard();
   loadInTextures();
+
+  highlightedPieceText = "";
 
   playerPosition = (Vec2){ 0.5f, 0.5f };
   playerVelocity = (Vec2){ 0.f, 0.f };
@@ -305,8 +311,6 @@ void initStage00(void)
 #define DISPLAY_FONT_LETTER_HEIGHT 16
 void renderDisplayText(int x, int y, const char* text) {
   int advance = x;
-
-  gDPSetPrimColor(glistp++, 0, 0, 0xff, 0xff, 0xff, 0xff);
   for (int i = 0; text[i] != '\0'; i++) {
 
     const char letter = text[i];
@@ -321,7 +325,9 @@ void renderDisplayText(int x, int y, const char* text) {
 
     if (letter == 'I') {
       advance -= 6;
-    } 
+    } else if (s == 0) {
+      advance -= 8;
+    }
   }
 }
 
@@ -487,16 +493,20 @@ void makeDL00(void)
   {
     const u32 highightedSpotX = HUD_CHESSBOARD_X + (chessboardSpotHighlighted.x * HUD_CELL_WIDTH);
     const u32 highightedSpotY = (HUD_CHESSBOARD_Y + ((BOARD_HEIGHT - 1 - chessboardSpotHighlighted.y) * HUD_CELL_HEIGHT)) - ((16 - HUD_CELL_HEIGHT) / 2);
-    
+
     gDPSetPrimColor(glistp++, 0, 0, N64_C_BUTTONS_RED, N64_C_BUTTONS_GREEN, N64_C_BUTTONS_BLUE, 0xff);
     gSPTextureRectangle(glistp++, (highightedSpotX) << 2, (highightedSpotY) << 2, (highightedSpotX + 16) << 2, (highightedSpotY + 16) << 2, 0,  176 << 5, 0 << 5, 1 << 10, 1 << 10);
   }
 
+  gDPLoadTextureBlock_4b(glistp++, OS_K0_TO_PHYSICAL(displayTextTexture), G_IM_FMT_IA, 512, 16, 0, G_TX_NOMIRROR, G_TX_NOMIRROR, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
+  
   char cursorSpotString[] = { '\0', '\0', '\0'};
   boardPosToLetter(&chessboardSpotHighlighted, &(cursorSpotString[0]), &(cursorSpotString[1]));
-  gDPLoadTextureBlock_4b(glistp++, OS_K0_TO_PHYSICAL(displayTextTexture), G_IM_FMT_IA, 512, 16, 0, G_TX_NOMIRROR, G_TX_NOMIRROR, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
+  gDPSetPrimColor(glistp++, 0, 0, N64_C_BUTTONS_RED, N64_C_BUTTONS_GREEN, N64_C_BUTTONS_BLUE, 0xff);
   renderDisplayText(HUD_CHESSBOARD_X - (27), HUD_CHESSBOARD_Y + 18, cursorSpotString);
 
+  gDPSetPrimColor(glistp++, 0, 0, 0xff, 0xff, 0xff, 0xff);
+  renderDisplayText(HUD_CHESSBOARD_X - (12 * 8), HUD_CHESSBOARD_Y + 18 + 16, highlightedPieceText);
 
   gDPFullSync(glistp++);
   gSPEndDisplayList(glistp++);
@@ -695,4 +705,13 @@ void updateGame00(void)
   updateMovement();
 
   updateMovingPieces();
+
+  if (boardControlState == BOARD_CONTROL_NO_SELECTED) {
+    const int pieceAtCursorSpot = isSpaceOccupied(chessboardSpotHighlighted.x, chessboardSpotHighlighted.y);
+    if (pieceAtCursorSpot > -1) {
+      highlightedPieceText = pieceData[pieceAtCursorSpot].displayName;
+    } else {
+      highlightedPieceText = "";
+    }
+  }
 }

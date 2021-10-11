@@ -21,6 +21,7 @@ void initPieceStates() {
     pieceData[i].type = ROOK;
     pieceData[i].renderCommands = rook_commands;
     pieceData[i].legalCheck = rookLegalMove;
+    pieceData[i].displayName = "";
   }
 }
 
