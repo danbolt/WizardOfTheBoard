@@ -19,12 +19,17 @@
 #define PLAYER_HEIGHT_ABOVE_GROUND 0.34f
 #define PLAYER_WALK_SPEED 0.05f
 
+#define PLAYER_MAX_HEALTH 5
+#define INV_MAX_HEALTH (1.f / PLAYER_MAX_HEALTH)
+
 static Vec2 playerPosition;
 static Vec2 playerVelocity;
 static float playerOrientation;
 static float cosCameraRot;
 static float sinCameraRot;
 
+static int playerHealth;
+static float playerHealthDisplay;
 
 #define BOARD_CONTROL_NO_SELECTED 0
 #define BOARD_CONTROL_PIECE_SELECTED 1
@@ -292,6 +297,9 @@ void initStage00(void)
   cosCameraRot = 1.f;
   sinCameraRot = 0.f;
 
+  playerHealth = PLAYER_MAX_HEALTH;
+  playerHealthDisplay = (float)PLAYER_MAX_HEALTH;
+
   chessboardSpotHighlighted = (Pos2){ 2, 2 };
   for (int i = 0; i < NUMBER_OF_BOARD_CELLS; i++) {
     legalDestinationState[i] = 0;
@@ -508,6 +516,15 @@ void makeDL00(void)
   gDPSetPrimColor(glistp++, 0, 0, 0xff, 0xff, 0xff, 0xff);
   renderDisplayText(HUD_CHESSBOARD_X - (12 * 8), HUD_CHESSBOARD_Y + 18 + 16, highlightedPieceText);
 
+  gDPSetCycleType(glistp++, G_CYC_FILL);
+  gDPSetFillColor(glistp++, GPACK_RGBA5551(0x21,0,0,1) << 16 | GPACK_RGBA5551(0x21,0,0,1));
+  gDPFillRectangle(glistp++, (HUD_CHESSBOARD_X - 72), (SCREEN_HT - TITLE_SAFE_VERTICAL - 16), (HUD_CHESSBOARD_X - 6), (SCREEN_HT - TITLE_SAFE_VERTICAL));
+  gDPSetFillColor(glistp++, GPACK_RGBA5551(0x33,0xc0,0x22,1) << 16 | GPACK_RGBA5551(0x33,0xc0,0x22,1));
+  gDPFillRectangle(glistp++, (HUD_CHESSBOARD_X - 72), (SCREEN_HT - TITLE_SAFE_VERTICAL - 16), ((HUD_CHESSBOARD_X - 6) * MAX(0, playerHealthDisplay * INV_MAX_HEALTH)), (SCREEN_HT - TITLE_SAFE_VERTICAL));
+
+  gDPSetCycleType(glistp++, G_CYC_1CYCLE);
+  renderDisplayText((HUD_CHESSBOARD_X - 72) + 2, (SCREEN_HT - TITLE_SAFE_VERTICAL - 16) - 4, "LIFE");
+
   gDPFullSync(glistp++);
   gSPEndDisplayList(glistp++);
 
@@ -701,9 +718,23 @@ void updateMovingPieces() {
   }
 }
 
+void updateHUDInformation() {
+  // Update the text for the selected piece
+  if (boardControlState == BOARD_CONTROL_NO_SELECTED) {
+    const int pieceAtCursorSpot = isSpaceOccupied(chessboardSpotHighlighted.x, chessboardSpotHighlighted.y);
+    if (pieceAtCursorSpot > -1) {
+      highlightedPieceText = pieceData[pieceAtCursorSpot].displayName;
+    } else {
+      highlightedPieceText = "";
+    }
+  }
+
+  // Lerp the player's healthbar to their health;
+  playerHealthDisplay = lerp(playerHealthDisplay, playerHealth, 0.13f);
+}
+
 void updateGame00(void)
-{ 
-  /* Data reading of controller 1 */
+{
   nuContDataGetEx(contdata,0);
 
   
@@ -714,12 +745,5 @@ void updateGame00(void)
 
   updateMovingPieces();
 
-  if (boardControlState == BOARD_CONTROL_NO_SELECTED) {
-    const int pieceAtCursorSpot = isSpaceOccupied(chessboardSpotHighlighted.x, chessboardSpotHighlighted.y);
-    if (pieceAtCursorSpot > -1) {
-      highlightedPieceText = pieceData[pieceAtCursorSpot].displayName;
-    } else {
-      highlightedPieceText = "";
-    }
-  }
+  updateHUDInformation();
 }
