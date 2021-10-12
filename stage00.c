@@ -328,7 +328,7 @@ void renderDisplayText(int x, int y, const char* text) {
     } else if ((letter >= 48) && (letter <= 57)) {
       s = (((letter - 48)) * DISPLAY_FONT_LETTER_WIDTH) + 364;
     }
-    gSPTextureRectangle(glistp++, (advance) << 2, (y) << 2, (advance + DISPLAY_FONT_LETTER_WIDTH) << 2, (y + DISPLAY_FONT_LETTER_HEIGHT) << 2, 0, s << 5, 0 << 5, 1 << 10, 1 << 10);
+    gSPTextureRectangle(glistp++, (advance) << 2, (y) << 2, (advance + DISPLAY_FONT_LETTER_WIDTH) << 2, (y + DISPLAY_FONT_LETTER_HEIGHT - 1) << 2, 0, s << 5, 0 << 5, 1 << 10, 1 << 10);
     advance += DISPLAY_FONT_LETTER_WIDTH;
 
     if (letter == 'I') {
@@ -516,12 +516,14 @@ void makeDL00(void)
   gDPSetPrimColor(glistp++, 0, 0, 0xff, 0xff, 0xff, 0xff);
   renderDisplayText(HUD_CHESSBOARD_X - (12 * 8), HUD_CHESSBOARD_Y + 18 + 16, highlightedPieceText);
 
+  gDPPipeSync(glistp++);
   gDPSetCycleType(glistp++, G_CYC_FILL);
   gDPSetFillColor(glistp++, GPACK_RGBA5551(0x21,0,0,1) << 16 | GPACK_RGBA5551(0x21,0,0,1));
   gDPFillRectangle(glistp++, (HUD_CHESSBOARD_X - 72), (SCREEN_HT - TITLE_SAFE_VERTICAL - 16), (HUD_CHESSBOARD_X - 6), (SCREEN_HT - TITLE_SAFE_VERTICAL));
   gDPSetFillColor(glistp++, GPACK_RGBA5551(0x33,0xc0,0x22,1) << 16 | GPACK_RGBA5551(0x33,0xc0,0x22,1));
   gDPFillRectangle(glistp++, (HUD_CHESSBOARD_X - 72), (SCREEN_HT - TITLE_SAFE_VERTICAL - 16), ((HUD_CHESSBOARD_X - 6) * MAX(0, playerHealthDisplay * INV_MAX_HEALTH)), (SCREEN_HT - TITLE_SAFE_VERTICAL));
 
+  gDPPipeSync(glistp++);
   gDPSetCycleType(glistp++, G_CYC_1CYCLE);
   renderDisplayText((HUD_CHESSBOARD_X - 72) + 2, (SCREEN_HT - TITLE_SAFE_VERTICAL - 16) - 4, "LIFE");
 
