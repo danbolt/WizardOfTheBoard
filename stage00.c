@@ -25,11 +25,13 @@
 static Vec2 playerPosition;
 static Vec2 playerVelocity;
 static float playerOrientation;
+static int playerHealth;
+static u8 isKnockingBack;
+
+static float playerHealthDisplay;
+
 static float cosCameraRot;
 static float sinCameraRot;
-
-static int playerHealth;
-static float playerHealthDisplay;
 
 #define BOARD_CONTROL_NO_SELECTED 0
 #define BOARD_CONTROL_PIECE_SELECTED 1
@@ -294,6 +296,8 @@ void initStage00(void)
   playerPosition = (Vec2){ 0.5f, 0.5f };
   playerVelocity = (Vec2){ 0.f, 0.f };
   playerOrientation = 0.f;
+  isKnockingBack = 0;
+
   cosCameraRot = 1.f;
   sinCameraRot = 0.f;
 
@@ -540,6 +544,11 @@ void makeDL00(void)
       nuDebConTextPos(0,4,4);
       sprintf(conbuf,"DL: %04d/%04d", (glistp - gfx_glist[gfx_gtask_no]), GFX_GLIST_LEN);
       nuDebConCPuts(0, conbuf);
+
+      
+      nuDebConTextPos(0,4,5);
+      sprintf(conbuf,"delta: %3.5f", deltaTimeSeconds);
+      nuDebConCPuts(0, conbuf);
     }
   else
     {
@@ -735,6 +744,10 @@ void updateHUDInformation() {
   playerHealthDisplay = lerp(playerHealthDisplay, playerHealth, 0.13f);
 }
 
+void checkCollisionWithPieces() {
+  //
+}
+
 void updateGame00(void)
 {
   nuContDataGetEx(contdata,0);
@@ -746,6 +759,8 @@ void updateGame00(void)
   updateMovement();
 
   updateMovingPieces();
+
+  checkCollisionWithPieces();
 
   updateHUDInformation();
 }

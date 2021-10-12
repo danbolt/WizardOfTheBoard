@@ -23,11 +23,24 @@ void updateGame00(void);
 NUContData	contdata[1]; /* Read data of 1 controller  */
 u8 contPattern;		     /* The pattern connected to the controller  */
 
-float ingameFOV;
+OSTime time = 0;
+OSTime delta = 0;
+float deltaTimeSeconds;
 
+float ingameFOV;
 
 void initalizeGameData() {
   ingameFOV = 70.f;
+
+  time = OS_CYCLES_TO_USEC(osGetTime());
+  updateTime();
+}
+
+void updateTime() {
+  OSTime newTime = OS_CYCLES_TO_USEC(osGetTime());
+  delta = newTime - time;
+  time = newTime;
+  deltaTimeSeconds = delta * 0.000001f;
 }
 
 void setAudioData(void)
@@ -72,6 +85,8 @@ void mainproc(void)
 -----------------------------------------------------------------------------*/
 void stage00(int pendingGfx)
 {
+  updateTime();
+
   /* Provide the display process if 2 or less RCP tasks are processing or
 	waiting for the process.  */
   if(pendingGfx < 3)
