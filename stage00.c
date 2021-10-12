@@ -5,6 +5,7 @@
 #include "main.h"
 #include "gamemath.h"
 #include "graphic.h"
+#include "monsters.h"
 #include "tracknumbers.h"
 #include "segmentinfo.h"
 #include "board.h"
@@ -31,6 +32,16 @@
 
 #define PLAYER_RADIUS 0.5f
 
+static Vec2 positions[NUMBER_OF_INGAME_ENTITIES];
+static Vec2 velocities[NUMBER_OF_INGAME_ENTITIES];
+static u8 isActive[NUMBER_OF_INGAME_ENTITIES];
+static int health[NUMBER_OF_INGAME_ENTITIES];
+static float orientations[NUMBER_OF_INGAME_ENTITIES];
+static float radiiSquared[NUMBER_OF_INGAME_ENTITIES];
+static float knockbackTimesRemaining[NUMBER_OF_INGAME_ENTITIES];
+static u8 isKnockingBackStates[NUMBER_OF_INGAME_ENTITIES];
+
+// TODO: make these the zeroth index
 static Vec2 playerPosition;
 static Vec2 playerVelocity;
 static float playerOrientation;
@@ -271,8 +282,20 @@ void loadInTextures() {
   nuPiReadRom((u32)(_display_textSegmentRomStart), (void*)(displayTextTexture), TMEM_SIZE_BYTES);
 }
 
+void initializeMonsters() {
+  for (int i = MONSTER_START_INDEX; i < NUMBER_OF_INGAME_ENTITIES; i++) {
+    isActive[i] = 1;
+    positions[i] = (Vec2){ i, 7.f - (i * 0.3f) };
+    orientations[i] = i * 0.6f;
+    radiiSquared[i] = (0.7f * 0.7f);
+    health[i] = 1;
+  }
+}
+
 void initializeStartingPieces() {
   initPieceStates();
+
+  initializeMonsters();
 
   piecesActive[0] = 1;
   piecePositions[0] = (Pos2){3, 4};
@@ -417,6 +440,23 @@ void makeDL00(void)
     gSPMatrix(glistp++, OS_K0_TO_PHYSICAL(&dynamicp->blenderExportScale), G_MTX_MODELVIEW | G_MTX_MUL | G_MTX_NOPUSH);
 
     gSPDisplayList(glistp++, OS_K0_TO_PHYSICAL(pieceData[i].renderCommands));
+
+    gSPPopMatrix(glistp++, G_MTX_MODELVIEW);
+  }
+
+  for (int i = MONSTER_START_INDEX; i < NUMBER_OF_INGAME_ENTITIES; i++) {
+    if (!(isActive[i])) {
+      continue;
+    }
+
+
+    guTranslate(&(dynamicp->monsterTranslations[i]), positions[i].x, positions[i].y, 0.f);
+    guRotate(&(dynamicp->monsterRotations[i]), orientations[i] * INV_PI * 180, 0.f, 0.f, 1.f);
+    gSPMatrix(glistp++, OS_K0_TO_PHYSICAL(&(dynamicp->monsterTranslations[i])), G_MTX_MODELVIEW | G_MTX_MUL | G_MTX_PUSH);
+    gSPMatrix(glistp++, OS_K0_TO_PHYSICAL(&dynamicp->monsterRotations[i]), G_MTX_MODELVIEW | G_MTX_MUL | G_MTX_NOPUSH);
+    gSPMatrix(glistp++, OS_K0_TO_PHYSICAL(&dynamicp->blenderExportScale), G_MTX_MODELVIEW | G_MTX_MUL | G_MTX_NOPUSH);
+
+    gSPDisplayList(glistp++, OS_K0_TO_PHYSICAL(ogre_commands));
 
     gSPPopMatrix(glistp++, G_MTX_MODELVIEW);
   }
@@ -567,6 +607,8 @@ void makeDL00(void)
       nuDebConTextPos(0,4,5);
       sprintf(conbuf,"delta: %3.5f", deltaTimeSeconds);
       nuDebConCPuts(0, conbuf);
+
+      
 
 
       // nuDebConTextPos(0,4,9);
@@ -798,7 +840,7 @@ void checkCollisionWithPieces() {
 
     // Radius check
     const float distanceSquared = distanceSq(&playerPosition, &(pieceViewPos[i]));
-    if (distanceSquared > MIN(radiusSquared, CHESS_PIECE_RADIUS_SQ)) {
+    if (distanceSquared > MAX(radiusSquared, CHESS_PIECE_RADIUS_SQ)) {
       continue;
     }
 
