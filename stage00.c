@@ -562,9 +562,14 @@ void makeDL00(void)
     gSPTextureRectangle(glistp++, (playerHUDXPos) << 2, (playerHUDYPos) << 2, (playerHUDXPos + 16) << 2, (playerHUDYPos + 16) << 2, 0,  96 << 5, 0 << 5, 1 << 10, 1 << 10);
   }
 
+  // Render legal move spots
   if (boardControlState == BOARD_CONTROL_PIECE_SELECTED) {
     gDPSetPrimColor(glistp++, 0, 0, 0xff, 0x00, 0x00, 0xff);
     for (int i = 0; i < NUMBER_OF_BOARD_CELLS; i++) {
+      if ((selectedPiece > -1) && (piecePositions[selectedPiece].x == (i % BOARD_WIDTH)) && (piecePositions[selectedPiece].y == (i / BOARD_WIDTH))) {
+        continue;
+      }
+
       if (!(legalDestinationState[i])) {
         const u32 noSpotX = HUD_CHESSBOARD_X + ((i % BOARD_WIDTH) * HUD_CELL_WIDTH);
         const u32 noSpotY = HUD_CHESSBOARD_Y + ((BOARD_HEIGHT - 1 - (i / BOARD_WIDTH)) * HUD_CELL_HEIGHT) - ((16 - HUD_CELL_HEIGHT) / 2);
