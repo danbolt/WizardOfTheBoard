@@ -285,8 +285,9 @@ void loadInTextures() {
 void initializeMonsters() {
   for (int i = MONSTER_START_INDEX; i < NUMBER_OF_INGAME_ENTITIES; i++) {
     isActive[i] = 1;
-    positions[i] = (Vec2){ i, 7.f - (i * 0.3f) };
-    orientations[i] = i * 0.6f;
+    positions[i] = (Vec2){ i, 6.f };
+    velocities[i] = (Vec2){ 1.f, 0.2f };
+    orientations[i] = 0.f;
     radiiSquared[i] = (0.7f * 0.7f);
     health[i] = 1;
     isKnockingBackStates[i] = 0;
@@ -297,6 +298,7 @@ void initializeMonsters() {
 void initializeStartingPieces() {
   initPieceStates();
 
+  isActive[0] = 1; // player is always active
   initializeMonsters();
 
   piecesActive[0] = 1;
@@ -307,15 +309,15 @@ void initializeStartingPieces() {
   pieceData[0].displayName = "PAWN";
   pieceViewPos[0] = (Vec2){ piecePositions[0].x + 0.5f, piecePositions[0].y + 0.5f };
 
-  for (int i = 1; i < MAX_NUMBER_OF_INGAME_PIECES; i++) {
-    piecesActive[i] = 1;
-    piecePositions[i] = (Pos2){i, i};
-    pieceData[i].type = ROOK;
-    pieceData[i].renderCommands = rook_commands;
-    pieceData[i].legalCheck = rookLegalMove;
-    pieceData[i].displayName = "ROOK";
-    pieceViewPos[i] = (Vec2){ piecePositions[i].x + 0.5f, piecePositions[i].y + 0.5f };
-  }
+  // for (int i = 1; i < MAX_NUMBER_OF_INGAME_PIECES; i++) {
+  //   piecesActive[i] = 1;
+  //   piecePositions[i] = (Pos2){i, i};
+  //   pieceData[i].type = ROOK;
+  //   pieceData[i].renderCommands = rook_commands;
+  //   pieceData[i].legalCheck = rookLegalMove;
+  //   pieceData[i].displayName = "ROOK";
+  //   pieceViewPos[i] = (Vec2){ piecePositions[i].x + 0.5f, piecePositions[i].y + 0.5f };
+  // }
 
 }
 
@@ -452,10 +454,10 @@ void makeDL00(void)
     }
 
 
-    guTranslate(&(dynamicp->monsterTranslations[i]), positions[i].x, positions[i].y, 0.f);
-    guRotate(&(dynamicp->monsterRotations[i]), orientations[i] * INV_PI * 180, 0.f, 0.f, 1.f);
-    gSPMatrix(glistp++, OS_K0_TO_PHYSICAL(&(dynamicp->monsterTranslations[i])), G_MTX_MODELVIEW | G_MTX_MUL | G_MTX_PUSH);
-    gSPMatrix(glistp++, OS_K0_TO_PHYSICAL(&dynamicp->monsterRotations[i]), G_MTX_MODELVIEW | G_MTX_MUL | G_MTX_NOPUSH);
+    guTranslate(&(dynamicp->monsterTranslations[i - 1]), positions[i].x, positions[i].y, 0.f);
+    guRotate(&(dynamicp->monsterRotations[i - 1]), orientations[i] * INV_PI * 180, 0.f, 0.f, 1.f);
+    gSPMatrix(glistp++, OS_K0_TO_PHYSICAL(&(dynamicp->monsterTranslations[i - 1])), G_MTX_MODELVIEW | G_MTX_MUL | G_MTX_PUSH);
+    gSPMatrix(glistp++, OS_K0_TO_PHYSICAL(&dynamicp->monsterRotations[i - 1]), G_MTX_MODELVIEW | G_MTX_MUL | G_MTX_NOPUSH);
     gSPMatrix(glistp++, OS_K0_TO_PHYSICAL(&dynamicp->blenderExportScale), G_MTX_MODELVIEW | G_MTX_MUL | G_MTX_NOPUSH);
 
     gSPDisplayList(glistp++, OS_K0_TO_PHYSICAL(ogre_commands));
@@ -535,6 +537,19 @@ void makeDL00(void)
     const u32 pieceHUDSpotY = HUD_CHESSBOARD_Y + ((BOARD_HEIGHT - pieceViewPos[i].y - 0.5f) * HUD_CELL_HEIGHT) - ((16 - HUD_CELL_HEIGHT) / 2);
 
     gSPTextureRectangle(glistp++, (pieceHUDSpotX) << 2, (pieceHUDSpotY) << 2, (pieceHUDSpotX + 16) << 2, (pieceHUDSpotY + 16) << 2, 0, ((int)(pieceData[i].type) * 16) << 5, 0 << 5, 1 << 10, 1 << 10);
+  }
+
+  // Render the monster icons
+  gDPSetPrimColor(glistp++, 0, 0, 0x99, 0x3a, 0x00, 0xff);
+  for (int i = MONSTER_START_INDEX; i < NUMBER_OF_INGAME_ENTITIES; i++) {
+    if (!(isActive[i])) {
+      continue;
+    }
+
+    const u32 monsterHUDSpotX = HUD_CHESSBOARD_X + (positions[i].x * HUD_CELL_WIDTH) - 8;
+    const u32 monsterHUDSpotY = HUD_CHESSBOARD_Y + ((BOARD_HEIGHT - positions[i].y) * HUD_CELL_HEIGHT) - 8;
+
+    gSPTextureRectangle(glistp++, monsterHUDSpotX << 2, monsterHUDSpotY << 2, (monsterHUDSpotX + 16) << 2, (monsterHUDSpotY + 16) << 2, 0, 144 << 5, 0 << 5, 1 << 10, 1 << 10);
   }
 
   // Render the player location on the HUD
@@ -693,34 +708,38 @@ void updatePlayerInput() {
 }
 
 void updateMovement() {
-  Vec2 desiredSpot = { playerPosition.x + (playerVelocity.x * deltaTimeSeconds), playerPosition.y + (playerVelocity.y * deltaTimeSeconds) };
-
-  // step x
-  if (isSpaceOccupiedButIgnoreMovingPieces((int)(desiredSpot.x), (int)(playerPosition.y)) > -1) {
-    if (playerVelocity.x > 0.f) {
-      desiredSpot.x = (float)((int)(desiredSpot.x) - 1) + 0.999f;
-    } else if (playerVelocity.x < 0.f) {
-      desiredSpot.x = (float)((int)(desiredSpot.x) + 1);
+  for (int i = 0; i < NUMBER_OF_INGAME_ENTITIES; i++) {
+    if (!(isActive[i])) {
+      continue;
     }
-    //desiredSpot.x = playerPosition.x;
-  }
 
-  // step y
-  if (isSpaceOccupiedButIgnoreMovingPieces((int)(desiredSpot.x), (int)(desiredSpot.y)) > -1) {
-    if (playerVelocity.y > 0.f) {
-      desiredSpot.y = (float)((int)(desiredSpot.y) - 1) + 0.999f;
-    } else if (playerVelocity.y < 0.f) {
-      desiredSpot.y = (float)((int)(desiredSpot.y) + 1);
+    Vec2 desiredSpot = { positions[i].x + (velocities[i].x * deltaTimeSeconds), positions[i].y + (velocities[i].y * deltaTimeSeconds) };
+
+    // step x
+    if (isSpaceOccupiedButIgnoreMovingPieces((int)(desiredSpot.x), (int)(positions[i].y)) > -1) {
+      if (velocities[i].x > 0.f) {
+        desiredSpot.x = (float)((int)(desiredSpot.x) - 1) + 0.999f;
+      } else if (velocities[i].x < 0.f) {
+        desiredSpot.x = (float)((int)(desiredSpot.x) + 1);
+      }
     }
-    //desiredSpot.y = playerPosition.y;
+
+    // step y
+    if (isSpaceOccupiedButIgnoreMovingPieces((int)(desiredSpot.x), (int)(desiredSpot.y)) > -1) {
+      if (velocities[i].y > 0.f) {
+        desiredSpot.y = (float)((int)(desiredSpot.y) - 1) + 0.999f;
+      } else if (velocities[i].y < 0.f) {
+        desiredSpot.y = (float)((int)(desiredSpot.y) + 1);
+      }
+    }
+
+    positions[i].x = desiredSpot.x;
+    positions[i].y = desiredSpot.y;
+
+    // Don't let the entity leave the playing area
+    positions[i].x = clamp(positions[i].x, 0.f, (float)BOARD_WIDTH);
+    positions[i].y = clamp(positions[i].y, 0.f, (float)BOARD_HEIGHT);
   }
-
-  playerPosition.x = desiredSpot.x;
-  playerPosition.y = desiredSpot.y;
-
-  // Don't let the player leave the area
-  playerPosition.x = clamp(playerPosition.x, 0.f, (float)BOARD_WIDTH);
-  playerPosition.y = clamp(playerPosition.y, 0.f, (float)BOARD_HEIGHT);
 }
 
 void updateBoardControlInput() {
