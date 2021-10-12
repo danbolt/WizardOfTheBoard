@@ -29,18 +29,18 @@ float deltaTimeSeconds;
 
 float ingameFOV;
 
-void initalizeGameData() {
-  ingameFOV = 70.f;
-
-  time = OS_CYCLES_TO_USEC(osGetTime());
-  updateTime();
-}
-
 void updateTime() {
   OSTime newTime = OS_CYCLES_TO_USEC(osGetTime());
   delta = newTime - time;
   time = newTime;
   deltaTimeSeconds = delta * 0.000001f;
+}
+
+void initalizeGameData() {
+  ingameFOV = 70.f;
+
+  time = OS_CYCLES_TO_USEC(osGetTime());
+  updateTime();
 }
 
 void setAudioData(void)

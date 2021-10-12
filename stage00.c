@@ -23,11 +23,21 @@
 #define PLAYER_MAX_HEALTH 5
 #define INV_MAX_HEALTH (1.f / PLAYER_MAX_HEALTH)
 
+#define CHESS_PIECE_RADIUS 1.f
+#define CHESS_PIECE_RADIUS_SQ (CHESS_PIECE_RADIUS * CHESS_PIECE_RADIUS)
+
+#define KNOCKBACK_SPEED 7.5f
+#define KNOCKBACK_TIME 0.216f
+
+#define PLAYER_RADIUS 0.5f
+
 static Vec2 playerPosition;
 static Vec2 playerVelocity;
 static float playerOrientation;
 static int playerHealth;
 static u8 isKnockingBack;
+static float knockbackTimeRemaining;
+static float radiusSquared;
 
 static float playerHealthDisplay;
 
@@ -298,12 +308,14 @@ void initStage00(void)
   playerVelocity = (Vec2){ 0.f, 0.f };
   playerOrientation = 0.f;
   isKnockingBack = 0;
+  knockbackTimeRemaining = 0.f;
+  radiusSquared = PLAYER_RADIUS * PLAYER_RADIUS;
 
   cosCameraRot = 1.f;
   sinCameraRot = 0.f;
 
   playerHealth = PLAYER_MAX_HEALTH;
-  playerHealthDisplay = (float)PLAYER_MAX_HEALTH;
+  playerHealthDisplay = 0.f;
 
   chessboardSpotHighlighted = (Pos2){ 2, 2 };
   for (int i = 0; i < NUMBER_OF_BOARD_CELLS; i++) {
@@ -524,13 +536,18 @@ void makeDL00(void)
   gDPPipeSync(glistp++);
   gDPSetCycleType(glistp++, G_CYC_FILL);
   gDPSetFillColor(glistp++, GPACK_RGBA5551(0x21,0,0,1) << 16 | GPACK_RGBA5551(0x21,0,0,1));
-  gDPFillRectangle(glistp++, (HUD_CHESSBOARD_X - 72), (SCREEN_HT - TITLE_SAFE_VERTICAL - 16), (HUD_CHESSBOARD_X - 6), (SCREEN_HT - TITLE_SAFE_VERTICAL));
+  gDPFillRectangle(glistp++, (HUD_CHESSBOARD_X - 72), (SCREEN_HT - TITLE_SAFE_VERTICAL - 16), (HUD_CHESSBOARD_X - 7), (SCREEN_HT - TITLE_SAFE_VERTICAL));
+  gDPPipeSync(glistp++);
   gDPSetFillColor(glistp++, GPACK_RGBA5551(0x33,0xc0,0x22,1) << 16 | GPACK_RGBA5551(0x33,0xc0,0x22,1));
-  gDPFillRectangle(glistp++, (HUD_CHESSBOARD_X - 72), (SCREEN_HT - TITLE_SAFE_VERTICAL - 16), ((HUD_CHESSBOARD_X - 6) * MAX(0, playerHealthDisplay * INV_MAX_HEALTH)), (SCREEN_HT - TITLE_SAFE_VERTICAL));
+  gDPFillRectangle(glistp++, (HUD_CHESSBOARD_X - 72), (SCREEN_HT - TITLE_SAFE_VERTICAL - 16), (HUD_CHESSBOARD_X - 72) + MAX(0, playerHealthDisplay * INV_MAX_HEALTH * 65.f), (SCREEN_HT - TITLE_SAFE_VERTICAL));
 
   gDPPipeSync(glistp++);
   gDPSetCycleType(glistp++, G_CYC_1CYCLE);
   renderDisplayText((HUD_CHESSBOARD_X - 72) + 2, (SCREEN_HT - TITLE_SAFE_VERTICAL - 16) - 4, "LIFE");
+
+  if (playerHealth <= 0) {
+    renderDisplayText(SCREEN_WD / 2 - ((5 * 13) / 2), SCREEN_HT / 2, "DEATH");
+  }
 
   gDPFullSync(glistp++);
   gSPEndDisplayList(glistp++);
@@ -550,6 +567,17 @@ void makeDL00(void)
       nuDebConTextPos(0,4,5);
       sprintf(conbuf,"delta: %3.5f", deltaTimeSeconds);
       nuDebConCPuts(0, conbuf);
+
+
+      // nuDebConTextPos(0,4,9);
+      // sprintf(conbuf,"playerHealth: %u", playerHealth);
+      // nuDebConCPuts(0, conbuf);
+      // nuDebConTextPos(0,4,10);
+      // sprintf(conbuf,"isKnockingBack: %u", isKnockingBack);
+      // nuDebConCPuts(0, conbuf);
+      // nuDebConTextPos(0,4,11);
+      // sprintf(conbuf,"knockbackTimeRemaining: %3.2f", knockbackTimeRemaining);
+      // nuDebConCPuts(0, conbuf);
     }
   else
     {
@@ -564,8 +592,12 @@ void makeDL00(void)
   gfx_gtask_no = (gfx_gtask_no + 1) % BUFFER_COUNT;
 }
 
-// TODO: Make this delta-dependent
 void updatePlayerInput() {
+  // We don't need to update this if we're dead
+  if (playerHealth <= 0) {
+    return;
+  }
+
   Vec2 inputDir = { 0.f, 0.f };
 
   // Update rotation
@@ -584,6 +616,11 @@ void updatePlayerInput() {
   }
   cosCameraRot = cosf(playerOrientation);
   sinCameraRot = sinf(playerOrientation);
+
+  // We don't need to continue if we're being knocked back
+  if (isKnockingBack) {
+    return;
+  }
 
 
   if (contdata[0].stick_y > 7) {
@@ -746,7 +783,50 @@ void updateHUDInformation() {
 }
 
 void checkCollisionWithPieces() {
-  //
+  if (isKnockingBack) {
+    return;
+  }
+
+  for (int i = 0; i < MAX_NUMBER_OF_INGAME_PIECES; i++) {
+    if (!(piecesActive[i])) {
+      continue;
+    }
+
+    if (!(pieceIsLerping[i])) {
+      continue;
+    }
+
+    // Radius check
+    const float distanceSquared = distanceSq(&playerPosition, &(pieceViewPos[i]));
+    if (distanceSquared > MIN(radiusSquared, CHESS_PIECE_RADIUS_SQ)) {
+      continue;
+    }
+
+    isKnockingBack = 1;
+    knockbackTimeRemaining = KNOCKBACK_TIME;
+
+    playerHealth = MAX(playerHealth - 1, 0);
+
+    // Fly back away from the piece
+    playerVelocity = (Vec2){ playerPosition.x - pieceViewPos[i].x, playerPosition.y - pieceViewPos[i].y };
+    normalize(&playerVelocity);
+    playerVelocity.x *= KNOCKBACK_SPEED;
+    playerVelocity.y *= KNOCKBACK_SPEED;
+
+    break;
+  }
+}
+
+void updateKnockback() {
+  if (!isKnockingBack) {
+    return;
+  }
+
+  knockbackTimeRemaining -= deltaTimeSeconds;
+  if (knockbackTimeRemaining <= 0.f) {
+    isKnockingBack = 0;
+    playerVelocity = (Vec2){ 0.f, 0.f };
+  }
 }
 
 void updateGame00(void)
@@ -762,6 +842,8 @@ void updateGame00(void)
   updateMovingPieces();
 
   checkCollisionWithPieces();
+
+  updateKnockback();
 
   updateHUDInformation();
 }

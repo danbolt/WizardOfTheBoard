@@ -20,4 +20,8 @@ float lerp(float a, float b, float f);
 
 float clamp(float x, float min, float max);
 
+float distanceSq(const Vec2* a, const Vec2* b);
+
+float normalize(Vec2* a);
+
 #endif
