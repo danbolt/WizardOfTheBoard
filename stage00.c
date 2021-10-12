@@ -17,7 +17,8 @@
 #endif
 
 #define PLAYER_HEIGHT_ABOVE_GROUND 0.34f
-#define PLAYER_WALK_SPEED 0.05f
+#define PLAYER_WALK_SPEED 5.f
+#define PLAYER_TURN_SPEED 2.f
 
 #define PLAYER_MAX_HEALTH 5
 #define INV_MAX_HEALTH (1.f / PLAYER_MAX_HEALTH)
@@ -569,13 +570,13 @@ void updatePlayerInput() {
 
   // Update rotation
   if((contdata[0].button & L_TRIG) || (contdata[0].stick_x < -7)) {
-    playerOrientation += 0.05f;
+    playerOrientation += PLAYER_TURN_SPEED * deltaTimeSeconds;
 
     if (playerOrientation > M_PI) {
       playerOrientation = -M_PI;
     }
   } else if((contdata[0].button & R_TRIG) || (contdata[0].stick_x > 7)) {
-    playerOrientation -= 0.05f;
+    playerOrientation -= PLAYER_TURN_SPEED * deltaTimeSeconds;
 
     if (playerOrientation < -M_PI) {
       playerOrientation = M_PI;
@@ -611,7 +612,7 @@ void updatePlayerInput() {
 }
 
 void updateMovement() {
-  Vec2 desiredSpot = { playerPosition.x + playerVelocity.x, playerPosition.y + playerVelocity.y };
+  Vec2 desiredSpot = { playerPosition.x + (playerVelocity.x * deltaTimeSeconds), playerPosition.y + (playerVelocity.y * deltaTimeSeconds) };
 
   // step x
   if (isSpaceOccupiedButIgnoreMovingPieces((int)(desiredSpot.x), (int)(playerPosition.y)) > -1) {
