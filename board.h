@@ -21,6 +21,7 @@ int tileIsDark(int x, int y);
 
 // returns -1 if empty, otherwise the index of the occupying piece
 int isSpaceOccupied(int x, int y);
+int isSpaceOccupiedButIgnoreMovingPieces(int x, int y);
 
 void boardPosToLetter(const Pos2* spot, char* x, char* y);
 

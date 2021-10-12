@@ -57,6 +57,33 @@ int isSpaceOccupied(int x, int y) {
   return -1;
 }
 
+
+int isSpaceOccupiedButIgnoreMovingPieces(int x, int y)  {
+
+  for (int i = 0; i < MAX_NUMBER_OF_INGAME_PIECES; i++) {
+    if (!(piecesActive[i])) {
+      continue;
+    }
+
+    if (piecePositions[i].x != x) {
+      continue;
+    }
+
+    if (piecePositions[i].y != y) {
+      continue;
+    }
+
+    if (pieceIsLerping[i]) {
+      continue;
+    }
+
+    // If we've made it here, we've found an occupying piece
+    return i;
+  }
+
+  return -1;
+}
+
 #define ASCII_START_CAPTIALS 65
 #define ASCCI_START_NUMBERS 48
 

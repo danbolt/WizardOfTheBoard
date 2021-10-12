@@ -585,16 +585,24 @@ void updatePlayerInput() {
 void updateMovement() {
   Vec2 desiredSpot = { playerPosition.x + playerVelocity.x, playerPosition.y + playerVelocity.y };
 
-  // TODO: Should we try to "squeeze" the most space? might not be worth it since this isn't an AABB game
-
   // step x
-  if (isSpaceOccupied((int)(desiredSpot.x), (int)(playerPosition.y)) > -1) {
-    desiredSpot.x = playerPosition.x;
+  if (isSpaceOccupiedButIgnoreMovingPieces((int)(desiredSpot.x), (int)(playerPosition.y)) > -1) {
+    if (playerVelocity.x > 0.f) {
+      desiredSpot.x = (float)((int)(desiredSpot.x) - 1) + 0.999f;
+    } else if (playerVelocity.x < 0.f) {
+      desiredSpot.x = (float)((int)(desiredSpot.x) + 1);
+    }
+    //desiredSpot.x = playerPosition.x;
   }
 
   // step y
-  if (isSpaceOccupied((int)(desiredSpot.x), (int)(desiredSpot.y)) > -1) {
-    desiredSpot.y = playerPosition.y;
+  if (isSpaceOccupiedButIgnoreMovingPieces((int)(desiredSpot.x), (int)(desiredSpot.y)) > -1) {
+    if (playerVelocity.y > 0.f) {
+      desiredSpot.y = (float)((int)(desiredSpot.y) - 1) + 0.999f;
+    } else if (playerVelocity.y < 0.f) {
+      desiredSpot.y = (float)((int)(desiredSpot.y) + 1);
+    }
+    //desiredSpot.y = playerPosition.y;
   }
 
   playerPosition.x = desiredSpot.x;
