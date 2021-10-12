@@ -30,6 +30,8 @@
 #define KNOCKBACK_SPEED 7.5f
 #define KNOCKBACK_TIME 0.216f
 
+#define OGRE_WALK_SPEED 2.f
+
 #define PLAYER_RADIUS 0.5f
 
 static Vec2 positions[NUMBER_OF_INGAME_ENTITIES];
@@ -899,6 +901,22 @@ void updateKnockback() {
   }
 }
 
+void updateMonsters() {
+  for (int i = MONSTER_START_INDEX; i < NUMBER_OF_INGAME_ENTITIES; i++) {
+    if (!(isActive[i])) {
+      continue;
+    }
+
+    if (isKnockingBackStates[i]) {
+      continue;
+    }
+
+    // TODO: something much more interesting
+    velocities[i].x = guRandom() % 3 - 1;
+    velocities[i].y = guRandom() % 3 - 1;
+  }
+}
+
 void updateGame00(void)
 {
   nuContDataGetEx(contdata,0);
@@ -906,13 +924,11 @@ void updateGame00(void)
   
   updatePlayerInput();
   updateBoardControlInput();
+  updateMonsters();
 
   updateMovement();
-
   updateMovingPieces();
-
   checkCollisionWithPieces();
-
   updateKnockback();
 
   updateHUDInformation();
