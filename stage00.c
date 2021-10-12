@@ -73,7 +73,7 @@ void generateFloorTiles() {
   Vtx* lastLoad = verts;
 
   gDPSetCombineMode(commands++, G_CC_MODULATEI, G_CC_MODULATEI);
-  gDPSetRenderMode(commands++, G_RM_AA_TEX_EDGE, G_RM_AA_TEX_EDGE2);
+  gDPSetRenderMode(commands++, G_RM_TEX_EDGE, G_RM_TEX_EDGE2);
   gDPLoadTextureBlock(commands++,  OS_K0_TO_PHYSICAL(floorTexture), G_IM_FMT_I, G_IM_SIZ_8b, 128, 32, 0, G_TX_NOMIRROR, G_TX_NOMIRROR, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
   gDPPipeSync(commands++);
   gSPTexture(commands++, 0xffff, 0xffff, 0, G_TX_RENDERTILE, G_ON);
@@ -423,7 +423,7 @@ void makeDL00(void)
   const int bgTileShift = 16;
   gDPPipeSync(glistp++);
   gDPSetCombineMode(glistp++, G_CC_MODULATEI, G_CC_MODULATEI);
-  gDPSetRenderMode(glistp++, G_RM_AA_TEX_EDGE, G_RM_AA_TEX_EDGE2);
+  gDPSetRenderMode(glistp++, G_RM_TEX_EDGE, G_RM_TEX_EDGE2);
   gDPSetTexturePersp(glistp++, G_TP_NONE);
   gDPLoadTextureTile(glistp++,  OS_K0_TO_PHYSICAL(hudNoiseBackgroundsTextre), G_IM_FMT_I, G_IM_SIZ_8b, 256, 16, bgTileShift << 2, 0 << 2, (bgTileShift + 15) << 2, (15) << 2, 0, G_TX_NOMIRROR, G_TX_NOMIRROR, 4, 4, G_TX_NOLOD, G_TX_NOLOD);
   gSPTexture(glistp++, 0xffff, 0xffff, 0, G_TX_RENDERTILE, G_ON);
