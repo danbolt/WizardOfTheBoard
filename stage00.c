@@ -286,10 +286,10 @@ void initializeMonsters() {
   for (int i = MONSTER_START_INDEX; i < NUMBER_OF_INGAME_ENTITIES; i++) {
     isActive[i] = 1;
     positions[i] = (Vec2){ i, 6.f };
-    velocities[i] = (Vec2){ 1.f, 0.2f };
+    velocities[i] = (Vec2){ 0.f, 0.f };
     orientations[i] = 0.f;
     radiiSquared[i] = (0.7f * 0.7f);
-    health[i] = 1;
+    health[i] = 4;
     isKnockingBackStates[i] = 0;
     knockbackTimesRemaining[i] = 0.f;
   }
@@ -303,10 +303,10 @@ void initializeStartingPieces() {
 
   piecesActive[0] = 1;
   piecePositions[0] = (Pos2){3, 4};
-  pieceData[0].type = PAWN;
-  pieceData[0].renderCommands = pawn_commands;
-  pieceData[0].legalCheck = pawnLegalMove;
-  pieceData[0].displayName = "PAWN";
+  pieceData[0].type = ROOK;
+  pieceData[0].renderCommands = rook_commands;
+  pieceData[0].legalCheck = rookLegalMove;
+  pieceData[0].displayName = "ROOK";
   pieceViewPos[0] = (Vec2){ piecePositions[0].x + 0.5f, piecePositions[0].y + 0.5f };
 
   // for (int i = 1; i < MAX_NUMBER_OF_INGAME_PIECES; i++) {
@@ -846,10 +846,6 @@ void updateHUDInformation() {
 }
 
 void checkCollisionWithPieces() {
-  if (isPlayerKnockingBack) {
-    return;
-  }
-
   for (int i = 0; i < MAX_NUMBER_OF_INGAME_PIECES; i++) {
     if (!(piecesActive[i])) {
       continue;
@@ -859,36 +855,47 @@ void checkCollisionWithPieces() {
       continue;
     }
 
-    // Radius check
-    const float distanceSquared = distanceSq(&playerPosition, &(pieceViewPos[i]));
-    if (distanceSquared > MAX(playerRadiusSquared, CHESS_PIECE_RADIUS_SQ)) {
-      continue;
+    for (int j = 0; j < NUMBER_OF_INGAME_ENTITIES; j++) {
+      if (isKnockingBackStates[j]) {
+        continue;
+      }
+
+      // Radius check
+      const float distanceSquared = distanceSq(&positions[j], &(pieceViewPos[i]));
+      if (distanceSquared > MAX(radiiSquared[j], CHESS_PIECE_RADIUS_SQ)) {
+        continue;
+      }
+
+      isKnockingBackStates[j] = 1;
+      knockbackTimesRemaining[j] = KNOCKBACK_TIME;
+
+      health[j] = MAX(health[j] - 1, 0);
+      if ((j > 0) && (health[j] < 1)) {
+        isActive[j] = 0;
+      }
+
+      // Fly back away from the piece
+      // TODO: perhaps make this perpindicular via a cross product?
+      velocities[j] = (Vec2){ positions[j].x - pieceViewPos[i].x, positions[j].y - pieceViewPos[i].y };
+      normalize(&velocities[j]);
+      velocities[j].x *= KNOCKBACK_SPEED;
+      velocities[j].y *= KNOCKBACK_SPEED;
     }
 
-    isPlayerKnockingBack = 1;
-    playerKnockbackTimeRemaining = KNOCKBACK_TIME;
-
-    playerHealth = MAX(playerHealth - 1, 0);
-
-    // Fly back away from the piece
-    playerVelocity = (Vec2){ playerPosition.x - pieceViewPos[i].x, playerPosition.y - pieceViewPos[i].y };
-    normalize(&playerVelocity);
-    playerVelocity.x *= KNOCKBACK_SPEED;
-    playerVelocity.y *= KNOCKBACK_SPEED;
-
-    break;
   }
 }
 
 void updateKnockback() {
-  if (!isPlayerKnockingBack) {
-    return;
-  }
+  for (int i = 0; i < NUMBER_OF_INGAME_ENTITIES; i++) {
+    if (!(isKnockingBackStates[i])) {
+      continue;
+    }
 
-  playerKnockbackTimeRemaining -= deltaTimeSeconds;
-  if (playerKnockbackTimeRemaining <= 0.f) {
-    isPlayerKnockingBack = 0;
-    playerVelocity = (Vec2){ 0.f, 0.f };
+    knockbackTimesRemaining[i] -= deltaTimeSeconds;
+    if (knockbackTimesRemaining[i] <= 0.f) {
+      isKnockingBackStates[i] = 0;
+      velocities[i] = (Vec2){ 0.f, 0.f };
+    }
   }
 }
 
