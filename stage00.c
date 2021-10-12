@@ -41,14 +41,14 @@ static float radiiSquared[NUMBER_OF_INGAME_ENTITIES];
 static float knockbackTimesRemaining[NUMBER_OF_INGAME_ENTITIES];
 static u8 isKnockingBackStates[NUMBER_OF_INGAME_ENTITIES];
 
-// TODO: make these the zeroth index
-static Vec2 playerPosition;
-static Vec2 playerVelocity;
-static float playerOrientation;
-static int playerHealth;
-static u8 isKnockingBack;
-static float knockbackTimeRemaining;
-static float radiusSquared;
+// HACK: makes for a smaller git commit
+#define playerPosition (positions[0])
+#define playerVelocity (velocities[0])
+#define playerOrientation (orientations[0])
+#define playerHealth (health[0])
+#define isPlayerKnockingBack (isKnockingBackStates[0])
+#define playerKnockbackTimeRemaining (knockbackTimesRemaining[0])
+#define playerRadiusSquared (radiiSquared[0])
 
 static float playerHealthDisplay;
 
@@ -289,6 +289,8 @@ void initializeMonsters() {
     orientations[i] = i * 0.6f;
     radiiSquared[i] = (0.7f * 0.7f);
     health[i] = 1;
+    isKnockingBackStates[i] = 0;
+    knockbackTimesRemaining[i] = 0.f;
   }
 }
 
@@ -330,9 +332,9 @@ void initStage00(void)
   playerPosition = (Vec2){ 0.5f, 0.5f };
   playerVelocity = (Vec2){ 0.f, 0.f };
   playerOrientation = 0.f;
-  isKnockingBack = 0;
-  knockbackTimeRemaining = 0.f;
-  radiusSquared = PLAYER_RADIUS * PLAYER_RADIUS;
+  isPlayerKnockingBack = 0;
+  playerKnockbackTimeRemaining = 0.f;
+  playerRadiusSquared = PLAYER_RADIUS * PLAYER_RADIUS;
 
   cosCameraRot = 1.f;
   sinCameraRot = 0.f;
@@ -615,10 +617,10 @@ void makeDL00(void)
       // sprintf(conbuf,"playerHealth: %u", playerHealth);
       // nuDebConCPuts(0, conbuf);
       // nuDebConTextPos(0,4,10);
-      // sprintf(conbuf,"isKnockingBack: %u", isKnockingBack);
+      // sprintf(conbuf,"isPlayerKnockingBack: %u", isPlayerKnockingBack);
       // nuDebConCPuts(0, conbuf);
       // nuDebConTextPos(0,4,11);
-      // sprintf(conbuf,"knockbackTimeRemaining: %3.2f", knockbackTimeRemaining);
+      // sprintf(conbuf,"playerKnockbackTimeRemaining: %3.2f", playerKnockbackTimeRemaining);
       // nuDebConCPuts(0, conbuf);
     }
   else
@@ -660,7 +662,7 @@ void updatePlayerInput() {
   sinCameraRot = sinf(playerOrientation);
 
   // We don't need to continue if we're being knocked back
-  if (isKnockingBack) {
+  if (isPlayerKnockingBack) {
     return;
   }
 
@@ -825,7 +827,7 @@ void updateHUDInformation() {
 }
 
 void checkCollisionWithPieces() {
-  if (isKnockingBack) {
+  if (isPlayerKnockingBack) {
     return;
   }
 
@@ -840,12 +842,12 @@ void checkCollisionWithPieces() {
 
     // Radius check
     const float distanceSquared = distanceSq(&playerPosition, &(pieceViewPos[i]));
-    if (distanceSquared > MAX(radiusSquared, CHESS_PIECE_RADIUS_SQ)) {
+    if (distanceSquared > MAX(playerRadiusSquared, CHESS_PIECE_RADIUS_SQ)) {
       continue;
     }
 
-    isKnockingBack = 1;
-    knockbackTimeRemaining = KNOCKBACK_TIME;
+    isPlayerKnockingBack = 1;
+    playerKnockbackTimeRemaining = KNOCKBACK_TIME;
 
     playerHealth = MAX(playerHealth - 1, 0);
 
@@ -860,13 +862,13 @@ void checkCollisionWithPieces() {
 }
 
 void updateKnockback() {
-  if (!isKnockingBack) {
+  if (!isPlayerKnockingBack) {
     return;
   }
 
-  knockbackTimeRemaining -= deltaTimeSeconds;
-  if (knockbackTimeRemaining <= 0.f) {
-    isKnockingBack = 0;
+  playerKnockbackTimeRemaining -= deltaTimeSeconds;
+  if (playerKnockbackTimeRemaining <= 0.f) {
+    isPlayerKnockingBack = 0;
     playerVelocity = (Vec2){ 0.f, 0.f };
   }
 }
