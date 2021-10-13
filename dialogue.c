@@ -134,7 +134,7 @@ void updateDialogue() {
     }
 
     // If the player presses the confirm button, skip ahead to the end of the dialogue.
-    if (contdata[0].trigger & B_BUTTON) {
+    if (contdata[0].trigger & A_BUTTON) {
       while (currentDialogueItem->text[bipIndex] != '\0') {
         bipIndex++;
       }

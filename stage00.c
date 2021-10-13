@@ -1087,7 +1087,6 @@ void updateGame00(void)
 {
   nuContDataGetEx(contdata,0);
 
-  updateDialogue();
   if (dialogueState == DIALOGUE_STATE_SHOWING) {
     return;
   }
