@@ -13,11 +13,11 @@ static float bipTimePassed;
 
 #define BIP_TIME_SECONDS 0.2f
 
-const char* hackText = "The quick brown fox jumps over the lazy dog. Yee-haw!";
+const unsigned char* hackText = "The quick brown fox jumps over the lazy dog. Yee haw!";
 
 // TODO: add a "simple string" drawing function as well
 
-void drawString(int x, int y, unsigned char* str, int maxWordWrapWidth) {
+void drawString(int x, int y, const unsigned char* str, int maxWordWrapWidth) {
   int stringIndex = 0;
   int xLetterSpot = x;
   int yLetterSpot = y;
@@ -99,7 +99,7 @@ void renderDialogueToDisplayList() {
 
   gDPPipeSync(glistp++);
   gDPLoadTextureBlock_4b(glistp++, sixtwelve_tex, G_IM_FMT_IA, SIXTWELVE_TEXTURE_WIDTH, SIXTWELVE_TEXTURE_HEIGHT, 0, G_TX_MIRROR | G_TX_WRAP, G_TX_MIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
-  drawString(16, 64, hackText, 200);
+  drawString(TITLE_SAFE_HORIZONTAL, 64, hackText, (SCREEN_WD - (TITLE_SAFE_HORIZONTAL * 2)));
 }
 
 

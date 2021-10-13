@@ -10,7 +10,7 @@ const unsigned char ISO_8859_SPACE = 0x20;
 const unsigned char ISO_8859_NEWLINE = 0x0A;
 const unsigned char ISO_8859_HYPHEN = 0x2D;
 
-unsigned int sixtwelve_calculate_string_width(unsigned char* str) {
+unsigned int sixtwelve_calculate_string_width(const unsigned char* str) {
 	if (!str) {
 		return 0;
 	}

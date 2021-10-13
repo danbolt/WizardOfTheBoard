@@ -12,6 +12,6 @@
  */
 const sixtwelve_character_info *sixtwelve_get_character_info(unsigned char iso_8859_code);
 
-unsigned int sixtwelve_calculate_string_width(unsigned char* str);
+unsigned int sixtwelve_calculate_string_width(const unsigned char* str);
 
 #endif /* _SIXTWELVE_H */ 
