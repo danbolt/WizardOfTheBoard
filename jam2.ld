@@ -114,6 +114,12 @@ SECTIONS
       sprites/display_text.bino(.data);
    }
    END_SEG(display_text)
+
+   BEGIN_SEG(dialogue_data, __romPos)
+   {
+      dialogue/dialogueBuffers.bino(.data);
+   }
+   END_SEG(dialogue_data)
    
    /* Discard everything not specifically mentioned above. */
    /DISCARD/ :

@@ -1,0 +1,10 @@
+%{#include "dialoguelookup.h"
+#include "ultratypes.h"
+#include "nustdfuncs.h"
+
+%}
+struct dialogueMappingData;
+%%
+individual,0
+powpowpow,616
+uhhh,1232

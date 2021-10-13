@@ -2,7 +2,9 @@
 #include "dialogue.h"
 
 #include "graphic.h"
+#include "dialogue/dialoguelookup.h"
 #include "main.h"
+#include "segmentinfo.h"
 #include "sixtwelve.h"
 #include "sixtwelve_helpers.h"
 
@@ -13,7 +15,16 @@ static float bipTimePassed;
 
 #define BIP_TIME_SECONDS 0.2f
 
-const unsigned char* hackText = "The quick brown fox jumps over the lazy dog. Yee haw!";
+typedef union {
+  DialogueItem item;
+  u8 aligner[320]; // padding to ensure DMA alignment
+} DMAAlignedDialogueItem;
+
+#define NUMBER_OF_DIALOGUE_ITEM_BUFFERS 3
+static DMAAlignedDialogueItem dialogueItemTripleBuffer[NUMBER_OF_DIALOGUE_ITEM_BUFFERS] __attribute__((aligned(8)));
+static int nextDialogueItemIndex;
+
+static DialogueItem* currentDialogueItem;
 
 // TODO: add a "simple string" drawing function as well
 
@@ -61,19 +72,51 @@ void drawString(int x, int y, const unsigned char* str, int maxWordWrapWidth) {
 void initalizeDialogue() {
   dialogueState = DIALOGUE_STATE_OFF;
   bipIndex = 0;
+  nextDialogueItemIndex = 0;
+  currentDialogueItem = NULL;
 }
 
+void startDialogueItem(u32 offset) {
+  bipIndex = 0;
+  bipTimePassed = 0.f;
+
+  DialogueItem* nextDialogueItem = &(dialogueItemTripleBuffer[nextDialogueItemIndex].item);
+  nextDialogueItemIndex = (nextDialogueItemIndex + 1) % NUMBER_OF_DIALOGUE_ITEM_BUFFERS;
+
+  nuPiReadRom((u32)(_dialogue_dataSegmentRomStart + offset), (void*)(nextDialogueItem), sizeof(DialogueItem));
+
+  currentDialogueItem = nextDialogueItem;
+
+  dialogueState = DIALOGUE_STATE_SHOWING;
+}
+
+u32 lookupOffsetForDialogueKey(const char* key, u32* result) {
+  if (result == NULL) {
+    return 0;
+  }
+
+  struct dialogueMappingData * mapping = getDialogueDataOffset(key, _nstrlen(key));
+  if (mapping == NULL) {
+    return 0;
+  }
+
+  *result = mapping->offset;
+  return 1;
+}
 
 void startDialogue(const char* key) {
   if (dialogueState == DIALOGUE_STATE_SHOWING) {
     return;
   }
 
-  // TODO: DMA the dialogue in
+  u32 dialogueLookup = 0x0;
+  if (!(lookupOffsetForDialogueKey("individual", &dialogueLookup))) {
+    return;
+  }
 
-  dialogueState = DIALOGUE_STATE_SHOWING;
-  bipIndex = 0;
-  bipTimePassed = 0.f;
+  startDialogueItem(dialogueLookup);
+
+  
 }
 
 void updateDialogue() {
@@ -82,7 +125,7 @@ void updateDialogue() {
   }
 
 
-  if (hackText[bipIndex] != '\0') {
+  if (currentDialogueItem->text[bipIndex] != '\0') {
   bipTimePassed += deltaTimeSeconds;
     if (bipTimePassed > BIP_TIME_SECONDS) {
       bipTimePassed = 0.f;
@@ -99,7 +142,7 @@ void renderDialogueToDisplayList() {
 
   gDPPipeSync(glistp++);
   gDPLoadTextureBlock_4b(glistp++, sixtwelve_tex, G_IM_FMT_IA, SIXTWELVE_TEXTURE_WIDTH, SIXTWELVE_TEXTURE_HEIGHT, 0, G_TX_MIRROR | G_TX_WRAP, G_TX_MIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
-  drawString(TITLE_SAFE_HORIZONTAL, 64, hackText, (SCREEN_WD - (TITLE_SAFE_HORIZONTAL * 2)));
+  drawString(TITLE_SAFE_HORIZONTAL, 64, currentDialogueItem->text, (SCREEN_WD - (TITLE_SAFE_HORIZONTAL * 2)));
 }
 
 

@@ -22,6 +22,9 @@ extern u8 _noise_backgroundsSegmentRomEnd[];
 extern u8 _display_textSegmentRomStart[];
 extern u8 _display_textSegmentRomEnd[];
 
+// Dialogue
+extern u8 _dialogue_dataSegmentRomStart[];
+
 
 
 #endif /* SEGMENTINFO_H */
