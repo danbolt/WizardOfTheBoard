@@ -132,15 +132,15 @@ void generateFloorTiles() {
     const int y = (i / BOARD_WIDTH);
 
     if (tileIsDark(x, y)) {
-      *(verts++) = (Vtx){ x + 0, y + 0,  0, 0, 32 << 5,  0 << 5, 0xff, 0x11, 0x11, 0xff };
-      *(verts++) = (Vtx){ x + 1, y + 0,  0, 0, 64 << 5,  0 << 5, 0xff, 0x11, 0x11, 0xff };
-      *(verts++) = (Vtx){ x + 1, y + 1,  0, 0, 64 << 5, 32 << 5, 0xff, 0x11, 0x11, 0xff };
-      *(verts++) = (Vtx){ x + 0, y + 1,  0, 0, 32 << 5, 32 << 5, 0xff, 0x11, 0x11, 0xff };
+      *(verts++) = (Vtx){ x + 0, y + 0,  0, 0,  0 << 5,  0 << 5, 0x33, 0x33, 0x88, 0xff };
+      *(verts++) = (Vtx){ x + 1, y + 0,  0, 0, 32 << 5,  0 << 5, 0x33, 0x33, 0x88, 0xff };
+      *(verts++) = (Vtx){ x + 1, y + 1,  0, 0, 32 << 5, 32 << 5, 0x33, 0x33, 0x88, 0xff };
+      *(verts++) = (Vtx){ x + 0, y + 1,  0, 0,  0 << 5, 32 << 5, 0x33, 0x33, 0x88, 0xff };
     } else {
-      *(verts++) = (Vtx){ x + 0, y + 0,  0, 0,  0 << 5,  0 << 5, 0xff, 0xff, 0xff, 0xff };
-      *(verts++) = (Vtx){ x + 1, y + 0,  0, 0, 32 << 5,  0 << 5, 0xff, 0xff, 0xff, 0xff };
-      *(verts++) = (Vtx){ x + 1, y + 1,  0, 0, 32 << 5, 32 << 5, 0xff, 0xff, 0xff, 0xff };
-      *(verts++) = (Vtx){ x + 0, y + 1,  0, 0,  0 << 5, 32 << 5, 0xff, 0xff, 0xff, 0xff };
+      *(verts++) = (Vtx){ x + 0, y + 0,  0, 0,  0 << 5,  0 << 5, 0xbf, 0xbf, 0xbf - (y * 10), 0xff };
+      *(verts++) = (Vtx){ x + 1, y + 0,  0, 0, 32 << 5,  0 << 5, 0xbf, 0xbf, 0xbf - (y * 10), 0xff };
+      *(verts++) = (Vtx){ x + 1, y + 1,  0, 0, 32 << 5, 32 << 5, 0xbf, 0xbf, 0xbf - (y * 10), 0xff };
+      *(verts++) = (Vtx){ x + 0, y + 1,  0, 0,  0 << 5, 32 << 5, 0xbf, 0xbf, 0xbf - (y * 10), 0xff };
     }
 
     if ((verts - lastLoad) >= VERT_BUFFER_SIZE) {
@@ -269,15 +269,15 @@ void generateHUDChessboard() {
     const int y = HUD_CHESSBOARD_HEIGHT - ((i / BOARD_WIDTH) * HUD_CELL_HEIGHT) + HUD_CHESSBOARD_Y;
 
     if (tileIsDark(i % BOARD_WIDTH, i / BOARD_WIDTH)) {
-      *(verts++) = (Vtx){ x + 0             , y + 0              ,  0, 0, 0, 0, 0x11, 0x11, 0x50, 0xff };
-      *(verts++) = (Vtx){ x + HUD_CELL_WIDTH, y + 0              ,  0, 0, 0, 0, 0x11, 0x11, 0x50, 0xff };
-      *(verts++) = (Vtx){ x + HUD_CELL_WIDTH, y - HUD_CELL_HEIGHT,  0, 0, 0, 0, 0x11, 0x11, 0x50, 0xff };
-      *(verts++) = (Vtx){ x + 0             , y - HUD_CELL_HEIGHT,  0, 0, 0, 0, 0x11, 0x11, 0x50, 0xff };
+      *(verts++) = (Vtx){ x + 0             , y + 0              ,  0, 0, 0, 0, 0x10, 0x10, 0x51, 0xff };
+      *(verts++) = (Vtx){ x + HUD_CELL_WIDTH, y + 0              ,  0, 0, 0, 0, 0x10, 0x10, 0x51, 0xff };
+      *(verts++) = (Vtx){ x + HUD_CELL_WIDTH, y - HUD_CELL_HEIGHT,  0, 0, 0, 0, 0x10, 0x10, 0x51, 0xff };
+      *(verts++) = (Vtx){ x + 0             , y - HUD_CELL_HEIGHT,  0, 0, 0, 0, 0x10, 0x10, 0x51, 0xff };
     } else {
-      *(verts++) = (Vtx){ x + 0             , y + 0              ,  0, 0, 0, 0, 0xff, 0xff, 0xff, 0xff };
-      *(verts++) = (Vtx){ x + HUD_CELL_WIDTH, y + 0              ,  0, 0, 0, 0, 0xff, 0xff, 0xff, 0xff };
-      *(verts++) = (Vtx){ x + HUD_CELL_WIDTH, y - HUD_CELL_HEIGHT,  0, 0, 0, 0, 0xff, 0xff, 0xff, 0xff };
-      *(verts++) = (Vtx){ x + 0             , y - HUD_CELL_HEIGHT,  0, 0, 0, 0, 0xff, 0xff, 0xff, 0xff };
+      *(verts++) = (Vtx){ x + 0             , y + 0              ,  0, 0, 0, 0, 0xbf, 0xbf, 0xbf - ((i / BOARD_WIDTH) * 10), 0xff };
+      *(verts++) = (Vtx){ x + HUD_CELL_WIDTH, y + 0              ,  0, 0, 0, 0, 0xbf, 0xbf, 0xbf - ((i / BOARD_WIDTH) * 10), 0xff };
+      *(verts++) = (Vtx){ x + HUD_CELL_WIDTH, y - HUD_CELL_HEIGHT,  0, 0, 0, 0, 0xbf, 0xbf, 0xbf - ((i / BOARD_WIDTH) * 10), 0xff };
+      *(verts++) = (Vtx){ x + 0             , y - HUD_CELL_HEIGHT,  0, 0, 0, 0, 0xbf, 0xbf, 0xbf - ((i / BOARD_WIDTH) * 10), 0xff };
     }
 
     if ((verts - lastLoad) >= VERT_BUFFER_SIZE) {
