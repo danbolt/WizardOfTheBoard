@@ -52,6 +52,11 @@ static u8 isKnockingBackStates[NUMBER_OF_INGAME_ENTITIES];
 #define playerKnockbackTimeRemaining (knockbackTimesRemaining[0])
 #define playerRadiusSquared (radiiSquared[0])
 
+#define GAME_STATE_ACTIVE 0
+#define GAME_STATE_PLAYER_WINS 1
+#define GAME_STATE_PLAYER_LOSES 2
+static u8 gameState;
+
 static float playerHealthDisplay;
 
 static float cosCameraRot;
@@ -291,7 +296,7 @@ void initializeMonsters() {
     velocities[i] = (Vec2){ 0.f, 0.f };
     orientations[i] = 0.f;
     radiiSquared[i] = (0.7f * 0.7f);
-    health[i] = 4;
+    health[i] = 1;
     isKnockingBackStates[i] = 0;
     knockbackTimesRemaining[i] = 0.f;
   }
@@ -304,7 +309,7 @@ void initializeStartingPieces() {
   initializeMonsters();
 
   piecesActive[0] = 1;
-  piecePositions[0] = (Pos2){3, 4};
+  piecePositions[0] = (Pos2){0, 4};
   pieceData[0].type = ROOK;
   pieceData[0].renderCommands = rook_commands;
   pieceData[0].legalCheck = rookLegalMove;
@@ -326,6 +331,8 @@ void initializeStartingPieces() {
 /* The initialization of stage 0 */
 void initStage00(void)
 {
+  gameState = GAME_STATE_ACTIVE;
+
   generateFloorTiles();
   generateWalls();
   generateHUDChessboard();
@@ -373,6 +380,11 @@ void renderDisplayText(int x, int y, const char* text) {
       s = ((letter - 65) + 2) * DISPLAY_FONT_LETTER_WIDTH;
     } else if ((letter >= 48) && (letter <= 57)) {
       s = (((letter - 48)) * DISPLAY_FONT_LETTER_WIDTH) + 364;
+    } else if (letter == '!') {
+      s = 13;
+    } else if (letter == ' ') {
+      advance += 6;
+      continue;
     }
     gSPTextureRectangle(glistp++, (advance) << 2, (y) << 2, (advance + DISPLAY_FONT_LETTER_WIDTH) << 2, (y + DISPLAY_FONT_LETTER_HEIGHT - 1) << 2, 0, s << 5, 0 << 5, 1 << 10, 1 << 10);
     advance += DISPLAY_FONT_LETTER_WIDTH;
@@ -609,8 +621,10 @@ void makeDL00(void)
   gDPSetCycleType(glistp++, G_CYC_1CYCLE);
   renderDisplayText((HUD_CHESSBOARD_X - 72) + 2, (SCREEN_HT - TITLE_SAFE_VERTICAL - 16) - 4, "LIFE");
 
-  if (playerHealth <= 0) {
+  if (gameState == GAME_STATE_PLAYER_LOSES) {
     renderDisplayText(SCREEN_WD / 2 - ((5 * 13) / 2), SCREEN_HT / 2, "DEATH");
+  } else if (gameState == GAME_STATE_PLAYER_WINS) {
+    renderDisplayText(SCREEN_WD / 2 - ((11 * 13) / 2), SCREEN_HT / 2, "FLOOR CLEAR!");
   }
 
   gDPFullSync(glistp++);
@@ -659,11 +673,6 @@ void makeDL00(void)
 }
 
 void updatePlayerInput() {
-  // We don't need to update this if we're dead
-  if (playerHealth <= 0) {
-    return;
-  }
-
   Vec2 inputDir = { 0.f, 0.f };
 
   // Update rotation
@@ -956,13 +965,38 @@ void checkCollisionWithMonsters() {
   }
 }
 
+void checkGameState() {
+  // Check if all the monsters have been defeated
+  {
+    // TODO: for chess puzzle floors, we need to do more than check monster status
+    u32 monstersAlive = 0;
+    for (int i = MONSTER_START_INDEX; i < NUMBER_OF_INGAME_ENTITIES; i++) {
+      if (isActive[i]) {
+        monstersAlive = 1;
+        break;
+      }
+    }
+
+    if (!monstersAlive) {
+      gameState = GAME_STATE_PLAYER_WINS;
+      return;
+    }
+  }
+
+  if (playerHealth <= 0) {
+    gameState = GAME_STATE_PLAYER_LOSES;
+  }
+}
+
 void updateGame00(void)
 {
   nuContDataGetEx(contdata,0);
 
   
-  updatePlayerInput();
-  updateBoardControlInput();
+  if (gameState == GAME_STATE_ACTIVE) {
+    updatePlayerInput();
+    updateBoardControlInput();
+  }
   updateMonsters();
 
   updateMovement();
@@ -971,5 +1005,9 @@ void updateGame00(void)
   checkCollisionWithMonsters();
   updateKnockback();
 
+  if (gameState == GAME_STATE_ACTIVE) {
+    checkGameState();
+  }
+  
   updateHUDInformation();
 }
