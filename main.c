@@ -3,6 +3,8 @@
 #include <nusys.h>
 #include "main.h"
 
+#include "dialogue.h"
+
 #include <segmentinfo.h>
 
 #ifdef N_AUDIO
@@ -41,6 +43,8 @@ void initalizeGameData() {
 
   time = OS_CYCLES_TO_USEC(osGetTime());
   updateTime();
+
+  initalizeDialogue();
 }
 
 void setAudioData(void)
@@ -86,6 +90,7 @@ void mainproc(void)
 void stage00(int pendingGfx)
 {
   updateTime();
+  updateDialogue();
 
   /* Provide the display process if 2 or less RCP tasks are processing or
 	waiting for the process.  */

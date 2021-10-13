@@ -2,6 +2,7 @@
 #include <nusys.h>
 
 #include "constants.h"
+#include "dialogue.h"
 #include "main.h"
 #include "gamemath.h"
 #include "graphic.h"
@@ -685,6 +686,8 @@ void makeDL00(void)
     renderDisplayText(SCREEN_WD / 2 - ((11 * 13) / 2), SCREEN_HT / 2, "FLOOR CLEAR!");
   }
 
+  renderDialogueToDisplayList();
+
   gDPFullSync(glistp++);
   gSPEndDisplayList(glistp++);
 
@@ -817,6 +820,11 @@ void updateMovement() {
 }
 
 void updateBoardControlInput() {
+  if (contdata[0].trigger & B_BUTTON) {
+    startDialogue("test");
+  }
+
+
   if(contdata[0].trigger & U_CBUTTONS) {
     chessboardSpotHighlighted.y = (chessboardSpotHighlighted.y + 1) % BOARD_HEIGHT;
   } else if(contdata[0].trigger & D_CBUTTONS) {
@@ -1101,5 +1109,6 @@ void updateGame00(void)
     puzzleGlyphRotation = -180.f;
   }
   
+  updateDialogue();
   updateHUDInformation();
 }

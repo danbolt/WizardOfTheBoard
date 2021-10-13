@@ -34,7 +34,7 @@ MAP		= jam2.map
 LD_SCRIPT	= jam2.ld
 CP_LD_SCRIPT	= jam2_cp.ld
 
-HFILES =	main.h graphic.h constants.h gamemath.h segmentinfo.h tracknumbers.h pieces.h board.h monsters.h
+HFILES =	main.h graphic.h sixtwelve.h sixtwelve_helpers.h constants.h gamemath.h dialogue.h segmentinfo.h tracknumbers.h pieces.h board.h monsters.h
 
 ASMFILES	= asm/entry.s asm/rom_header.s sound_data.s
 
@@ -44,7 +44,7 @@ BOOT		= /usr/lib/n64/PR/bootcode/boot.6102
 
 BOOT_OBJ	= boot.6102.o
 
-CODEFILES   = 	main.c stage00.c graphic.c gfxinit.c gamemath.c pieces.c pawn.c rook.c board.c cursor.c ogre.c
+CODEFILES   = 	main.c stage00.c graphic.c sixtwelve.c sixtwelve_tex.c sixtwelve_helpers.c gfxinit.c gamemath.c  dialogue.c pieces.c pawn.c rook.c board.c cursor.c ogre.c
 
 CODEOBJECTS =	$(CODEFILES:.c=.o)  $(NUSYSLIBDIR)/nusys_rom.o
 
