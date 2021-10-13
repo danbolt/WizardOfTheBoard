@@ -630,7 +630,7 @@ void makeDL00(void)
 
   // Render legal move spots
   if (boardControlState == BOARD_CONTROL_PIECE_SELECTED) {
-    gDPSetPrimColor(glistp++, 0, 0, 0xff, 0x00, 0x00, 0xff);
+    gDPSetPrimColor(glistp++, 0, 0, 0x00, 0x00, 0x00, 0xff);
     for (int i = 0; i < NUMBER_OF_BOARD_CELLS; i++) {
       if ((selectedPiece > -1) && (piecePositions[selectedPiece].x == (i % BOARD_WIDTH)) && (piecePositions[selectedPiece].y == (i / BOARD_WIDTH))) {
         continue;
