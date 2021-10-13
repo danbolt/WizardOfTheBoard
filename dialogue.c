@@ -4,6 +4,7 @@
 #include "graphic.h"
 #include "dialogue/dialoguelookup.h"
 #include "main.h"
+#include "nustdfuncs.h"
 #include "segmentinfo.h"
 #include "sixtwelve.h"
 #include "sixtwelve_helpers.h"
@@ -13,7 +14,7 @@ u32 dialogueState;
 static int bipIndex;
 static float bipTimePassed;
 
-#define BIP_TIME_SECONDS 0.2f
+#define BIP_TIME_SECONDS 0.1f
 
 typedef union {
   DialogueItem item;
@@ -23,7 +24,6 @@ typedef union {
 #define NUMBER_OF_DIALOGUE_ITEM_BUFFERS 3
 static DMAAlignedDialogueItem dialogueItemTripleBuffer[NUMBER_OF_DIALOGUE_ITEM_BUFFERS] __attribute__((aligned(8)));
 static int nextDialogueItemIndex;
-
 static DialogueItem* currentDialogueItem;
 
 // TODO: add a "simple string" drawing function as well
@@ -110,7 +110,7 @@ void startDialogue(const char* key) {
   }
 
   u32 dialogueLookup = 0x0;
-  if (!(lookupOffsetForDialogueKey("individual", &dialogueLookup))) {
+  if (!(lookupOffsetForDialogueKey(key, &dialogueLookup))) {
     return;
   }
 
@@ -126,11 +126,27 @@ void updateDialogue() {
 
 
   if (currentDialogueItem->text[bipIndex] != '\0') {
-  bipTimePassed += deltaTimeSeconds;
+    bipTimePassed += deltaTimeSeconds;
     if (bipTimePassed > BIP_TIME_SECONDS) {
       bipTimePassed = 0.f;
       bipIndex++;
 
+    }
+
+    // If the player presses the confirm button, skip ahead to the end of the dialogue.
+    if (contdata[0].trigger & B_BUTTON) {
+      while (currentDialogueItem->text[bipIndex] != '\0') {
+        bipIndex++;
+      }
+    }
+  } else {
+    if (contdata[0].trigger & A_BUTTON) {
+      
+      if (currentDialogueItem->nextAddress != 0x0) {
+        startDialogueItem((u32)(currentDialogueItem->nextAddress));
+      } else {
+        dialogueState = DIALOGUE_STATE_OFF;
+      }
     }
   }
 }

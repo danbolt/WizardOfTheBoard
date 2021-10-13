@@ -820,8 +820,8 @@ void updateMovement() {
 }
 
 void updateBoardControlInput() {
-  if (contdata[0].trigger & B_BUTTON) {
-    startDialogue("test");
+  if (contdata[0].trigger & START_BUTTON) {
+    startDialogue("individual");
   }
 
 
@@ -1087,6 +1087,10 @@ void updateGame00(void)
 {
   nuContDataGetEx(contdata,0);
 
+  updateDialogue();
+  if (dialogueState == DIALOGUE_STATE_SHOWING) {
+    return;
+  }
   
   if (gameState == GAME_STATE_ACTIVE) {
     updatePlayerInput();
@@ -1109,6 +1113,5 @@ void updateGame00(void)
     puzzleGlyphRotation = -180.f;
   }
   
-  updateDialogue();
   updateHUDInformation();
 }
