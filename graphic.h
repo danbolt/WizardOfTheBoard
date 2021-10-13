@@ -50,6 +50,10 @@ typedef struct {
 
   Mtx pieceTransforms[MAX_NUMBER_OF_INGAME_PIECES];
 
+  Mtx puzzleSpaceScale;
+  Mtx puzzleSpaceRotation;
+  Mtx puzzleSpaceTranslations[MAX_NUMBER_OF_PUZZLE_SPACES];
+
   Mtx monsterTranslations[MAX_NUMBER_OF_INGAME_MONSTERS];
   Mtx monsterRotations[MAX_NUMBER_OF_INGAME_MONSTERS];
 

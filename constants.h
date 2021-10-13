@@ -14,4 +14,6 @@
 
 #define MONSTER_START_INDEX 1
 
+#define MAX_NUMBER_OF_PUZZLE_SPACES 6
+
 #endif

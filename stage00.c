@@ -34,6 +34,11 @@
 
 #define PLAYER_RADIUS 0.5f
 
+#define PUZZLE_GLYPH_ROTATION_SPEED 32.f
+static Pos2 puzzleSpaceSpots[MAX_NUMBER_OF_PUZZLE_SPACES];
+static u32 numberOfPuzzleSpaces;
+static float puzzleGlyphRotation;
+
 static Vec2 positions[NUMBER_OF_INGAME_ENTITIES];
 static Vec2 velocities[NUMBER_OF_INGAME_ENTITIES];
 static u8 isActive[NUMBER_OF_INGAME_ENTITIES];
@@ -97,15 +102,28 @@ static Gfx wallDL[(BOARD_WIDTH * 2) + (BOARD_HEIGHT * 2) + 4 + COMMANDS_END_DL_S
 
 const char* highlightedPieceText;
 
+static Vtx puzzleSpaceVerts[] = {
+  { -1, -1,  0, 0,  97 << 5,  0 << 5, 0x5B, 0xff, 0xff, 0xff },
+  {  1, -1,  0, 0, 128 << 5,  0 << 5, 0x5B, 0xff, 0xff, 0xff },
+  {  1,  1,  0, 0, 128 << 5, 32 << 5, 0x5B, 0xff, 0xff, 0xff },
+  { -1,  1,  0, 0,  97 << 5, 32 << 5, 0x5B, 0xff, 0xff, 0xff },
+};
+
+static Gfx renderPuzzleSpaceCommands[] = {
+  gsSPVertex(puzzleSpaceVerts, 16, 0),
+  gsSP2Triangles(0, 1, 2, 0, 0, 2, 3, 0),
+  gsSPEndDisplayList()
+};
+
 // TODO: let us customize/randomize the textures for this on init time
 void generateFloorTiles() {
   Gfx* commands = floorDL;
   Vtx* verts = floorVerts;
   Vtx* lastLoad = verts;
 
-  gDPSetCombineMode(commands++, G_CC_MODULATEI, G_CC_MODULATEI);
+  gDPSetCombineMode(commands++, G_CC_MODULATEIA, G_CC_MODULATEIA);
   gDPSetRenderMode(commands++, G_RM_TEX_EDGE, G_RM_TEX_EDGE2);
-  gDPLoadTextureBlock(commands++,  OS_K0_TO_PHYSICAL(floorTexture), G_IM_FMT_I, G_IM_SIZ_8b, 128, 32, 0, G_TX_NOMIRROR, G_TX_NOMIRROR, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
+  gDPLoadTextureBlock(commands++,  OS_K0_TO_PHYSICAL(floorTexture), G_IM_FMT_IA, G_IM_SIZ_8b, 128, 32, 0, G_TX_NOMIRROR, G_TX_NOMIRROR, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
   gDPPipeSync(commands++);
   gSPTexture(commands++, 0xffff, 0xffff, 0, G_TX_RENDERTILE, G_ON);
 
@@ -328,11 +346,20 @@ void initializeStartingPieces() {
 
 }
 
+void initializePuzzleSpots() {
+  puzzleGlyphRotation = 0.f;
+  numberOfPuzzleSpaces = 0;
+  for (int i = 0; i < MAX_NUMBER_OF_PUZZLE_SPACES; i++) {
+    puzzleSpaceSpots[i] = (Pos2){ 0, 0 };
+  }
+}
+
 /* The initialization of stage 0 */
 void initStage00(void)
 {
   gameState = GAME_STATE_ACTIVE;
 
+  initializePuzzleSpots();
   generateFloorTiles();
   generateWalls();
   generateHUDChessboard();
@@ -366,6 +393,11 @@ void initStage00(void)
   }
 
   initializeStartingPieces();
+
+  numberOfPuzzleSpaces = MAX_NUMBER_OF_PUZZLE_SPACES;
+  for (int i = 0; i < MAX_NUMBER_OF_PUZZLE_SPACES; i++) {
+    puzzleSpaceSpots[i] = (Pos2){ i, i };
+  }
 }
 
 #define DISPLAY_FONT_LETTER_WIDTH 13
@@ -437,8 +469,21 @@ void makeDL00(void)
   gSPSetGeometryMode(glistp++,G_SHADE | G_SHADING_SMOOTH);
   gSPClipRatio(glistp++, FRUSTRATIO_3);
 
-  // TODO: walls
   gSPDisplayList(glistp++, OS_K0_TO_PHYSICAL(floorDL));
+
+  guScale(&dynamicp->puzzleSpaceScale, 0.5f, 0.5f, 0.5f);
+  guRotate(&dynamicp->puzzleSpaceRotation, puzzleGlyphRotation, 0.f, 0.f, 1.f);
+  for (int i = 0; i < numberOfPuzzleSpaces; i++) {
+    guTranslate(&(dynamicp->puzzleSpaceTranslations[i]), puzzleSpaceSpots[i].x + 0.5f, puzzleSpaceSpots[i].y + 0.5f, 0.f);
+    gSPMatrix(glistp++, OS_K0_TO_PHYSICAL(&(dynamicp->puzzleSpaceTranslations[i])), G_MTX_MODELVIEW | G_MTX_MUL | G_MTX_PUSH);
+    gSPMatrix(glistp++, OS_K0_TO_PHYSICAL(&dynamicp->puzzleSpaceRotation), G_MTX_MODELVIEW | G_MTX_MUL | G_MTX_NOPUSH);
+    gSPMatrix(glistp++, OS_K0_TO_PHYSICAL(&dynamicp->puzzleSpaceScale), G_MTX_MODELVIEW | G_MTX_MUL | G_MTX_NOPUSH);
+
+    gSPDisplayList(glistp++, OS_K0_TO_PHYSICAL(renderPuzzleSpaceCommands));
+
+    gSPPopMatrix(glistp++, G_MTX_MODELVIEW);
+  }
+
   gSPDisplayList(glistp++, OS_K0_TO_PHYSICAL(wallDL));
 
   gSPTexture(glistp++, 0xffff, 0xffff, 0, G_TX_RENDERTILE, G_OFF);
@@ -538,6 +583,16 @@ void makeDL00(void)
     gDPSetTexturePersp(glistp++, G_TP_NONE);
 
     gSPPopMatrix(glistp++, G_MTX_MODELVIEW);
+  }
+
+  // Render the puzzle spaces
+  gDPSetPrimColor(glistp++, 0, 0, 0x00, 0xff, 0xff, 0xff);
+  for (int i = 0; i < numberOfPuzzleSpaces; i++) {
+
+    const u32 puzzleSpotX = HUD_CHESSBOARD_X + ((puzzleSpaceSpots[i].x) * HUD_CELL_WIDTH);
+    const u32 puzzleSpotY = HUD_CHESSBOARD_Y + ((BOARD_HEIGHT - 1 - puzzleSpaceSpots[i].y) * HUD_CELL_HEIGHT) - ((16 - HUD_CELL_HEIGHT) / 2);
+
+    gSPTextureRectangle(glistp++, (puzzleSpotX) << 2, (puzzleSpotY) << 2, (puzzleSpotX + 16) << 2, (puzzleSpotY + 16) << 2, 0, (208) << 5, 0 << 5, 1 << 10, 1 << 10);
   }
 
   // Render the piece locations on the HUD
@@ -1007,6 +1062,11 @@ void updateGame00(void)
 
   if (gameState == GAME_STATE_ACTIVE) {
     checkGameState();
+  }
+
+  puzzleGlyphRotation += deltaTimeSeconds * PUZZLE_GLYPH_ROTATION_SPEED;
+  if (puzzleGlyphRotation > 180.f) {
+    puzzleGlyphRotation = -180.f;
   }
   
   updateHUDInformation();
