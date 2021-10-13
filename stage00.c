@@ -451,7 +451,7 @@ void makeDL00(void)
 
   guOrtho(&dynamicp->ortho, 0.f, SCREEN_WD, SCREEN_HT, 0.f, 1.0F, 10.0F, 1.0F);
   guPerspective(&dynamicp->projection, &perspectiveNorm, ingameFOV, ((float)SCREEN_WD)/((float)SCREEN_HT), 0.3f, 100.f, 1.f);
-  guLookAt(&dynamicp->camera, playerPosition.x, playerPosition.y, PLAYER_HEIGHT_ABOVE_GROUND, playerPosition.x - sinCameraRot, playerPosition.y + cosCameraRot, PLAYER_HEIGHT_ABOVE_GROUND, 0.f, 0.f, 1.f);
+  guLookAt(&dynamicp->camera, playerPosition.x, playerPosition.y, PLAYER_HEIGHT_ABOVE_GROUND, playerPosition.x - sinCameraRot, playerPosition.y + cosCameraRot, PLAYER_HEIGHT_ABOVE_GROUND - 0.2f, 0.f, 0.f, 1.f);
   guMtxIdent(&dynamicp->modelling);
 
   guTranslate(&dynamicp->cursorTransform, chessboardSpotHighlighted.x + 0.5f, chessboardSpotHighlighted.y + 0.5f, 0.f);
@@ -466,7 +466,7 @@ void makeDL00(void)
   gDPPipeSync(glistp++);
   gSPClearGeometryMode(glistp++,0xFFFFFFFF);
   gSPSetGeometryMode(glistp++,G_SHADE | G_SHADING_SMOOTH);
-  gSPClipRatio(glistp++, FRUSTRATIO_3);
+  gSPClipRatio(glistp++, FRUSTRATIO_6);
 
   gSPDisplayList(glistp++, OS_K0_TO_PHYSICAL(floorDL));
 
