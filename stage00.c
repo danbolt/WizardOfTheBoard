@@ -323,26 +323,23 @@ void initializeMonsters() {
 void initializeStartingPieces() {
   initPieceStates();
 
-  isActive[0] = 1; // player is always active
-  initializeMonsters();
+  // piecesActive[0] = 1;
+  // piecePositions[0] = (Pos2){0, 4};
+  // pieceData[0].type = ROOK;
+  // pieceData[0].renderCommands = rook_commands;
+  // pieceData[0].legalCheck = rookLegalMove;
+  // pieceData[0].displayName = "ROOK";
+  // pieceViewPos[0] = (Vec2){ piecePositions[0].x + 0.5f, piecePositions[0].y + 0.5f };
 
-  piecesActive[0] = 1;
-  piecePositions[0] = (Pos2){0, 4};
-  pieceData[0].type = ROOK;
-  pieceData[0].renderCommands = rook_commands;
-  pieceData[0].legalCheck = rookLegalMove;
-  pieceData[0].displayName = "ROOK";
-  pieceViewPos[0] = (Vec2){ piecePositions[0].x + 0.5f, piecePositions[0].y + 0.5f };
-
-  // for (int i = 1; i < MAX_NUMBER_OF_INGAME_PIECES; i++) {
-  //   piecesActive[i] = 1;
-  //   piecePositions[i] = (Pos2){i, i};
-  //   pieceData[i].type = ROOK;
-  //   pieceData[i].renderCommands = rook_commands;
-  //   pieceData[i].legalCheck = rookLegalMove;
-  //   pieceData[i].displayName = "ROOK";
-  //   pieceViewPos[i] = (Vec2){ piecePositions[i].x + 0.5f, piecePositions[i].y + 0.5f };
-  // }
+  for (int i = 0; i < 3; i++) {
+    piecesActive[i] = 1;
+    piecePositions[i] = (Pos2){i, i + 1};
+    pieceData[i].type = ROOK;
+    pieceData[i].renderCommands = rook_commands;
+    pieceData[i].legalCheck = rookLegalMove;
+    pieceData[i].displayName = "ROOK";
+    pieceViewPos[i] = (Vec2){ piecePositions[i].x + 0.5f, piecePositions[i].y + 0.5f };
+  }
 
 }
 
@@ -359,6 +356,8 @@ void initStage00(void)
 {
   gameState = GAME_STATE_ACTIVE;
 
+  isActive[0] = 1; // player is always active
+  initializeMonsters();
   initializePuzzleSpots();
   generateFloorTiles();
   generateWalls();
@@ -394,8 +393,8 @@ void initStage00(void)
 
   initializeStartingPieces();
 
-  numberOfPuzzleSpaces = MAX_NUMBER_OF_PUZZLE_SPACES;
-  for (int i = 0; i < MAX_NUMBER_OF_PUZZLE_SPACES; i++) {
+  numberOfPuzzleSpaces = 3;
+  for (int i = 0; i < 3; i++) {
     puzzleSpaceSpots[i] = (Pos2){ i, i };
   }
 }
@@ -1022,24 +1021,53 @@ void checkCollisionWithMonsters() {
 
 void checkGameState() {
   // Check if all the monsters have been defeated
+  u32 monstersAlive = 0;
   {
     // TODO: for chess puzzle floors, we need to do more than check monster status
-    u32 monstersAlive = 0;
     for (int i = MONSTER_START_INDEX; i < NUMBER_OF_INGAME_ENTITIES; i++) {
       if (isActive[i]) {
         monstersAlive = 1;
         break;
       }
     }
+  }
 
-    if (!monstersAlive) {
-      gameState = GAME_STATE_PLAYER_WINS;
-      return;
+  // Check if all the puzzle spaces are covered
+  u32 allPuzzleSpacesAreCovered = 1;
+  {
+    for (int i = 0; i < numberOfPuzzleSpaces; i++) {
+      const Pos2* puzzleSpot = &(puzzleSpaceSpots[i]);
+
+      u32 puzzleSpaceIsCovered = 0;
+      for (int j = 0; j < MAX_NUMBER_OF_INGAME_PIECES; j++) {
+        if (!(piecesActive[j])) {
+          continue;
+        }
+
+        // If the piece is moving, don't worry about it for now
+        if (pieceIsLerping[j]) {
+          continue;
+        }
+
+        if ((piecePositions[j].x == puzzleSpot->x) && (piecePositions[j].y == puzzleSpot->y)) {
+          puzzleSpaceIsCovered = 1;
+          break;
+        }
+      }
+
+      if (!puzzleSpaceIsCovered) {
+        allPuzzleSpacesAreCovered = 0;
+        break;
+      }
     }
   }
 
   if (playerHealth <= 0) {
     gameState = GAME_STATE_PLAYER_LOSES;
+  }
+
+  if ((!monstersAlive) && allPuzzleSpacesAreCovered) {
+    gameState = GAME_STATE_PLAYER_WINS;
   }
 }
 
