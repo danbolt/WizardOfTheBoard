@@ -658,10 +658,14 @@ void makeDL00(void)
   char cursorSpotString[] = { '\0', '\0', '\0'};
   boardPosToLetter(&chessboardSpotHighlighted, &(cursorSpotString[0]), &(cursorSpotString[1]));
   gDPSetPrimColor(glistp++, 0, 0, N64_C_BUTTONS_RED, N64_C_BUTTONS_GREEN, N64_C_BUTTONS_BLUE, 0xff);
-  renderDisplayText(HUD_CHESSBOARD_X - (27), HUD_CHESSBOARD_Y + 18, cursorSpotString);
+  renderDisplayText(HUD_CHESSBOARD_X - (27), HUD_CHESSBOARD_Y + 18 + 16, cursorSpotString);
 
   gDPSetPrimColor(glistp++, 0, 0, 0xff, 0xff, 0xff, 0xff);
-  renderDisplayText(HUD_CHESSBOARD_X - (12 * 8), HUD_CHESSBOARD_Y + 18 + 16, highlightedPieceText);
+  if (selectedPiece > -1) {
+    renderDisplayText(HUD_CHESSBOARD_X - (27) - (30), HUD_CHESSBOARD_Y + 18 + 16, "TO");
+  }
+
+  renderDisplayText(HUD_CHESSBOARD_X - (12 * 8), HUD_CHESSBOARD_Y + 18, highlightedPieceText);
 
   gDPPipeSync(glistp++);
   gDPSetCycleType(glistp++, G_CYC_FILL);
