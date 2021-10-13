@@ -34,7 +34,7 @@
 
 #define PLAYER_RADIUS 0.5f
 
-#define PUZZLE_GLYPH_ROTATION_SPEED 32.f
+#define PUZZLE_GLYPH_ROTATION_SPEED 64.f
 static Pos2 puzzleSpaceSpots[MAX_NUMBER_OF_PUZZLE_SPACES];
 static u32 numberOfPuzzleSpaces;
 static float puzzleGlyphRotation;
