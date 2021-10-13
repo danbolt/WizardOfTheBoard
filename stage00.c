@@ -435,7 +435,7 @@ void makeDL00(void)
   gDPPipeSync(glistp++);
   gSPClearGeometryMode(glistp++,0xFFFFFFFF);
   gSPSetGeometryMode(glistp++,G_SHADE | G_SHADING_SMOOTH);
-  gSPClipRatio(glistp++, FRUSTRATIO_6);
+  gSPClipRatio(glistp++, FRUSTRATIO_3);
 
   // TODO: walls
   gSPDisplayList(glistp++, OS_K0_TO_PHYSICAL(floorDL));
