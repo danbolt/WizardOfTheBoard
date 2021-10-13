@@ -917,8 +917,42 @@ void updateMonsters() {
     }
 
     // TODO: something much more interesting
-    velocities[i].x = guRandom() % 3 - 1;
-    velocities[i].y = guRandom() % 3 - 1;
+    // velocities[i].x = guRandom() % 3 - 1;
+    // velocities[i].y = guRandom() % 3 - 1;
+  }
+}
+
+void checkCollisionWithMonsters() {
+  if (playerHealth <= 0) {
+    return;
+  }
+
+  if (isPlayerKnockingBack) {
+    return;
+  }
+
+  for (int i = MONSTER_START_INDEX; i < NUMBER_OF_INGAME_ENTITIES; i++) {
+    if (!(isActive[i])) {
+      continue;
+    }
+
+    if (isKnockingBackStates[i]) {
+      continue;
+    }
+
+    const float distanceSquared = distanceSq(&playerPosition, &(positions[i]));
+    if (distanceSquared > MAX(radiiSquared[i], playerRadiusSquared)) {
+      continue;
+    }
+
+    playerHealth = MAX(playerHealth - 1, 0);
+
+    isPlayerKnockingBack = 1;
+    playerKnockbackTimeRemaining = KNOCKBACK_TIME;
+    playerVelocity = (Vec2){ playerPosition.x - positions[i].x, playerPosition.y - positions[i].y };
+    normalize(&(playerVelocity));
+    playerVelocity.x *= KNOCKBACK_SPEED;
+    playerVelocity.y *= KNOCKBACK_SPEED;
   }
 }
 
@@ -934,6 +968,7 @@ void updateGame00(void)
   updateMovement();
   updateMovingPieces();
   checkCollisionWithPieces();
+  checkCollisionWithMonsters();
   updateKnockback();
 
   updateHUDInformation();
