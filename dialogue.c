@@ -2,6 +2,7 @@
 #include "dialogue.h"
 
 #include "graphic.h"
+#include "cast_sprites/castlookup.h"
 #include "dialogue/dialoguelookup.h"
 #include "main.h"
 #include "nustdfuncs.h"
@@ -23,6 +24,11 @@ typedef union {
 
 #define NUMBER_OF_DIALOGUE_ITEM_BUFFERS 3
 static DMAAlignedDialogueItem dialogueItemTripleBuffer[NUMBER_OF_DIALOGUE_ITEM_BUFFERS] __attribute__((aligned(8)));
+static u8 portraitBuffer0[TMEM_SIZE_BYTES] __attribute__((aligned(8)));
+static u8 portraitBuffer1[TMEM_SIZE_BYTES] __attribute__((aligned(8)));
+static u8 portraitBuffer2[TMEM_SIZE_BYTES] __attribute__((aligned(8)));
+static u8* portraitBuffers[NUMBER_OF_DIALOGUE_ITEM_BUFFERS] = { portraitBuffer0, portraitBuffer1, portraitBuffer2 };
+static u8* currentPortrait;
 static int nextDialogueItemIndex;
 static DialogueItem* currentDialogueItem;
 
@@ -74,6 +80,7 @@ void initalizeDialogue() {
   bipIndex = 0;
   nextDialogueItemIndex = 0;
   currentDialogueItem = NULL;
+  currentPortrait = NULL;
 }
 
 void startDialogueItem(u32 offset) {
@@ -81,11 +88,21 @@ void startDialogueItem(u32 offset) {
   bipTimePassed = 0.f;
 
   DialogueItem* nextDialogueItem = &(dialogueItemTripleBuffer[nextDialogueItemIndex].item);
-  nextDialogueItemIndex = (nextDialogueItemIndex + 1) % NUMBER_OF_DIALOGUE_ITEM_BUFFERS;
 
   nuPiReadRom((u32)(_dialogue_dataSegmentRomStart + offset), (void*)(nextDialogueItem), sizeof(DialogueItem));
 
   currentDialogueItem = nextDialogueItem;
+
+  struct castMappingData * castSpriteOffset = getCastTextureOffset(nextDialogueItem->speaker, _nstrlen(nextDialogueItem->speaker));
+  if (castSpriteOffset) {
+
+    nuPiReadRom((u32)(_cast_sprite_dataSegmentRomStart + castSpriteOffset->offset), portraitBuffers[nextDialogueItemIndex], TMEM_SIZE_BYTES);
+    currentPortrait = portraitBuffers[nextDialogueItemIndex];
+  } else {
+    currentPortrait = NULL;
+  }
+
+  nextDialogueItemIndex = (nextDialogueItemIndex + 1) % NUMBER_OF_DIALOGUE_ITEM_BUFFERS;
 
   dialogueState = DIALOGUE_STATE_SHOWING;
 }
@@ -158,7 +175,17 @@ void renderDialogueToDisplayList() {
 
   gDPPipeSync(glistp++);
   gDPLoadTextureBlock_4b(glistp++, sixtwelve_tex, G_IM_FMT_IA, SIXTWELVE_TEXTURE_WIDTH, SIXTWELVE_TEXTURE_HEIGHT, 0, G_TX_MIRROR | G_TX_WRAP, G_TX_MIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
-  drawString(TITLE_SAFE_HORIZONTAL, 64, currentDialogueItem->text, (SCREEN_WD - (TITLE_SAFE_HORIZONTAL * 2)));
+  if (currentPortrait != NULL) {
+    drawString(TITLE_SAFE_HORIZONTAL + 32 + 4, 64, currentDialogueItem->text, (SCREEN_WD - (TITLE_SAFE_HORIZONTAL * 2) - (32 + 4)));
+
+    gDPPipeSync(glistp++);
+    gDPLoadTextureBlock(glistp++, OS_K0_TO_PHYSICAL(currentPortrait), G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 64, 0, G_TX_MIRROR | G_TX_WRAP, G_TX_MIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
+    gDPSetCombineMode(glistp++, G_CC_DECALRGBA, G_CC_DECALRGBA);
+    gSPTextureRectangle(glistp++, TITLE_SAFE_HORIZONTAL << 2, 64 << 2, (TITLE_SAFE_HORIZONTAL + 32) << 2, (64 + 64) << 2, 0, 0 << 5, 0 << 5, 1 << 10, 1 << 10);
+  } else {
+    drawString(TITLE_SAFE_HORIZONTAL, 64, currentDialogueItem->text, (SCREEN_WD - (TITLE_SAFE_HORIZONTAL * 2)));
+  }
+
 }
 
 

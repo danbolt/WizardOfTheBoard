@@ -821,7 +821,7 @@ void updateMovement() {
 
 void updateBoardControlInput() {
   if (contdata[0].trigger & START_BUTTON) {
-    startDialogue("individual");
+    startDialogue("powpowpow");
   }
 
 

@@ -24,7 +24,6 @@ extern u8 _display_textSegmentRomEnd[];
 
 // Dialogue
 extern u8 _dialogue_dataSegmentRomStart[];
-
-
+extern u8 _cast_sprite_dataSegmentRomStart[];
 
 #endif /* SEGMENTINFO_H */

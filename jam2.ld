@@ -120,6 +120,12 @@ SECTIONS
       dialogue/dialogueBuffers.bino(.data);
    }
    END_SEG(dialogue_data)
+
+   BEGIN_SEG(cast_sprite_data, __romPos)
+   {
+      cast_sprites/packedtextures.bino(.data);
+   }
+   END_SEG(cast_sprite_data)
    
    /* Discard everything not specifically mentioned above. */
    /DISCARD/ :
