@@ -7,6 +7,7 @@
 #include "gamemath.h"
 #include "graphic.h"
 #include "monsters.h"
+#include "nustdfuncs.h"
 #include "tracknumbers.h"
 #include "segmentinfo.h"
 #include "board.h"
@@ -741,7 +742,13 @@ void updatePlayerInput() {
   Vec2 inputDir = { 0.f, 0.f };
 
   // Update rotation
-  if((contdata[0].button & L_TRIG) || (contdata[0].stick_x < -7)) {
+  if (((contdata[0].button & (L_TRIG | R_TRIG)) == (L_TRIG | R_TRIG)) || (contdata[0].button & Z_TRIG)) {
+    const Vec2 directionToCursor = { (float)(chessboardSpotHighlighted.x) + 0.5f - playerPosition.x, (float)(chessboardSpotHighlighted.y) + 0.5f - playerPosition.y };
+    const float angleToCursor = nu_atan2(directionToCursor.y, directionToCursor.x) - (M_PI * 0.5f);
+
+    playerOrientation = lerpAngle(playerOrientation, angleToCursor, 0.63f);
+
+  } else if((contdata[0].button & L_TRIG) || (contdata[0].stick_x < -7)) {
     playerOrientation += PLAYER_TURN_SPEED * deltaTimeSeconds;
 
     if (playerOrientation > M_PI) {
@@ -776,9 +783,9 @@ void updatePlayerInput() {
     inputDir.y = -1.f;
   }
 
-  if(contdata[0].button & R_JPAD) {
+  if((contdata[0].button & R_JPAD) || ((contdata[0].button & Z_TRIG) && (contdata[0].stick_x > 7))) {
     inputDir.x = 1.f;
-  } else if(contdata[0].button & L_JPAD) {
+  } else if((contdata[0].button & L_JPAD) || ((contdata[0].button & Z_TRIG) && (contdata[0].stick_x < -7))) {
     inputDir.x = -1.f;
   }
 

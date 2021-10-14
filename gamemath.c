@@ -24,6 +24,23 @@ float lerp(float a, float b, float f) {
     return a + f * (b - a);
 }
 
+// Very crass wrapping function
+float wrapMP(float f) {
+	while (f > M_PI) {
+		f -= (M_PI * 2.f);
+	} 
+
+	while (f < -M_PI) {
+		f += (M_PI * 2.f);
+	}
+
+	return f;
+}
+
+float lerpAngle(float u, float v, float p) {
+    return u + p*wrapMP(v - u);
+}
+
 float clamp(float x, float min, float max) {
 	return MIN(max, MAX(min, x));
 }
