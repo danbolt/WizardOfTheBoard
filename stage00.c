@@ -20,8 +20,8 @@
 #endif
 
 #define PLAYER_HEIGHT_ABOVE_GROUND 0.36f
-#define PLAYER_WALK_SPEED 5.f
-#define PLAYER_TURN_SPEED 2.f
+#define PLAYER_WALK_SPEED 3.f
+#define PLAYER_TURN_SPEED 3.f
 
 #define PLAYER_MAX_HEALTH 5
 #define INV_MAX_HEALTH (1.f / PLAYER_MAX_HEALTH)
@@ -171,10 +171,10 @@ void generateWalls() {
   Vtx* lastLoad = verts;
 
   for (int i = 0; i < BOARD_WIDTH; i++) {
-    *(verts++) = (Vtx){ i + 0, 0,  0, 0,  64 << 5,  0 << 5, 0x46, 0x55, 0x6b, 0xff };
-    *(verts++) = (Vtx){ i + 1, 0,  0, 0,  96 << 5,  0 << 5, 0x46, 0x55, 0x6b, 0xff };
-    *(verts++) = (Vtx){ i + 1, 0,  WALL_HEIGHT, 0,  96 << 5, 32 << 5, 0x46, 0x55, 0x6b, 0xff };
-    *(verts++) = (Vtx){ i + 0, 0,  WALL_HEIGHT, 0,  64 << 5, 32 << 5, 0x46, 0x55, 0x6b, 0xff };
+    *(verts++) = (Vtx){ i + 1, 0,  0, 0,  64 << 5,  0 << 5, 0x46, 0x55, 0x6b, 0xff };
+    *(verts++) = (Vtx){ i + 0, 0,  0, 0,  96 << 5,  0 << 5, 0x46, 0x55, 0x6b, 0xff };
+    *(verts++) = (Vtx){ i + 0, 0,  WALL_HEIGHT, 0,  96 << 5, 32 << 5, 0x46, 0x55, 0x6b, 0xff };
+    *(verts++) = (Vtx){ i + 1, 0,  WALL_HEIGHT, 0,  64 << 5, 32 << 5, 0x46, 0x55, 0x6b, 0xff };
   }
   gSPVertex(commands++, &(lastLoad[0]), (BOARD_WIDTH * 4), 0);
   for (int j = 0; j < (BOARD_WIDTH * 4); j += 4) {
@@ -207,10 +207,10 @@ void generateWalls() {
   lastLoad = verts;
 
   for (int i = 0; i < BOARD_HEIGHT; i++) {
-    *(verts++) = (Vtx){ BOARD_WIDTH, i + 0,  0, 0,  64 << 5,  0 << 5, 0x46, 0x55, 0x6b, 0xff };
-    *(verts++) = (Vtx){ BOARD_WIDTH, i + 1,  0, 0,  96 << 5,  0 << 5, 0x46, 0x55, 0x6b, 0xff };
-    *(verts++) = (Vtx){ BOARD_WIDTH, i + 1,  WALL_HEIGHT, 0,  96 << 5, 32 << 5, 0x46, 0x55, 0x6b, 0xff };
-    *(verts++) = (Vtx){ BOARD_WIDTH, i + 0,  WALL_HEIGHT, 0,  64 << 5, 32 << 5, 0x46, 0x55, 0x6b, 0xff };
+    *(verts++) = (Vtx){ BOARD_WIDTH, i + 1,  0, 0,  64 << 5,  0 << 5, 0x46, 0x55, 0x6b, 0xff };
+    *(verts++) = (Vtx){ BOARD_WIDTH, i + 0,  0, 0,  96 << 5,  0 << 5, 0x46, 0x55, 0x6b, 0xff };
+    *(verts++) = (Vtx){ BOARD_WIDTH, i + 0,  WALL_HEIGHT, 0,  96 << 5, 32 << 5, 0x46, 0x55, 0x6b, 0xff };
+    *(verts++) = (Vtx){ BOARD_WIDTH, i + 1,  WALL_HEIGHT, 0,  64 << 5, 32 << 5, 0x46, 0x55, 0x6b, 0xff };
   }
   gSPVertex(commands++, &(lastLoad[0]), (BOARD_HEIGHT * 4), 0);
   for (int j = 0; j < (BOARD_HEIGHT * 4); j += 4) {
@@ -246,10 +246,10 @@ static Vtx HUDBackgroundVerts[] = {
 
 static Gfx renderHudBackgroundCommands[] = {
   gsSPVertex(HUDBackgroundVerts, 16, 0),
-  gsSP2Triangles(0, 1, 2, 0, 0, 2, 3, 0),
-  gsSP2Triangles(4, 5, 6, 0, 4, 6, 7, 0),
-  gsSP2Triangles(8, 9, 10, 0, 8, 10, 11, 0),
-  gsSP2Triangles(12, 13, 14, 0, 12, 14, 15, 0),
+  gsSP2Triangles(0, 2, 1, 0, 0, 3, 2, 0),
+  gsSP2Triangles(4, 6, 5, 0, 4, 7, 6, 0),
+  gsSP2Triangles(8, 10, 9, 0, 8, 11, 10, 0),
+  gsSP2Triangles(12, 14, 13, 0, 12, 15, 14, 0),
   gsSPEndDisplayList()
 };
 
@@ -300,10 +300,10 @@ void generateHUDChessboard() {
 }
 
 static Vtx playerFOVHUDVerts[] = {
-  {  0, -20,  0, 0, 128 << 5,  0 << 5, 0xff, 0xff, 0xff, 0xff },
-  { 20, -20,  0, 0, 144 << 5,  0 << 5, 0xff, 0xff, 0xff, 0xff },
-  { 20,  20,  0, 0, 144 << 5, 16 << 5, 0xff, 0xff, 0xff, 0xff },
-  {  0,  20,  0, 0, 128 << 5, 16 << 5, 0xff, 0xff, 0xff, 0xff },
+  {  0,  20,  0, 0, 128 << 5,  0 << 5, 0xff, 0xff, 0xff, 0xff },
+  { 20,  20,  0, 0, 144 << 5,  0 << 5, 0xff, 0xff, 0xff, 0xff },
+  { 20, -20,  0, 0, 144 << 5, 16 << 5, 0xff, 0xff, 0xff, 0xff },
+  {  0, -20,  0, 0, 128 << 5, 16 << 5, 0xff, 0xff, 0xff, 0xff },
 };
 
 void loadInTextures() {
@@ -459,7 +459,7 @@ void makeDL00(void)
   guScale(&dynamicp->blenderExportScale, BLENDER_EXPORT_MODEL_SCALE, BLENDER_EXPORT_MODEL_SCALE, BLENDER_EXPORT_MODEL_SCALE);
 
   guOrtho(&dynamicp->ortho, 0.f, SCREEN_WD, SCREEN_HT, 0.f, 1.0F, 10.0F, 1.0F);
-  guPerspective(&dynamicp->projection, &perspectiveNorm, ingameFOV, ((float)SCREEN_WD)/((float)SCREEN_HT), 0.3f, 100.f, 1.f);
+  guPerspective(&dynamicp->projection, &perspectiveNorm, ingameFOV, ((float)SCREEN_WD)/((float)SCREEN_HT), 0.1f, 100.f, 1.f);
   guLookAt(&dynamicp->camera, playerPosition.x, playerPosition.y, PLAYER_HEIGHT_ABOVE_GROUND, playerPosition.x - sinCameraRot, playerPosition.y + cosCameraRot, PLAYER_HEIGHT_ABOVE_GROUND - 0.1f, 0.f, 0.f, 1.f);
   guMtxIdent(&dynamicp->modelling);
 
@@ -474,7 +474,7 @@ void makeDL00(void)
   gDPSetRenderMode(glistp++,G_RM_OPA_SURF, G_RM_OPA_SURF2);
   gDPPipeSync(glistp++);
   gSPClearGeometryMode(glistp++,0xFFFFFFFF);
-  gSPSetGeometryMode(glistp++,G_SHADE | G_SHADING_SMOOTH);
+  gSPSetGeometryMode(glistp++,G_SHADE | G_SHADING_SMOOTH | G_CULL_BACK);
   gSPClipRatio(glistp++, FRUSTRATIO_6);
 
   gSPDisplayList(glistp++, OS_K0_TO_PHYSICAL(floorDL));
