@@ -75,6 +75,7 @@ static u32 boardControlState;
 static u8 legalDestinationState[NUMBER_OF_BOARD_CELLS];
 
 static Pos2 chessboardSpotHighlighted;
+static u8 lerpingAngleToCursor;
 
 static int selectedPiece;
 
@@ -742,11 +743,18 @@ void updatePlayerInput() {
   Vec2 inputDir = { 0.f, 0.f };
 
   // Update rotation
-  if (((contdata[0].button & (L_TRIG | R_TRIG)) == (L_TRIG | R_TRIG)) || (contdata[0].button & Z_TRIG)) {
+  if (
+      ((contdata[0].button & R_TRIG) && (contdata[0].trigger & L_TRIG)) ||
+      ((contdata[0].button & L_TRIG) && (contdata[0].trigger & R_TRIG)) ||
+      (contdata[0].trigger & Z_TRIG) 
+      ) {
     const Vec2 directionToCursor = { (float)(chessboardSpotHighlighted.x) + 0.5f - playerPosition.x, (float)(chessboardSpotHighlighted.y) + 0.5f - playerPosition.y };
     const float angleToCursor = nu_atan2(directionToCursor.y, directionToCursor.x) - (M_PI * 0.5f);
 
-    playerOrientation = lerpAngle(playerOrientation, angleToCursor, 0.63f);
+    playerOrientation = angleToCursor;
+
+  } else if (((contdata[0].button & (L_TRIG | R_TRIG)) == (L_TRIG | R_TRIG)) || (contdata[0].button & Z_TRIG)) {
+    //
 
   } else if((contdata[0].button & L_TRIG) || (contdata[0].stick_x < -7)) {
     playerOrientation += PLAYER_TURN_SPEED * deltaTimeSeconds;
@@ -783,9 +791,9 @@ void updatePlayerInput() {
     inputDir.y = -1.f;
   }
 
-  if((contdata[0].button & R_JPAD) || ((contdata[0].button & Z_TRIG) && (contdata[0].stick_x > 7))) {
+  if((contdata[0].button & R_JPAD) || (((contdata[0].button & Z_TRIG) || ((contdata[0].button & (L_TRIG | R_TRIG)) == (L_TRIG | R_TRIG))) && (contdata[0].stick_x > 7))) {
     inputDir.x = 1.f;
-  } else if((contdata[0].button & L_JPAD) || ((contdata[0].button & Z_TRIG) && (contdata[0].stick_x < -7))) {
+  } else if((contdata[0].button & L_JPAD) || (((contdata[0].button & Z_TRIG) || ((contdata[0].button & (L_TRIG | R_TRIG)) == (L_TRIG | R_TRIG))) && (contdata[0].stick_x < -7))) {
     inputDir.x = -1.f;
   }
 
@@ -853,8 +861,8 @@ void updateBoardControlInput() {
 
     Pos2 step = (Pos2){ (int)((cosCameraRot * fstep.x) - (sinCameraRot * fstep.y)), (int)((sinCameraRot * fstep.x) + (cosCameraRot * fstep.y)) };
 
-    chessboardSpotHighlighted.x = MAX(0, MIN(BOARD_WIDTH - 1, chessboardSpotHighlighted.x + step.x));
-    chessboardSpotHighlighted.y = MAX(0, MIN(BOARD_HEIGHT - 1, chessboardSpotHighlighted.y + step.y));
+    chessboardSpotHighlighted.x =  (chessboardSpotHighlighted.x + step.x + BOARD_WIDTH) % BOARD_WIDTH;
+    chessboardSpotHighlighted.y =  (chessboardSpotHighlighted.y + step.y + BOARD_HEIGHT) % BOARD_HEIGHT;
   } else {
     if(contdata[0].trigger & U_CBUTTONS) {
       chessboardSpotHighlighted.y = (chessboardSpotHighlighted.y + 1) % BOARD_HEIGHT;
