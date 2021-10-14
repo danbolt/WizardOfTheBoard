@@ -329,13 +329,14 @@ void initializeMonsters() {
 void initializeStartingPieces() {
   initPieceStates();
 
-  // piecesActive[0] = 1;
-  // piecePositions[0] = (Pos2){0, 4};
-  // pieceData[0].type = ROOK;
-  // pieceData[0].renderCommands = rook_commands;
-  // pieceData[0].legalCheck = rookLegalMove;
-  // pieceData[0].displayName = "ROOK";
-  // pieceViewPos[0] = (Vec2){ piecePositions[0].x + 0.5f, piecePositions[0].y + 0.5f };
+  piecesActive[5] = 1;
+  piecePositions[5] = (Pos2){6, 2};
+  pieceData[5].type = WALL;
+  pieceData[5].renderCommands = wall_commands;
+  pieceData[5].legalCheck = wallLegalMove;
+  pieceData[5].displayName = "";
+  pieceData[5].selectable = 0;
+  pieceViewPos[5] = (Vec2){ piecePositions[5].x + 0.5f, piecePositions[5].y + 0.5f };
 
   for (int i = 0; i < 3; i++) {
     piecesActive[i] = 1;
@@ -881,7 +882,7 @@ void updateBoardControlInput() {
     if (contdata[0].trigger & A_BUTTON) {
       const int pieceAtCursorSpot = isSpaceOccupied(chessboardSpotHighlighted.x, chessboardSpotHighlighted.y);
 
-      if (pieceAtCursorSpot >= 0) {
+      if (pieceAtCursorSpot >= 0 && pieceData[pieceAtCursorSpot].selectable) {
         // TODO: unselectable pieces
 
         boardControlState = BOARD_CONTROL_PIECE_SELECTED;
