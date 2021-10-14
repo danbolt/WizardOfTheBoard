@@ -836,17 +836,37 @@ void updateBoardControlInput() {
     hudBackgroundTextureIndex = (hudBackgroundTextureIndex + 1) % NUMBER_OF_HUD_BACKGROUND_TILES;
   }
 
+  if (((contdata[0].button & (L_TRIG | R_TRIG)) == (L_TRIG | R_TRIG)) || (contdata[0].button & Z_TRIG)) {
+    Vec2 fstep = { 0, 0 };
 
-  if(contdata[0].trigger & U_CBUTTONS) {
-    chessboardSpotHighlighted.y = (chessboardSpotHighlighted.y + 1) % BOARD_HEIGHT;
-  } else if(contdata[0].trigger & D_CBUTTONS) {
-    chessboardSpotHighlighted.y = (chessboardSpotHighlighted.y - 1 + BOARD_HEIGHT) % BOARD_HEIGHT;
-  }
+    if(contdata[0].trigger & U_CBUTTONS) {
+      fstep.y = 1.51f;
+    } else if(contdata[0].trigger & D_CBUTTONS) {
+      fstep.y = -1.51f;
+    }
 
-  if(contdata[0].trigger & R_CBUTTONS) {
-    chessboardSpotHighlighted.x = (chessboardSpotHighlighted.x + 1) % BOARD_WIDTH;
-  } else if(contdata[0].trigger & L_CBUTTONS) {
-    chessboardSpotHighlighted.x = (chessboardSpotHighlighted.x - 1 + BOARD_WIDTH) % BOARD_WIDTH;
+    if(contdata[0].trigger & R_CBUTTONS) {
+      fstep.x = 1.51f;
+    } else if(contdata[0].trigger & L_CBUTTONS) {
+      fstep.x = -1.51f;
+    }
+
+    Pos2 step = (Pos2){ (int)((cosCameraRot * fstep.x) - (sinCameraRot * fstep.y)), (int)((sinCameraRot * fstep.x) + (cosCameraRot * fstep.y)) };
+
+    chessboardSpotHighlighted.x = MAX(0, MIN(BOARD_WIDTH - 1, chessboardSpotHighlighted.x + step.x));
+    chessboardSpotHighlighted.y = MAX(0, MIN(BOARD_HEIGHT - 1, chessboardSpotHighlighted.y + step.y));
+  } else {
+    if(contdata[0].trigger & U_CBUTTONS) {
+      chessboardSpotHighlighted.y = (chessboardSpotHighlighted.y + 1) % BOARD_HEIGHT;
+    } else if(contdata[0].trigger & D_CBUTTONS) {
+      chessboardSpotHighlighted.y = (chessboardSpotHighlighted.y - 1 + BOARD_HEIGHT) % BOARD_HEIGHT;
+    }
+
+    if(contdata[0].trigger & R_CBUTTONS) {
+      chessboardSpotHighlighted.x = (chessboardSpotHighlighted.x + 1) % BOARD_WIDTH;
+    } else if(contdata[0].trigger & L_CBUTTONS) {
+      chessboardSpotHighlighted.x = (chessboardSpotHighlighted.x - 1 + BOARD_WIDTH) % BOARD_WIDTH;
+    }
   }
 
   if (boardControlState == BOARD_CONTROL_NO_SELECTED) {
