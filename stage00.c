@@ -89,6 +89,9 @@ static u8 hudNoiseBackgroundsTextre[TMEM_SIZE_BYTES] __attribute__((aligned(8)))
 
 static u8 displayTextTexture[TMEM_SIZE_BYTES] __attribute__((aligned(8)));
 
+#define NUMBER_OF_HUD_BACKGROUND_TILES 16
+static u32 hudBackgroundTextureIndex;
+
 #define INV_BOARD_WIDTH (1.f / (float)BOARD_WIDTH)
 #define INV_BOARD_HEIGHT (1.f / (float)BOARD_HEIGHT)
 
@@ -367,6 +370,8 @@ void initStage00(void)
 
   highlightedPieceText = "";
 
+  hudBackgroundTextureIndex = 0;
+
   playerPosition = (Vec2){ 0.5f, 0.5f };
   playerVelocity = (Vec2){ 0.f, 0.f };
   playerOrientation = 0.f;
@@ -540,12 +545,11 @@ void makeDL00(void)
   gSPMatrix(glistp++,OS_K0_TO_PHYSICAL(&(dynamicp->ortho)), G_MTX_PROJECTION | G_MTX_LOAD | G_MTX_NOPUSH);
   gSPMatrix(glistp++,OS_K0_TO_PHYSICAL(&(dynamicp->modelling)), G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH );
 
-  const int bgTileShift = 16;
   gDPPipeSync(glistp++);
   gDPSetCombineMode(glistp++, G_CC_MODULATEI, G_CC_MODULATEI);
   gDPSetRenderMode(glistp++, G_RM_TEX_EDGE, G_RM_TEX_EDGE2);
   gDPSetTexturePersp(glistp++, G_TP_NONE);
-  gDPLoadTextureTile(glistp++,  OS_K0_TO_PHYSICAL(hudNoiseBackgroundsTextre), G_IM_FMT_I, G_IM_SIZ_8b, 256, 16, bgTileShift << 2, 0 << 2, (bgTileShift + 15) << 2, (15) << 2, 0, G_TX_NOMIRROR, G_TX_NOMIRROR, 4, 4, G_TX_NOLOD, G_TX_NOLOD);
+  gDPLoadTextureTile(glistp++,  OS_K0_TO_PHYSICAL(hudNoiseBackgroundsTextre + (16 * 16 * hudBackgroundTextureIndex)), G_IM_FMT_I, G_IM_SIZ_8b, 16, 16, 0 << 2, 0 << 2, (0 + 15) << 2, (15) << 2, 0, G_TX_NOMIRROR, G_TX_NOMIRROR, 4, 4, G_TX_NOLOD, G_TX_NOLOD);
   gSPTexture(glistp++, 0xffff, 0xffff, 0, G_TX_RENDERTILE, G_ON);
   gSPDisplayList(glistp++, OS_K0_TO_PHYSICAL(renderHudBackgroundCommands));
 
@@ -821,7 +825,8 @@ void updateMovement() {
 
 void updateBoardControlInput() {
   if (contdata[0].trigger & START_BUTTON) {
-    startDialogue("powpowpow");
+    // startDialogue("powpowpow");
+    hudBackgroundTextureIndex = (hudBackgroundTextureIndex + 1) % NUMBER_OF_HUD_BACKGROUND_TILES;
   }
 
 
