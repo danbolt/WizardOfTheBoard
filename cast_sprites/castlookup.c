@@ -37,12 +37,12 @@
 #line 6 "texture-gperf-mapping"
 struct castMappingData;
 
-#define TOTAL_KEYWORDS 3
+#define TOTAL_KEYWORDS 4
 #define MIN_WORD_LENGTH 4
-#define MAX_WORD_LENGTH 6
+#define MAX_WORD_LENGTH 12
 #define MIN_HASH_VALUE 0
-#define MAX_HASH_VALUE 2
-/* maximum key range = 3, duplicates = 0 */
+#define MAX_HASH_VALUE 7
+/* maximum key range = 8, duplicates = 0 */
 
 #ifdef __GNUC__
 __inline
@@ -57,32 +57,32 @@ hash (register const char *str, register size_t len)
 {
   static unsigned char asso_values[] =
     {
-      3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
-      3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
-      3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
-      3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
-      3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
-      3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
-      3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
-      3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
-      3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
-      3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
-      2, 3, 3, 3, 3, 3, 3, 3, 3, 3,
-      3, 3, 1, 3, 3, 3, 0, 3, 3, 3,
-      3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
-      3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
-      3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
-      3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
-      3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
-      3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
-      3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
-      3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
-      3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
-      3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
-      3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
-      3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
-      3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
-      3, 3, 3, 3, 3, 3
+      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
+      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
+      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
+      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
+      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
+      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
+      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
+      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
+      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
+      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
+      7, 8, 8, 8, 8, 8, 8, 8, 8, 8,
+      8, 8, 2, 8, 8, 8, 5, 8, 8, 8,
+      8, 8, 0, 8, 8, 8, 8, 8, 8, 8,
+      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
+      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
+      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
+      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
+      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
+      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
+      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
+      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
+      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
+      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
+      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
+      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
+      8, 8, 8, 8, 8, 8
     };
   return asso_values[(unsigned char)str[0]];
 }
@@ -92,10 +92,15 @@ getCastTextureOffset (register const char *str, register size_t len)
 {
   static struct castMappingData wordlist[] =
     {
-#line 10 "texture-gperf-mapping"
-      {"test",8192},
+#line 11 "texture-gperf-mapping"
+      {"zatt_neutral",12288},
+      {""},
 #line 9 "texture-gperf-mapping"
       {"protag",4096},
+      {""}, {""},
+#line 10 "texture-gperf-mapping"
+      {"test",8192},
+      {""},
 #line 8 "texture-gperf-mapping"
       {"demon",0}
     };

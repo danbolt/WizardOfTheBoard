@@ -841,7 +841,7 @@ void updateMovement() {
 
 void updateBoardControlInput() {
   if (contdata[0].trigger & START_BUTTON) {
-    // startDialogue("powpowpow");
+    startDialogue("powpowpow");
     hudBackgroundTextureIndex = (hudBackgroundTextureIndex + 1) % NUMBER_OF_HUD_BACKGROUND_TILES;
   }
 

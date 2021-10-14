@@ -8,3 +8,4 @@ struct castMappingData;
 demon,0
 protag,4096
 test,8192
+zatt_neutral,12288
