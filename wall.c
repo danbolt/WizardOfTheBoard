@@ -14,12 +14,14 @@ Vtx wall_verts[] = {
 
 Gfx wall_commands[] = {
   gsSPVertex(wall_verts, 8, 0),
+  gsSPClearGeometryMode(G_CULL_BACK),
   gsSP2Triangles(0, 3, 2, 0, 2, 7, 6, 0),
   gsSP2Triangles(6, 5, 4, 0, 4, 1, 0, 0),
   gsSP2Triangles(2, 4, 0, 0, 7, 1, 5, 0),
   gsSP2Triangles(0, 1, 3, 0, 2, 3, 7, 0),
   gsSP2Triangles(6, 7, 5, 0, 4, 5, 1, 0),
   gsSP2Triangles(2, 6, 4, 0, 7, 3, 1, 0),
+  gsSPSetGeometryMode(G_CULL_BACK),
   gsSPEndDisplayList()
 };
 

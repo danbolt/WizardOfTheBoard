@@ -32,7 +32,7 @@
 #define KNOCKBACK_SPEED 7.5f
 #define KNOCKBACK_TIME 0.216f
 
-#define OGRE_WALK_SPEED 2.f
+#define OGRE_WALK_SPEED 0.5f
 
 #define PLAYER_RADIUS 0.5f
 
@@ -341,7 +341,7 @@ void initializeStartingPieces() {
   initPieceStates();
 
   piecesActive[17] = 1;
-  piecePositions[17] = (Pos2){2, 2};
+  piecePositions[17] = (Pos2){5, 2};
   pieceData[17].type = ROOK;
   pieceData[17].renderCommands = rook_commands;
   pieceData[17].legalCheck = rookLegalMove;
@@ -1141,9 +1141,17 @@ void updateMonsters() {
       continue;
     }
 
-    // TODO: something much more interesting
-    // velocities[i].x = guRandom() % 3 - 1;
-    // velocities[i].y = guRandom() % 3 - 1;
+    if (!(lineOfSightVisible[i])) {
+      velocities[i].x = 0.f;
+      velocities[i].y = 0.f;
+      continue;
+    }
+
+    velocities[i] = (Vec2){ playerPosition.x - positions[i].x, playerPosition.y - positions[i].y };
+    normalize(&(velocities[i]));
+    orientations[i] = nu_atan2(velocities[i].y, velocities[i].x) + M_PI_2;
+    velocities[i].x *= OGRE_WALK_SPEED;
+    velocities[i].y *= OGRE_WALK_SPEED;
   }
 }
 
