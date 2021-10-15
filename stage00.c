@@ -331,10 +331,10 @@ void initializeStartingPieces() {
 
   piecesActive[5] = 1;
   piecePositions[5] = (Pos2){2, 3};
-  pieceData[5].type = QUEEN;
+  pieceData[5].type = KNIGHT;
   pieceData[5].renderCommands = pawn_commands;
-  pieceData[5].legalCheck = queenLegalMove;
-  pieceData[5].displayName = "QUEEN";
+  pieceData[5].legalCheck = knightLegalMove;
+  pieceData[5].displayName = "KNIGHT";
   pieceData[5].selectable = 1;
   pieceViewPos[5] = (Vec2){ piecePositions[5].x + 0.5f, piecePositions[5].y + 0.5f };
 
