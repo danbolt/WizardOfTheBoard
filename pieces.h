@@ -21,7 +21,8 @@ void rookLegalMove(u32 ourIndex, const u8* piecesActive, const Pos2* piecePositi
 // TODO: bishop model
 void bishopLegalMove(u32 ourIndex, const u8* piecesActive, const Pos2* piecePositions, u8* legalSpots);
 
-// TODO: queen model
+extern Vtx queen_verts[];
+extern Gfx queen_commands[];
 void queenLegalMove(u32 ourIndex, const u8* piecesActive, const Pos2* piecePositions, u8* legalSpots);
 
 // TODO: knight model

@@ -331,10 +331,10 @@ void initializeStartingPieces() {
 
   piecesActive[5] = 1;
   piecePositions[5] = (Pos2){2, 3};
-  pieceData[5].type = KING;
-  pieceData[5].renderCommands = pawn_commands;
-  pieceData[5].legalCheck = kingLegalMove;
-  pieceData[5].displayName = "KING";
+  pieceData[5].type = QUEEN;
+  pieceData[5].renderCommands = queen_commands;
+  pieceData[5].legalCheck = queenLegalMove;
+  pieceData[5].displayName = "QUEEN";
   pieceData[5].selectable = 1;
   pieceViewPos[5] = (Vec2){ piecePositions[5].x + 0.5f, piecePositions[5].y + 0.5f };
 
@@ -647,7 +647,7 @@ void makeDL00(void)
 
   // Render legal move spots
   if (boardControlState == BOARD_CONTROL_PIECE_SELECTED) {
-    gDPSetPrimColor(glistp++, 0, 0, 0x00, 0x00, 0x00, 0xff);
+    gDPSetPrimColor(glistp++, 0, 0, 0xFF, 0x00, 0x00, 0xff);
     for (int i = 0; i < NUMBER_OF_BOARD_CELLS; i++) {
       if ((selectedPiece > -1) && (piecePositions[selectedPiece].x == (i % BOARD_WIDTH)) && (piecePositions[selectedPiece].y == (i / BOARD_WIDTH))) {
         continue;
