@@ -320,8 +320,13 @@ void initializeMonsters() {
   lineOfSightCheckIndex = 0;
 
   for (int i = MONSTER_START_INDEX; i < NUMBER_OF_INGAME_ENTITIES; i++) {
+
+    if (i == 3 || i == 5) {
+      continue;
+    }
+
     isActive[i] = 1;
-    positions[i] = (Vec2){ i, 6.f };
+    positions[i] = (Vec2){ i + 0.5, 6.f };
     velocities[i] = (Vec2){ 0.f, 0.f };
     orientations[i] = 0.f;
     radiiSquared[i] = (0.7f * 0.7f);
@@ -336,22 +341,33 @@ void initializeStartingPieces() {
   initPieceStates();
 
   piecesActive[5] = 1;
-  piecePositions[5] = (Pos2){6, 3};
-  pieceData[5].type = KING;
-  pieceData[5].renderCommands = king_commands;
-  pieceData[5].legalCheck = kingLegalMove;
-  pieceData[5].displayName = "KING";
+  piecePositions[5] = (Pos2){6, 2};
+  pieceData[5].type = ROOK;
+  pieceData[5].renderCommands = rook_commands;
+  pieceData[5].legalCheck = rookLegalMove;
+  pieceData[5].displayName = "ROOK";
   pieceData[5].selectable = 1;
   pieceViewPos[5] = (Vec2){ piecePositions[5].x + 0.5f, piecePositions[5].y + 0.5f };
 
-  piecesActive[6] = 1;
-  piecePositions[6] = (Pos2){3, 4};
-  pieceData[6].type = WALL;
-  pieceData[6].renderCommands = wall_commands;
-  pieceData[6].legalCheck = wallLegalMove;
-  pieceData[6].displayName = "WALL";
-  pieceData[6].selectable = 0;
-  pieceViewPos[6] = (Vec2){ piecePositions[6].x + 0.5f, piecePositions[6].y + 0.5f };
+  for (int i = 0; i < 4; i++) {
+    piecesActive[i] = 1;
+    piecePositions[i] = (Pos2){3, 3 + i};
+    pieceData[i].type = WALL;
+    pieceData[i].renderCommands = wall_commands;
+    pieceData[i].legalCheck = wallLegalMove;
+    pieceData[i].displayName = "WALL";
+    pieceData[i].selectable = 0;
+    pieceViewPos[i] = (Vec2){ piecePositions[i].x + 0.5f, piecePositions[i].y + 0.5f };
+
+    piecesActive[i + 8] = 1;
+    piecePositions[i + 8] = (Pos2){5, 3 + i};
+    pieceData[i + 8].type = WALL;
+    pieceData[i + 8].renderCommands = wall_commands;
+    pieceData[i + 8].legalCheck = wallLegalMove;
+    pieceData[i + 8].displayName = "WALL";
+    pieceData[i + 8].selectable = 0;
+    pieceViewPos[i + 8] = (Vec2){ piecePositions[i + 8].x + 0.5f, piecePositions[i + 8].y + 0.5f };
+  }
 
   // for (int i = 0; i < 3; i++) {
   //   piecesActive[i] = 1;
