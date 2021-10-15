@@ -49,6 +49,7 @@ static float orientations[NUMBER_OF_INGAME_ENTITIES];
 static float radiiSquared[NUMBER_OF_INGAME_ENTITIES];
 static float knockbackTimesRemaining[NUMBER_OF_INGAME_ENTITIES];
 static u8 isKnockingBackStates[NUMBER_OF_INGAME_ENTITIES];
+static u8 lineOfSightVisible[NUMBER_OF_INGAME_ENTITIES];
 
 // HACK: makes for a smaller git commit
 #define playerPosition (positions[0])
@@ -68,6 +69,8 @@ static float playerHealthDisplay;
 
 static float cosCameraRot;
 static float sinCameraRot;
+
+static int lineOfSightCheckIndex;
 
 #define BOARD_CONTROL_NO_SELECTED 0
 #define BOARD_CONTROL_PIECE_SELECTED 1
@@ -314,6 +317,8 @@ void loadInTextures() {
 }
 
 void initializeMonsters() {
+  lineOfSightCheckIndex = 0;
+
   for (int i = MONSTER_START_INDEX; i < NUMBER_OF_INGAME_ENTITIES; i++) {
     isActive[i] = 1;
     positions[i] = (Vec2){ i, 6.f };
@@ -323,6 +328,7 @@ void initializeMonsters() {
     health[i] = 1;
     isKnockingBackStates[i] = 0;
     knockbackTimesRemaining[i] = 0.f;
+    lineOfSightVisible[i] = 0;
   }
 }
 
@@ -330,7 +336,7 @@ void initializeStartingPieces() {
   initPieceStates();
 
   piecesActive[5] = 1;
-  piecePositions[5] = (Pos2){2, 3};
+  piecePositions[5] = (Pos2){6, 3};
   pieceData[5].type = KING;
   pieceData[5].renderCommands = king_commands;
   pieceData[5].legalCheck = kingLegalMove;
@@ -339,7 +345,7 @@ void initializeStartingPieces() {
   pieceViewPos[5] = (Vec2){ piecePositions[5].x + 0.5f, piecePositions[5].y + 0.5f };
 
   piecesActive[6] = 1;
-  piecePositions[6] = (Pos2){4, 3};
+  piecePositions[6] = (Pos2){3, 4};
   pieceData[6].type = WALL;
   pieceData[6].renderCommands = wall_commands;
   pieceData[6].legalCheck = wallLegalMove;
@@ -628,6 +634,10 @@ void makeDL00(void)
   gDPSetPrimColor(glistp++, 0, 0, 0x99, 0x3a, 0x00, 0xff);
   for (int i = MONSTER_START_INDEX; i < NUMBER_OF_INGAME_ENTITIES; i++) {
     if (!(isActive[i])) {
+      continue;
+    }
+
+    if (!(lineOfSightVisible[i])) {
       continue;
     }
 
@@ -1048,7 +1058,45 @@ void updateKnockback() {
   }
 }
 
+#define LINE_OF_SIGHT_CHECK_STEP 0.06f
+
+void checkLineOfSight(int index) {
+  // Skip inactive monsters
+  if (!(isActive[index])) {
+    return;
+  }
+
+  // No need to check the player
+  if (index == 0) {
+    return;
+  }
+
+  const Vec2* monsterPos = &(positions[index]);
+
+  for (float i = 0.f; i < 1.f; i += LINE_OF_SIGHT_CHECK_STEP ) {
+    const Vec2 checkPos = { lerp(playerPosition.x, monsterPos->x, i), lerp(playerPosition.y, monsterPos->y, i) };
+    int occupiedSpaceIndex = isSpaceOccupied(((int)checkPos.x), ((int)checkPos.y));
+    if (occupiedSpaceIndex > -1) {
+      if (pieceData[occupiedSpaceIndex].type != WALL) {
+        continue;
+      }
+
+      lineOfSightVisible[index] = 0;
+      return;
+    }
+  }
+
+  lineOfSightVisible[index] = 1;
+}
+
+void tickLineOfSight() {
+  checkLineOfSight(lineOfSightCheckIndex);
+  lineOfSightCheckIndex = (lineOfSightCheckIndex + 1) % NUMBER_OF_INGAME_ENTITIES;
+}
+
 void updateMonsters() {
+  tickLineOfSight();
+
   for (int i = MONSTER_START_INDEX; i < NUMBER_OF_INGAME_ENTITIES; i++) {
     if (!(isActive[i])) {
       continue;
