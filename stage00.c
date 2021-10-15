@@ -331,12 +331,21 @@ void initializeStartingPieces() {
 
   piecesActive[5] = 1;
   piecePositions[5] = (Pos2){2, 3};
-  pieceData[5].type = KNIGHT;
+  pieceData[5].type = KING;
   pieceData[5].renderCommands = pawn_commands;
-  pieceData[5].legalCheck = knightLegalMove;
-  pieceData[5].displayName = "KNIGHT";
+  pieceData[5].legalCheck = kingLegalMove;
+  pieceData[5].displayName = "KING";
   pieceData[5].selectable = 1;
   pieceViewPos[5] = (Vec2){ piecePositions[5].x + 0.5f, piecePositions[5].y + 0.5f };
+
+  piecesActive[6] = 1;
+  piecePositions[6] = (Pos2){4, 3};
+  pieceData[6].type = WALL;
+  pieceData[6].renderCommands = wall_commands;
+  pieceData[6].legalCheck = wallLegalMove;
+  pieceData[6].displayName = "WALL";
+  pieceData[6].selectable = 0;
+  pieceViewPos[6] = (Vec2){ piecePositions[6].x + 0.5f, piecePositions[6].y + 0.5f };
 
   // for (int i = 0; i < 3; i++) {
   //   piecesActive[i] = 1;
