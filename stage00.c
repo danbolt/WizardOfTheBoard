@@ -947,8 +947,25 @@ void updateMovingPieces() {
       pieceViewPos[i] = (Vec2){ piecePositions[i].x + 0.5f, piecePositions[i].y + 0.5f };
     } else {
 
-      //
-      pieceViewPos[i] = (Vec2){ lerp(oldPiecePos[i].x, piecePositions[i].x + 0.5f, pieceLerpValue[i]), lerp(oldPiecePos[i].y, piecePositions[i].y + 0.5f, pieceLerpValue[i]) };
+      // Knights have a more disjoint way of travelling
+      if (pieceData[i].type == KNIGHT) {
+        const Vec2 delta = { (piecePositions[i].x + 0.5f) - oldPiecePos[i].x, (piecePositions[i].y + 0.5f) - oldPiecePos[i].y };
+        if (fabsf(delta.x) > fabsf(delta.y)) {
+          if (pieceLerpValue[i] < 0.75f) {
+            pieceViewPos[i] = (Vec2){ lerp(oldPiecePos[i].x, piecePositions[i].x + 0.5f, pieceLerpValue[i] * 1.3333333f), oldPiecePos[i].y };
+          } else {
+            pieceViewPos[i] = (Vec2){ piecePositions[i].x + 0.5f, lerp(oldPiecePos[i].y, piecePositions[i].y + 0.5f, (pieceLerpValue[i] - 0.75f) / 0.333f) };
+          }
+        } else {
+          if (pieceLerpValue[i] < 0.75f) {
+            pieceViewPos[i] = (Vec2){ oldPiecePos[i].x, lerp(oldPiecePos[i].y, piecePositions[i].y + 0.5f, pieceLerpValue[i] * 1.3333333f) };
+          } else {
+            pieceViewPos[i] = (Vec2){ lerp(oldPiecePos[i].x, piecePositions[i].x + 0.5f, (pieceLerpValue[i] - 0.75f) / 0.333f), piecePositions[i].y + 0.5f };
+          }
+        }
+      } else {
+        pieceViewPos[i] = (Vec2){ lerp(oldPiecePos[i].x, piecePositions[i].x + 0.5f, pieceLerpValue[i]), lerp(oldPiecePos[i].y, piecePositions[i].y + 0.5f, pieceLerpValue[i]) };
+      }
     }
   }
 }
