@@ -340,33 +340,52 @@ void initializeMonsters() {
 void initializeStartingPieces() {
   initPieceStates();
 
-  piecesActive[5] = 1;
-  piecePositions[5] = (Pos2){6, 2};
-  pieceData[5].type = ROOK;
-  pieceData[5].renderCommands = rook_commands;
-  pieceData[5].legalCheck = rookLegalMove;
-  pieceData[5].displayName = "ROOK";
-  pieceData[5].selectable = 1;
-  pieceViewPos[5] = (Vec2){ piecePositions[5].x + 0.5f, piecePositions[5].y + 0.5f };
+  piecesActive[17] = 1;
+  piecePositions[17] = (Pos2){2, 2};
+  pieceData[17].type = ROOK;
+  pieceData[17].renderCommands = rook_commands;
+  pieceData[17].legalCheck = rookLegalMove;
+  pieceData[17].displayName = "ROOK";
+  pieceData[17].selectable = 1;
+  pieceViewPos[17] = (Vec2){ piecePositions[17].x + 0.5f, piecePositions[17].y + 0.5f };
+
+  int i = 0;
+  for (int x = 0; x < BOARD_WIDTH; x++) {
+    for (int y = 0; y < BOARD_HEIGHT; y++) {
+      if ((x % 2 != 1) || (y % 2 != 1)) {
+        continue;
+      }
+
+      piecesActive[i] = 1;
+      piecePositions[i] = (Pos2){x, y};
+      pieceData[i].type = WALL;
+      pieceData[i].renderCommands = wall_commands;
+      pieceData[i].legalCheck = wallLegalMove;
+      pieceData[i].displayName = "WALL";
+      pieceData[i].selectable = 0;
+      pieceViewPos[i] = (Vec2){ piecePositions[i].x + 0.5f, piecePositions[i].y + 0.5f };
+      i++;
+    }
+  }
 
   for (int i = 0; i < 4; i++) {
-    piecesActive[i] = 1;
-    piecePositions[i] = (Pos2){3, 3 + i};
-    pieceData[i].type = WALL;
-    pieceData[i].renderCommands = wall_commands;
-    pieceData[i].legalCheck = wallLegalMove;
-    pieceData[i].displayName = "WALL";
-    pieceData[i].selectable = 0;
-    pieceViewPos[i] = (Vec2){ piecePositions[i].x + 0.5f, piecePositions[i].y + 0.5f };
+    // piecesActive[i] = 1;
+    // piecePositions[i] = (Pos2){3, 3 + i};
+    // pieceData[i].type = WALL;
+    // pieceData[i].renderCommands = wall_commands;
+    // pieceData[i].legalCheck = wallLegalMove;
+    // pieceData[i].displayName = "WALL";
+    // pieceData[i].selectable = 0;
+    // pieceViewPos[i] = (Vec2){ piecePositions[i].x + 0.5f, piecePositions[i].y + 0.5f };
 
-    piecesActive[i + 8] = 1;
-    piecePositions[i + 8] = (Pos2){5, 3 + i};
-    pieceData[i + 8].type = WALL;
-    pieceData[i + 8].renderCommands = wall_commands;
-    pieceData[i + 8].legalCheck = wallLegalMove;
-    pieceData[i + 8].displayName = "WALL";
-    pieceData[i + 8].selectable = 0;
-    pieceViewPos[i + 8] = (Vec2){ piecePositions[i + 8].x + 0.5f, piecePositions[i + 8].y + 0.5f };
+    // piecesActive[i + 8] = 1;
+    // piecePositions[i + 8] = (Pos2){5, 3 + i};
+    // pieceData[i + 8].type = WALL;
+    // pieceData[i + 8].renderCommands = wall_commands;
+    // pieceData[i + 8].legalCheck = wallLegalMove;
+    // pieceData[i + 8].displayName = "WALL";
+    // pieceData[i + 8].selectable = 0;
+    // pieceViewPos[i + 8] = (Vec2){ piecePositions[i + 8].x + 0.5f, piecePositions[i + 8].y + 0.5f };
   }
 
   // for (int i = 0; i < 3; i++) {
