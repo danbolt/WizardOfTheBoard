@@ -330,23 +330,23 @@ void initializeStartingPieces() {
   initPieceStates();
 
   piecesActive[5] = 1;
-  piecePositions[5] = (Pos2){6, 2};
-  pieceData[5].type = WALL;
-  pieceData[5].renderCommands = wall_commands;
-  pieceData[5].legalCheck = wallLegalMove;
-  pieceData[5].displayName = "";
-  pieceData[5].selectable = 0;
+  piecePositions[5] = (Pos2){2, 3};
+  pieceData[5].type = BISHOP;
+  pieceData[5].renderCommands = pawn_commands;
+  pieceData[5].legalCheck = bishopLegalMove;
+  pieceData[5].displayName = "BISHOP";
+  pieceData[5].selectable = 1;
   pieceViewPos[5] = (Vec2){ piecePositions[5].x + 0.5f, piecePositions[5].y + 0.5f };
 
-  for (int i = 0; i < 3; i++) {
-    piecesActive[i] = 1;
-    piecePositions[i] = (Pos2){i, i + 1};
-    pieceData[i].type = ROOK;
-    pieceData[i].renderCommands = rook_commands;
-    pieceData[i].legalCheck = rookLegalMove;
-    pieceData[i].displayName = "ROOK";
-    pieceViewPos[i] = (Vec2){ piecePositions[i].x + 0.5f, piecePositions[i].y + 0.5f };
-  }
+  // for (int i = 0; i < 3; i++) {
+  //   piecesActive[i] = 1;
+  //   piecePositions[i] = (Pos2){i, i + 1};
+  //   pieceData[i].type = ROOK;
+  //   pieceData[i].renderCommands = rook_commands;
+  //   pieceData[i].legalCheck = rookLegalMove;
+  //   pieceData[i].displayName = "ROOK";
+  //   pieceViewPos[i] = (Vec2){ piecePositions[i].x + 0.5f, piecePositions[i].y + 0.5f };
+  // }
 
 }
 
