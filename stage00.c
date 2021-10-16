@@ -6,6 +6,7 @@
 #include "main.h"
 #include "gamemath.h"
 #include "graphic.h"
+#include "mapdata.h"
 #include "monsters.h"
 #include "nustdfuncs.h"
 #include "tracknumbers.h"
@@ -316,17 +317,12 @@ void loadInTextures() {
   nuPiReadRom((u32)(_display_textSegmentRomStart), (void*)(displayTextTexture), TMEM_SIZE_BYTES);
 }
 
-void initializeMonsters() {
+void initMonsterStates() {
   lineOfSightCheckIndex = 0;
 
   for (int i = MONSTER_START_INDEX; i < NUMBER_OF_INGAME_ENTITIES; i++) {
-
-    if (i == 3 || i == 5) {
-      continue;
-    }
-
-    isActive[i] = 1;
-    positions[i] = (Vec2){ i + 0.5, 6.f };
+    isActive[i] = 0;
+    positions[i] = (Vec2){ 0.f, 0.f };
     velocities[i] = (Vec2){ 0.f, 0.f };
     orientations[i] = 0.f;
     radiiSquared[i] = (0.7f * 0.7f);
@@ -337,74 +333,99 @@ void initializeMonsters() {
   }
 }
 
-void initializeStartingPieces() {
-  initPieceStates();
+void initializeMonsters(const MapData* map) {
+  initMonsterStates();
 
-  piecesActive[17] = 1;
-  piecePositions[17] = (Pos2){5, 2};
-  pieceData[17].type = ROOK;
-  pieceData[17].renderCommands = rook_commands;
-  pieceData[17].legalCheck = rookLegalMove;
-  pieceData[17].displayName = "ROOK";
-  pieceData[17].selectable = 1;
-  pieceViewPos[17] = (Vec2){ piecePositions[17].x + 0.5f, piecePositions[17].y + 0.5f };
 
-  int i = 0;
-  for (int x = 0; x < BOARD_WIDTH; x++) {
-    for (int y = 0; y < BOARD_HEIGHT; y++) {
-      if ((x % 2 != 1) || (y % 2 != 1)) {
-        continue;
-      }
-
-      piecesActive[i] = 1;
-      piecePositions[i] = (Pos2){x, y};
-      pieceData[i].type = WALL;
-      pieceData[i].renderCommands = wall_commands;
-      pieceData[i].legalCheck = wallLegalMove;
-      pieceData[i].displayName = "WALL";
-      pieceData[i].selectable = 0;
-      pieceViewPos[i] = (Vec2){ piecePositions[i].x + 0.5f, piecePositions[i].y + 0.5f };
-      i++;
+  for (int i = 0; i < MAX_NUMBER_OF_INGAME_MONSTERS; i++) {
+    if (!(map->activeMonsters[i])) {
+      continue;
     }
+
+    isActive[i + 1] = map->activeMonsters[i];
+    positions[i + 1] = (Vec2){ map->monsterX[i] + 0.5f, map->monsterY[i] + 0.5f };
+    // TODO load from monsterType
+
   }
-
-  for (int i = 0; i < 4; i++) {
-    // piecesActive[i] = 1;
-    // piecePositions[i] = (Pos2){3, 3 + i};
-    // pieceData[i].type = WALL;
-    // pieceData[i].renderCommands = wall_commands;
-    // pieceData[i].legalCheck = wallLegalMove;
-    // pieceData[i].displayName = "WALL";
-    // pieceData[i].selectable = 0;
-    // pieceViewPos[i] = (Vec2){ piecePositions[i].x + 0.5f, piecePositions[i].y + 0.5f };
-
-    // piecesActive[i + 8] = 1;
-    // piecePositions[i + 8] = (Pos2){5, 3 + i};
-    // pieceData[i + 8].type = WALL;
-    // pieceData[i + 8].renderCommands = wall_commands;
-    // pieceData[i + 8].legalCheck = wallLegalMove;
-    // pieceData[i + 8].displayName = "WALL";
-    // pieceData[i + 8].selectable = 0;
-    // pieceViewPos[i + 8] = (Vec2){ piecePositions[i + 8].x + 0.5f, piecePositions[i + 8].y + 0.5f };
-  }
-
-  // for (int i = 0; i < 3; i++) {
-  //   piecesActive[i] = 1;
-  //   piecePositions[i] = (Pos2){i, i + 1};
-  //   pieceData[i].type = ROOK;
-  //   pieceData[i].renderCommands = rook_commands;
-  //   pieceData[i].legalCheck = rookLegalMove;
-  //   pieceData[i].displayName = "ROOK";
-  //   pieceViewPos[i] = (Vec2){ piecePositions[i].x + 0.5f, piecePositions[i].y + 0.5f };
-  // }
 
 }
 
-void initializePuzzleSpots() {
+void initializeStartingPieces(const MapData* map) {
+  initPieceStates();
+
+  for (int i = 0; i < MAX_NUMBER_OF_INGAME_PIECES; i++) {
+    if (!(map->activePieces[i])) {
+      continue;
+    }
+
+    piecesActive[i] = map->activePieces[i];
+    piecePositions[i] = (Pos2){ map->pieceX[i], map->pieceY[i] };
+    pieceViewPos[i] = (Vec2){ piecePositions[i].x + 0.5f, piecePositions[i].y + 0.5f };
+    pieceData[i].type = (PieceType)(map->pieceType[i]);
+    pieceData[i].selectable = 1;
+
+    switch (pieceData[i].type) {
+      case PAWN:
+        pieceData[i].type = PAWN;
+        pieceData[i].legalCheck = pawnLegalMove;
+        pieceData[i].renderCommands = pawn_commands;
+        pieceData[i].displayName = "PAWN";
+        break;
+      case ROOK:
+        pieceData[i].type = ROOK;
+        pieceData[i].legalCheck = rookLegalMove;
+        pieceData[i].renderCommands = rook_commands;
+        pieceData[i].displayName = "ROOK";
+        break;
+      case KNIGHT:
+        pieceData[i].type = KNIGHT;
+        pieceData[i].legalCheck = knightLegalMove;
+        pieceData[i].renderCommands = pawn_commands;
+        pieceData[i].displayName = "KNIGHT";
+        break;
+      case BISHOP:
+        pieceData[i].type = BISHOP;
+        pieceData[i].legalCheck = bishopLegalMove;
+        pieceData[i].renderCommands = pawn_commands;
+        pieceData[i].displayName = "BISHOP";
+        break;
+      case QUEEN:
+        pieceData[i].type = QUEEN;
+        pieceData[i].legalCheck = queenLegalMove;
+        pieceData[i].renderCommands = queen_commands;
+        pieceData[i].displayName = "QUEEN";
+        break;
+      case KING:
+        pieceData[i].type = KING;
+        pieceData[i].legalCheck = kingLegalMove;
+        pieceData[i].renderCommands = king_commands;
+        pieceData[i].displayName = "KING";
+        break;
+      default:
+        pieceData[i].selectable = 0;
+        pieceData[i].type = WALL;
+        pieceData[i].legalCheck = wallLegalMove;
+        pieceData[i].renderCommands = wall_commands;
+        pieceData[i].displayName = "";
+    }
+  }
+
+}
+
+void initPuzzleStates() {
   puzzleGlyphRotation = 0.f;
   numberOfPuzzleSpaces = 0;
   for (int i = 0; i < MAX_NUMBER_OF_PUZZLE_SPACES; i++) {
     puzzleSpaceSpots[i] = (Pos2){ 0, 0 };
+  }
+}
+
+void initializePuzzleSpots(const MapData* map) {
+  initPuzzleStates();
+
+  numberOfPuzzleSpaces = map->numberOfPuzzleSpots;
+  for (int i = 0; i < map->numberOfPuzzleSpots; i++) {
+    puzzleSpaceSpots[i] = (Pos2){ map->puzzleSpotX[i], map->puzzleSpotY[i] };
   }
 }
 
@@ -413,27 +434,79 @@ void initStage00(void)
 {
   gameState = GAME_STATE_ACTIVE;
 
+  // TODO: DMA this in
+  MapData map;
+  {
+    map.playerX = 1;
+    map.playerY = 6;
+    map.playerRotation = 127;
+
+    map.numberOfPuzzleSpots = 2;
+    map.puzzleSpotX[0] = 2;
+    map.puzzleSpotY[0] = 4;
+    map.puzzleSpotX[1] = 5;
+    map.puzzleSpotY[1] = 1;
+
+    for (int i = 0; i < MAX_NUMBER_OF_INGAME_PIECES; i++) {
+      map.activePieces[i] = 0;
+    }
+    map.activePieces[5] = 1;
+    map.pieceType[5] = (u8)ROOK;
+    map.pieceX[5] = 3;
+    map.pieceY[5] = 4;
+
+    map.activePieces[12] = 1;
+    map.pieceType[12] = (u8)KING;
+    map.pieceX[12] = 7;
+    map.pieceY[12] = 4;
+
+    map.activePieces[2] = 1;
+    map.pieceType[2] = (u8)WALL;
+    map.pieceX[2] = 2;
+    map.pieceY[2] = 6;
+
+    for (int i = MONSTER_START_INDEX; i < NUMBER_OF_INGAME_ENTITIES; i++) {
+      map.activeMonsters[i] = 0;
+    }
+    map.monsterType[6] = MONSTER_TYPE_OGRE;
+    map.activeMonsters[6] = 1;
+    map.monsterX[6] = 6;
+    map.monsterY[6] = 6;
+
+    map.monsterType[2] = MONSTER_TYPE_OGRE;
+    map.activeMonsters[2] = 1;
+    map.monsterX[2] = 6;
+    map.monsterY[2] = 4;
+
+    sprintf(map.startLevelDialogue, "individual");
+  }
+
   isActive[0] = 1; // player is always active
-  initializeMonsters();
-  initializePuzzleSpots();
-  generateFloorTiles();
+  initializeMonsters(&map);
+  initializePuzzleSpots(&map);
+  initializeStartingPieces(&map);
   generateWalls();
   generateHUDChessboard();
+  generateFloorTiles();
   loadInTextures();
 
   highlightedPieceText = "";
 
   hudBackgroundTextureIndex = 0;
 
-  playerPosition = (Vec2){ 0.5f, 0.5f };
+  playerPosition = (Vec2){ map.playerX + 0.5f, map.playerY + 0.5f };
   playerVelocity = (Vec2){ 0.f, 0.f };
-  playerOrientation = 0.f;
+  playerOrientation = map.playerRotation / 256.f * M_PI * 2.f;
   isPlayerKnockingBack = 0;
   playerKnockbackTimeRemaining = 0.f;
   playerRadiusSquared = PLAYER_RADIUS * PLAYER_RADIUS;
 
-  cosCameraRot = 1.f;
-  sinCameraRot = 0.f;
+  cosCameraRot = cosf(playerOrientation);
+  sinCameraRot = sinf(playerOrientation);
+
+  if (map.startLevelDialogue[0] != '\0') {
+    startDialogue(map.startLevelDialogue);
+  }
 
   playerHealth = PLAYER_MAX_HEALTH;
   playerHealthDisplay = 0.f;
@@ -445,17 +518,10 @@ void initStage00(void)
 
   selectedPiece = -1;
 
-  for (int i = 0; i < MAX_NUMBER_OF_INGAME_PIECES; i++) {
-    piecePositions[i] = (Pos2){ 0, 0 };
-    piecesActive[i] = 0;
-  }
-
-  initializeStartingPieces();
-
-  numberOfPuzzleSpaces = 3;
-  for (int i = 0; i < 3; i++) {
-    puzzleSpaceSpots[i] = (Pos2){ i, i };
-  }
+  // numberOfPuzzleSpaces = 3;
+  // for (int i = 0; i < 3; i++) {
+  //   puzzleSpaceSpots[i] = (Pos2){ i, i };
+  // }
 }
 
 #define DISPLAY_FONT_LETTER_WIDTH 13
