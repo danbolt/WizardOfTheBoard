@@ -26,7 +26,7 @@ const TILE_INDEX_PUZZLE_SPACE = 13;
 
 const EDITOR_TILE_SIZE = 16;
 
-const processMap = (mapJSON) => {
+const processMap = (mapJSON, i) => {
   const result = {
     piecesActive: new Array(MAX_NUMBER_OF_INGAME_PIECES).fill(0),
     pieceX: new Array(MAX_NUMBER_OF_INGAME_PIECES).fill(0),
@@ -51,7 +51,9 @@ const processMap = (mapJSON) => {
     flagA: 0,
     flagB: 0,
     flagC: 0,
-    bgm: 0
+    bgm: 0,
+
+    name: names[i].split('.')[0]
   };
 
   let pieceCount = 0;
@@ -119,10 +121,12 @@ const processMap = (mapJSON) => {
 
 const processedJSON = jsonDataBuffers.map(processMap);
 
-fs.writeFile('processed/process_output.json', JSON.stringify(processedJSON), { encoding: 'utf8' },(err) => {
-  if (err) {
-    console.log(err);
-  } else {
-    console.log('done writing processed data!') 
-  }
+processedJSON.forEach((processedJSON) => {
+  fs.writeFile('processed/' + processedJSON.name + '.json', JSON.stringify(processedJSON), { encoding: 'utf8' },(err) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log('done processing: '+ processedJSON.name) 
+    }
+  })
 })

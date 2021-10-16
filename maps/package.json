@@ -1,0 +1,14 @@
+{
+  "name": "map-packing",
+  "version": "1.0.0",
+  "description": "",
+  "main": "mapgenerate.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "shared-structs": "^1.4.1"
+  }
+}

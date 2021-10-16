@@ -1,0 +1,9 @@
+%{#include "maplookup.h"
+#include "ultratypes.h"
+#include "nustdfuncs.h"
+
+%}
+struct dialogueMappingData;
+%%
+other_test_map,0
+test_map,168
