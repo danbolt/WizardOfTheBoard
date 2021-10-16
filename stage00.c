@@ -7,6 +7,7 @@
 #include "gamemath.h"
 #include "graphic.h"
 #include "mapdata.h"
+#include "maps/maplookup.h"
 #include "monsters.h"
 #include "nustdfuncs.h"
 #include "tracknumbers.h"
@@ -429,62 +430,28 @@ void initializePuzzleSpots(const MapData* map) {
   }
 }
 
+static MapData mapInformation __attribute__((aligned(8)));
+
+void initializeMapFromROM(const char* mapKey) {
+  struct dialogueMappingData* mapOffsetInfo = getMapDataOffset(mapKey, _nstrlen(mapKey));
+  if (mapOffsetInfo != 0x0) {
+    nuPiReadRom((u32)(_map_dataSegmentRomStart + mapOffsetInfo->offset), &mapInformation, sizeof(MapData));
+  }
+
+  // TODO: Maybe we should stub this in some way?
+}
+
 /* The initialization of stage 0 */
 void initStage00(void)
 {
   gameState = GAME_STATE_ACTIVE;
 
-  // TODO: DMA this in
-  MapData map;
-  {
-    map.playerX = 1;
-    map.playerY = 6;
-    map.playerRotation = 127;
-
-    map.numberOfPuzzleSpots = 2;
-    map.puzzleSpotX[0] = 2;
-    map.puzzleSpotY[0] = 4;
-    map.puzzleSpotX[1] = 5;
-    map.puzzleSpotY[1] = 1;
-
-    for (int i = 0; i < MAX_NUMBER_OF_INGAME_PIECES; i++) {
-      map.activePieces[i] = 0;
-    }
-    map.activePieces[5] = 1;
-    map.pieceType[5] = (u8)ROOK;
-    map.pieceX[5] = 3;
-    map.pieceY[5] = 4;
-
-    map.activePieces[12] = 1;
-    map.pieceType[12] = (u8)KING;
-    map.pieceX[12] = 7;
-    map.pieceY[12] = 4;
-
-    map.activePieces[2] = 1;
-    map.pieceType[2] = (u8)WALL;
-    map.pieceX[2] = 2;
-    map.pieceY[2] = 6;
-
-    for (int i = MONSTER_START_INDEX; i < NUMBER_OF_INGAME_ENTITIES; i++) {
-      map.activeMonsters[i] = 0;
-    }
-    map.monsterType[6] = MONSTER_TYPE_OGRE;
-    map.activeMonsters[6] = 1;
-    map.monsterX[6] = 6;
-    map.monsterY[6] = 6;
-
-    map.monsterType[2] = MONSTER_TYPE_OGRE;
-    map.activeMonsters[2] = 1;
-    map.monsterX[2] = 6;
-    map.monsterY[2] = 4;
-
-    sprintf(map.startLevelDialogue, "individual");
-  }
+  initializeMapFromROM("test_map");
 
   isActive[0] = 1; // player is always active
-  initializeMonsters(&map);
-  initializePuzzleSpots(&map);
-  initializeStartingPieces(&map);
+  initializeMonsters(&mapInformation);
+  initializePuzzleSpots(&mapInformation);
+  initializeStartingPieces(&mapInformation);
   generateWalls();
   generateHUDChessboard();
   generateFloorTiles();
@@ -494,9 +461,9 @@ void initStage00(void)
 
   hudBackgroundTextureIndex = 0;
 
-  playerPosition = (Vec2){ map.playerX + 0.5f, map.playerY + 0.5f };
+  playerPosition = (Vec2){ mapInformation.playerX + 0.5f, mapInformation.playerY + 0.5f };
   playerVelocity = (Vec2){ 0.f, 0.f };
-  playerOrientation = map.playerRotation / 256.f * M_PI * 2.f;
+  playerOrientation = mapInformation.playerRotation / 256.f * M_PI * 2.f;
   isPlayerKnockingBack = 0;
   playerKnockbackTimeRemaining = 0.f;
   playerRadiusSquared = PLAYER_RADIUS * PLAYER_RADIUS;
@@ -504,8 +471,8 @@ void initStage00(void)
   cosCameraRot = cosf(playerOrientation);
   sinCameraRot = sinf(playerOrientation);
 
-  if (map.startLevelDialogue[0] != '\0') {
-    startDialogue(map.startLevelDialogue);
+  if (mapInformation.startLevelDialogue[0] != '\0') {
+    startDialogue(mapInformation.startLevelDialogue);
   }
 
   playerHealth = PLAYER_MAX_HEALTH;

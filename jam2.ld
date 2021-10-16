@@ -126,6 +126,12 @@ SECTIONS
       cast_sprites/packedtextures.bino(.data);
    }
    END_SEG(cast_sprite_data)
+
+   BEGIN_SEG(map_data, __romPos)
+   {
+      maps/mapbuffers.bino(.data);
+   }
+   END_SEG(map_data)
    
    /* Discard everything not specifically mentioned above. */
    /DISCARD/ :
