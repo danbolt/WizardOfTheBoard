@@ -39,7 +39,7 @@ void updateTime() {
 }
 
 void initalizeGameData() {
-  ingameFOV = 70.f;
+  ingameFOV = 60.f;
 
   time = OS_CYCLES_TO_USEC(osGetTime());
   updateTime();

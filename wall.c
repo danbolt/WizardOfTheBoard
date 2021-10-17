@@ -2,9 +2,9 @@
 #include "pieces.h"
 
 #define RM_ZB_TEX_EDGE(clk)          \
-  Z_CMP | Z_UPD | IM_RD | CVG_DST_CLAMP |   \
+  Z_CMP | Z_UPD | CVG_DST_CLAMP |   \
   CVG_X_ALPHA | ALPHA_CVG_SEL | ZMODE_OPA | TEX_EDGE |  \
-  GBL_c##clk(G_BL_CLR_IN, G_BL_A_IN, G_BL_CLR_MEM, G_BL_A_MEM)
+  GBL_c##clk(G_BL_CLR_IN, G_BL_0, G_BL_CLR_IN, G_BL_1)
 
 #define G_RM_ZB_TEX_EDGE RM_ZB_TEX_EDGE(1)
 #define G_RM_ZB_TEX_EDGE2  RM_ZB_TEX_EDGE(2)
@@ -25,7 +25,7 @@ Gfx wall_commands[] = {
   gsDPSetCombineMode(G_CC_MODULATEIA, G_CC_MODULATEIA),
   gsDPSetRenderMode(G_RM_ZB_TEX_EDGE, G_RM_ZB_TEX_EDGE2),
   gsSPVertex(wall_verts, 8, 0),
-  gsSPClearGeometryMode(G_CULL_BACK),
+  //gsSPClearGeometryMode(G_CULL_BACK),
   gsSPTexture(0xffff, 0xffff, 0, G_TX_RENDERTILE, G_ON),
   gsSP2Triangles(0, 3, 2, 0, 2, 7, 6, 0),
   gsSP2Triangles(6, 5, 4, 0, 4, 1, 0, 0),
@@ -36,7 +36,7 @@ Gfx wall_commands[] = {
   gsDPPipeSync(),
   gsDPSetCombineMode(G_CC_SHADE, G_CC_SHADE),
   gsDPSetRenderMode(G_RM_ZB_OPA_SURF, G_RM_ZB_OPA_SURF2),
-  gsSPSetGeometryMode(G_CULL_BACK),
+  //gsSPSetGeometryMode(G_CULL_BACK),
   gsSPTexture(0xffff, 0xffff, 0, G_TX_RENDERTILE, G_OFF),
   gsSPEndDisplayList()
 };
