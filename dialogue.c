@@ -172,16 +172,23 @@ void renderDialogueToDisplayList() {
   if (dialogueState == DIALOGUE_STATE_OFF) {
     return;
   }
+  gDPPipeSync(glistp++);
+  gDPSetCycleType(glistp++, G_CYC_FILL);
+  gDPSetFillColor(glistp++, GPACK_RGBA5551(0,0,0,1) << 16 | GPACK_RGBA5551(0,0,0,1));
+  gDPFillRectangle(glistp++, TITLE_SAFE_HORIZONTAL, 64 - 4, (SCREEN_WD - TITLE_SAFE_HORIZONTAL), 64 + (64) + 4);
+  gDPPipeSync(glistp++);
+  gDPSetCycleType(glistp++, G_CYC_1CYCLE);
+
 
   gDPPipeSync(glistp++);
   gDPLoadTextureBlock_4b(glistp++, sixtwelve_tex, G_IM_FMT_IA, SIXTWELVE_TEXTURE_WIDTH, SIXTWELVE_TEXTURE_HEIGHT, 0, G_TX_MIRROR | G_TX_WRAP, G_TX_MIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
   if (currentPortrait != NULL) {
-    drawString(TITLE_SAFE_HORIZONTAL + 32 + 4, 64, currentDialogueItem->text, (SCREEN_WD - (TITLE_SAFE_HORIZONTAL * 2) - (32 + 4)));
+    drawString(TITLE_SAFE_HORIZONTAL + 32 + 8, 64, currentDialogueItem->text, (SCREEN_WD - (TITLE_SAFE_HORIZONTAL * 2) - (32 + 8)));
 
-    gDPPipeSync(glistp++);
+
     gDPLoadTextureBlock(glistp++, OS_K0_TO_PHYSICAL(currentPortrait), G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 64, 0, G_TX_MIRROR | G_TX_WRAP, G_TX_MIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
     gDPSetCombineMode(glistp++, G_CC_DECALRGBA, G_CC_DECALRGBA);
-    gSPTextureRectangle(glistp++, TITLE_SAFE_HORIZONTAL << 2, 64 << 2, (TITLE_SAFE_HORIZONTAL + 32) << 2, (64 + 64) << 2, 0, 0 << 5, 0 << 5, 1 << 10, 1 << 10);
+    gSPTextureRectangle(glistp++, (TITLE_SAFE_HORIZONTAL + 4) << 2, 64 << 2, ((TITLE_SAFE_HORIZONTAL + 4) + 32) << 2, (64 + 64) << 2, 0, 0 << 5, 0 << 5, 1 << 10, 1 << 10);
   } else {
     drawString(TITLE_SAFE_HORIZONTAL, 64, currentDialogueItem->text, (SCREEN_WD - (TITLE_SAFE_HORIZONTAL * 2)));
   }

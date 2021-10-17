@@ -6,5 +6,6 @@
 struct dialogueMappingData;
 %%
 individual,0
-powpowpow,616
-uhhh,1232
+longpiece,616
+powpowpow,1232
+uhhh,1848
