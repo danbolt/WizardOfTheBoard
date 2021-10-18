@@ -446,7 +446,7 @@ void initStage00(void)
 {
   gameState = GAME_STATE_ACTIVE;
 
-  initializeMapFromROM("test_map");
+  initializeMapFromROM(currentMap);
 
   isActive[0] = 1; // player is always active
   initializeMonsters(&mapInformation);

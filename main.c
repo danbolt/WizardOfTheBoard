@@ -4,6 +4,7 @@
 #include "main.h"
 
 #include "dialogue.h"
+#include "levelselect.h"
 
 #include <segmentinfo.h>
 
@@ -14,7 +15,8 @@
 #endif
 
 /* Declaration of the prototype  */
-void stage00(int);
+void stage00Callback(int);
+void levelSelectCallback(int);
 
 /* Declaration of the external function  */
 void initStage00(void);
@@ -31,6 +33,10 @@ float deltaTimeSeconds;
 
 float ingameFOV;
 
+const char* currentMap = "test_map";
+
+volatile u32 changeScreensFlag;
+
 void updateTime() {
   OSTime newTime = OS_CYCLES_TO_USEC(osGetTime());
   delta = newTime - time;
@@ -39,6 +45,8 @@ void updateTime() {
 }
 
 void initalizeGameData() {
+  changeScreensFlag = 0;
+
   ingameFOV = 60.f;
 
   time = OS_CYCLES_TO_USEC(osGetTime());
@@ -69,15 +77,22 @@ void mainproc(void)
   nuAuInit();
   setAudioData();
 
-  /* The initialization for stage00()  */
-  initStage00();
-  /* Register call-back  */
-  nuGfxFuncSet((NUGfxFunc)stage00);
-  /* The screen display is ON */
+  initLevelSelect();
+  nuGfxFuncSet((NUGfxFunc)levelSelectCallback);
   nuGfxDisplayOn();
 
-  while(1)
-    ;
+  while(changeScreensFlag == 0) ;
+
+  nuGfxDisplayOff();
+  nuGfxFuncRemove();
+
+  changeScreensFlag = 0;
+
+  initStage00();
+  nuGfxFuncSet((NUGfxFunc)stage00Callback);
+  nuGfxDisplayOn();
+
+  while(1);
 }
 
 /*-----------------------------------------------------------------------------
@@ -87,17 +102,35 @@ void mainproc(void)
   function is the total of RCP tasks that are currently processing and 
   waiting for the process. 
 -----------------------------------------------------------------------------*/
-void stage00(int pendingGfx)
-{
+void stage00Callback(int pendingGfx) {
+  if (changeScreensFlag) {
+    return;
+  }
+
   updateTime();
   updateDialogue();
 
   /* Provide the display process if 2 or less RCP tasks are processing or
 	waiting for the process.  */
-  if(pendingGfx < 3)
+  if(pendingGfx < 3) {
     makeDL00();		
+  }
 
   /* The process of game progress  */
   updateGame00(); 
 }
 
+void levelSelectCallback(int pendingGfx) {
+  if (changeScreensFlag) {
+    return;
+  }
+
+  updateTime();
+  updateDialogue();
+
+  if(pendingGfx < 3) {
+    makeLevelSelectDisplayList();   
+  }
+
+  updateLevelSelect(); 
+}

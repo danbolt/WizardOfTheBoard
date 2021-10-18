@@ -5,6 +5,10 @@
 
 #ifdef _LANGUAGE_C
 
+extern volatile u32 changeScreensFlag;
+
+extern const char* currentMap;
+
 /* Definition of the external variable  */
 extern NUContData	contdata[1]; /* Read data of the controller  */
 extern u8 contPattern;		     /* The pattern of the connected controller  */

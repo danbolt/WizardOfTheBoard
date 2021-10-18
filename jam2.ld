@@ -132,6 +132,12 @@ SECTIONS
       maps/mapbuffers.bino(.data);
    }
    END_SEG(map_data)
+
+   BEGIN_SEG(level_select_background, __romPos)
+   {
+      sprites/level_select_background.bino(.data);
+   }
+   END_SEG(level_select_background)
    
    /* Discard everything not specifically mentioned above. */
    /DISCARD/ :
