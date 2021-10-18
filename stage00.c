@@ -291,15 +291,15 @@ void generateHUDChessboard() {
     const int y = HUD_CHESSBOARD_HEIGHT - ((i / BOARD_WIDTH) * HUD_CELL_HEIGHT) + HUD_CHESSBOARD_Y;
 
     if (tileIsDark(i % BOARD_WIDTH, i / BOARD_WIDTH)) {
-      *(verts++) = (Vtx){ x + 0             , y + 0              ,  0, 0, 0, 0, 0x10, 0x10, 0x51 - ((i / BOARD_WIDTH) * 10), 0xff };
-      *(verts++) = (Vtx){ x + HUD_CELL_WIDTH, y + 0              ,  0, 0, 0, 0, 0x10, 0x10, 0x51 - ((i / BOARD_WIDTH) * 10), 0xff };
-      *(verts++) = (Vtx){ x + HUD_CELL_WIDTH, y - HUD_CELL_HEIGHT,  0, 0, 0, 0, 0x10, 0x10, 0x51 - ((i / BOARD_WIDTH) * 10), 0xff };
-      *(verts++) = (Vtx){ x + 0             , y - HUD_CELL_HEIGHT,  0, 0, 0, 0, 0x10, 0x10, 0x51 - ((i / BOARD_WIDTH) * 10), 0xff };
+      *(verts++) = (Vtx){ x + 0             , y + 0              ,  0, 0,  0 << 5,  0 << 5, 0x40, 0x40, 0x81 - ((i / BOARD_WIDTH) * 10), 0xff };
+      *(verts++) = (Vtx){ x + HUD_CELL_WIDTH, y + 0              ,  0, 0, 32 << 5,  0 << 5, 0x40, 0x40, 0x81 - ((i / BOARD_WIDTH) * 10), 0xff };
+      *(verts++) = (Vtx){ x + HUD_CELL_WIDTH, y - HUD_CELL_HEIGHT,  0, 0, 32 << 5, 32 << 5, 0x40, 0x40, 0x81 - ((i / BOARD_WIDTH) * 10), 0xff };
+      *(verts++) = (Vtx){ x + 0             , y - HUD_CELL_HEIGHT,  0, 0,  0 << 5, 32 << 5, 0x40, 0x40, 0x81 - ((i / BOARD_WIDTH) * 10), 0xff };
     } else {
-      *(verts++) = (Vtx){ x + 0             , y + 0              ,  0, 0, 0, 0, 0xbf, 0xbf, 0xbf - ((i / BOARD_WIDTH) * 12), 0xff };
-      *(verts++) = (Vtx){ x + HUD_CELL_WIDTH, y + 0              ,  0, 0, 0, 0, 0xbf, 0xbf, 0xbf - ((i / BOARD_WIDTH) * 12), 0xff };
-      *(verts++) = (Vtx){ x + HUD_CELL_WIDTH, y - HUD_CELL_HEIGHT,  0, 0, 0, 0, 0xbf, 0xbf, 0xbf - ((i / BOARD_WIDTH) * 12), 0xff };
-      *(verts++) = (Vtx){ x + 0             , y - HUD_CELL_HEIGHT,  0, 0, 0, 0, 0xbf, 0xbf, 0xbf - ((i / BOARD_WIDTH) * 12), 0xff };
+      *(verts++) = (Vtx){ x + 0             , y + 0              ,  0, 0,  0 << 5,  0 << 5, 0xbf, 0xbf, 0xbf - ((i / BOARD_WIDTH) * 12), 0xff };
+      *(verts++) = (Vtx){ x + HUD_CELL_WIDTH, y + 0              ,  0, 0, 32 << 5,  0 << 5, 0xbf, 0xbf, 0xbf - ((i / BOARD_WIDTH) * 12), 0xff };
+      *(verts++) = (Vtx){ x + HUD_CELL_WIDTH, y - HUD_CELL_HEIGHT,  0, 0, 32 << 5, 32 << 5, 0xbf, 0xbf, 0xbf - ((i / BOARD_WIDTH) * 12), 0xff };
+      *(verts++) = (Vtx){ x + 0             , y - HUD_CELL_HEIGHT,  0, 0,  0 << 5, 32 << 5, 0xbf, 0xbf, 0xbf - ((i / BOARD_WIDTH) * 12), 0xff };
     }
 
     if ((verts - lastLoad) >= VERT_BUFFER_SIZE) {
@@ -654,9 +654,9 @@ void makeDL00(void)
 
 
   gDPPipeSync(glistp++);
-  gDPSetCombineMode(glistp++, G_CC_SHADE, G_CC_SHADE);
-  gDPSetRenderMode(glistp++, G_RM_OPA_SURF, G_RM_OPA_SURF2);
-  gSPTexture(glistp++, 0xffff, 0xffff, 0, G_TX_RENDERTILE, G_OFF);
+  // gDPSetCombineMode(glistp++, G_CC_SHADE, G_CC_SHADE);
+  // gDPSetRenderMode(glistp++, G_RM_OPA_SURF, G_RM_OPA_SURF2);
+  // gSPTexture(glistp++, 0xffff, 0xffff, 0, G_TX_RENDERTILE, G_OFF);
   gSPDisplayList(glistp++, OS_K0_TO_PHYSICAL(onscreenChessboardCommands));
   
   gDPSetCombineMode(glistp++, G_CC_MODULATEIDECALA_PRIM, G_CC_MODULATEIDECALA_PRIM);
