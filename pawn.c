@@ -17,6 +17,16 @@ void pawnLegalMove(u32 ourIndex, const u8* piecesActive, const Pos2* piecePositi
 
   // If we've made it this far, then we can mark our desired spot as legal
   legalSpots[ourPosition->x + ((ourPosition->y + 1) * BOARD_WIDTH)] = 1;
+
+
+  // The starting row
+  if (ourPosition->y == 1) {
+    if (isSpaceOccupied(ourPosition->x, ourPosition->y + 2) <= -1) {
+      legalSpots[ourPosition->x + ((ourPosition->y + 2) * BOARD_WIDTH)] = 1;
+    }
+  }
+
+  
 }
 
 Vtx pawn_verts[] = {
