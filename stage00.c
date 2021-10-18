@@ -54,6 +54,8 @@ static float knockbackTimesRemaining[NUMBER_OF_INGAME_ENTITIES];
 static u8 isKnockingBackStates[NUMBER_OF_INGAME_ENTITIES];
 static u8 lineOfSightVisible[NUMBER_OF_INGAME_ENTITIES];
 
+static float cursorRotation;
+
 // HACK: makes for a smaller git commit
 #define playerPosition (positions[0])
 #define playerVelocity (velocities[0])
@@ -496,6 +498,7 @@ void initStage00(void)
   for (int i = 0; i < NUMBER_OF_BOARD_CELLS; i++) {
     legalDestinationState[i] = 0;
   }
+  cursorRotation = 0.f;
 
   selectedPiece = -1;
 
@@ -559,7 +562,8 @@ void makeDL00(void)
   guLookAt(&dynamicp->camera, playerPosition.x + (sinCameraRot * 1.f), playerPosition.y - (cosCameraRot * 1.f), PLAYER_HEIGHT_ABOVE_GROUND + 0.25f, playerPosition.x, playerPosition.y, PLAYER_HEIGHT_ABOVE_GROUND, 0.f, 0.f, 1.f);
   guMtxIdent(&dynamicp->modelling);
 
-  guTranslate(&dynamicp->cursorTransform, chessboardSpotHighlighted.x + 0.5f, chessboardSpotHighlighted.y + 0.5f, 0.f);
+  guTranslate(&dynamicp->cursorTranslate, chessboardSpotHighlighted.x + 0.5f, chessboardSpotHighlighted.y + 0.5f, 0.f);
+  guRotate(&dynamicp->cursorRotate, cursorRotation * M_RTOD, 0.f, 0.f, 1.f);
 
   gSPMatrix(glistp++,OS_K0_TO_PHYSICAL(&(dynamicp->projection)), G_MTX_PROJECTION | G_MTX_LOAD | G_MTX_NOPUSH);
   gSPMatrix(glistp++,OS_K0_TO_PHYSICAL(&(dynamicp->camera)), G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH );
@@ -630,7 +634,8 @@ void makeDL00(void)
 
 
   // Draw the cursor
-  gSPMatrix(glistp++, OS_K0_TO_PHYSICAL(&(dynamicp->cursorTransform)), G_MTX_MODELVIEW | G_MTX_MUL | G_MTX_PUSH);
+  gSPMatrix(glistp++, OS_K0_TO_PHYSICAL(&(dynamicp->cursorTranslate)), G_MTX_MODELVIEW | G_MTX_MUL | G_MTX_PUSH);
+  gSPMatrix(glistp++, OS_K0_TO_PHYSICAL(&(dynamicp->cursorRotate)), G_MTX_MODELVIEW | G_MTX_MUL | G_MTX_NOPUSH);
   gSPMatrix(glistp++, OS_K0_TO_PHYSICAL(&dynamicp->blenderExportScale), G_MTX_MODELVIEW | G_MTX_MUL | G_MTX_NOPUSH);
   gSPDisplayList(glistp++, OS_K0_TO_PHYSICAL(&(cursor_commands)));
   gSPPopMatrix(glistp++, G_MTX_MODELVIEW);
@@ -844,7 +849,7 @@ void updatePlayerInput() {
     chessboardSpotHighlighted.y = (int)(playerPosition.y + (cosCameraRot * 1.51f));
 
   } else if (((contdata[0].button & (L_TRIG | R_TRIG)) == (L_TRIG | R_TRIG)) || (contdata[0].button & Z_TRIG)) {
-    //
+    cursorRotation = lerpAngle(cursorRotation, playerOrientation, 0.3f);
 
   } else if((contdata[0].button & L_TRIG) || (contdata[0].stick_x < -7)) {
     playerOrientation += PLAYER_TURN_SPEED * deltaTimeSeconds;
@@ -852,12 +857,16 @@ void updatePlayerInput() {
     if (playerOrientation > M_PI) {
       playerOrientation = -M_PI;
     }
+    cursorRotation = lerpAngle(cursorRotation, 0.f, 0.34f);
   } else if((contdata[0].button & R_TRIG) || (contdata[0].stick_x > 7)) {
     playerOrientation -= PLAYER_TURN_SPEED * deltaTimeSeconds;
 
     if (playerOrientation < -M_PI) {
       playerOrientation = M_PI;
     }
+    cursorRotation = lerpAngle(cursorRotation, 0.f, 0.34f);
+  } else {
+    cursorRotation = lerpAngle(cursorRotation, 0.f, 0.34f);
   }
   cosCameraRot = cosf(playerOrientation);
   sinCameraRot = sinf(playerOrientation);

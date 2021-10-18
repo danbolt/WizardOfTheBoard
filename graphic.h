@@ -46,7 +46,8 @@ typedef struct {
 
   Mtx blenderExportScale;
 
-  Mtx cursorTransform;
+  Mtx cursorTranslate;
+  Mtx cursorRotate;
 
   Mtx pieceTransforms[MAX_NUMBER_OF_INGAME_PIECES];
 
