@@ -88,6 +88,7 @@ static u8 lerpingAngleToCursor;
 
 static int selectedPiece;
 
+static u8 isStagePaused;
 
 #define TIME_BANNER_ONSCREEN 3.f
 static const char* bannerMessageText;
@@ -454,6 +455,8 @@ void initializeMapFromROM(const char* mapKey) {
 /* The initialization of stage 0 */
 void initStage00(void)
 {
+  isStagePaused = 0;
+
   gameState = GAME_STATE_ACTIVE;
   gameStateTime = 0.f;
 
@@ -470,7 +473,7 @@ void initStage00(void)
 
   highlightedPieceText = "";
 
-  hudBackgroundTextureIndex = 0;
+  hudBackgroundTextureIndex = currentLevel % NUMBER_OF_HUD_BACKGROUND_TILES;
 
   playerPosition = (Vec2){ mapInformation.playerX + 0.5f, mapInformation.playerY + 0.5f };
   playerVelocity = (Vec2){ 0.f, 0.f };
@@ -788,6 +791,8 @@ void makeDL00(void)
     renderDisplayText(SCREEN_WD / 2 - ((5 * 13) / 2), SCREEN_HT / 2, "DEATH");
   } else if (gameState == GAME_STATE_PLAYER_WINS) {
     renderDisplayText(SCREEN_WD / 2 - ((11 * 13) / 2), SCREEN_HT / 2, "FLOOR CLEAR!");
+  } else if (isStagePaused) {
+    renderDisplayText(SCREEN_WD / 2 - ((6 * 13) / 2), SCREEN_HT / 2, "PAUSED");
   } else if (bannerMessageText != NULL) {
 
     // TODO: clean this up!
@@ -858,10 +863,8 @@ void updatePlayerInput() {
       ((contdata[0].button & L_TRIG) && (contdata[0].trigger & R_TRIG)) ||
       (contdata[0].trigger & Z_TRIG) 
       ) {
-    const Vec2 directionToCursor = { (float)(chessboardSpotHighlighted.x) + 0.5f - playerPosition.x, (float)(chessboardSpotHighlighted.y) + 0.5f - playerPosition.y };
-    const float angleToCursor = nu_atan2(directionToCursor.y, directionToCursor.x) - (M_PI * 0.5f);
-
-    playerOrientation = angleToCursor;
+    chessboardSpotHighlighted.x = (int)(playerPosition.x - (sinCameraRot * 1.51f));
+    chessboardSpotHighlighted.y = (int)(playerPosition.y + (cosCameraRot * 1.51f));
 
   } else if (((contdata[0].button & (L_TRIG | R_TRIG)) == (L_TRIG | R_TRIG)) || (contdata[0].button & Z_TRIG)) {
     //
@@ -949,11 +952,6 @@ void updateMovement() {
 }
 
 void updateBoardControlInput() {
-  if (contdata[0].trigger & START_BUTTON) {
-    startDialogue("longpiece");
-    hudBackgroundTextureIndex = (hudBackgroundTextureIndex + 1) % NUMBER_OF_HUD_BACKGROUND_TILES;
-  }
-
   if (((contdata[0].button & (L_TRIG | R_TRIG)) == (L_TRIG | R_TRIG)) || (contdata[0].button & Z_TRIG)) {
     Vec2 fstep = { 0, 0 };
 
@@ -1347,6 +1345,14 @@ void updateBannerMessageText() {
   }
 }
 
+void updatePausedState() {
+  if (!(contdata[0].trigger & START_BUTTON)) {
+    return;
+  }
+
+  isStagePaused = !isStagePaused;
+}
+
 void updateGame00(void)
 {
   nuContDataGetEx(contdata,0);
@@ -1356,6 +1362,11 @@ void updateGame00(void)
   }
   
   if (gameState == GAME_STATE_ACTIVE) {
+    updatePausedState();
+    if (isStagePaused) {
+      return;
+    }
+
     updatePlayerInput();
     updateBoardControlInput();
   }
