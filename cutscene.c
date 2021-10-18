@@ -1,5 +1,5 @@
 
-#include "levelselect.h"
+#include "cutscene.h"
 
 #include <nusys.h>
 
@@ -7,6 +7,7 @@
 #include "graphic.h"
 #include "nustdfuncs.h"
 #include "segmentinfo.h"
+#include "dialogue.h"
 #include "cutscene_backgrounds/backgroundlookup.h"
 
 #ifdef N_AUDIO
@@ -21,11 +22,31 @@ u8 backgroundBuffer2[320 * 240 * 2] __attribute__((aligned(8)));
 u8 backgroundBuffer3[320 * 240 * 2] __attribute__((aligned(8)));
 u8* backgroundBuffers[] = { backgroundBuffer1, backgroundBuffer2, backgroundBuffer3 };
 
+CutsceneInfo testInfo = {
+  "longpiece",
+
+  "bedroom",
+  "simplex",
+  "test_a",
+};
+
 void initCutscene() {
-  struct backgroundMappingData* backgroundTest = getBackgroundTextureOffset("protag_bedroom_render", _nstrlen("protag_bedroom_render"));
-  if (backgroundTest != NULL) {
-    nuPiReadRom((u32)(_packedbackgroundsSegmentRomStart + backgroundTest->offset), backgroundBuffers[0], 320 * 240 * 2);
+  struct backgroundMappingData* bg1 = getBackgroundTextureOffset(testInfo.imageKey1, _nstrlen(testInfo.imageKey1));
+  if (bg1 != NULL) {
+    nuPiReadRom((u32)(_packedbackgroundsSegmentRomStart + bg1->offset), backgroundBuffers[0], 320 * 240 * 2);
   }
+
+  struct backgroundMappingData* bg2 = getBackgroundTextureOffset(testInfo.imageKey2, _nstrlen(testInfo.imageKey2));
+  if (bg2 != NULL) {
+    nuPiReadRom((u32)(_packedbackgroundsSegmentRomStart + bg2->offset), backgroundBuffers[1], 320 * 240 * 2);
+  }
+
+  struct backgroundMappingData* bg3 = getBackgroundTextureOffset(testInfo.imageKey3, _nstrlen(testInfo.imageKey3));
+  if (bg3 != NULL) {
+    nuPiReadRom((u32)(_packedbackgroundsSegmentRomStart + bg3->offset), backgroundBuffers[2], 320 * 240 * 2);
+  }
+
+  startDialogue(testInfo.dialogue);
 }
 
 void makeCutsceneDisplaylist() {
@@ -59,9 +80,11 @@ void makeCutsceneDisplaylist() {
 
   for (int i = 0; i < (240 / 6); i++) {
     gDPPipeSync(glistp++);
-    gDPLoadTextureTile(glistp++, backgroundBuffers[0], G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, 240, 0, (i * 6), 320 - 1, ((i + 1) * 6) - 1, 0, G_TX_WRAP, G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD );
+    gDPLoadTextureTile(glistp++, backgroundBuffers[2], G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, 240, 0, (i * 6), 320 - 1, ((i + 1) * 6) - 1, 0, G_TX_WRAP, G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD );
     gSPTextureRectangle(glistp++, 0 << 2, (0 + (i * 6)) << 2, (0 + 320) << 2, (0 + ((i + 1) * 6)) << 2, 0, 0 << 5, (i * 6) << 5, 1 << 10, 1 << 10);
   }
+
+  renderDialogueToDisplayList();
 
   gDPFullSync(glistp++);
   gSPEndDisplayList(glistp++);
@@ -69,19 +92,19 @@ void makeCutsceneDisplaylist() {
   nuGfxTaskStart(&gfx_glist[gfx_gtask_no][0], (s32)(glistp - gfx_glist[gfx_gtask_no]) * sizeof (Gfx), NU_GFX_UCODE_F3DLP_REJ , NU_SC_NOSWAPBUFFER);
 
   nuDebConClear(0);
-  nuDebConTextPos(0, 2, 2);
+  nuDebConTextPos(0, 2, 22);
   sprintf(conbuf,"cutscene");
   nuDebConCPuts(0, conbuf);
 
-  nuDebConTextPos(0, 2, 4);
+  nuDebConTextPos(0, 2, 24);
   sprintf(conbuf," audio heap: 0x%08x", NU_AU_HEAP_ADDR);
   nuDebConCPuts(0, conbuf);
 
-  nuDebConTextPos(0, 2, 5);
+  nuDebConTextPos(0, 2, 25);
   sprintf(conbuf,"our bss end: 0x%08x", _codeSegmentBssEnd);
   nuDebConCPuts(0, conbuf);
 
-  nuDebConTextPos(0, 2, 6);
+  nuDebConTextPos(0, 2, 26);
   sprintf(conbuf,"  remaining: 0d%08u", (u32)(NU_AU_HEAP_ADDR) - (u32)(_codeSegmentBssEnd));
   nuDebConCPuts(0, conbuf);
 

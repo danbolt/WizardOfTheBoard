@@ -5,6 +5,6 @@
 %}
 struct backgroundMappingData;
 %%
-cutscene_background_a,0
-protag_bedroom_render,153600
-simplex_noise,307200
+bedroom,0
+simplex,153600
+test_a,307200

@@ -38,8 +38,8 @@
 struct backgroundMappingData;
 
 #define TOTAL_KEYWORDS 3
-#define MIN_WORD_LENGTH 13
-#define MAX_WORD_LENGTH 21
+#define MIN_WORD_LENGTH 6
+#define MAX_WORD_LENGTH 7
 #define MIN_HASH_VALUE 0
 #define MAX_HASH_VALUE 2
 /* maximum key range = 3, duplicates = 0 */
@@ -66,9 +66,9 @@ hash (register const char *str, register size_t len)
       3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
       3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
       3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
-      3, 3, 3, 3, 3, 3, 3, 3, 3, 2,
+      3, 3, 3, 3, 3, 3, 3, 3, 2, 3,
       3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
-      3, 3, 1, 3, 3, 0, 3, 3, 3, 3,
+      3, 3, 3, 3, 3, 1, 0, 3, 3, 3,
       3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
       3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
       3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
@@ -93,11 +93,11 @@ getBackgroundTextureOffset (register const char *str, register size_t len)
   static struct backgroundMappingData wordlist[] =
     {
 #line 10 "texture-gperf-mapping"
-      {"simplex_noise",307200},
+      {"test_a",307200},
 #line 9 "texture-gperf-mapping"
-      {"protag_bedroom_render",153600},
+      {"simplex",153600},
 #line 8 "texture-gperf-mapping"
-      {"cutscene_background_a",0}
+      {"bedroom",0}
     };
 
   if (len <= MAX_WORD_LENGTH && len >= MIN_WORD_LENGTH)
