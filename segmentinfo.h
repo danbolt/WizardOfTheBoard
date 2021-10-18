@@ -2,8 +2,8 @@
 #ifndef SEGMENTINFO_H
 #define SEGMENTINFO_H
 
-extern char _codeSegmentStart[];         /* code segment start */
-extern char _codeSegmentBssEnd[];           /* code segment end */
+extern u8 _codeSegmentStart[];         /* code segment start */
+extern u8 _codeSegmentBssEnd[];           /* code segment end */
 
 extern u8 _seqSegmentRomStart[];
 extern u8 _seqSegmentRomEnd[];

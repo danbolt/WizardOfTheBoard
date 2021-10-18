@@ -34,7 +34,7 @@ MAP		= jam2.map
 LD_SCRIPT	= jam2.ld
 CP_LD_SCRIPT	= jam2_cp.ld
 
-HFILES =	main.h nustdfuncs.h stagekeys.h graphic.h levelselect.h sixtwelve.h sixtwelve_helpers.h constants.h gamemath.h dialogue.h segmentinfo.h tracknumbers.h pieces.h board.h monsters.h mapdata.h dialogue/dialoguelookup.h cast_sprites/castlookup.h map/maplookup.h
+HFILES =	main.h nustdfuncs.h stagekeys.h graphic.h levelselect.h cutscene.h sixtwelve.h sixtwelve_helpers.h constants.h gamemath.h dialogue.h segmentinfo.h tracknumbers.h pieces.h board.h monsters.h mapdata.h dialogue/dialoguelookup.h cast_sprites/castlookup.h map/maplookup.h
 
 ASMFILES	= asm/entry.s asm/rom_header.s sound_data.s
 
@@ -44,7 +44,7 @@ BOOT		= /usr/lib/n64/PR/bootcode/boot.6102
 
 BOOT_OBJ	= boot.6102.o
 
-CODEFILES   = 	main.c nustdfuncs.c stagekeys.c stage00.c levelselect.c graphic.c sixtwelve.c sixtwelve_tex.c sixtwelve_helpers.c gfxinit.c gamemath.c dialogue.c pieces.c pawn.c rook.c bishop.c queen.c knight.c king.c wall.c board.c cursor.c ogre.c dialogue/dialoguelookup.c cast_sprites/castlookup.c maps/maplookup.c
+CODEFILES   = 	main.c nustdfuncs.c stagekeys.c stage00.c levelselect.c cutscene.c graphic.c sixtwelve.c sixtwelve_tex.c sixtwelve_helpers.c gfxinit.c gamemath.c dialogue.c pieces.c pawn.c rook.c bishop.c queen.c knight.c king.c wall.c board.c cursor.c ogre.c dialogue/dialoguelookup.c cast_sprites/castlookup.c maps/maplookup.c
 
 CODEOBJECTS =	$(CODEFILES:.c=.o)  $(NUSYSLIBDIR)/nusys_rom.o
 

@@ -4,6 +4,7 @@
 #include "main.h"
 
 #include "dialogue.h"
+#include "cutscene.h"
 #include "levelselect.h"
 
 #include <segmentinfo.h>
@@ -28,6 +29,11 @@ ScreenInfo levelSelectStage = {
   initLevelSelect,
   updateLevelSelect,
   makeLevelSelectDisplayList
+};
+ScreenInfo cutsceneStage = {
+  initCutscene,
+  updateCutscene,
+  makeCutsceneDisplaylist
 };
 
 ScreenInfo* currentStage;
@@ -57,7 +63,7 @@ void updateTime() {
 void initalizeGameData() {
   changeScreensFlag = 1;
   currentStage = NULL;
-  nextStage = &levelSelectStage;
+  nextStage = &cutsceneStage;
 
   currentLevel = 0;
 

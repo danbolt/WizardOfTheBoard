@@ -816,36 +816,13 @@ void makeDL00(void)
 
   nuGfxTaskStart(&gfx_glist[gfx_gtask_no][0], (s32)(glistp - gfx_glist[gfx_gtask_no]) * sizeof (Gfx), NU_GFX_UCODE_F3DLP_REJ , NU_SC_NOSWAPBUFFER);
 
-  if(contPattern & 0x1){
-      nuDebConClear(0);
-      /* Change character representation positions */
-      nuDebConTextPos(0,4,4);
-      sprintf(conbuf,"DL: %04d/%04d", (glistp - gfx_glist[gfx_gtask_no]), GFX_GLIST_LEN);
-      nuDebConCPuts(0, conbuf);
-
-      
-      nuDebConTextPos(0,4,5);
-      sprintf(conbuf,"delta: %3.5f", deltaTimeSeconds);
-      nuDebConCPuts(0, conbuf);
-
-      
-
-
-      // nuDebConTextPos(0,4,9);
-      // sprintf(conbuf,"playerHealth: %u", playerHealth);
-      // nuDebConCPuts(0, conbuf);
-      // nuDebConTextPos(0,4,10);
-      // sprintf(conbuf,"isPlayerKnockingBack: %u", isPlayerKnockingBack);
-      // nuDebConCPuts(0, conbuf);
-      // nuDebConTextPos(0,4,11);
-      // sprintf(conbuf,"playerKnockbackTimeRemaining: %3.2f", playerKnockbackTimeRemaining);
-      // nuDebConCPuts(0, conbuf);
-    }
-  else
-    {
-      nuDebConTextPos(0,9,24);
-      nuDebConCPuts(0, "Controller1 not connect");
-    }
+  nuDebConClear(0);
+  nuDebConTextPos(0,4,23);
+  sprintf(conbuf,"DL: %04d/%04d", (glistp - gfx_glist[gfx_gtask_no]), GFX_GLIST_LEN);
+  nuDebConCPuts(0, conbuf);
+  nuDebConTextPos(0,4,24);
+  sprintf(conbuf,"delta: %3.5f", deltaTimeSeconds);
+  nuDebConCPuts(0, conbuf);
     
   /* Display characters on the frame buffer */
   nuDebConDisp(NU_SC_SWAPBUFFER);
