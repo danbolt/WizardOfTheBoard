@@ -293,10 +293,10 @@ void generateHUDChessboard() {
     const int y = HUD_CHESSBOARD_HEIGHT - ((i / BOARD_WIDTH) * HUD_CELL_HEIGHT) + HUD_CHESSBOARD_Y;
 
     if (tileIsDark(i % BOARD_WIDTH, i / BOARD_WIDTH)) {
-      *(verts++) = (Vtx){ x + 0             , y + 0              ,  0, 0,  0 << 5,  0 << 5, 0x40, 0x40, 0x81 - ((i / BOARD_WIDTH) * 10), 0xff };
-      *(verts++) = (Vtx){ x + HUD_CELL_WIDTH, y + 0              ,  0, 0, 32 << 5,  0 << 5, 0x40, 0x40, 0x81 - ((i / BOARD_WIDTH) * 10), 0xff };
-      *(verts++) = (Vtx){ x + HUD_CELL_WIDTH, y - HUD_CELL_HEIGHT,  0, 0, 32 << 5, 32 << 5, 0x40, 0x40, 0x81 - ((i / BOARD_WIDTH) * 10), 0xff };
-      *(verts++) = (Vtx){ x + 0             , y - HUD_CELL_HEIGHT,  0, 0,  0 << 5, 32 << 5, 0x40, 0x40, 0x81 - ((i / BOARD_WIDTH) * 10), 0xff };
+      *(verts++) = (Vtx){ x + 0             , y + 0              ,  0, 0,  0 << 5,  0 << 5, 0x60, 0x60, 0x91 - ((i / BOARD_WIDTH) * 10), 0xff };
+      *(verts++) = (Vtx){ x + HUD_CELL_WIDTH, y + 0              ,  0, 0, 32 << 5,  0 << 5, 0x60, 0x60, 0x91 - ((i / BOARD_WIDTH) * 10), 0xff };
+      *(verts++) = (Vtx){ x + HUD_CELL_WIDTH, y - HUD_CELL_HEIGHT,  0, 0, 32 << 5, 32 << 5, 0x60, 0x60, 0x91 - ((i / BOARD_WIDTH) * 10), 0xff };
+      *(verts++) = (Vtx){ x + 0             , y - HUD_CELL_HEIGHT,  0, 0,  0 << 5, 32 << 5, 0x60, 0x60, 0x91 - ((i / BOARD_WIDTH) * 10), 0xff };
     } else {
       *(verts++) = (Vtx){ x + 0             , y + 0              ,  0, 0,  0 << 5,  0 << 5, 0xbf, 0xbf, 0xbf - ((i / BOARD_WIDTH) * 12), 0xff };
       *(verts++) = (Vtx){ x + HUD_CELL_WIDTH, y + 0              ,  0, 0, 32 << 5,  0 << 5, 0xbf, 0xbf, 0xbf - ((i / BOARD_WIDTH) * 12), 0xff };
@@ -704,7 +704,7 @@ void makeDL00(void)
   }
 
   // Render the piece locations on the HUD
-  gDPSetPrimColor(glistp++, 0, 0, 0x99, 0x99, 0x99, 0xff);
+  gDPSetPrimColor(glistp++, 0, 0, 0xCC, 0xCC, 0xCC, 0xff);
   for (int i = 0; i < MAX_NUMBER_OF_INGAME_PIECES; i++) {
     if (!(piecesActive[i])) {
       continue;
