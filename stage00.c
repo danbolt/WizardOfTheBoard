@@ -116,6 +116,7 @@ static u32 hudBackgroundTextureIndex;
 #define COMMANDS_END_DL_SIZE 1
 static Gfx floorDL[(NUMBER_OF_BOARD_CELLS * 2) + COMMANDS_END_DL_SIZE];
 
+static char floorStartBanner[32];
 
 static Vtx wallVerts[((BOARD_WIDTH * 2) + (BOARD_HEIGHT * 2)) * VERTS_PER_FLOOR_TILE];
 static Gfx wallDL[(BOARD_WIDTH * 2) + (BOARD_HEIGHT * 2) + 4 + COMMANDS_END_DL_SIZE];
@@ -495,7 +496,8 @@ void initStage00(void)
 
   selectedPiece = -1;
 
-  bannerMessageText = NULL;
+  sprintf(floorStartBanner, "FLOOR %d START!", (currentLevel + 1));
+  bannerMessageText = floorStartBanner;
   bannerMessageTime = 0.f;
 }
 
