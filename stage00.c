@@ -88,6 +88,11 @@ static u8 lerpingAngleToCursor;
 
 static int selectedPiece;
 
+
+#define TIME_BANNER_ONSCREEN 3.f
+static const char* bannerMessageText;
+static float bannerMessageTime;
+
 #define VERTS_PER_FLOOR_TILE 4
 #define NUMBER_OF_FLOOR_VERTS (NUMBER_OF_BOARD_CELLS * VERTS_PER_FLOOR_TILE)
 static Vtx floorVerts[NUMBER_OF_FLOOR_VERTS];
@@ -490,10 +495,8 @@ void initStage00(void)
 
   selectedPiece = -1;
 
-  // numberOfPuzzleSpaces = 3;
-  // for (int i = 0; i < 3; i++) {
-  //   puzzleSpaceSpots[i] = (Pos2){ i, i };
-  // }
+  bannerMessageText = NULL;
+  bannerMessageTime = 0.f;
 }
 
 #define DISPLAY_FONT_LETTER_WIDTH 13
@@ -783,6 +786,18 @@ void makeDL00(void)
     renderDisplayText(SCREEN_WD / 2 - ((5 * 13) / 2), SCREEN_HT / 2, "DEATH");
   } else if (gameState == GAME_STATE_PLAYER_WINS) {
     renderDisplayText(SCREEN_WD / 2 - ((11 * 13) / 2), SCREEN_HT / 2, "FLOOR CLEAR!");
+  } else if (bannerMessageText != NULL) {
+
+    // TODO: clean this up!
+    if (bannerMessageTime < 0.25f) {
+      renderDisplayText(((SCREEN_WD / 2) * bannerMessageTime / 0.25f) - (((_nstrlen(bannerMessageText)) * 13) / 2), SCREEN_HT / 2, bannerMessageText);
+    } else if (bannerMessageTime > (TIME_BANNER_ONSCREEN - 0.25f)) {
+      renderDisplayText((SCREEN_WD / 2)  + ((SCREEN_WD / 2) * (((bannerMessageTime - (TIME_BANNER_ONSCREEN - 0.25f)) / 0.25f))) - (((_nstrlen(bannerMessageText)) * 13) / 2), SCREEN_HT / 2, bannerMessageText);
+    } else {
+      renderDisplayText(SCREEN_WD / 2 - (((_nstrlen(bannerMessageText)) * 13) / 2), SCREEN_HT / 2, bannerMessageText);
+    }
+
+    
   }
 
   renderDialogueToDisplayList();
@@ -1279,6 +1294,57 @@ void checkGameState() {
   }
 }
 
+void checkPawnsForPromotion() {
+  for (int i = 0; i < MAX_NUMBER_OF_INGAME_PIECES; i++) {
+    if (pieceData[i].type != PAWN) {
+      continue;
+    }
+
+    if (!(piecesActive[i])) {
+      continue;
+    }
+
+    if (pieceIsLerping[i]) {
+      continue;
+    }
+
+    if (piecePositions[i].y < (BOARD_HEIGHT - 1)) {
+      continue;
+    }
+
+    // If we've made it here, promote this pawn to a queen
+    pieceData[i].type = QUEEN;
+    pieceData[i].renderCommands = queen_commands;
+    pieceData[i].legalCheck = queenLegalMove;
+    pieceData[i].displayName = "QUEEN";
+
+    bannerMessageTime = 0.f;
+    bannerMessageText = "PROMOTION";
+  }
+}
+
+void updateTransition() {
+  gameStateTime += deltaTimeSeconds;
+
+  if (gameStateTime > FADE_OUT_TIME) {
+    nextStage = &levelSelectStage;
+    changeScreensFlag = 1;
+    return;
+  }
+}
+
+void updateBannerMessageText() {
+  if (bannerMessageText == NULL) {
+    return;
+  }
+
+  bannerMessageTime += deltaTimeSeconds;
+  if (bannerMessageTime > TIME_BANNER_ONSCREEN) {
+    bannerMessageTime = 0.f;
+    bannerMessageText = NULL;
+  }
+}
+
 void updateGame00(void)
 {
   nuContDataGetEx(contdata,0);
@@ -1295,6 +1361,7 @@ void updateGame00(void)
 
   updateMovement();
   updateMovingPieces();
+  checkPawnsForPromotion();
   checkCollisionWithPieces();
   checkCollisionWithMonsters();
   updateKnockback();
@@ -1302,13 +1369,7 @@ void updateGame00(void)
   if (gameState == GAME_STATE_ACTIVE) {
     checkGameState();
   } else {
-    gameStateTime += deltaTimeSeconds;
-
-    if (gameStateTime > FADE_OUT_TIME) {
-      nextStage = &levelSelectStage;
-      changeScreensFlag = 1;
-      return;
-    }
+    updateTransition();
   }
 
   puzzleGlyphRotation += deltaTimeSeconds * PUZZLE_GLYPH_ROTATION_SPEED;
@@ -1316,5 +1377,6 @@ void updateGame00(void)
     puzzleGlyphRotation = -180.f;
   }
   
+  updateBannerMessageText();
   updateHUDInformation();
 }
