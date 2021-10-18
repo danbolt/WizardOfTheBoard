@@ -22,6 +22,7 @@ extern u8 _noise_backgroundsSegmentRomEnd[];
 extern u8 _display_textSegmentRomStart[];
 extern u8 _display_textSegmentRomEnd[];
 extern u8 _level_select_backgroundSegmentRomStart[];
+extern u8 _packedbackgroundsSegmentRomStart[];
 
 // Dialogue
 extern u8 _dialogue_dataSegmentRomStart[];

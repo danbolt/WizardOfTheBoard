@@ -1,0 +1,10 @@
+%{#include "backgroundlookup.h"
+#include "ultratypes.h"
+#include "nustdfuncs.h"
+
+%}
+struct backgroundMappingData;
+%%
+cutscene_background_a,0
+protag_bedroom_render,153600
+simplex_noise,307200

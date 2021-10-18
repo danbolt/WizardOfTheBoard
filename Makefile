@@ -34,7 +34,7 @@ MAP		= jam2.map
 LD_SCRIPT	= jam2.ld
 CP_LD_SCRIPT	= jam2_cp.ld
 
-HFILES =	main.h nustdfuncs.h stagekeys.h graphic.h levelselect.h cutscene.h sixtwelve.h sixtwelve_helpers.h constants.h gamemath.h dialogue.h segmentinfo.h tracknumbers.h pieces.h board.h monsters.h mapdata.h dialogue/dialoguelookup.h cast_sprites/castlookup.h map/maplookup.h
+HFILES =	main.h nustdfuncs.h stagekeys.h graphic.h levelselect.h cutscene.h sixtwelve.h sixtwelve_helpers.h constants.h gamemath.h dialogue.h segmentinfo.h tracknumbers.h pieces.h board.h monsters.h mapdata.h dialogue/dialoguelookup.h cast_sprites/castlookup.h map/maplookup.h cutscene_backgrounds/backgroundlookup.h
 
 ASMFILES	= asm/entry.s asm/rom_header.s sound_data.s
 
@@ -44,7 +44,7 @@ BOOT		= /usr/lib/n64/PR/bootcode/boot.6102
 
 BOOT_OBJ	= boot.6102.o
 
-CODEFILES   = 	main.c nustdfuncs.c stagekeys.c stage00.c levelselect.c cutscene.c graphic.c sixtwelve.c sixtwelve_tex.c sixtwelve_helpers.c gfxinit.c gamemath.c dialogue.c pieces.c pawn.c rook.c bishop.c queen.c knight.c king.c wall.c board.c cursor.c ogre.c dialogue/dialoguelookup.c cast_sprites/castlookup.c maps/maplookup.c
+CODEFILES   = 	main.c nustdfuncs.c stagekeys.c stage00.c levelselect.c cutscene.c graphic.c sixtwelve.c sixtwelve_tex.c sixtwelve_helpers.c gfxinit.c gamemath.c dialogue.c pieces.c pawn.c rook.c bishop.c queen.c knight.c king.c wall.c board.c cursor.c ogre.c dialogue/dialoguelookup.c cast_sprites/castlookup.c maps/maplookup.c cutscene_backgrounds/backgroundlookup.c
 
 CODEOBJECTS =	$(CODEFILES:.c=.o)  $(NUSYSLIBDIR)/nusys_rom.o
 
@@ -56,7 +56,7 @@ CODESEGMENT =	codesegment.o
 
 OBJECTS =	$(ASMOBJECTS) $(BOOT_OBJ) $(CODESEGMENT) $(DATAOBJECTS)
 
-RAWDATAOBJ = sprites/hud_icons.bino sprites/floor_tiles.bino sprites/noise_backgrounds.bino sprites/display_text.bino dialogue/dialogueBuffers.bino cast_sprites/packedtextures.bino maps/mapbuffers.bino sprites/level_select_background.bino
+RAWDATAOBJ = sprites/hud_icons.bino sprites/floor_tiles.bino sprites/noise_backgrounds.bino sprites/display_text.bino dialogue/dialogueBuffers.bino cast_sprites/packedtextures.bino maps/mapbuffers.bino sprites/level_select_background.bino cutscene_backgrounds/packedbackgrounds.bino
 
 default:        $(TARGETS)
 
@@ -69,6 +69,9 @@ $(CODESEGMENT):	$(CODEOBJECTS) Makefile
 	$(AS) -I. -I asm -Wa,-Iasm -o $@ $<
 
 sprites/%.bino: sprites/%.bin
+	mips-n64-objcopy  -I binary -B mips -O elf32-bigmips $< $@
+
+cutscene_backgrounds/%.bino: cutscene_backgrounds/%.bin
 	mips-n64-objcopy  -I binary -B mips -O elf32-bigmips $< $@
 
 dialogue/%.bino: dialogue/%.bin
@@ -88,5 +91,5 @@ $(CP_LD_SCRIPT): $(LD_SCRIPT)
 
 $(TARGETS): $(OBJECTS) $(CP_LD_SCRIPT) $(RAWDATAOBJ)
 	$(LD) -L. -T $(CP_LD_SCRIPT) -Map $(MAP) -o $(ELF) 
-	$(OBJCOPY) --pad-to=0x100000 --gap-fill=0xFF $(ELF) $(TARGETS) -O binary
+	$(OBJCOPY) --pad-to=0x200000 --gap-fill=0xFF $(ELF) $(TARGETS) -O binary
 	makemask $(TARGETS)

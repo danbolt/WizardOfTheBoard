@@ -138,6 +138,12 @@ SECTIONS
       sprites/level_select_background.bino(.data);
    }
    END_SEG(level_select_background)
+
+   BEGIN_SEG(packedbackgrounds, __romPos)
+   {
+      cutscene_backgrounds/packedbackgrounds.bino(.data);
+   }
+   END_SEG(packedbackgrounds)
    
    /* Discard everything not specifically mentioned above. */
    /DISCARD/ :

@@ -5,7 +5,9 @@
 
 #include "main.h"
 #include "graphic.h"
+#include "nustdfuncs.h"
 #include "segmentinfo.h"
+#include "cutscene_backgrounds/backgroundlookup.h"
 
 #ifdef N_AUDIO
 #include <nualsgi_n.h>
@@ -13,8 +15,17 @@
 #include <nualsgi.h>
 #endif
 
+// TODO: move these to their own source file
+u8 backgroundBuffer1[320 * 240 * 2] __attribute__((aligned(8)));
+u8 backgroundBuffer2[320 * 240 * 2] __attribute__((aligned(8)));
+u8 backgroundBuffer3[320 * 240 * 2] __attribute__((aligned(8)));
+u8* backgroundBuffers[] = { backgroundBuffer1, backgroundBuffer2, backgroundBuffer3 };
+
 void initCutscene() {
-  //
+  struct backgroundMappingData* backgroundTest = getBackgroundTextureOffset("protag_bedroom_render", _nstrlen("protag_bedroom_render"));
+  if (backgroundTest != NULL) {
+    nuPiReadRom((u32)(_packedbackgroundsSegmentRomStart + backgroundTest->offset), backgroundBuffers[0], 320 * 240 * 2);
+  }
 }
 
 void makeCutsceneDisplaylist() {
@@ -39,12 +50,18 @@ void makeCutsceneDisplaylist() {
   gDPSetCycleType(glistp++,G_CYC_1CYCLE);
   gDPSetTexturePersp(glistp++, G_TP_NONE);
   gDPSetTextureFilter(glistp++, G_TF_POINT);
-  gDPSetCombineMode(glistp++, G_CC_MODULATEIDECALA_PRIM, G_CC_MODULATEIDECALA_PRIM);
+  gDPSetCombineMode(glistp++, G_CC_DECALRGBA, G_CC_DECALRGBA);
   gDPSetRenderMode(glistp++, G_RM_TEX_EDGE, G_RM_TEX_EDGE2);
   gSPClearGeometryMode(glistp++,0xFFFFFFFF);
   gSPSetGeometryMode(glistp++,G_SHADE | G_SHADING_SMOOTH | G_CULL_BACK);
   gSPTexture(glistp++, 0xffff, 0xffff, 0, G_TX_RENDERTILE, G_ON);
   gSPClipRatio(glistp++, FRUSTRATIO_2);
+
+  for (int i = 0; i < (240 / 6); i++) {
+    gDPPipeSync(glistp++);
+    gDPLoadTextureTile(glistp++, backgroundBuffers[0], G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, 240, 0, (i * 6), 320 - 1, ((i + 1) * 6) - 1, 0, G_TX_WRAP, G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD );
+    gSPTextureRectangle(glistp++, 0 << 2, (0 + (i * 6)) << 2, (0 + 320) << 2, (0 + ((i + 1) * 6)) << 2, 0, 0 << 5, (i * 6) << 5, 1 << 10, 1 << 10);
+  }
 
   gDPFullSync(glistp++);
   gSPEndDisplayList(glistp++);
@@ -67,6 +84,7 @@ void makeCutsceneDisplaylist() {
   nuDebConTextPos(0, 2, 6);
   sprintf(conbuf,"  remaining: 0d%08u", (u32)(NU_AU_HEAP_ADDR) - (u32)(_codeSegmentBssEnd));
   nuDebConCPuts(0, conbuf);
+
     
   /* Display characters on the frame buffer */
   nuDebConDisp(NU_SC_SWAPBUFFER);
