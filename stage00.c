@@ -789,8 +789,8 @@ void makeDL00(void)
 
   nuGfxTaskStart(&gfx_glist[gfx_gtask_no][0], (s32)(glistp - gfx_glist[gfx_gtask_no]) * sizeof (Gfx), NU_GFX_UCODE_F3DLP_REJ , NU_SC_NOSWAPBUFFER);
 
-  if(contPattern & 0x1)
-    {
+  if(contPattern & 0x1){
+      nuDebConClear(0);
       /* Change character representation positions */
       nuDebConTextPos(0,4,4);
       sprintf(conbuf,"DL: %04d/%04d", (glistp - gfx_glist[gfx_gtask_no]), GFX_GLIST_LEN);

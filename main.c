@@ -14,14 +14,24 @@
 #include <nualsgi.h>
 #endif
 
-/* Declaration of the prototype  */
-void stage00Callback(int);
-void levelSelectCallback(int);
-
-/* Declaration of the external function  */
+// TODO: header-ify this
 void initStage00(void);
 void makeDL00(void);
 void updateGame00(void);
+
+ScreenInfo gameplayStage = {
+  initStage00,
+  updateGame00,
+  makeDL00
+};
+ScreenInfo levelSelectStage = {
+  initLevelSelect,
+  updateLevelSelect,
+  makeLevelSelectDisplayList
+};
+
+ScreenInfo* currentStage;
+volatile ScreenInfo* nextStage;
 
 /* The global variable  */
 NUContData	contdata[1]; /* Read data of 1 controller  */
@@ -45,7 +55,9 @@ void updateTime() {
 }
 
 void initalizeGameData() {
-  changeScreensFlag = 0;
+  changeScreensFlag = 1;
+  currentStage = NULL;
+  nextStage = &levelSelectStage;
 
   ingameFOV = 60.f;
 
@@ -59,6 +71,24 @@ void setAudioData(void)
 {
   nuAuSeqPlayerBankSet(_midibankSegmentRomStart, _midibankSegmentRomEnd - _midibankSegmentRomStart, _miditableSegmentRomStart);
   nuAuSeqPlayerSeqSet(_seqSegmentRomStart);
+}
+
+void tickCurrentStage(int pendingGfx) {
+  if (changeScreensFlag) {
+    return;
+  }
+
+  updateTime();
+  updateDialogue();
+
+  /* Provide the display process if 2 or less RCP tasks are processing or
+  waiting for the process.  */
+  if(pendingGfx < 3) {
+    currentStage->makeDL();   
+  }
+
+  /* The process of game progress  */
+  currentStage->update(); 
 }
 
 /*------------------------
@@ -77,60 +107,21 @@ void mainproc(void)
   nuAuInit();
   setAudioData();
 
-  initLevelSelect();
-  nuGfxFuncSet((NUGfxFunc)levelSelectCallback);
-  nuGfxDisplayOn();
+  while (1) {
+    currentStage = (ScreenInfo*)nextStage;
+    nextStage = 0x0;
+    changeScreensFlag = 0;
 
-  while(changeScreensFlag == 0) ;
+    currentStage->init();
+    nuGfxFuncSet((NUGfxFunc)tickCurrentStage);
+    nuGfxDisplayOn();
 
-  nuGfxDisplayOff();
-  nuGfxFuncRemove();
+    while(changeScreensFlag == 0);
 
-  changeScreensFlag = 0;
+    nuGfxDisplayOff();
+    nuGfxFuncRemove();
 
-  initStage00();
-  nuGfxFuncSet((NUGfxFunc)stage00Callback);
-  nuGfxDisplayOn();
-
-  while(1);
-}
-
-/*-----------------------------------------------------------------------------
-  The call-back function 
-
-  pendingGfx which is passed from Nusystem as the argument of the call-back 
-  function is the total of RCP tasks that are currently processing and 
-  waiting for the process. 
------------------------------------------------------------------------------*/
-void stage00Callback(int pendingGfx) {
-  if (changeScreensFlag) {
-    return;
   }
 
-  updateTime();
-  updateDialogue();
 
-  /* Provide the display process if 2 or less RCP tasks are processing or
-	waiting for the process.  */
-  if(pendingGfx < 3) {
-    makeDL00();		
-  }
-
-  /* The process of game progress  */
-  updateGame00(); 
-}
-
-void levelSelectCallback(int pendingGfx) {
-  if (changeScreensFlag) {
-    return;
-  }
-
-  updateTime();
-  updateDialogue();
-
-  if(pendingGfx < 3) {
-    makeLevelSelectDisplayList();   
-  }
-
-  updateLevelSelect(); 
 }

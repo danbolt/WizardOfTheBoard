@@ -86,11 +86,6 @@ void makeLevelSelectDisplayList() {
   nuDebConTextPos(0,4,5);
   sprintf(conbuf,"%s", levels[currentlySelectedLevel].levelKey);
   nuDebConCPuts(0, conbuf);
-
-
-  nuDebConTextPos(0,4,8);
-  sprintf(conbuf,"level: %02d", contdata[0].stick_y);
-  nuDebConCPuts(0, conbuf);
     
   /* Display characters on the frame buffer */
   nuDebConDisp(NU_SC_SWAPBUFFER);
@@ -139,6 +134,7 @@ void updateLevelSelect() {
 
   if (contdata[0].trigger & A_BUTTON) {
     currentMap = levels[currentlySelectedLevel].levelKey;
+    nextStage = &gameplayStage;
     changeScreensFlag = 1;
   }
 }

@@ -21,6 +21,22 @@ extern OSTime time;
 extern OSTime delta;
 extern float deltaTimeSeconds;
 
+typedef void (*InitCallback)();
+typedef void (*UpdateCallback)();
+typedef void (*MakeDLCallback)();
+
+typedef struct {
+  InitCallback init;
+  UpdateCallback update;
+  MakeDLCallback makeDL;
+} ScreenInfo;
+
+extern ScreenInfo gameplayStage;
+extern ScreenInfo levelSelectStage;
+
+extern ScreenInfo* currentStage;
+extern volatile ScreenInfo* nextStage;
+
 #endif /* _LANGUAGE_C */
 #endif /* MAIN_H */
 
