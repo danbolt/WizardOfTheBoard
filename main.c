@@ -43,7 +43,7 @@ float deltaTimeSeconds;
 
 float ingameFOV;
 
-const char* currentMap = "test_map";
+u32 currentLevel;
 
 volatile u32 changeScreensFlag;
 
@@ -58,6 +58,8 @@ void initalizeGameData() {
   changeScreensFlag = 1;
   currentStage = NULL;
   nextStage = &levelSelectStage;
+
+  currentLevel = 0;
 
   ingameFOV = 60.f;
 

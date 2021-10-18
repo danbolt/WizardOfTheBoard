@@ -6,6 +6,7 @@
 #include "main.h"
 #include "graphic.h"
 #include "segmentinfo.h"
+#include "stagekeys.h"
 
 static u8 backgroundTexture[TMEM_SIZE_BYTES] __attribute__((aligned(8)));
 
@@ -16,17 +17,6 @@ static float timePassed;
 static u8 downPressed;
 static u8 upPressed;
 static u8 stickInDeadzone;
-
-typedef struct {
-  const char* levelKey;
-} LevelEntry;
-
-// TODO: could we do some preprocessor trickery to automate this
-#define NUMBER_OF_LEVELS 2
-static LevelEntry levels[NUMBER_OF_LEVELS] = {
-  { "test_map" },
-  { "other_test_map" },
-};
 
 void initLevelSelect() {
   currentlySelectedLevel = 0;
@@ -133,7 +123,7 @@ void updateLevelSelect() {
   }
 
   if (contdata[0].trigger & A_BUTTON) {
-    currentMap = levels[currentlySelectedLevel].levelKey;
+    currentLevel = currentlySelectedLevel;
     nextStage = &gameplayStage;
     changeScreensFlag = 1;
   }

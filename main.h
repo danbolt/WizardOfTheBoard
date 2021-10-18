@@ -7,7 +7,7 @@
 
 extern volatile u32 changeScreensFlag;
 
-extern const char* currentMap;
+extern u32 currentLevel;
 
 /* Definition of the external variable  */
 extern NUContData	contdata[1]; /* Read data of the controller  */
@@ -34,7 +34,6 @@ typedef struct {
 extern ScreenInfo gameplayStage;
 extern ScreenInfo levelSelectStage;
 
-extern ScreenInfo* currentStage;
 extern volatile ScreenInfo* nextStage;
 
 #endif /* _LANGUAGE_C */

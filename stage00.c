@@ -12,6 +12,7 @@
 #include "nustdfuncs.h"
 #include "tracknumbers.h"
 #include "segmentinfo.h"
+#include "stagekeys.h"
 #include "board.h"
 #include "pieces.h"
 
@@ -62,10 +63,13 @@ static u8 lineOfSightVisible[NUMBER_OF_INGAME_ENTITIES];
 #define playerKnockbackTimeRemaining (knockbackTimesRemaining[0])
 #define playerRadiusSquared (radiiSquared[0])
 
+#define FADE_OUT_TIME 1.f
+
 #define GAME_STATE_ACTIVE 0
 #define GAME_STATE_PLAYER_WINS 1
 #define GAME_STATE_PLAYER_LOSES 2
 static u8 gameState;
+static float gameStateTime;
 
 static float playerHealthDisplay;
 
@@ -445,8 +449,9 @@ void initializeMapFromROM(const char* mapKey) {
 void initStage00(void)
 {
   gameState = GAME_STATE_ACTIVE;
+  gameStateTime = 0.f;
 
-  initializeMapFromROM(currentMap);
+  initializeMapFromROM(levels[(currentLevel % NUMBER_OF_LEVELS)].levelKey);
 
   isActive[0] = 1; // player is always active
   initializeMonsters(&mapInformation);
@@ -1296,6 +1301,14 @@ void updateGame00(void)
 
   if (gameState == GAME_STATE_ACTIVE) {
     checkGameState();
+  } else {
+    gameStateTime += deltaTimeSeconds;
+
+    if (gameStateTime > FADE_OUT_TIME) {
+      nextStage = &levelSelectStage;
+      changeScreensFlag = 1;
+      return;
+    }
   }
 
   puzzleGlyphRotation += deltaTimeSeconds * PUZZLE_GLYPH_ROTATION_SPEED;
