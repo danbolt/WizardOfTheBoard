@@ -26,13 +26,12 @@ u8* backgroundBuffers[] = { backgroundBuffer1, backgroundBuffer2, backgroundBuff
 
 static CutsceneInfo infoForOurCutscene;
 
-const char* cutsceneToLoad = "second_scene";
+const char* cutsceneToLoad;
 
 void initCutscene() {
   struct cutsceneMappingData* cutsceneOffsetInfo = getCutsceneOffset(cutsceneToLoad, _nstrlen(cutsceneToLoad));
   assert(cutsceneOffsetInfo != 0x0);
   nuPiReadRom((u32)(_cutscenebuffersSegmentRomStart + cutsceneOffsetInfo->offset), &infoForOurCutscene, sizeof(CutsceneInfo));
-
 
   struct backgroundMappingData* bg1 = getBackgroundTextureOffset(infoForOurCutscene.imageKey1, _nstrlen(infoForOurCutscene.imageKey1));
   if (bg1 != NULL) {

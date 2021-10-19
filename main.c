@@ -65,6 +65,8 @@ void initalizeGameData() {
   currentStage = NULL;
   nextStage = &cutsceneStage;
 
+  cutsceneToLoad = "test_scene";
+
   currentLevel = 0;
 
   ingameFOV = 60.f;

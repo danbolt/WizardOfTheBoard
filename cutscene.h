@@ -11,6 +11,9 @@ typedef struct {
   unsigned char imageKey3[16];
 } CutsceneInfo;
 
+// Set this before calling `initCutscene`!
+extern const char* cutsceneToLoad;
+
 void initCutscene();
 void makeCutsceneDisplaylist();
 void updateCutscene();
