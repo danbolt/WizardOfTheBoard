@@ -144,6 +144,12 @@ SECTIONS
       cutscene_backgrounds/packedbackgrounds.bino(.data);
    }
    END_SEG(packedbackgrounds)
+
+   BEGIN_SEG(cutscenebuffers, __romPos)
+   {
+      cutscenes/cutscenebuffers.bino(.data);
+   }
+   END_SEG(cutscenebuffers)
    
    /* Discard everything not specifically mentioned above. */
    /DISCARD/ :

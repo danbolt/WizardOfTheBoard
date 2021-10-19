@@ -1,0 +1,9 @@
+%{#include "cutscenelookup.h"
+#include "ultratypes.h"
+#include "nustdfuncs.h"
+
+%}
+struct cutsceneMappingData;
+%%
+second_scene,0
+test_scene,64

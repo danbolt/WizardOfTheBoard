@@ -2,12 +2,14 @@
 #include "cutscene.h"
 
 #include <nusys.h>
+#include <assert.h>
 
 #include "main.h"
 #include "graphic.h"
 #include "nustdfuncs.h"
 #include "segmentinfo.h"
 #include "dialogue.h"
+#include "cutscenes/cutscenelookup.h"
 #include "cutscene_backgrounds/backgroundlookup.h"
 
 #ifdef N_AUDIO
@@ -22,31 +24,38 @@ u8 backgroundBuffer2[320 * 240 * 2] __attribute__((aligned(8)));
 u8 backgroundBuffer3[320 * 240 * 2] __attribute__((aligned(8)));
 u8* backgroundBuffers[] = { backgroundBuffer1, backgroundBuffer2, backgroundBuffer3 };
 
-CutsceneInfo testInfo = {
-  "longpiece",
+static CutsceneInfo infoForOurCutscene;
 
-  "bedroom",
-  "simplex",
-  "test_a",
-};
+const char* cutsceneToLoad = "second_scene";
 
 void initCutscene() {
-  struct backgroundMappingData* bg1 = getBackgroundTextureOffset(testInfo.imageKey1, _nstrlen(testInfo.imageKey1));
+  struct cutsceneMappingData* cutsceneOffsetInfo = getCutsceneOffset(cutsceneToLoad, _nstrlen(cutsceneToLoad));
+  assert(cutsceneOffsetInfo != 0x0);
+  nuPiReadRom((u32)(_cutscenebuffersSegmentRomStart + cutsceneOffsetInfo->offset), &infoForOurCutscene, sizeof(CutsceneInfo));
+
+
+  struct backgroundMappingData* bg1 = getBackgroundTextureOffset(infoForOurCutscene.imageKey1, _nstrlen(infoForOurCutscene.imageKey1));
   if (bg1 != NULL) {
     nuPiReadRom((u32)(_packedbackgroundsSegmentRomStart + bg1->offset), backgroundBuffers[0], 320 * 240 * 2);
+  } else {
+    bzero(backgroundBuffers[0], 320 * 240 * 2);
   }
 
-  struct backgroundMappingData* bg2 = getBackgroundTextureOffset(testInfo.imageKey2, _nstrlen(testInfo.imageKey2));
+  struct backgroundMappingData* bg2 = getBackgroundTextureOffset(infoForOurCutscene.imageKey2, _nstrlen(infoForOurCutscene.imageKey2));
   if (bg2 != NULL) {
     nuPiReadRom((u32)(_packedbackgroundsSegmentRomStart + bg2->offset), backgroundBuffers[1], 320 * 240 * 2);
+  } else {
+    bzero(backgroundBuffers[1], 320 * 240 * 2);
   }
 
-  struct backgroundMappingData* bg3 = getBackgroundTextureOffset(testInfo.imageKey3, _nstrlen(testInfo.imageKey3));
+  struct backgroundMappingData* bg3 = getBackgroundTextureOffset(infoForOurCutscene.imageKey3, _nstrlen(infoForOurCutscene.imageKey3));
   if (bg3 != NULL) {
     nuPiReadRom((u32)(_packedbackgroundsSegmentRomStart + bg3->offset), backgroundBuffers[2], 320 * 240 * 2);
+  } else {
+    bzero(backgroundBuffers[2], 320 * 240 * 2);
   }
 
-  startDialogue(testInfo.dialogue);
+  startDialogue(infoForOurCutscene.dialogue);
 }
 
 void makeCutsceneDisplaylist() {
@@ -80,7 +89,7 @@ void makeCutsceneDisplaylist() {
 
   for (int i = 0; i < (240 / 6); i++) {
     gDPPipeSync(glistp++);
-    gDPLoadTextureTile(glistp++, backgroundBuffers[2], G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, 240, 0, (i * 6), 320 - 1, ((i + 1) * 6) - 1, 0, G_TX_WRAP, G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD );
+    gDPLoadTextureTile(glistp++, backgroundBuffers[0], G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, 240, 0, (i * 6), 320 - 1, ((i + 1) * 6) - 1, 0, G_TX_WRAP, G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD );
     gSPTextureRectangle(glistp++, 0 << 2, (0 + (i * 6)) << 2, (0 + 320) << 2, (0 + ((i + 1) * 6)) << 2, 0, 0 << 5, (i * 6) << 5, 1 << 10, 1 << 10);
   }
 

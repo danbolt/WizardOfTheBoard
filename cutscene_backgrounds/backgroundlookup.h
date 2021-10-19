@@ -1,6 +1,6 @@
 
-#ifndef _CASTLOOKUP_H_
-#define _CASTLOOKUP_H_
+#ifndef _BACKGROUNDLOOKUP_H_
+#define _BACKGROUNDLOOKUP_H_
 
 #include "ultratypes.h"
 
