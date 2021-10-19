@@ -147,10 +147,6 @@ void makeCutsceneDisplaylist() {
   sprintf(conbuf,"  remaining: 0d%08u", (u32)(NU_AU_HEAP_ADDR) - (u32)(_codeSegmentBssEnd));
   nuDebConCPuts(0, conbuf);
 
-  nuDebConTextPos(0, 2, 27);
-  sprintf(conbuf,"  cutsceneTime: %1.1f", cutsceneTime);
-  nuDebConCPuts(0, conbuf);
-
     
   /* Display characters on the frame buffer */
   nuDebConDisp(NU_SC_SWAPBUFFER);

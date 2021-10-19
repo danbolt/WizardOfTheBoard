@@ -394,7 +394,7 @@ void initializeStartingPieces(const MapData* map) {
       case KNIGHT:
         pieceData[i].type = KNIGHT;
         pieceData[i].legalCheck = knightLegalMove;
-        pieceData[i].renderCommands = pawn_commands;
+        pieceData[i].renderCommands = knight_commands;
         pieceData[i].displayName = "KNIGHT";
         break;
       case BISHOP:

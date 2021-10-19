@@ -25,7 +25,8 @@ extern Vtx queen_verts[];
 extern Gfx queen_commands[];
 void queenLegalMove(u32 ourIndex, const u8* piecesActive, const Pos2* piecePositions, u8* legalSpots);
 
-// TODO: knight model, the most intimidating of them!
+extern Vtx knight_verts[];
+extern Gfx knight_commands[];
 void knightLegalMove(u32 ourIndex, const u8* piecesActive, const Pos2* piecePositions, u8* legalSpots);
 
 extern Vtx king_verts[];
