@@ -28,7 +28,22 @@ static CutsceneInfo infoForOurCutscene;
 
 const char* cutsceneToLoad;
 
+static float cutsceneTime;
+
+#define FADE_IN_TIME 1.24f
+#define FADE_OUT_TIME 1.5f
+#define DONE_TIME 0.56f
+
+#define CUTSCENE_FADING_IN 0
+#define CUTSCENE_PLAYING 1
+#define CUTSCENE_FADING_OUT 2
+#define CUTSCENE_DONE 3
+static u8 cutsceneState;
+
 void initCutscene() {
+  cutsceneTime = 0.f;
+  cutsceneState = CUTSCENE_FADING_IN;
+
   struct cutsceneMappingData* cutsceneOffsetInfo = getCutsceneOffset(cutsceneToLoad, _nstrlen(cutsceneToLoad));
   assert(cutsceneOffsetInfo != 0x0);
   nuPiReadRom((u32)(_cutscenebuffersSegmentRomStart + cutsceneOffsetInfo->offset), &infoForOurCutscene, sizeof(CutsceneInfo));
@@ -53,8 +68,6 @@ void initCutscene() {
   } else {
     bzero(backgroundBuffers[2], 320 * 240 * 2);
   }
-
-  startDialogue(infoForOurCutscene.dialogue);
 }
 
 void makeCutsceneDisplaylist() {
@@ -79,17 +92,35 @@ void makeCutsceneDisplaylist() {
   gDPSetCycleType(glistp++,G_CYC_1CYCLE);
   gDPSetTexturePersp(glistp++, G_TP_NONE);
   gDPSetTextureFilter(glistp++, G_TF_POINT);
-  gDPSetCombineMode(glistp++, G_CC_DECALRGBA, G_CC_DECALRGBA);
+
+  if (cutsceneState == CUTSCENE_FADING_IN) {
+    float t = (cutsceneTime / FADE_IN_TIME);
+    int tVal = t * 255;
+    gDPSetPrimColor(glistp++, 0, 0, tVal, tVal, tVal, (tVal));
+
+    gDPSetCombineMode(glistp++,G_CC_MODULATERGBA_PRIM, G_CC_MODULATERGBA_PRIM);
+  } else if (cutsceneState == CUTSCENE_FADING_OUT) {
+    float t = 1.f - (cutsceneTime / FADE_OUT_TIME);
+    int tVal = t * 255;
+    gDPSetPrimColor(glistp++, 0, 0, tVal, tVal, tVal, tVal);
+    gDPSetCombineMode(glistp++,G_CC_MODULATERGBA_PRIM, G_CC_MODULATERGBA_PRIM);
+  } else {
+    gDPSetCombineMode(glistp++,G_CC_DECALRGBA, G_CC_DECALRGBA);
+  }
+
+
   gDPSetRenderMode(glistp++, G_RM_TEX_EDGE, G_RM_TEX_EDGE2);
   gSPClearGeometryMode(glistp++,0xFFFFFFFF);
   gSPSetGeometryMode(glistp++,G_SHADE | G_SHADING_SMOOTH | G_CULL_BACK);
   gSPTexture(glistp++, 0xffff, 0xffff, 0, G_TX_RENDERTILE, G_ON);
   gSPClipRatio(glistp++, FRUSTRATIO_2);
 
-  for (int i = 0; i < (240 / 6); i++) {
-    gDPPipeSync(glistp++);
-    gDPLoadTextureTile(glistp++, backgroundBuffers[0], G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, 240, 0, (i * 6), 320 - 1, ((i + 1) * 6) - 1, 0, G_TX_WRAP, G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD );
-    gSPTextureRectangle(glistp++, 0 << 2, (0 + (i * 6)) << 2, (0 + 320) << 2, (0 + ((i + 1) * 6)) << 2, 0, 0 << 5, (i * 6) << 5, 1 << 10, 1 << 10);
+  if (cutsceneState != CUTSCENE_DONE) {
+    for (int i = 0; i < (240 / 6); i++) {
+      gDPPipeSync(glistp++);
+      gDPLoadTextureTile(glistp++, backgroundBuffers[0], G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, 240, 0, (i * 6), 320 - 1, ((i + 1) * 6) - 1, 0, G_TX_WRAP, G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD );
+      gSPTextureRectangle(glistp++, 0 << 2, (0 + (i * 6)) << 2, (0 + 320) << 2, (0 + ((i + 1) * 6)) << 2, 0, 0 << 5, (i * 6) << 5, 1 << 10, 1 << 10);
+    }
   }
 
   renderDialogueToDisplayList();
@@ -116,6 +147,10 @@ void makeCutsceneDisplaylist() {
   sprintf(conbuf,"  remaining: 0d%08u", (u32)(NU_AU_HEAP_ADDR) - (u32)(_codeSegmentBssEnd));
   nuDebConCPuts(0, conbuf);
 
+  nuDebConTextPos(0, 2, 27);
+  sprintf(conbuf,"  cutsceneTime: %1.1f", cutsceneTime);
+  nuDebConCPuts(0, conbuf);
+
     
   /* Display characters on the frame buffer */
   nuDebConDisp(NU_SC_SWAPBUFFER);
@@ -123,11 +158,65 @@ void makeCutsceneDisplaylist() {
   gfx_gtask_no = (gfx_gtask_no + 1) % BUFFER_COUNT;
 }
 
+void updateFadingIn() {
+  cutsceneTime += deltaTimeSeconds;
+
+  if (cutsceneTime > FADE_IN_TIME) {
+    cutsceneState = CUTSCENE_PLAYING;
+
+    startDialogue(infoForOurCutscene.dialogue);
+  }
+}
+
+void updatePlayingDialogue() {
+  if (dialogueState == DIALOGUE_STATE_SHOWING) {
+    return;
+  }
+
+  cutsceneTime = 0.f;
+  cutsceneState = CUTSCENE_FADING_OUT;
+}
+
+void updateFadingOut() {
+  cutsceneTime += deltaTimeSeconds;
+
+  if (cutsceneTime > FADE_OUT_TIME) {
+
+    cutsceneTime = 0.f;
+    cutsceneState = CUTSCENE_DONE;
+  }
+}
+
+void updateCutsceneDone() {
+  cutsceneTime += deltaTimeSeconds;
+
+  if (cutsceneTime > DONE_TIME) {
+    nextStage = &levelSelectStage;
+    changeScreensFlag = 1;
+
+  }
+}
+
 void updateCutscene() {
   nuContDataGetEx(contdata,0);
 
-  if (contdata[0].trigger & START_BUTTON) {
-    nextStage = &levelSelectStage;
-    changeScreensFlag = 1;
+  switch (cutsceneState) {
+    case CUTSCENE_FADING_IN:
+      updateFadingIn();
+      break;
+    case CUTSCENE_PLAYING:
+      updatePlayingDialogue();
+      break;
+    case CUTSCENE_FADING_OUT:
+      updateFadingOut();
+      break;
+    case CUTSCENE_DONE:
+      updateCutsceneDone();
+      break;
   }
+
+  // if (contdata[0].trigger & START_BUTTON) {
+  //   nextStage = &levelSelectStage;
+  //   changeScreensFlag = 1;
+  // }
 }
