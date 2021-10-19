@@ -7,4 +7,7 @@
 extern Vtx ogre_verts[];
 extern Gfx ogre_commands[];
 
+extern Vtx toad_verts[];
+extern Gfx toad_commands[];
+
 #endif
