@@ -1,6 +1,6 @@
 /* ANSI-C code produced by gperf version 3.1 */
 /* Command-line: gperf --no-strlen --lookup-function-name=getBackgroundTextureOffset --struct-type --output-file=backgroundlookup.c texture-gperf-mapping  */
-/* Computed positions: -k'1' */
+/* Computed positions: -k'3' */
 
 #if !((' ' == 32) && ('!' == 33) && ('"' == 34) && ('#' == 35) \
       && ('%' == 37) && ('&' == 38) && ('\'' == 39) && ('(' == 40) \
@@ -37,12 +37,12 @@
 #line 6 "texture-gperf-mapping"
 struct backgroundMappingData;
 
-#define TOTAL_KEYWORDS 3
-#define MIN_WORD_LENGTH 6
+#define TOTAL_KEYWORDS 4
+#define MIN_WORD_LENGTH 5
 #define MAX_WORD_LENGTH 7
 #define MIN_HASH_VALUE 0
-#define MAX_HASH_VALUE 2
-/* maximum key range = 3, duplicates = 0 */
+#define MAX_HASH_VALUE 7
+/* maximum key range = 8, duplicates = 0 */
 
 #ifdef __GNUC__
 __inline
@@ -57,34 +57,34 @@ hash (register const char *str, register size_t len)
 {
   static unsigned char asso_values[] =
     {
-      3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
-      3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
-      3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
-      3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
-      3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
-      3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
-      3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
-      3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
-      3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
-      3, 3, 3, 3, 3, 3, 3, 3, 2, 3,
-      3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
-      3, 3, 3, 3, 3, 1, 0, 3, 3, 3,
-      3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
-      3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
-      3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
-      3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
-      3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
-      3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
-      3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
-      3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
-      3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
-      3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
-      3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
-      3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
-      3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
-      3, 3, 3, 3, 3, 3
+      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
+      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
+      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
+      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
+      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
+      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
+      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
+      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
+      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
+      8, 8, 8, 8, 8, 8, 8, 7, 8, 8,
+      2, 8, 8, 8, 8, 8, 8, 8, 8, 5,
+      8, 8, 8, 8, 8, 0, 8, 8, 8, 8,
+      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
+      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
+      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
+      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
+      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
+      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
+      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
+      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
+      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
+      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
+      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
+      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
+      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
+      8, 8, 8, 8, 8, 8
     };
-  return asso_values[(unsigned char)str[0]];
+  return asso_values[(unsigned char)str[2]];
 }
 
 struct backgroundMappingData *
@@ -92,12 +92,17 @@ getBackgroundTextureOffset (register const char *str, register size_t len)
 {
   static struct backgroundMappingData wordlist[] =
     {
-#line 10 "texture-gperf-mapping"
-      {"test_a",307200},
+#line 11 "texture-gperf-mapping"
+      {"test_a",460800},
+      {""},
+#line 8 "texture-gperf-mapping"
+      {"bedroom",0},
+      {""}, {""},
 #line 9 "texture-gperf-mapping"
       {"simplex",153600},
-#line 8 "texture-gperf-mapping"
-      {"bedroom",0}
+      {""},
+#line 10 "texture-gperf-mapping"
+      {"stars",307200}
     };
 
   if (len <= MAX_WORD_LENGTH && len >= MIN_WORD_LENGTH)
