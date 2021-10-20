@@ -42,10 +42,13 @@ void makeTitleScreenDL() {
   gfxClearCfb();
 
   // This is used for `gSPPerspNormalize` 
+
+
+
   u16 perspectiveNorm = 0;
 
   guPerspective(&dynamicp->projection, &perspectiveNorm, ingameFOV, ((float)SCREEN_WD)/((float)SCREEN_HT), 0.1f, 100.f, 1.f);
-  guLookAt(&dynamicp->camera, 100.f * sinf(timePassed), -100.f * cosf(timePassed), 50.f, 0.f, 0.f, 0.f, 0.f, 0.f, 1.f);
+  guLookAt(&dynamicp->camera, 300.f * sinf(timePassed), -300.f * cosf(timePassed), 150.f, 0.f, 0.f, 0.f, 0.f, 0.f, 1.f);
   
   gSPMatrix(glistp++,OS_K0_TO_PHYSICAL(&(dynamicp->projection)), G_MTX_PROJECTION | G_MTX_LOAD | G_MTX_NOPUSH);
   gSPMatrix(glistp++,OS_K0_TO_PHYSICAL(&(dynamicp->camera)), G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH );
@@ -55,15 +58,20 @@ void makeTitleScreenDL() {
   gDPSetTexturePersp(glistp++, G_TP_PERSP);
   gDPSetTextureFilter(glistp++, G_TF_POINT);
   gDPSetCombineMode(glistp++, G_CC_MODULATEIDECALA, G_CC_MODULATEIDECALA);
-  gDPSetRenderMode(glistp++, G_RM_ZB_OPA_SURF, G_RM_ZB_OPA_SURF2);
+  gDPLoadTextureBlock(glistp++, environmentTexture, G_IM_FMT_IA, G_IM_SIZ_8b, 128, 32, 0, G_TX_MIRROR, G_TX_MIRROR, 7, 5, G_TX_NOLOD, G_TX_NOLOD);
+  gDPSetRenderMode(glistp++, G_RM_OPA_SURF, G_RM_OPA_SURF2);
   gSPClearGeometryMode(glistp++,0xFFFFFFFF);
-  gSPSetGeometryMode(glistp++,G_SHADE | G_ZBUFFER | G_SHADING_SMOOTH | G_CULL_BACK);
   gSPTexture(glistp++, 0xffff, 0xffff, 0, G_TX_RENDERTILE, G_ON);
+  gSPSetGeometryMode(glistp++,G_SHADE | G_SHADING_SMOOTH | G_CULL_BACK);
   gSPPerspNormalize(glistp++, perspectiveNorm);
   gSPClipRatio(glistp++, FRUSTRATIO_6);
 
-  gSPDisplayList(glistp++, OS_K0_TO_PHYSICAL(gfx_Tower_None));
   gSPDisplayList(glistp++, OS_K0_TO_PHYSICAL(gfx_Ground_None));
+
+  gDPPipeSync(glistp++);
+  gDPSetRenderMode(glistp++, G_RM_ZB_OPA_SURF, G_RM_ZB_OPA_SURF2);
+  gSPSetGeometryMode(glistp++,G_SHADE | G_ZBUFFER | G_SHADING_SMOOTH | G_CULL_BACK);
+  gSPDisplayList(glistp++, OS_K0_TO_PHYSICAL(gfx_Tower_None));
 
   gDPFullSync(glistp++);
   gSPEndDisplayList(glistp++);
