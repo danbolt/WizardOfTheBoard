@@ -65,6 +65,15 @@ void updateOgre(int index) {
   velocities[index].y *= OGRE_WALK_SPEED;
 }
 
+void updateToad(int index) {
+  if (isKnockingBackStates[index]) {
+    return;
+  }
+
+  velocities[index].x = 0.f;
+  velocities[index].y = 0.f;
+}
+
 #define PLAYER_HEIGHT_ABOVE_GROUND 0.26f
 #define PLAYER_WALK_SPEED 3.f
 #define PLAYER_TURN_SPEED 3.f
@@ -381,9 +390,13 @@ void initializeMonsters(const MapData* map) {
 
     isActive[i + 1] = map->activeMonsters[i];
     positions[i + 1] = (Vec2){ map->monsterX[i] + 0.5f, map->monsterY[i] + 0.5f };
-    if (map->monsterType[i + 1] == MONSTER_TYPE_OGRE) {
+    const u8 type = map->monsterType[i];
+    if (type == MONSTER_TYPE_OGRE) {
       updateFunctions[i + 1] = updateOgre;
       renderCommands[i + 1] = ogre_commands;
+    } else if (type == MONSTER_TYPE_TOAD) {
+      updateFunctions[i + 1] = updateToad;
+      renderCommands[i + 1] = toad_commands;
     }
   }
 

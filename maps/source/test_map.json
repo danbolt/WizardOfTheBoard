@@ -27,8 +27,19 @@
                  "type":"ogre",
                  "visible":true,
                  "width":0,
-                 "x":54.9170872386446,
-                 "y":26.6728550829128
+                 "x":51.4102379235761,
+                 "y":27.9648521989907
+                }, 
+                {
+                 "height":0,
+                 "id":4,
+                 "name":"toad",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":71.1593366979092,
+                 "y":66.9093366979092
                 }, 
                 {
                  "height":0,
@@ -48,7 +59,7 @@
          "y":0
         }],
  "nextlayerid":6,
- "nextobjectid":4,
+ "nextobjectid":5,
  "orientation":"orthogonal",
  "properties":[
         {

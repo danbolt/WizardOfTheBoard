@@ -17,5 +17,6 @@
 #define MAX_NUMBER_OF_PUZZLE_SPACES 8
 
 #define MONSTER_TYPE_OGRE 0
+#define MONSTER_TYPE_TOAD 1
 
 #endif
