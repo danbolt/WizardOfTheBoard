@@ -4,6 +4,7 @@
 #include "main.h"
 
 #include "dialogue.h"
+#include "displaytext.h"
 #include "cutscene.h"
 #include "levelselect.h"
 
@@ -64,6 +65,8 @@ void initalizeGameData() {
   changeScreensFlag = 1;
   currentStage = NULL;
   nextStage = &levelSelectStage;
+
+  loadDisplayText();
 
   cutsceneToLoad = "test_scene";
 
