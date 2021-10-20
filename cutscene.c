@@ -4,6 +4,7 @@
 #include <nusys.h>
 #include <assert.h>
 
+#include "backgroundbuffers.h"
 #include "main.h"
 #include "graphic.h"
 #include "nustdfuncs.h"
@@ -17,12 +18,6 @@
 #else
 #include <nualsgi.h>
 #endif
-
-// TODO: move these to their own source file
-u8 backgroundBuffer1[320 * 240 * 2] __attribute__((aligned(8)));
-u8 backgroundBuffer2[320 * 240 * 2] __attribute__((aligned(8)));
-u8 backgroundBuffer3[320 * 240 * 2] __attribute__((aligned(8)));
-u8* backgroundBuffers[] = { backgroundBuffer1, backgroundBuffer2, backgroundBuffer3 };
 
 static CutsceneInfo infoForOurCutscene;
 
