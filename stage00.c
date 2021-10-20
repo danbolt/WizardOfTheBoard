@@ -22,6 +22,49 @@
 #include <nualsgi.h>
 #endif
 
+// TODO: break some of this into its own file later
+typedef void (*MonsterUpdateCall)(int index);
+
+static Vec2 positions[NUMBER_OF_INGAME_ENTITIES];
+static Vec2 velocities[NUMBER_OF_INGAME_ENTITIES];
+static u8 isActive[NUMBER_OF_INGAME_ENTITIES];
+static int health[NUMBER_OF_INGAME_ENTITIES];
+static float orientations[NUMBER_OF_INGAME_ENTITIES];
+static float radiiSquared[NUMBER_OF_INGAME_ENTITIES];
+static float knockbackTimesRemaining[NUMBER_OF_INGAME_ENTITIES];
+static u8 isKnockingBackStates[NUMBER_OF_INGAME_ENTITIES];
+static u8 lineOfSightVisible[NUMBER_OF_INGAME_ENTITIES];
+static MonsterUpdateCall updateFunctions[NUMBER_OF_INGAME_ENTITIES];
+static Gfx* renderCommands[NUMBER_OF_INGAME_ENTITIES];
+
+// The player is always index zero; the remaining are monsters
+#define playerPosition (positions[0])
+#define playerVelocity (velocities[0])
+#define playerOrientation (orientations[0])
+#define playerHealth (health[0])
+#define isPlayerKnockingBack (isKnockingBackStates[0])
+#define playerKnockbackTimeRemaining (knockbackTimesRemaining[0])
+#define playerRadiusSquared (radiiSquared[0])
+
+#define OGRE_WALK_SPEED 0.5f
+void updateOgre(int index) {
+  if (isKnockingBackStates[index]) {
+    return;
+  }
+
+  if (!(lineOfSightVisible[index])) {
+    velocities[index].x = 0.f;
+    velocities[index].y = 0.f;
+    return;
+  }
+
+  velocities[index] = (Vec2){ playerPosition.x - positions[index].x, playerPosition.y - positions[index].y };
+  normalize(&(velocities[index]));
+  orientations[index] = nu_atan2(velocities[index].y, velocities[index].x) + M_PI_2;
+  velocities[index].x *= OGRE_WALK_SPEED;
+  velocities[index].y *= OGRE_WALK_SPEED;
+}
+
 #define PLAYER_HEIGHT_ABOVE_GROUND 0.26f
 #define PLAYER_WALK_SPEED 3.f
 #define PLAYER_TURN_SPEED 3.f
@@ -35,8 +78,6 @@
 #define KNOCKBACK_SPEED 7.5f
 #define KNOCKBACK_TIME 0.216f
 
-#define OGRE_WALK_SPEED 0.5f
-
 #define PLAYER_RADIUS 0.5f
 
 #define PUZZLE_GLYPH_ROTATION_SPEED 64.f
@@ -44,26 +85,8 @@ static Pos2 puzzleSpaceSpots[MAX_NUMBER_OF_PUZZLE_SPACES];
 static u32 numberOfPuzzleSpaces;
 static float puzzleGlyphRotation;
 
-static Vec2 positions[NUMBER_OF_INGAME_ENTITIES];
-static Vec2 velocities[NUMBER_OF_INGAME_ENTITIES];
-static u8 isActive[NUMBER_OF_INGAME_ENTITIES];
-static int health[NUMBER_OF_INGAME_ENTITIES];
-static float orientations[NUMBER_OF_INGAME_ENTITIES];
-static float radiiSquared[NUMBER_OF_INGAME_ENTITIES];
-static float knockbackTimesRemaining[NUMBER_OF_INGAME_ENTITIES];
-static u8 isKnockingBackStates[NUMBER_OF_INGAME_ENTITIES];
-static u8 lineOfSightVisible[NUMBER_OF_INGAME_ENTITIES];
-
 static float cursorRotation;
 
-// HACK: makes for a smaller git commit
-#define playerPosition (positions[0])
-#define playerVelocity (velocities[0])
-#define playerOrientation (orientations[0])
-#define playerHealth (health[0])
-#define isPlayerKnockingBack (isKnockingBackStates[0])
-#define playerKnockbackTimeRemaining (knockbackTimesRemaining[0])
-#define playerRadiusSquared (radiiSquared[0])
 
 #define FADE_OUT_TIME 1.f
 
@@ -358,8 +381,10 @@ void initializeMonsters(const MapData* map) {
 
     isActive[i + 1] = map->activeMonsters[i];
     positions[i + 1] = (Vec2){ map->monsterX[i] + 0.5f, map->monsterY[i] + 0.5f };
-    // TODO load from monsterType
-
+    if (map->monsterType[i + 1] == MONSTER_TYPE_OGRE) {
+      updateFunctions[i + 1] = updateOgre;
+      renderCommands[i + 1] = ogre_commands;
+    }
   }
 
 }
@@ -627,7 +652,7 @@ void makeDL00(void)
     gSPMatrix(glistp++, OS_K0_TO_PHYSICAL(&dynamicp->monsterRotations[i - 1]), G_MTX_MODELVIEW | G_MTX_MUL | G_MTX_NOPUSH);
     gSPMatrix(glistp++, OS_K0_TO_PHYSICAL(&dynamicp->blenderExportScale), G_MTX_MODELVIEW | G_MTX_MUL | G_MTX_NOPUSH);
 
-    gSPDisplayList(glistp++, OS_K0_TO_PHYSICAL(ogre_commands));
+    gSPDisplayList(glistp++, OS_K0_TO_PHYSICAL(renderCommands[i]));
 
     gSPPopMatrix(glistp++, G_MTX_MODELVIEW);
   }
@@ -1176,21 +1201,7 @@ void updateMonsters() {
       continue;
     }
 
-    if (isKnockingBackStates[i]) {
-      continue;
-    }
-
-    if (!(lineOfSightVisible[i])) {
-      velocities[i].x = 0.f;
-      velocities[i].y = 0.f;
-      continue;
-    }
-
-    velocities[i] = (Vec2){ playerPosition.x - positions[i].x, playerPosition.y - positions[i].y };
-    normalize(&(velocities[i]));
-    orientations[i] = nu_atan2(velocities[i].y, velocities[i].x) + M_PI_2;
-    velocities[i].x *= OGRE_WALK_SPEED;
-    velocities[i].y *= OGRE_WALK_SPEED;
+    updateFunctions[i](i);
   }
 }
 
