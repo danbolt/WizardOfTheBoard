@@ -97,6 +97,12 @@ SECTIONS
    }
    END_SEG(hud_icons)
 
+   BEGIN_SEG(opening_environment, __romPos)
+   {
+      sprites/idea.bino(.data);
+   }
+   END_SEG(opening_environment)
+
    BEGIN_SEG(floor_tiles, __romPos)
    {
       sprites/floor_tiles.bino(.data);

@@ -6,7 +6,10 @@
 #include "main.h"
 #include "graphic.h"
 #include "segmentinfo.h"
-#include "stagekeys.h"
+
+#include "opening/envtexture.h"
+#include "opening/tower.h"
+#include "opening/ground.h"
 
 static float timePassed;
 
@@ -20,6 +23,8 @@ void initTitleScreen() {
   downPressed = 0;
   upPressed = 0;
   stickInDeadzone = 0;
+
+  nuPiReadRom((u32)_opening_environmentSegmentRomStart, environmentTexture, TMEM_SIZE_BYTES);
 }
 
 void makeTitleScreenDL() {
@@ -36,20 +41,29 @@ void makeTitleScreenDL() {
   /* Clear the frame and Z-buffer */
   gfxClearCfb();
 
-  guOrtho(&dynamicp->ortho, 0.f, SCREEN_WD, SCREEN_HT, 0.f, 1.0F, 10.0F, 1.0F);
+  // This is used for `gSPPerspNormalize` 
+  u16 perspectiveNorm = 0;
 
-  guMtxIdent(&dynamicp->modelling);
+  guPerspective(&dynamicp->projection, &perspectiveNorm, ingameFOV, ((float)SCREEN_WD)/((float)SCREEN_HT), 0.1f, 100.f, 1.f);
+  guLookAt(&dynamicp->camera, 100.f * sinf(timePassed), -100.f * cosf(timePassed), 50.f, 0.f, 0.f, 0.f, 0.f, 0.f, 1.f);
+  
+  gSPMatrix(glistp++,OS_K0_TO_PHYSICAL(&(dynamicp->projection)), G_MTX_PROJECTION | G_MTX_LOAD | G_MTX_NOPUSH);
+  gSPMatrix(glistp++,OS_K0_TO_PHYSICAL(&(dynamicp->camera)), G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH );
 
   gDPPipeSync(glistp++);
   gDPSetCycleType(glistp++,G_CYC_1CYCLE);
-  gDPSetTexturePersp(glistp++, G_TP_NONE);
+  gDPSetTexturePersp(glistp++, G_TP_PERSP);
   gDPSetTextureFilter(glistp++, G_TF_POINT);
-  gDPSetCombineMode(glistp++, G_CC_MODULATEIDECALA_PRIM, G_CC_MODULATEIDECALA_PRIM);
-  gDPSetRenderMode(glistp++, G_RM_TEX_EDGE, G_RM_TEX_EDGE2);
+  gDPSetCombineMode(glistp++, G_CC_MODULATEIDECALA, G_CC_MODULATEIDECALA);
+  gDPSetRenderMode(glistp++, G_RM_ZB_OPA_SURF, G_RM_ZB_OPA_SURF2);
   gSPClearGeometryMode(glistp++,0xFFFFFFFF);
-  gSPSetGeometryMode(glistp++,G_SHADE | G_SHADING_SMOOTH | G_CULL_BACK);
+  gSPSetGeometryMode(glistp++,G_SHADE | G_ZBUFFER | G_SHADING_SMOOTH | G_CULL_BACK);
   gSPTexture(glistp++, 0xffff, 0xffff, 0, G_TX_RENDERTILE, G_ON);
-  gSPClipRatio(glistp++, FRUSTRATIO_2);
+  gSPPerspNormalize(glistp++, perspectiveNorm);
+  gSPClipRatio(glistp++, FRUSTRATIO_6);
+
+  gSPDisplayList(glistp++, OS_K0_TO_PHYSICAL(gfx_Tower_None));
+  gSPDisplayList(glistp++, OS_K0_TO_PHYSICAL(gfx_Ground_None));
 
   gDPFullSync(glistp++);
   gSPEndDisplayList(glistp++);
