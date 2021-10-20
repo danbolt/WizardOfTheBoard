@@ -7,6 +7,7 @@
 #include "displaytext.h"
 #include "cutscene.h"
 #include "levelselect.h"
+#include "titlescreen.h"
 
 #include <segmentinfo.h>
 
@@ -36,6 +37,11 @@ ScreenInfo cutsceneStage = {
   updateCutscene,
   makeCutsceneDisplaylist
 };
+ScreenInfo titleScreenStage = {
+  initTitleScreen,
+  updateTitleScreen,
+  makeTitleScreenDL
+};
 
 ScreenInfo* currentStage;
 volatile ScreenInfo* nextStage;
@@ -64,7 +70,7 @@ void updateTime() {
 void initalizeGameData() {
   changeScreensFlag = 1;
   currentStage = NULL;
-  nextStage = &levelSelectStage;
+  nextStage = &titleScreenStage;
 
   loadDisplayText();
 

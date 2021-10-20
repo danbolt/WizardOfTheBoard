@@ -34,6 +34,7 @@ typedef struct {
 extern ScreenInfo gameplayStage;
 extern ScreenInfo levelSelectStage;
 extern ScreenInfo cutsceneStage;
+extern ScreenInfo titleScreenStage;
 
 extern volatile ScreenInfo* nextStage;
 
