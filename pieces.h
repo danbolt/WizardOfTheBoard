@@ -18,7 +18,8 @@ extern Vtx rook_verts[];
 extern Gfx rook_commands[];
 void rookLegalMove(u32 ourIndex, const u8* piecesActive, const Pos2* piecePositions, u8* legalSpots);
 
-// TODO: bishop model
+extern Vtx bishop_verts[];
+extern Gfx bishop_commands[];
 void bishopLegalMove(u32 ourIndex, const u8* piecesActive, const Pos2* piecePositions, u8* legalSpots);
 
 extern Vtx queen_verts[];

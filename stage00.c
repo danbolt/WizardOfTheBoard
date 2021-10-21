@@ -469,8 +469,8 @@ void initializeStartingPieces(const MapData* map) {
       case BISHOP:
         pieceData[i].type = BISHOP;
         pieceData[i].legalCheck = bishopLegalMove;
-        pieceData[i].renderCommands = pawn_commands;
-        pieceData[i].displayName = "BISHOP";
+        pieceData[i].renderCommands = bishop_commands;
+        pieceData[i].displayName = tileIsDark(piecePositions[i].x, piecePositions[i].y) ? "D.BISHOP" : "L.BISHOP";
         break;
       case QUEEN:
         pieceData[i].type = QUEEN;

@@ -70,7 +70,7 @@ void updateTime() {
 void initalizeGameData() {
   changeScreensFlag = 1;
   currentStage = NULL;
-  nextStage = &cutsceneStage;
+  nextStage = &titleScreenStage;
 
   loadDisplayText();
 
