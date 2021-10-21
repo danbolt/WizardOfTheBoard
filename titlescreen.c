@@ -171,11 +171,11 @@ void makeTitleScreenDL() {
   gDPLoadTextureBlock_4b(glistp++, sixtwelve_tex, G_IM_FMT_IA, SIXTWELVE_TEXTURE_WIDTH, SIXTWELVE_TEXTURE_HEIGHT, 0, G_TX_MIRROR | G_TX_WRAP, G_TX_MIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
   const char* str = NULL;
 
-  if ((spotIndex < (NUMBER_OF_SPOTS)) && (spots[spotIndex].text != NULL)) {
+  if ((spotIndex < (NUMBER_OF_SPOTS)) && (spots[spotIndex].text != NULL) && (spotTimePassed > 1.f) ) {
     str = spots[spotIndex].text;
   }
 
-  if (str != NULL) {
+  if ((str != NULL) ) {
     int i = 0;
     int xInit = 32;
     int xAdv = xInit;
