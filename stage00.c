@@ -66,13 +66,35 @@ void updateOgre(int index) {
   velocities[index].y *= OGRE_WALK_SPEED;
 }
 
+#define TOAD_WALK_SPEED 2.1616f
 void updateToad(int index) {
   if (isKnockingBackStates[index]) {
     return;
   }
 
-  velocities[index].x = 0.f;
-  velocities[index].y = 0.f;
+  int shouldChangeDirections = 0;
+
+  Vec2 checkPoint = positions[index];
+  if (velocities[index].x > 0.f) {
+    checkPoint.x += 0.25f;
+  } else {
+    checkPoint.x -= 0.25f;
+  }
+
+  if ((checkPoint.x <= 0.01f) || (checkPoint.x > (BOARD_WIDTH - 0.01f))) {
+    shouldChangeDirections = 1;
+  }
+
+  if (isSpaceOccupiedButIgnoreMovingPieces((int)(checkPoint.x), (int)(checkPoint.y)) > -1) {
+    shouldChangeDirections = 1;
+  }
+
+
+  if (shouldChangeDirections) {
+    velocities[index].x *= -1;
+
+    orientations[index] = M_PI_2 * (velocities[index].x < 0.f ? -1.f : 1.f);
+  }
 }
 
 #define PLAYER_HEIGHT_ABOVE_GROUND 0.26f
@@ -395,6 +417,8 @@ void initializeMonsters(const MapData* map) {
     } else if (type == MONSTER_TYPE_TOAD) {
       updateFunctions[i + 1] = updateToad;
       renderCommands[i + 1] = toad_commands;
+      velocities[i + 1].x = TOAD_WALK_SPEED;
+      orientations[i + 1] = M_PI_2;
     }
   }
 
