@@ -70,11 +70,11 @@ void updateTime() {
 void initalizeGameData() {
   changeScreensFlag = 1;
   currentStage = NULL;
-  nextStage = &levelSelectStage;
+  nextStage = &cutsceneStage;
 
   loadDisplayText();
 
-  cutsceneToLoad = "test_scene";
+  cutsceneToLoad = "second_scene";
 
   currentLevel = 0;
 

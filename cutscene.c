@@ -25,6 +25,8 @@ const char* cutsceneToLoad;
 
 static float cutsceneTime;
 
+u8 backgroundIndex;
+
 #define FADE_IN_TIME 1.24f
 #define FADE_OUT_TIME 1.5f
 #define DONE_TIME 0.56f
@@ -38,6 +40,8 @@ static u8 cutsceneState;
 void initCutscene() {
   cutsceneTime = 0.f;
   cutsceneState = CUTSCENE_FADING_IN;
+
+  backgroundIndex = 0;
 
   struct cutsceneMappingData* cutsceneOffsetInfo = getCutsceneOffset(cutsceneToLoad, _nstrlen(cutsceneToLoad));
   assert(cutsceneOffsetInfo != 0x0);
@@ -113,7 +117,7 @@ void makeCutsceneDisplaylist() {
   if (cutsceneState != CUTSCENE_DONE) {
     for (int i = 0; i < (240 / 6); i++) {
       gDPPipeSync(glistp++);
-      gDPLoadTextureTile(glistp++, backgroundBuffers[0], G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, 240, 0, (i * 6), 320 - 1, ((i + 1) * 6) - 1, 0, G_TX_WRAP, G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD );
+      gDPLoadTextureTile(glistp++, backgroundBuffers[backgroundIndex], G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, 240, 0, (i * 6), 320 - 1, ((i + 1) * 6) - 1, 0, G_TX_WRAP, G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD );
       gSPTextureRectangle(glistp++, 0 << 2, (0 + (i * 6)) << 2, (0 + 320) << 2, (0 + ((i + 1) * 6)) << 2, 0, 0 << 5, (i * 6) << 5, 1 << 10, 1 << 10);
     }
   }

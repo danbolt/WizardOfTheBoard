@@ -68,13 +68,28 @@ function ReverseEndian(x) {
     return buf.readUIntBE(0, 4)
 }
 
+const FLAG_SHOW_BG_1 = 'ik1';
+const FLAG_SHOW_BG_2 = 'ik2';
+const FLAG_SHOW_BG_3 = 'ik3';
+
+const STRUCT_FLAG_SHOW_BG_1 = 1;
+const STRUCT_FLAG_SHOW_BG_2 = 2;
+const STRUCT_FLAG_SHOW_BG_3 = 3;
+
 const structDialogueItems = rawDialogueItems.map((item) => {
 	const struct = structs.dialogue();
 
 	strings.encode(item.speaker, struct.speaker);
 	strings.encode(item.text, struct.text); // TODO: does this support latin characters for old ISO?
 	struct.nextAddress = ReverseEndian(item.nextAddress);
-	// TODO: flags
+
+	if (item.flags.indexOf(FLAG_SHOW_BG_1) > -1) {
+		struct.flags[0] = STRUCT_FLAG_SHOW_BG_1;
+	} else if (item.flags.indexOf(FLAG_SHOW_BG_2) > -1) {
+		struct.flags[0] = STRUCT_FLAG_SHOW_BG_2;
+	}else if (item.flags.indexOf(FLAG_SHOW_BG_3) > -1) {
+		struct.flags[0] = STRUCT_FLAG_SHOW_BG_3;
+	}
 
 	return struct;
 })

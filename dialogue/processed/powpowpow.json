@@ -5,8 +5,10 @@
         "flags": []
     },
     {
-        "text": " I think we're done here",
+        "text": " I think we're done here. ",
         "speaker": "zatt_neutral",
-        "flags": []
+        "flags": [
+            "ik3"
+        ]
     }
 ]

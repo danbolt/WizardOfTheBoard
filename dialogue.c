@@ -1,6 +1,7 @@
 
 #include "dialogue.h"
 
+#include "cutscene.h"
 #include "graphic.h"
 #include "cast_sprites/castlookup.h"
 #include "dialogue/dialoguelookup.h"
@@ -18,6 +19,10 @@ static float bipTimePassed;
 static int dialogueBoxY;
 
 #define BIP_TIME_SECONDS 0.1f
+
+#define STRUCT_FLAG_SHOW_BG_1 1
+#define STRUCT_FLAG_SHOW_BG_2 2
+#define STRUCT_FLAG_SHOW_BG_3 3
 
 typedef union {
   DialogueItem item;
@@ -105,6 +110,16 @@ void startDialogueItem(u32 offset) {
     currentPortrait = portraitBuffers[nextDialogueItemIndex];
   } else {
     currentPortrait = NULL;
+  }
+
+  if (nextDialogueItem->flags[0] > 0) {
+    if (nextDialogueItem->flags[0] == STRUCT_FLAG_SHOW_BG_1) {
+      backgroundIndex = 0;
+    } else if (nextDialogueItem->flags[0] == STRUCT_FLAG_SHOW_BG_2) {
+      backgroundIndex = 1;
+    } else if (nextDialogueItem->flags[0] == STRUCT_FLAG_SHOW_BG_3) {
+      backgroundIndex = 2;
+    }
   }
 
   nextDialogueItemIndex = (nextDialogueItemIndex + 1) % NUMBER_OF_DIALOGUE_ITEM_BUFFERS;
