@@ -25,7 +25,11 @@ const char* cutsceneToLoad;
 
 static float cutsceneTime;
 
+#define FADE_TIME_BETWEEN_BACKGROUNDS 2.1616f
 u8 backgroundIndex;
+static u8 internalBackgroundIndex;
+static u8 isFading;
+static float backgroundFadeTime;
 
 #define FADE_IN_TIME 1.24f
 #define FADE_OUT_TIME 1.5f
@@ -42,6 +46,9 @@ void initCutscene() {
   cutsceneState = CUTSCENE_FADING_IN;
 
   backgroundIndex = 0;
+  internalBackgroundIndex = 0;
+  isFading = 0;
+  backgroundFadeTime = 0.f;
 
   struct cutsceneMappingData* cutsceneOffsetInfo = getCutsceneOffset(cutsceneToLoad, _nstrlen(cutsceneToLoad));
   assert(cutsceneOffsetInfo != 0x0);
@@ -117,9 +124,19 @@ void makeCutsceneDisplaylist() {
   if (cutsceneState != CUTSCENE_DONE) {
     for (int i = 0; i < (240 / 6); i++) {
       gDPPipeSync(glistp++);
-      gDPLoadTextureTile(glistp++, backgroundBuffers[backgroundIndex], G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, 240, 0, (i * 6), 320 - 1, ((i + 1) * 6) - 1, 0, G_TX_WRAP, G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD );
+      gDPLoadTextureTile(glistp++, backgroundBuffers[internalBackgroundIndex], G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, 240, 0, (i * 6), 320 - 1, ((i + 1) * 6) - 1, 0, G_TX_WRAP, G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD );
       gSPTextureRectangle(glistp++, 0 << 2, (0 + (i * 6)) << 2, (0 + 320) << 2, (0 + ((i + 1) * 6)) << 2, 0, 0 << 5, (i * 6) << 5, 1 << 10, 1 << 10);
     }
+
+    if ( internalBackgroundIndex != backgroundIndex) {
+      for (int i = 0; i < (int)((backgroundFadeTime / FADE_TIME_BETWEEN_BACKGROUNDS) * (240 / 2)); i++) {
+        gDPPipeSync(glistp++);
+        gDPLoadTextureTile(glistp++, backgroundBuffers[backgroundIndex], G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, 240, 0, (i * 2), 320 - 1, ((i + 1) * 2) - 1, 0, G_TX_WRAP, G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD );
+        gSPScisTextureRectangle(glistp++, 0 << 2, (0 + (i * 2)) << 2, (0 + 320) << 2, (0 + ((i + 1) * 2)) << 2, 0, 0 << 5, (i * 2) << 5, 1 << 10, 1 << 10);
+      }
+
+    }
+
   }
 
   renderDialogueToDisplayList();
@@ -164,6 +181,19 @@ void updateFadingIn() {
 }
 
 void updatePlayingDialogue() {
+
+  if ((!isFading) && (backgroundIndex != internalBackgroundIndex)) {
+    isFading = 1;
+    backgroundFadeTime = 0.f;
+  } else if (isFading) {
+    backgroundFadeTime += deltaTimeSeconds;
+    if (backgroundFadeTime > FADE_TIME_BETWEEN_BACKGROUNDS) {
+      isFading = 0;
+      internalBackgroundIndex = backgroundIndex;
+      backgroundFadeTime = 0.f;
+    }
+  }
+
   if (dialogueState == DIALOGUE_STATE_SHOWING) {
     return;
   }

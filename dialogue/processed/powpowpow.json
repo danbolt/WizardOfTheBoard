@@ -1,8 +1,10 @@
 [
     {
-        "text": " Okay, this looks pretty good",
+        "text": " Okay, this looks pretty good ",
         "speaker": "zatt_neutral",
-        "flags": []
+        "flags": [
+            "ik2"
+        ]
     },
     {
         "text": " I think we're done here. ",
