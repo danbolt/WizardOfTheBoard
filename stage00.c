@@ -23,6 +23,8 @@
 #include <nualsgi.h>
 #endif
 
+static float gameplayTimePassed;
+
 // TODO: break some of this into its own file later
 typedef void (*MonsterUpdateCall)(int index);
 
@@ -37,6 +39,7 @@ static u8 isKnockingBackStates[NUMBER_OF_INGAME_ENTITIES];
 static u8 lineOfSightVisible[NUMBER_OF_INGAME_ENTITIES];
 static MonsterUpdateCall updateFunctions[NUMBER_OF_INGAME_ENTITIES];
 static Gfx* renderCommands[NUMBER_OF_INGAME_ENTITIES];
+static Mtx monsterSpecificTransforms[NUMBER_OF_INGAME_ENTITIES];
 
 // The player is always index zero; the remaining are monsters
 #define playerPosition (positions[0])
@@ -71,6 +74,9 @@ void updateToad(int index) {
   if (isKnockingBackStates[index]) {
     return;
   }
+
+  const float t = sinf(gameplayTimePassed * 14.f) ;
+  guRotateRPY(&(monsterSpecificTransforms[index]), t * 20.f, t * 6.f, 0.f);
 
   int shouldChangeDirections = 0;
 
@@ -396,6 +402,7 @@ void initMonsterStates() {
     isKnockingBackStates[i] = 0;
     knockbackTimesRemaining[i] = 0.f;
     lineOfSightVisible[i] = 0;
+    guMtxIdent(&(monsterSpecificTransforms[i]));
   }
 }
 
@@ -414,11 +421,13 @@ void initializeMonsters(const MapData* map) {
     if (type == MONSTER_TYPE_OGRE) {
       updateFunctions[i + 1] = updateOgre;
       renderCommands[i + 1] = ogre_commands;
+      health[i + 1] = 2;
     } else if (type == MONSTER_TYPE_TOAD) {
       updateFunctions[i + 1] = updateToad;
       renderCommands[i + 1] = toad_commands;
       velocities[i + 1].x = TOAD_WALK_SPEED;
       orientations[i + 1] = M_PI_2;
+      health[i + 1] = 1;
     }
   }
 
@@ -518,6 +527,7 @@ void initializeMapFromROM(const char* mapKey) {
 void initStage00(void)
 {
   isStagePaused = 0;
+  gameplayTimePassed = 0.f;
 
   gameState = GAME_STATE_ACTIVE;
   gameStateTime = 0.f;
@@ -654,7 +664,9 @@ void makeDL00(void)
 
     guTranslate(&(dynamicp->monsterTranslations[i - 1]), positions[i].x, positions[i].y, 0.f);
     guRotate(&(dynamicp->monsterRotations[i - 1]), orientations[i] * INV_PI * 180, 0.f, 0.f, 1.f);
+    dynamicp->customTransforms[i - 1] = monsterSpecificTransforms[i];
     gSPMatrix(glistp++, OS_K0_TO_PHYSICAL(&(dynamicp->monsterTranslations[i - 1])), G_MTX_MODELVIEW | G_MTX_MUL | G_MTX_PUSH);
+    gSPMatrix(glistp++, OS_K0_TO_PHYSICAL(&(dynamicp->customTransforms[i - 1])), G_MTX_MODELVIEW | G_MTX_MUL | G_MTX_NOPUSH);
     gSPMatrix(glistp++, OS_K0_TO_PHYSICAL(&dynamicp->monsterRotations[i - 1]), G_MTX_MODELVIEW | G_MTX_MUL | G_MTX_NOPUSH);
     gSPMatrix(glistp++, OS_K0_TO_PHYSICAL(&dynamicp->blenderExportScale), G_MTX_MODELVIEW | G_MTX_MUL | G_MTX_NOPUSH);
 
@@ -1363,6 +1375,8 @@ void updateGame00(void)
   if (dialogueState == DIALOGUE_STATE_SHOWING) {
     return;
   }
+
+  gameplayTimePassed += deltaTimeSeconds;
   
   if (gameState == GAME_STATE_ACTIVE) {
     updatePausedState();
