@@ -10,6 +10,8 @@
 #include "main.h"
 #include "graphic.h"
 #include "segmentinfo.h"
+#include "sixtwelve.h"
+#include "sixtwelve_helpers.h"
 #include "tracknumbers.h"
 
 #include "opening/envtexture.h"
@@ -34,6 +36,7 @@ typedef struct {
   float duration;
   Vec3 camera;
   Vec3 look;
+  const char* text;
 } Spot;
 
 static int spotIndex;
@@ -41,23 +44,23 @@ static float spotTimePassed;
 
 static Spot spots[] = {
   // Sky start
-  { 6.f, { -99.3196f, -120.643f, 67.314f }, { -59.3667f, -69.484f, 123.734f } },
+  { 6.f, { -99.3196f, -120.643f, 67.314f }, { -59.3667f, -69.484f, 123.734f }, "It is a shitty time." },
 
   // "comes down" to view
-  { 6.f, { -59.3667f, -120.643f, 67.314f }, { -59.3667f, -69.484f, 67.314f } },
+  { 6.f, { -59.3667f, -120.643f, 67.314f }, { -59.3667f, -69.484f, 67.314f }, "The harvests are poor, and\n  monsters roam the land." },
 
-  { 6.5f, { 83.7952f, -115.326f, 37.987f }, { 6.07872f, 11.4772f, -9.87373f } },
-  { 6.f, { 178.037f, 36.7114f, 76.2756f }, { 6.07872f, 19.6313f, 21.6789f } },
-  { 6.f, { 76.7275f, 73.2299f, 76.2756f }, { 5.48971f, 23.1654f, 14.9429f } },
+  { 7.5f, { 83.7952f, -115.326f, 37.987f }, { 6.07872f, 11.4772f, -9.87373f }, " Chosen by lot, warriors are\n  trained from birth\n in the mystic artes." },
+  { 6.f, { 178.037f, 36.7114f, 76.2756f }, { 6.07872f, 19.6313f, 21.6789f }, "Studied in cunning,\n            strategy,\n                and deftness," },
+  { 6.f, { 76.7275f, 73.2299f, 76.2756f }, { 5.48971f, 23.1654f, 14.9429f }, "their final trial awaits them\n   when they come of age." },
 
   // Midpoint
-  { 6.f, { 0.745361f, 44.7062f, 108.537f }, { 0.667588f, 4.2692f, 24.0872f } },
+  { 6.f, { 0.745361f, 44.7062f, 108.537f }, { 0.667588f, 4.2692f, 24.0872f }, "To be a warrior is to\n    scale the Demon's Spire,\n fortress of the Shadow Queen." },
 
-  { 6.f, { -103.509f, 22.3239f, 70.2484f }, { -0.489938f, 21.5849f, 22.4681f } },
-  { 6.f, { -4.55552f, -93.9098f, 44.2122f }, { 1.36965f, 21.797f, 24.2866f } },
-  { 6.f, { 0.156551f, 7.43251f, 25.1426f }, { 1.36965f, 21.797f, 24.2866f } },
+  { 6.f, { -103.509f, 22.3239f, 70.2484f }, { -0.489938f, 21.5849f, 22.4681f }, "Many have entered,\n but few ever return." },
+  { 6.f, { -4.55552f, -93.9098f, 44.2122f }, { 1.36965f, 21.797f, 24.2866f }, "To make it to the top of the tower,\n   to succeed in one's task\n     makes them a..." },
+  { 5.f, { 0.156551f, 7.43251f, 25.1426f }, { 1.36965f, 21.797f, 24.2866f }, "WIZARD OF THE BOARD" },
 
-  { 1.f, { 0.f, -5.f, 0.f }, { 0.f, 11.5f, 26.f } },
+  { 1.f, { 0.f, -5.f, 0.f }, { 0.f, 11.5f, 26.f }, "test" },
 };
 #define NUMBER_OF_SPOTS 9
 
@@ -160,6 +163,42 @@ void makeTitleScreenDL() {
   gDPSetRenderMode(glistp++, G_RM_ZB_OPA_SURF, G_RM_ZB_OPA_SURF2);
   gSPSetGeometryMode(glistp++,G_SHADE | G_ZBUFFER | G_SHADING_SMOOTH | G_CULL_BACK);
   gSPDisplayList(glistp++, OS_K0_TO_PHYSICAL(gfx_Tower_None));
+
+  gDPPipeSync(glistp++);
+  gDPSetTexturePersp(glistp++, G_TP_NONE);
+  gDPSetCombineMode(glistp++,G_CC_DECALRGBA, G_CC_DECALRGBA);
+  gDPSetRenderMode(glistp++, G_RM_TEX_EDGE, G_RM_TEX_EDGE2);
+  gDPLoadTextureBlock_4b(glistp++, sixtwelve_tex, G_IM_FMT_IA, SIXTWELVE_TEXTURE_WIDTH, SIXTWELVE_TEXTURE_HEIGHT, 0, G_TX_MIRROR | G_TX_WRAP, G_TX_MIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
+  const char* str = NULL;
+
+  if ((spotIndex < (NUMBER_OF_SPOTS)) && (spots[spotIndex].text != NULL)) {
+    str = spots[spotIndex].text;
+  }
+
+  if (str != NULL) {
+    int i = 0;
+    int xInit = 32;
+    int xAdv = xInit;
+    int y = 128;
+    while (spots[spotIndex].text[i] != '\0') {
+      const sixtwelve_character_info* characterInfo = sixtwelve_get_character_info(spots[spotIndex].text[i]);
+
+      if (spots[spotIndex].text[i] == '\n') {
+        xAdv = xInit;
+        y += SIXTWELVE_LINE_HEIGHT;
+        i++;
+        continue;
+      }
+
+      const int xLoc = xAdv + characterInfo->x_offset;
+      const int yLoc = y + characterInfo->y_offset;
+
+      gSPScisTextureRectangle(glistp++, (xLoc) << 2, (yLoc) << 2, (xLoc + characterInfo->width) << 2, (yLoc + characterInfo->height) << 2, 0, (characterInfo->x) << 5, (characterInfo->y) << 5, 1 << 10, 1 << 10);
+      xAdv += characterInfo->x_advance;
+      i++;
+    }
+  }
+
 
   gDPFullSync(glistp++);
   gSPEndDisplayList(glistp++);
