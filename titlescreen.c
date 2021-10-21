@@ -3,6 +3,7 @@
 
 #include <nusys.h>
 
+#include "gamemath.h"
 #include "backgroundbuffers.h"
 #include "cutscene_backgrounds/backgroundlookup.h"
 #include "nustdfuncs.h"
@@ -19,6 +20,40 @@ static float timePassed;
 static u8 downPressed;
 static u8 upPressed;
 static u8 stickInDeadzone;
+
+#define OVERTURE_DURATION_SECONDS 48
+
+typedef struct {
+  float duration;
+  Vec3 camera;
+  Vec3 look;
+} Spot;
+
+static int spotIndex;
+static float spotTimePassed;
+
+static Spot spots[] = {
+  // Sky start
+  { 5.f, { -99.3196f, -120.643f, 67.314f }, { -59.3667f, -69.484f, 123.734f } },
+
+  // "comes down" to view
+  { 5.f, { -59.3667f, -120.643f, 67.314f }, { -59.3667f, -69.484f, 67.314f } },
+
+  { 5.f, { 83.7952f, -115.326f, 37.987f }, { 6.07872f, 11.4772f, -9.87373f } },
+  { 5.f, { 178.037f, 36.7114f, 76.2756f }, { 6.07872f, 19.6313f, 21.6789f } },
+  { 5.f, { 76.7275f, 73.2299f, 76.2756f }, { 5.48971f, 23.1654f, 14.9429f } },
+
+  // Midpoint
+  { 5.f, { 0.745361f, 44.7062f, 108.537f }, { 0.667588f, 4.2692f, 24.0872f } },
+
+  { 5.f, { -103.509f, 22.3239f, 70.2484f }, { -0.489938f, 21.5849f, 22.4681f } },
+  { 5.f, { -4.55552f, -93.9098f, 44.2122f }, { 1.36965f, 21.797f, 24.2866f } },
+  { 5.f, { 0.156551f, 7.43251f, 25.1426f }, { 1.36965f, 21.797f, 24.2866f } },
+
+  { 1.f, { 0.f, -5.f, 0.f }, { 0.f, 11.5f, 26.f } },
+};
+#define NUMBER_OF_SPOTS 9
+
 
 
 void initializeBackgrounds() {
@@ -39,6 +74,9 @@ void initTitleScreen() {
 
   initializeBackgrounds();
   nuPiReadRom((u32)_opening_environmentSegmentRomStart, environmentTexture, TMEM_SIZE_BYTES);
+
+  spotIndex = 0;
+  spotTimePassed = 0.f;
 }
 
 void makeTitleScreenDL() {
@@ -59,7 +97,23 @@ void makeTitleScreenDL() {
   u16 perspectiveNorm = 0;
 
   guPerspective(&dynamicp->projection, &perspectiveNorm, ingameFOV, ((float)SCREEN_WD)/((float)SCREEN_HT), 0.1f, 100.f, 1.f);
-  guLookAt(&dynamicp->camera, 300.f * sinf(timePassed), -300.f * cosf(timePassed), 150.f, 0.f, 0.f, 0.f, 0.f, 0.f, 1.f);
+  if (spotIndex < (NUMBER_OF_SPOTS - 1)) {
+    const float t = spotTimePassed / spots[spotIndex].duration;
+    Vec3 camPos = {
+      lerp(spots[spotIndex].camera.x, spots[spotIndex + 1].camera.x, t),
+      lerp(spots[spotIndex].camera.y, spots[spotIndex + 1].camera.y, t),
+      lerp(spots[spotIndex].camera.z, spots[spotIndex + 1].camera.z, t),
+    };
+    Vec3 look = {
+      lerp(spots[spotIndex].look.x, spots[spotIndex + 1].look.x, t),
+      lerp(spots[spotIndex].look.y, spots[spotIndex + 1].look.y, t),
+      lerp(spots[spotIndex].look.z, spots[spotIndex + 1].look.z, t),
+    };
+
+    guLookAt(&dynamicp->camera, camPos.x, camPos.y, camPos.z, look.x, look.y, look.z, 0.f, 0.f, 1.f);
+  } else {
+    guLookAt(&dynamicp->camera, spots[NUMBER_OF_SPOTS - 1].camera.x, spots[NUMBER_OF_SPOTS - 1].camera.y, spots[NUMBER_OF_SPOTS - 1].camera.z, spots[NUMBER_OF_SPOTS - 1].look.x, spots[NUMBER_OF_SPOTS - 1].look.y, spots[NUMBER_OF_SPOTS - 1].look.z, 0.f, 0.f, 1.f);
+  }
 
 
   gDPPipeSync(glistp++);
@@ -104,6 +158,18 @@ void makeTitleScreenDL() {
   nuDebConTextPos(0,4,4);
   sprintf(conbuf,"title screen");
   nuDebConCPuts(0, conbuf);
+
+  nuDebConTextPos(0,4,5);
+  sprintf(conbuf,"        t: %2.2f/%2.2f", spotTimePassed, spots[spotIndex].duration);
+  nuDebConCPuts(0, conbuf);
+
+  nuDebConTextPos(0,4,6);
+  sprintf(conbuf,"spotIndex: %03d", spotIndex);
+  nuDebConCPuts(0, conbuf);
+
+  nuDebConTextPos(0,4,7);
+  sprintf(conbuf,"   time: %2.2f", timePassed);
+  nuDebConCPuts(0, conbuf);
     
   /* Display characters on the frame buffer */
   nuDebConDisp(NU_SC_SWAPBUFFER);
@@ -115,6 +181,16 @@ void updateTitleScreen() {
   nuContDataGetEx(contdata,0);
 
   timePassed += deltaTimeSeconds;
+
+  if (spotIndex < (NUMBER_OF_SPOTS - 1)) {
+    spotTimePassed += deltaTimeSeconds;
+
+    if (spotTimePassed > spots[spotIndex].duration) {
+      spotTimePassed = 0.f;
+      spotIndex++;
+    }
+  }
+  
 
   if(contdata[0].trigger & U_JPAD) {
     upPressed = 1;
