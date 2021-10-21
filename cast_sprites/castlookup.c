@@ -93,13 +93,13 @@ getCastTextureOffset (register const char *str, register size_t len)
   static struct castMappingData wordlist[] =
     {
 #line 11 "texture-gperf-mapping"
-      {"zatt_neutral",12288},
+      {"zatt_neutral",24576},
       {""},
 #line 9 "texture-gperf-mapping"
-      {"protag",4096},
+      {"protag",8192},
       {""}, {""},
 #line 10 "texture-gperf-mapping"
-      {"test",8192},
+      {"test",16384},
       {""},
 #line 8 "texture-gperf-mapping"
       {"demon",0}

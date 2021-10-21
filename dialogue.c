@@ -26,9 +26,9 @@ typedef union {
 
 #define NUMBER_OF_DIALOGUE_ITEM_BUFFERS 3
 static DMAAlignedDialogueItem dialogueItemTripleBuffer[NUMBER_OF_DIALOGUE_ITEM_BUFFERS] __attribute__((aligned(8)));
-static u8 portraitBuffer0[TMEM_SIZE_BYTES] __attribute__((aligned(8)));
-static u8 portraitBuffer1[TMEM_SIZE_BYTES] __attribute__((aligned(8)));
-static u8 portraitBuffer2[TMEM_SIZE_BYTES] __attribute__((aligned(8)));
+static u8 portraitBuffer0[TMEM_SIZE_BYTES * 2] __attribute__((aligned(8)));
+static u8 portraitBuffer1[TMEM_SIZE_BYTES * 2] __attribute__((aligned(8)));
+static u8 portraitBuffer2[TMEM_SIZE_BYTES * 2] __attribute__((aligned(8)));
 static u8* portraitBuffers[NUMBER_OF_DIALOGUE_ITEM_BUFFERS] = { portraitBuffer0, portraitBuffer1, portraitBuffer2 };
 static u8* currentPortrait;
 static int nextDialogueItemIndex;
@@ -101,7 +101,7 @@ void startDialogueItem(u32 offset) {
   struct castMappingData * castSpriteOffset = getCastTextureOffset(nextDialogueItem->speaker, _nstrlen(nextDialogueItem->speaker));
   if (castSpriteOffset) {
 
-    nuPiReadRom((u32)(_cast_sprite_dataSegmentRomStart + castSpriteOffset->offset), portraitBuffers[nextDialogueItemIndex], TMEM_SIZE_BYTES);
+    nuPiReadRom((u32)(_cast_sprite_dataSegmentRomStart + castSpriteOffset->offset), portraitBuffers[nextDialogueItemIndex], TMEM_SIZE_BYTES * 2);
     currentPortrait = portraitBuffers[nextDialogueItemIndex];
   } else {
     currentPortrait = NULL;
@@ -191,7 +191,7 @@ void renderDialogueToDisplayList() {
     drawString(TITLE_SAFE_HORIZONTAL + 32 + 8, dialogueBoxY, currentDialogueItem->text, (SCREEN_WD - (TITLE_SAFE_HORIZONTAL * 2) - (32 + 8)));
 
 
-    gDPLoadTextureBlock(glistp++, OS_K0_TO_PHYSICAL(currentPortrait), G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 64, 0, G_TX_MIRROR | G_TX_WRAP, G_TX_MIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
+    gDPLoadTextureBlock(glistp++, OS_K0_TO_PHYSICAL(currentPortrait + (((bipIndex % 2 == 0) && (currentDialogueItem->text[bipIndex] != '\0')) ? 0 : TMEM_SIZE_BYTES)), G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 64, 0, G_TX_MIRROR | G_TX_WRAP, G_TX_MIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
     gDPSetCombineMode(glistp++, G_CC_DECALRGBA, G_CC_DECALRGBA);
     gSPTextureRectangle(glistp++, (TITLE_SAFE_HORIZONTAL + 4) << 2, dialogueBoxY << 2, ((TITLE_SAFE_HORIZONTAL + 4) + 32) << 2, (dialogueBoxY + 64) << 2, 0, 0 << 5, 0 << 5, 1 << 10, 1 << 10);
   } else {

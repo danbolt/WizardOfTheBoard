@@ -13,7 +13,7 @@ const mapping = [];
 
 for (let i = 0; i < names.length; i++) {
 	mapping.push({
-		offset: (4096 * i),
+		offset: ((4096 * 2) * i),
 		name: names[i].split('.')[0]
 	})
 }
