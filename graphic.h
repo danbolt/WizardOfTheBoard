@@ -59,6 +59,9 @@ typedef struct {
   Mtx monsterTranslations[MAX_NUMBER_OF_INGAME_MONSTERS];
   Mtx monsterRotations[MAX_NUMBER_OF_INGAME_MONSTERS];
 
+  Mtx projectileTranslations[NUMBER_OF_PROJECTILES];
+  Mtx projectileRotations[NUMBER_OF_PROJECTILES];
+
   Mtx playerFOVTranslate;
   Mtx playerFOVRotate;
 } Dynamic;

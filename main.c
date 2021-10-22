@@ -55,6 +55,7 @@ OSTime delta = 0;
 float deltaTimeSeconds;
 
 float ingameFOV;
+u8 flashingProjectiles;
 
 u32 currentLevel;
 
@@ -79,6 +80,7 @@ void initalizeGameData() {
   currentLevel = 0;
 
   ingameFOV = 60.f;
+  flashingProjectiles = 1;
 
   time = OS_CYCLES_TO_USEC(osGetTime());
   updateTime();

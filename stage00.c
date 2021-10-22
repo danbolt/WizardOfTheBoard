@@ -41,6 +41,13 @@ static MonsterUpdateCall updateFunctions[NUMBER_OF_INGAME_ENTITIES];
 static Gfx* renderCommands[NUMBER_OF_INGAME_ENTITIES];
 static Mtx monsterSpecificTransforms[NUMBER_OF_INGAME_ENTITIES];
 
+// TODO: be brave and combine this with the other positions
+#define PROJECTILE_RADIUS 0.037f
+#define PROJECTILE_RADIUS_SQ (PROJECTILE_RADIUS * PROJECTILE_RADIUS)
+static Vec2 projectilePositions[NUMBER_OF_PROJECTILES];
+static u8 projectileActive[NUMBER_OF_PROJECTILES];
+static Vec2 projectileVelocity[NUMBER_OF_PROJECTILES];
+
 // The player is always index zero; the remaining are monsters
 #define playerPosition (positions[0])
 #define playerVelocity (velocities[0])
@@ -116,7 +123,7 @@ void updateToad(int index) {
 #define KNOCKBACK_SPEED 7.5f
 #define KNOCKBACK_TIME 0.216f
 
-#define PLAYER_RADIUS 0.5f
+#define PLAYER_RADIUS 0.25f
 
 #define PUZZLE_GLYPH_ROTATION_SPEED 64.f
 static Pos2 puzzleSpaceSpots[MAX_NUMBER_OF_PUZZLE_SPACES];
@@ -404,6 +411,12 @@ void initMonsterStates() {
     lineOfSightVisible[i] = 0;
     guMtxIdent(&(monsterSpecificTransforms[i]));
   }
+
+  for (int i = 0; i < NUMBER_OF_PROJECTILES; i++) {
+    projectileActive[i] = 0;
+    projectilePositions[i] = (Vec2){ 1.f + i, 4.f };
+    projectileVelocity[i] = (Vec2){ 0.f, 0.8f };
+  }
 }
 
 void initializeMonsters(const MapData* map) {
@@ -675,6 +688,40 @@ void makeDL00(void)
     gSPPopMatrix(glistp++, G_MTX_MODELVIEW);
   }
 
+  // Draw the projectiles
+  for (int i = MONSTER_START_INDEX; i < NUMBER_OF_INGAME_ENTITIES; i++) {
+    if (!(projectileActive[i])) {
+      continue;
+    }
+
+    if (flashingProjectiles) {
+
+      gDPPipeSync(glistp++);
+      if (((u32)(gameplayTimePassed * 3.161f) % 2) == 0) {
+        gDPSetPrimColor(glistp++, 0, 0, 0xf1, 0xf7, 0xab, 0xff);
+      } else {
+        gDPSetPrimColor(glistp++, 0, 0, 0xeb, 0xdb, 0x2d, 0xff);
+      }
+      gDPSetCombineMode(glistp++, G_CC_PRIMITIVE, G_CC_PRIMITIVE);
+    }
+
+
+    guTranslate(&(dynamicp->projectileTranslations[i]), projectilePositions[i].x, projectilePositions[i].y, 0.f);
+    // guRotate(&(dynamicp->projectileRotations[i]), projectileRotations[i] * INV_PI * 180, 0.f, 0.f, 1.f);
+    gSPMatrix(glistp++, OS_K0_TO_PHYSICAL(&(dynamicp->projectileTranslations[i])), G_MTX_MODELVIEW | G_MTX_MUL | G_MTX_PUSH);
+    // gSPMatrix(glistp++, OS_K0_TO_PHYSICAL(&dynamicp->projectileRotations[i]), G_MTX_MODELVIEW | G_MTX_MUL | G_MTX_NOPUSH);
+    gSPMatrix(glistp++, OS_K0_TO_PHYSICAL(&dynamicp->blenderExportScale), G_MTX_MODELVIEW | G_MTX_MUL | G_MTX_NOPUSH);
+
+    gSPDisplayList(glistp++, OS_K0_TO_PHYSICAL(projectile_commands));
+
+    gSPPopMatrix(glistp++, G_MTX_MODELVIEW);
+
+    if (flashingProjectiles) {
+      gDPPipeSync(glistp++);
+      gDPSetCombineMode(glistp++, G_CC_SHADE, G_CC_SHADE);
+    }
+  }
+
 
   // Draw the cursor
   gSPMatrix(glistp++, OS_K0_TO_PHYSICAL(&(dynamicp->cursorTranslate)), G_MTX_MODELVIEW | G_MTX_MUL | G_MTX_PUSH);
@@ -707,6 +754,7 @@ void makeDL00(void)
   // gSPTexture(glistp++, 0xffff, 0xffff, 0, G_TX_RENDERTILE, G_OFF);
   gSPDisplayList(glistp++, OS_K0_TO_PHYSICAL(onscreenChessboardCommands));
   
+  gDPPipeSync(glistp++);
   gDPSetCombineMode(glistp++, G_CC_MODULATEIDECALA_PRIM, G_CC_MODULATEIDECALA_PRIM);
   gDPSetRenderMode(glistp++, G_RM_TEX_EDGE, G_RM_TEX_EDGE2);
   gDPLoadTextureBlock(glistp++, OS_K0_TO_PHYSICAL(hudIconsTexture), G_IM_FMT_IA, G_IM_SIZ_8b, 256, 16, 0, G_TX_NOMIRROR, G_TX_NOMIRROR, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
@@ -1223,6 +1271,37 @@ void updateMonsters() {
   }
 }
 
+void updateProjectiles() {
+  for (int i = 0; i < NUMBER_OF_PROJECTILES; i++) {
+    if (!(projectileActive[i])) {
+      continue;
+    }
+
+    projectilePositions[i].x += projectileVelocity[i].x * deltaTimeSeconds;
+    projectilePositions[i].y += projectileVelocity[i].y * deltaTimeSeconds;
+
+    if ((projectilePositions[i].x < 0) || (projectilePositions[i].x >= BOARD_WIDTH) || (projectilePositions[i].y < 0) || (projectilePositions[i].y >= BOARD_HEIGHT)) {
+      projectileActive[i] = 0;
+      continue;
+    }
+
+    for (int j = 0; j < MAX_NUMBER_OF_INGAME_PIECES; j++) {
+      if (!(piecesActive[j])) {
+        continue;
+      }
+
+      const float distanceSquared = distanceSq(&projectilePositions[i], &(pieceViewPos[j]));
+      if (distanceSquared > MAX(CHESS_PIECE_RADIUS_SQ, PROJECTILE_RADIUS_SQ)) {
+        continue;
+      }
+
+      // If we're here, we've collided with a piece
+      projectileActive[i] = 0;
+      break;
+    }
+  }
+}
+
 void checkCollisionWithMonsters() {
   if (playerHealth <= 0) {
     return;
@@ -1251,6 +1330,27 @@ void checkCollisionWithMonsters() {
     isPlayerKnockingBack = 1;
     playerKnockbackTimeRemaining = KNOCKBACK_TIME;
     playerVelocity = (Vec2){ playerPosition.x - positions[i].x, playerPosition.y - positions[i].y };
+    normalize(&(playerVelocity));
+    playerVelocity.x *= KNOCKBACK_SPEED;
+    playerVelocity.y *= KNOCKBACK_SPEED;
+  }
+
+  // Projectiles
+  for (int i = 0; i < NUMBER_OF_PROJECTILES; i++) {
+    if (!(projectileActive[i])) {
+      continue;
+    }
+
+    const float distanceSquared = distanceSq(&playerPosition, &(projectilePositions[i]));
+    if (distanceSquared > MAX(PROJECTILE_RADIUS_SQ, playerRadiusSquared)) {
+      continue;
+    }
+
+    playerHealth = MAX(playerHealth - 1, 0);
+
+    isPlayerKnockingBack = 1;
+    playerKnockbackTimeRemaining = KNOCKBACK_TIME;
+    playerVelocity = (Vec2){ playerPosition.x - projectilePositions[i].x, playerPosition.y - projectilePositions[i].y };
     normalize(&(playerVelocity));
     playerVelocity.x *= KNOCKBACK_SPEED;
     playerVelocity.y *= KNOCKBACK_SPEED;
@@ -1388,6 +1488,7 @@ void updateGame00(void)
     updateBoardControlInput();
   }
   updateMonsters();
+  updateProjectiles();
 
   updateMovement();
   updateMovingPieces();

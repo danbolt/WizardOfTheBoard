@@ -16,6 +16,8 @@ extern u8 contPattern;		     /* The pattern of the connected controller  */
 // Setting for the ingame FOV
 extern float ingameFOV;
 
+extern u8 flashingProjectiles;
+
 // Frame delta
 extern OSTime time;
 extern OSTime delta;
