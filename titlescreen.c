@@ -47,20 +47,20 @@ static Spot spots[] = {
   { 6.f, { -99.3196f, -120.643f, 67.314f }, { -59.3667f, -69.484f, 123.734f }, "It is a shitty time." },
 
   // "comes down" to view
-  { 6.f, { -59.3667f, -120.643f, 67.314f }, { -59.3667f, -69.484f, 67.314f }, "The harvests are poor, and\n  monsters roam the land." },
+  { 6.f, { -59.3667f, -120.643f, 67.314f }, { -59.3667f, -69.484f, 67.314f }, "The harvests are poor, and\n  monsters roam freely\n   across the land." },
 
-  { 7.5f, { 83.7952f, -115.326f, 37.987f }, { 6.07872f, 11.4772f, -9.87373f }, " Chosen by lot, warriors are\n  trained from birth\n in the mystic artes." },
-  { 6.f, { 178.037f, 36.7114f, 76.2756f }, { 6.07872f, 19.6313f, 21.6789f }, "Studied in cunning,\n            strategy,\n                and swiftness..." },
-  { 6.f, { 76.7275f, 73.2299f, 76.2756f }, { 5.48971f, 23.1654f, 14.9429f }, "...their final trial awaits them\n      when they come of age." },
+  { 6.5f, { 83.7952f, -115.326f, 37.987f }, { 6.07872f, 11.4772f, -9.87373f }, " Chosen by lot, warriors are\n  trained from birth\n     in the mystic artes." },
+  { 6.5f, { 178.037f, 36.7114f, 76.2756f }, { 6.07872f, 19.6313f, 21.6789f }, "A warrior must be learned\n           in cunning,\n                  strategy,\n                   and swiftness..." },
+  { 6.5f, { 76.7275f, 73.2299f, 76.2756f }, { 5.48971f, 23.1654f, 14.9429f }, "...for their final lonesome trial\n        when they come of age." },
 
   // Midpoint
-  { 6.f, { 0.745361f, 44.7062f, 108.537f }, { 0.667588f, 4.2692f, 24.0872f }, "To be a warrior is to\n    scale the Demon's Spire,\n lair of the Shadow Queen." },
+  { 6.f, { 0.745361f, 44.7062f, 108.537f }, { 0.667588f, 4.2692f, 24.0872f }, "To prevail as a warrior is to\n    scale the Demon's Spire,\n     lair of the Shadow Queen." },
 
-  { 6.f, { -103.509f, 22.3239f, 70.2484f }, { -0.489938f, 21.5849f, 22.4681f }, "Many have entered,\n but few ever return." },
-  { 6.f, { -4.55552f, -93.9098f, 44.2122f }, { 1.36965f, 21.797f, 24.2866f }, "To make it to the top of the tower,\n   to succeed in one's task\n     makes them a..." },
+  { 4.f, { -103.509f, 22.3239f, 70.2484f }, { -0.489938f, 21.5849f, 22.4681f }, "Many have entered,\n but few have returned." },
+  { 6.f, { -4.55552f, -93.9098f, 44.2122f }, { 1.36965f, 21.797f, 24.2866f }, "If one prevails over the trial,\n   if one succeeds at their task,\n     they shall be known as a..." },
   { 5.f, { 0.156551f, 7.43251f, 25.1426f }, { 1.36965f, 21.797f, 24.2866f }, "WIZARD OF THE BOARD" },
 
-  { 1.f, { 0.f, -5.f, 0.f }, { 0.f, 11.5f, 26.f }, "test" },
+  { 1.f, { 0.f, -5.f, 0.f }, { 0.f, 11.5f, 26.f }, "" },
 };
 #define NUMBER_OF_SPOTS 9
 
@@ -175,6 +175,10 @@ void makeTitleScreenDL() {
     str = spots[spotIndex].text;
   }
 
+  if (spotIndex >= NUMBER_OF_SPOTS) {
+    str = "WIZARD OF THE BOARD";
+  }
+
   if ((str != NULL) ) {
     int i = 0;
     int xInit = 32;
@@ -198,6 +202,25 @@ void makeTitleScreenDL() {
       i++;
     }
   }
+
+#ifdef LINES_CAPTURE_MARKERS
+  if (spotIndex < (NUMBER_OF_SPOTS) && spotTimePassed) {
+    const float percentage = (spotTimePassed) / (spots[spotIndex].duration);
+
+    gDPPipeSync(glistp++);
+    gDPSetCycleType(glistp++, G_CYC_FILL);
+    gDPSetFillColor(glistp++, GPACK_RGBA5551(0xc0,0,0,1) << 16 | GPACK_RGBA5551(0xc0,0,0,1));
+    gDPFillRectangle(glistp++, 0, SCREEN_HT - 8, SCREEN_WD - 1, SCREEN_HT);
+
+    gDPPipeSync(glistp++);
+    gDPSetFillColor(glistp++, GPACK_RGBA5551(0x5a,0,0,1) << 16 | GPACK_RGBA5551(0x5a,0,0,1));
+    gDPFillRectangle(glistp++, 0, SCREEN_HT - 8,(u32)((SCREEN_WD) * (1.f / spots[spotIndex].duration)), SCREEN_HT);
+
+    gDPPipeSync(glistp++);
+    gDPSetFillColor(glistp++, GPACK_RGBA5551(0,0xc0,0,1) << 16 | GPACK_RGBA5551(0,0xc0,0,1));
+    gDPFillRectangle(glistp++, 0, SCREEN_HT - 8, (u32)((SCREEN_WD) * percentage), SCREEN_HT);
+  }
+#endif
 
 
   gDPFullSync(glistp++);
@@ -233,7 +256,7 @@ void updateTitleScreen() {
 
   timePassed += deltaTimeSeconds;
 
-  if (spotIndex < (NUMBER_OF_SPOTS - 1)) {
+  if (spotIndex < (NUMBER_OF_SPOTS)) {
     spotTimePassed += deltaTimeSeconds;
 
     if (spotTimePassed > spots[spotIndex].duration) {
