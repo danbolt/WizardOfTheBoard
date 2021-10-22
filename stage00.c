@@ -549,7 +549,7 @@ void initStage00(void)
 
   playerPosition = (Vec2){ mapInformation.playerX + 0.5f, mapInformation.playerY + 0.5f };
   playerVelocity = (Vec2){ 0.f, 0.f };
-  playerOrientation = mapInformation.playerRotation / 256.f * M_PI * 2.f;
+  playerOrientation = wrapMP(mapInformation.playerRotation / 256.f * M_PI * 2.f);
   isPlayerKnockingBack = 0;
   playerKnockbackTimeRemaining = 0.f;
   playerRadiusSquared = PLAYER_RADIUS * PLAYER_RADIUS;

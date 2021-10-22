@@ -28,6 +28,8 @@ float lerp(float a, float b, float f);
 // https://stackoverflow.com/questions/20825951/fastest-way-to-interpolate-between-radians
 float lerpAngle(float u, float v, float p);
 
+float wrapMP(float f);
+
 float clamp(float x, float min, float max);
 
 float distanceSq(const Vec2* a, const Vec2* b);
