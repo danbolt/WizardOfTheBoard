@@ -5,12 +5,19 @@
 extern u8 _codeSegmentStart[];         /* code segment start */
 extern u8 _codeSegmentBssEnd[];           /* code segment end */
 
+// BGM
 extern u8 _seqSegmentRomStart[];
 extern u8 _seqSegmentRomEnd[];
 extern u8 _midibankSegmentRomStart[];
 extern u8 _midibankSegmentRomEnd[];
 extern u8 _miditableSegmentRomStart[];
 extern u8 _miditableSegmentRomEnd[];
+
+// SFX
+extern u8 _sfxbankSegmentRomStart[];
+extern u8 _sfxbankSegmentRomEnd[];
+extern u8 _sfxtableSegmentRomStart[];
+extern u8 _sfxtableSegmentRomEnd[];
 
 // Sprites
 extern u8 _hud_iconsSegmentRomStart[];

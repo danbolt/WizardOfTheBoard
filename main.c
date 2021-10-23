@@ -92,6 +92,8 @@ void setAudioData(void)
 {
   nuAuSeqPlayerBankSet(_midibankSegmentRomStart, _midibankSegmentRomEnd - _midibankSegmentRomStart, _miditableSegmentRomStart);
   nuAuSeqPlayerSeqSet(_seqSegmentRomStart);
+
+  nuAuSndPlayerBankSet(_sfxbankSegmentRomStart, _sfxbankSegmentRomEnd - _sfxbankSegmentRomStart, _sfxtableSegmentRomStart);
 }
 
 void tickCurrentStage(int pendingGfx) {

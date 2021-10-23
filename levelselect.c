@@ -7,6 +7,13 @@
 #include "graphic.h"
 #include "segmentinfo.h"
 #include "stagekeys.h"
+#include "audio/sfx/sfx.h"
+
+#ifdef N_AUDIO
+#include <nualsgi_n.h>
+#else
+#include <nualsgi.h>
+#endif
 
 static u8 backgroundTexture[TMEM_SIZE_BYTES] __attribute__((aligned(8)));
 
@@ -120,6 +127,8 @@ void updateLevelSelect() {
   if (downPressed) {
     currentlySelectedLevel = (currentlySelectedLevel + 1) % NUMBER_OF_LEVELS;
     downPressed = 1;
+
+    nuAuSndPlayerPlay(SFX_02_NOBODY_BIP);
   }
 
   if (contdata[0].trigger & A_BUTTON) {

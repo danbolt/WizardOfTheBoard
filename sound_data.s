@@ -16,3 +16,13 @@ glabel _seqSegmentRomStart
 .incbin "audio/bgm/sequence/sequences.sbk"
 .balign 16
 glabel _seqSegmentRomEnd
+
+glabel _sfxbankSegmentRomStart
+.incbin "audio/sfx/sfx.ctl"
+.balign 16
+glabel _sfxbankSegmentRomEnd
+
+glabel _sfxtableSegmentRomStart
+.incbin "audio/sfx/sfx.tbl"
+.balign 16
+glabel _sfxtableSegmentRomEnd
