@@ -32,6 +32,7 @@ extern u8 _packedbackgroundsSegmentRomStart[];
 // Dialogue
 extern u8 _dialogue_dataSegmentRomStart[];
 extern u8 _cast_sprite_dataSegmentRomStart[];
+extern u8 _dialogue_backing_dataSegmentRomStart[];
 
 // Maps
 extern u8 _map_dataSegmentRomStart[];

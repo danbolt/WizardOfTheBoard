@@ -97,6 +97,12 @@ SECTIONS
    }
    END_SEG(hud_icons)
 
+   BEGIN_SEG(dialogue_backing, __romPos)
+   {
+      sprites/dialogue_backing.bino(.data);
+   }
+   END_SEG(dialogue_backing)
+
    BEGIN_SEG(opening_environment, __romPos)
    {
       sprites/idea.bino(.data);
