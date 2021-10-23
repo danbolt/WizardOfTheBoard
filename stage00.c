@@ -40,6 +40,7 @@ static u8 lineOfSightVisible[NUMBER_OF_INGAME_ENTITIES];
 static MonsterUpdateCall updateFunctions[NUMBER_OF_INGAME_ENTITIES];
 static Gfx* renderCommands[NUMBER_OF_INGAME_ENTITIES];
 static Mtx monsterSpecificTransforms[NUMBER_OF_INGAME_ENTITIES];
+static u32 monsterState[NUMBER_OF_INGAME_ENTITIES][2];
 
 // TODO: be brave and combine this with the other positions
 #define PROJECTILE_RADIUS 0.037f
@@ -126,6 +127,9 @@ void updateToad(int index) {
   }
 }
 
+#define SNAKE_FIRE_RATE 0.8f
+#define SNAKE_SHOT_SPEED 2.f
+#define SNAKE_TURN_SPEED 1.714f
 void updateSnake(int index) {
   if (isKnockingBackStates[index]) {
     return;
@@ -135,13 +139,18 @@ void updateSnake(int index) {
     return;
   }
 
+  float* snakeTimePassed = (float*)(monsterState[index]);
+  *snakeTimePassed += deltaTimeSeconds;
+
   // Having the snake move is very fun but also terrifying
   Vec2 directionToPlayer = { playerPosition.x - positions[index].x, playerPosition.y - positions[index].y };
   normalize(&(directionToPlayer));
-  orientations[index] = lerpAngle(orientations[index], nu_atan2(directionToPlayer.y, directionToPlayer.x) + M_PI_2, 0.8f * deltaTimeSeconds);
+  orientations[index] = lerpAngle(orientations[index], nu_atan2(directionToPlayer.y, directionToPlayer.x) + M_PI_2, SNAKE_TURN_SPEED * deltaTimeSeconds);
 
-  if (contdata[0].trigger & A_BUTTON) {
-    tryToSpawnAProjectile(&(positions[index]), &directionToPlayer);
+  if ((*snakeTimePassed) > SNAKE_FIRE_RATE) {
+    (*snakeTimePassed) = 0.f;
+    const Vec2 firingDirection = (Vec2){ cosf(orientations[index] - M_PI_2) * SNAKE_SHOT_SPEED, sinf(orientations[index] - M_PI_2) * SNAKE_SHOT_SPEED};
+    tryToSpawnAProjectile(&(positions[index]), &firingDirection);
   }
 }
 
@@ -445,6 +454,8 @@ void initMonsterStates() {
     knockbackTimesRemaining[i] = 0.f;
     lineOfSightVisible[i] = 0;
     guMtxIdent(&(monsterSpecificTransforms[i]));
+    monsterState[i][0] = 0;
+    monsterState[i][1] = 0;
   }
 
   for (int i = 0; i < NUMBER_OF_PROJECTILES; i++) {
@@ -480,6 +491,9 @@ void initializeMonsters(const MapData* map) {
       updateFunctions[i + 1] = updateSnake;
       renderCommands[i + 1] = snake_commands;
       health[i + 1] = 2;
+
+      // Fuzz the firing rate based off index
+      *((float*)(monsterState[i + 1])) = (float)(i * 0.2f);
     }
   }
 
