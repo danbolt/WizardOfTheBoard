@@ -9,9 +9,7 @@ for i in compressed/*.aifc; do
   durationInSeconds=$(sox original/${name}.wav -n stat 2>&1 | sed -n 's#^Length (seconds):[^0-9]*\([0-9.]*\)$#\1#p')
   durationMicroseconds=$(echo "($durationInSeconds * 1000000)/1" | bc)
 
-  echo ""
-
-  echo "envelope ${name}_env"
+  echo "envelope FX_${name}_env"
   echo "{"
   echo "    attackTime    = 0;"
   echo "    attackVolume  = 100;"
@@ -23,7 +21,7 @@ for i in compressed/*.aifc; do
 
   sounds+=(${name})
 
-  echo "keymap ${name}_keymap"
+  echo "keymap FX_${name}_keymap"
   echo "{"
   echo "    velocityMin = 0;"
   echo "    velocityMax = 127;"
@@ -35,15 +33,15 @@ for i in compressed/*.aifc; do
 
   echo ""
 
-  echo "sound ${name}Sound"
+  echo "sound FX_${name}Sound"
   echo "{"
   echo "    use (\"compressed/${name}.aifc\");"
   echo "    "
 
   echo "    pan    = 64;"
   echo "    volume = 127;"
-  echo "    keymap = ${name}_keymap;"
-  echo "    envelope = ${name}_env;"
+  echo "    keymap = FX_${name}_keymap;"
+  echo "    envelope = FX_${name}_env;"
   echo "}"
 
   count=$((count+1))
@@ -59,7 +57,7 @@ echo "    "
 
 for var in "${sounds[@]}"
 do
-  echo "    sound = ${var}Sound;"
+  echo "    sound = FX_${var}Sound;"
   # do something on $var
 done
 
