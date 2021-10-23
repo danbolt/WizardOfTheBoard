@@ -185,6 +185,13 @@ static float cursorRotation;
 static u8 gameState;
 static float gameStateTime;
 
+#define TRANSITION_DURATION 1.7f
+#define NOT_TRANSITIONING 0
+#define TRANSITIONING_IN 1
+#define TRANSITIONING_OUT 2
+static u8 transitioningState;
+static float transitionTime;
+
 static float playerHealthDisplay;
 
 static float cosCameraRot;
@@ -595,6 +602,9 @@ void initStage00(void)
   isStagePaused = 0;
   gameplayTimePassed = 0.f;
 
+  transitioningState = TRANSITIONING_IN;
+  transitionTime = 0.f;
+
   gameState = GAME_STATE_ACTIVE;
   gameStateTime = 0.f;
 
@@ -622,10 +632,6 @@ void initStage00(void)
 
   cosCameraRot = cosf(playerOrientation);
   sinCameraRot = sinf(playerOrientation);
-
-  if (mapInformation.startLevelDialogue[0] != '\0') {
-    startDialogue(mapInformation.startLevelDialogue);
-  }
 
   playerHealth = PLAYER_MAX_HEALTH;
   playerHealthDisplay = 0.f;
@@ -957,6 +963,18 @@ void makeDL00(void)
   }
 
   renderDialogueToDisplayList();
+
+  if (transitioningState != NOT_TRANSITIONING) {
+    gDPPipeSync(glistp++);
+    gDPSetCycleType(glistp++, G_CYC_FILL);
+    gDPSetFillColor(glistp++, GPACK_RGBA5551(0,0,0,1) << 16 | GPACK_RGBA5551(0,0,0,1));
+
+    if (transitioningState == TRANSITIONING_IN) {
+      gDPFillRectangle(glistp++, 0, 0, SCREEN_WD, (int)(SCREEN_HT * (1.f - (transitionTime / TRANSITION_DURATION))));
+    } else if (transitioningState == TRANSITIONING_OUT) {
+      gDPFillRectangle(glistp++, 0, 0, SCREEN_WD, (int)(SCREEN_HT * ((transitionTime / TRANSITION_DURATION))));
+    }
+  }
 
   gDPFullSync(glistp++);
   gSPEndDisplayList(glistp++);
@@ -1496,8 +1514,8 @@ void updateTransition() {
   gameStateTime += deltaTimeSeconds;
 
   if (gameStateTime > FADE_OUT_TIME) {
-    nextStage = &levelSelectStage;
-    changeScreensFlag = 1;
+    transitioningState = TRANSITIONING_OUT;
+    transitionTime = 0.f;
     return;
   }
 }
@@ -1531,6 +1549,24 @@ void updateGame00(void)
   }
 
   gameplayTimePassed += deltaTimeSeconds;
+
+  if (transitioningState != NOT_TRANSITIONING) {
+    transitionTime += deltaTimeSeconds;
+
+    if (transitionTime > TRANSITION_DURATION) {
+      if ((transitioningState == TRANSITIONING_IN) && (mapInformation.startLevelDialogue[0] != '\0')) {
+        startDialogue(mapInformation.startLevelDialogue);
+      } else if (transitioningState == TRANSITIONING_OUT) {
+        nextStage = &levelSelectStage;
+        changeScreensFlag = 1;
+      }
+
+
+      transitionTime = TRANSITION_DURATION;
+      transitioningState = NOT_TRANSITIONING;
+    }
+    return;
+  }
   
   if (gameState == GAME_STATE_ACTIVE) {
     updatePausedState();
