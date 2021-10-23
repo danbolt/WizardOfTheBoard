@@ -20,5 +20,6 @@
 
 #define MONSTER_TYPE_OGRE 0
 #define MONSTER_TYPE_TOAD 1
+#define MONSTER_TYPE_SNAKE 2
 
 #endif

@@ -7,7 +7,7 @@ typedef struct {
 } LevelEntry;
 
 // TODO: maybe we could try some preprocessor trickery to automate this?
-#define NUMBER_OF_LEVELS 3
+#define NUMBER_OF_LEVELS 4
 extern LevelEntry levels[];
 
 #endif

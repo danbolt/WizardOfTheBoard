@@ -441,6 +441,10 @@ void initializeMonsters(const MapData* map) {
       velocities[i + 1].x = TOAD_WALK_SPEED;
       orientations[i + 1] = M_PI_2;
       health[i + 1] = 1;
+    } else if (type == MONSTER_TYPE_SNAKE) {
+      updateFunctions[i + 1] = updateOgre;
+      renderCommands[i + 1] = snake_commands;
+      health[i + 1] = 2;
     }
   }
 

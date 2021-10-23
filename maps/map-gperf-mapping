@@ -7,4 +7,5 @@ struct dialogueMappingData;
 %%
 bishops,0
 other_test_map,168
-test_map,336
+snake,336
+test_map,504

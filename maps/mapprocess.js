@@ -22,6 +22,9 @@ const MONSTER_TYPE_OGRE = 0;
 const MONSTER_EDITOR_NAME_TOAD = 'toad';
 const MONSTER_TYPE_TOAD = 1;
 
+const MONSTER_EDITOR_NAME_SNAKE = 'snake';
+const MONSTER_TYPE_SNAKE = 2;
+
 const BOARD_WIDTH = 8;
 const BOARD_HEIGHT = 8;
 
@@ -106,7 +109,14 @@ const processMap = (mapJSON, i) => {
           result.monsterY[monsterCount] = BOARD_HEIGHT - 1 - ~~(object.y / EDITOR_TILE_SIZE);
 
           monsterCount++;
-        }  else if (object.type === 'player') {
+        } else if (object.type === MONSTER_EDITOR_NAME_SNAKE || object.name === MONSTER_EDITOR_NAME_SNAKE) {
+          result.activeMonsters[monsterCount] = 1;
+          result.monsterType[monsterCount] = MONSTER_TYPE_SNAKE;
+          result.monsterX[monsterCount] = ~~(object.x / EDITOR_TILE_SIZE);
+          result.monsterY[monsterCount] = BOARD_HEIGHT - 1 - ~~(object.y / EDITOR_TILE_SIZE);
+
+          monsterCount++;
+        } else if (object.type === 'player') {
           result.playerX = ~~(object.x / EDITOR_TILE_SIZE);
           result.playerY = BOARD_HEIGHT - 1 - ~~(object.y / EDITOR_TILE_SIZE);
           result.playerRotation = ~~(object.rotation / 360 * 256) % 256;
