@@ -1,0 +1,135 @@
+
+envelope 01_laser1_env
+{
+    attackTime    = 0;
+    attackVolume  = 100;
+    decayTime   = 1224898;
+    decayVolume   = 90;
+    releaseTime   = 0;
+    
+}
+keymap 01_laser1_keymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin      = 10;
+    keyMax      = 10;
+    keyBase     = 10;
+    detune      = 0;
+}
+
+sound 01_laser1Sound
+{
+    use ("compressed/01_laser1.aifc");
+    
+    pan    = 64;
+    volume = 127;
+    keymap = 01_laser1_keymap;
+    envelope = 01_laser1_env;
+}
+
+envelope 02_nobody_bip_env
+{
+    attackTime    = 0;
+    attackVolume  = 100;
+    decayTime   = 35351;
+    decayVolume   = 90;
+    releaseTime   = 0;
+    
+}
+keymap 02_nobody_bip_keymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin      = 11;
+    keyMax      = 11;
+    keyBase     = 11;
+    detune      = 0;
+}
+
+sound 02_nobody_bipSound
+{
+    use ("compressed/02_nobody_bip.aifc");
+    
+    pan    = 64;
+    volume = 127;
+    keymap = 02_nobody_bip_keymap;
+    envelope = 02_nobody_bip_env;
+}
+
+envelope 03_protag_bip_env
+{
+    attackTime    = 0;
+    attackVolume  = 100;
+    decayTime   = 117642;
+    decayVolume   = 90;
+    releaseTime   = 0;
+    
+}
+keymap 03_protag_bip_keymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin      = 12;
+    keyMax      = 12;
+    keyBase     = 12;
+    detune      = 0;
+}
+
+sound 03_protag_bipSound
+{
+    use ("compressed/03_protag_bip.aifc");
+    
+    pan    = 64;
+    volume = 127;
+    keymap = 03_protag_bip_keymap;
+    envelope = 03_protag_bip_env;
+}
+
+envelope 04_zoom_in_env
+{
+    attackTime    = 0;
+    attackVolume  = 100;
+    decayTime   = 283039;
+    decayVolume   = 90;
+    releaseTime   = 0;
+    
+}
+keymap 04_zoom_in_keymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin      = 13;
+    keyMax      = 13;
+    keyBase     = 13;
+    detune      = 0;
+}
+
+sound 04_zoom_inSound
+{
+    use ("compressed/04_zoom_in.aifc");
+    
+    pan    = 64;
+    volume = 127;
+    keymap = 04_zoom_in_keymap;
+    envelope = 04_zoom_in_env;
+}
+
+instrument sfx
+{
+    volume = 127;
+    pan    = 64;
+    
+    sound = 01_laser1Sound;
+    sound = 02_nobody_bipSound;
+    sound = 03_protag_bipSound;
+    sound = 04_zoom_inSound;
+}
+
+bank sfxbank
+{
+    sampleRate = 32000;
+    
+    instrument [0] = sfx;
+}
+
