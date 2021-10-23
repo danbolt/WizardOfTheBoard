@@ -18,7 +18,7 @@ static float bipTimePassed;
 
 static int dialogueBoxY;
 
-#define BIP_TIME_SECONDS 0.06f
+#define BIP_TIME_SECONDS 0.03f
 
 #define STRUCT_FLAG_SHOW_BG_1 1
 #define STRUCT_FLAG_SHOW_BG_2 2
@@ -206,7 +206,7 @@ void renderDialogueToDisplayList() {
     drawString(TITLE_SAFE_HORIZONTAL + 32 + 8, dialogueBoxY, currentDialogueItem->text, (SCREEN_WD - (TITLE_SAFE_HORIZONTAL * 2) - (32 + 8)));
 
 
-    gDPLoadTextureBlock(glistp++, OS_K0_TO_PHYSICAL(currentPortrait + (((bipIndex % 2 == 0) && (currentDialogueItem->text[bipIndex] != '\0')) ? 0 : TMEM_SIZE_BYTES)), G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 64, 0, G_TX_MIRROR | G_TX_WRAP, G_TX_MIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
+    gDPLoadTextureBlock(glistp++, OS_K0_TO_PHYSICAL(currentPortrait + ((((bipIndex >> 1) % 2 == 0) && (currentDialogueItem->text[bipIndex] != '\0')) ? 0 : TMEM_SIZE_BYTES)), G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 64, 0, G_TX_MIRROR | G_TX_WRAP, G_TX_MIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
     gDPSetCombineMode(glistp++, G_CC_DECALRGBA, G_CC_DECALRGBA);
     gSPTextureRectangle(glistp++, (TITLE_SAFE_HORIZONTAL + 4) << 2, dialogueBoxY << 2, ((TITLE_SAFE_HORIZONTAL + 4) + 32) << 2, (dialogueBoxY + 64) << 2, 0, 0 << 5, 0 << 5, 1 << 10, 1 << 10);
   } else {
