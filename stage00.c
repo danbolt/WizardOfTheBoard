@@ -110,6 +110,21 @@ void updateToad(int index) {
   }
 }
 
+void updateSnake(int index) {
+  if (isKnockingBackStates[index]) {
+    return;
+  }
+
+  if (!(lineOfSightVisible[index])) {
+    return;
+  }
+
+  // Having the snake move is very fun but also terrifying
+  Vec2 directionToPlayer = { playerPosition.x - positions[index].x, playerPosition.y - positions[index].y };
+  normalize(&(directionToPlayer));
+  orientations[index] = lerpAngle(orientations[index], nu_atan2(directionToPlayer.y, directionToPlayer.x) + M_PI_2, 0.8f * deltaTimeSeconds);
+}
+
 #define PLAYER_HEIGHT_ABOVE_GROUND 0.26f
 #define PLAYER_WALK_SPEED 3.f
 #define PLAYER_TURN_SPEED 3.f
@@ -442,7 +457,7 @@ void initializeMonsters(const MapData* map) {
       orientations[i + 1] = M_PI_2;
       health[i + 1] = 1;
     } else if (type == MONSTER_TYPE_SNAKE) {
-      updateFunctions[i + 1] = updateOgre;
+      updateFunctions[i + 1] = updateSnake;
       renderCommands[i + 1] = snake_commands;
       health[i + 1] = 2;
     }
