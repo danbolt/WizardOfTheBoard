@@ -9,3 +9,5 @@ demon,0
 protag,8192
 test,16384
 zatt_neutral,24576
+zatt_sad,32768
+zatt_yelling,40960
