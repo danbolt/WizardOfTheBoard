@@ -18,7 +18,7 @@ static float bipTimePassed;
 
 static int dialogueBoxY;
 
-#define BIP_TIME_SECONDS 0.1f
+#define BIP_TIME_SECONDS 0.06f
 
 #define STRUCT_FLAG_SHOW_BG_1 1
 #define STRUCT_FLAG_SHOW_BG_2 2
