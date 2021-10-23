@@ -203,23 +203,22 @@ void renderDialogueToDisplayList() {
   // gDPPipeSync(glistp++);
   // gDPSetCycleType(glistp++, G_CYC_1CYCLE);
 
-  // TODO: make this a better pattern
   gDPPipeSync(glistp++);
   gDPLoadTextureBlock(glistp++, OS_K0_TO_PHYSICAL(dialogueBackingBuffer), G_IM_FMT_I, G_IM_SIZ_8b, 64, 64, 0, G_TX_NOMIRROR, G_TX_NOMIRROR, 6, 6, G_TX_NOLOD, G_TX_NOLOD);
-  gSPTextureRectangle(glistp++, (TITLE_SAFE_HORIZONTAL) << 2, (dialogueBoxY - 4) << 2, (SCREEN_WD - TITLE_SAFE_HORIZONTAL) << 2, (dialogueBoxY + 64) << 2, 0, 0 << 5, 0 << 5, 1 << 10, 1 << 10);
+  gSPTextureRectangle(glistp++, (TITLE_SAFE_HORIZONTAL + 10) << 2, (dialogueBoxY - 4) << 2, (TITLE_SAFE_HORIZONTAL + 256 + 10) << 2, (dialogueBoxY + 64 + 4) << 2, 0, 0 << 5, 0 << 5, (0 << 10) | (2 << 7), (0 << 10) | (7 << 7));
 
 
   gDPPipeSync(glistp++);
   gDPLoadTextureBlock_4b(glistp++, sixtwelve_tex, G_IM_FMT_IA, SIXTWELVE_TEXTURE_WIDTH, SIXTWELVE_TEXTURE_HEIGHT, 0, G_TX_MIRROR | G_TX_WRAP, G_TX_MIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
   if (currentPortrait != NULL) {
-    drawString(TITLE_SAFE_HORIZONTAL + 32 + 8, dialogueBoxY, currentDialogueItem->text, (SCREEN_WD - (TITLE_SAFE_HORIZONTAL * 2) - (32 + 8)));
+    drawString(TITLE_SAFE_HORIZONTAL + 32 + 10 + 10, dialogueBoxY, currentDialogueItem->text, 256 - 32 - 6);
 
 
     gDPLoadTextureBlock(glistp++, OS_K0_TO_PHYSICAL(currentPortrait + ((((bipIndex >> 1) % 2 == 0) && (currentDialogueItem->text[bipIndex] != '\0')) ? 0 : TMEM_SIZE_BYTES)), G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 64, 0, G_TX_MIRROR | G_TX_WRAP, G_TX_MIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
     gDPSetCombineMode(glistp++, G_CC_DECALRGBA, G_CC_DECALRGBA);
-    gSPTextureRectangle(glistp++, (TITLE_SAFE_HORIZONTAL + 4) << 2, dialogueBoxY << 2, ((TITLE_SAFE_HORIZONTAL + 4) + 32) << 2, (dialogueBoxY + 64) << 2, 0, 0 << 5, 0 << 5, 1 << 10, 1 << 10);
+    gSPTextureRectangle(glistp++, (TITLE_SAFE_HORIZONTAL + 6 + 10) << 2, dialogueBoxY << 2, ((TITLE_SAFE_HORIZONTAL + 4 + 10) + 32) << 2, (dialogueBoxY + 64) << 2, 0, 0 << 5, 0 << 5, 1 << 10, 1 << 10);
   } else {
-    drawString(TITLE_SAFE_HORIZONTAL, dialogueBoxY, currentDialogueItem->text, (SCREEN_WD - (TITLE_SAFE_HORIZONTAL * 2)));
+    drawString(TITLE_SAFE_HORIZONTAL + 10, dialogueBoxY, currentDialogueItem->text, 256);
   }
 
 }
