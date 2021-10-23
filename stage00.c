@@ -57,6 +57,22 @@ static Vec2 projectileVelocity[NUMBER_OF_PROJECTILES];
 #define playerKnockbackTimeRemaining (knockbackTimesRemaining[0])
 #define playerRadiusSquared (radiiSquared[0])
 
+// Returns the index if successful, returns -1 if not
+int tryToSpawnAProjectile(const Vec2* position, const Vec2* velocity) {
+  for (int i = 0; i < NUMBER_OF_PROJECTILES; i++) {
+    if (projectileActive[i]) {
+      continue;
+    }
+
+    projectileActive[i] = 1;
+    projectilePositions[i] = *position;
+    projectileVelocity[i] = *velocity;
+    return i;
+  }
+
+  return -1;
+}
+
 #define OGRE_WALK_SPEED 0.5f
 void updateOgre(int index) {
   if (isKnockingBackStates[index]) {
@@ -123,6 +139,10 @@ void updateSnake(int index) {
   Vec2 directionToPlayer = { playerPosition.x - positions[index].x, playerPosition.y - positions[index].y };
   normalize(&(directionToPlayer));
   orientations[index] = lerpAngle(orientations[index], nu_atan2(directionToPlayer.y, directionToPlayer.x) + M_PI_2, 0.8f * deltaTimeSeconds);
+
+  if (contdata[0].trigger & A_BUTTON) {
+    tryToSpawnAProjectile(&(positions[index]), &directionToPlayer);
+  }
 }
 
 #define PLAYER_HEIGHT_ABOVE_GROUND 0.26f
@@ -708,7 +728,7 @@ void makeDL00(void)
   }
 
   // Draw the projectiles
-  for (int i = MONSTER_START_INDEX; i < NUMBER_OF_INGAME_ENTITIES; i++) {
+  for (int i = 0; i < NUMBER_OF_PROJECTILES; i++) {
     if (!(projectileActive[i])) {
       continue;
     }
@@ -1373,6 +1393,7 @@ void checkCollisionWithMonsters() {
     normalize(&(playerVelocity));
     playerVelocity.x *= KNOCKBACK_SPEED;
     playerVelocity.y *= KNOCKBACK_SPEED;
+    projectileActive[i] = 0;
   }
 }
 
