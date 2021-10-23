@@ -39,6 +39,8 @@ static u8* currentPortrait;
 static int nextDialogueItemIndex;
 static DialogueItem* currentDialogueItem;
 
+static u8 dialogueBackingBuffer[TMEM_SIZE_BYTES] __attribute__((aligned(8)));
+
 // TODO: add a "simple string" drawing function as well
 
 void drawString(int x, int y, const unsigned char* str, int maxWordWrapWidth) {
@@ -91,6 +93,8 @@ void initalizeDialogue() {
   nextDialogueItemIndex = 0;
   currentDialogueItem = NULL;
   currentPortrait = NULL;
+
+  nuPiReadRom((u32)(_dialogue_backingSegmentRomStart), (void*)(dialogueBackingBuffer), TMEM_SIZE_BYTES);
 }
 
 void startDialogueItem(u32 offset) {
@@ -192,12 +196,17 @@ void renderDialogueToDisplayList() {
   if (dialogueState == DIALOGUE_STATE_OFF) {
     return;
   }
+  // gDPPipeSync(glistp++);
+  // gDPSetCycleType(glistp++, G_CYC_FILL);
+  // gDPSetFillColor(glistp++, GPACK_RGBA5551(0,0,0,1) << 16 | GPACK_RGBA5551(0,0,0,1));
+  // gDPFillRectangle(glistp++, TITLE_SAFE_HORIZONTAL, dialogueBoxY - 4, (SCREEN_WD - TITLE_SAFE_HORIZONTAL), dialogueBoxY + (64) + 4);
+  // gDPPipeSync(glistp++);
+  // gDPSetCycleType(glistp++, G_CYC_1CYCLE);
+
+  // TODO: make this a better pattern
   gDPPipeSync(glistp++);
-  gDPSetCycleType(glistp++, G_CYC_FILL);
-  gDPSetFillColor(glistp++, GPACK_RGBA5551(0,0,0,1) << 16 | GPACK_RGBA5551(0,0,0,1));
-  gDPFillRectangle(glistp++, TITLE_SAFE_HORIZONTAL, dialogueBoxY - 4, (SCREEN_WD - TITLE_SAFE_HORIZONTAL), dialogueBoxY + (64) + 4);
-  gDPPipeSync(glistp++);
-  gDPSetCycleType(glistp++, G_CYC_1CYCLE);
+  gDPLoadTextureBlock(glistp++, OS_K0_TO_PHYSICAL(dialogueBackingBuffer), G_IM_FMT_I, G_IM_SIZ_8b, 64, 64, 0, G_TX_NOMIRROR, G_TX_NOMIRROR, 6, 6, G_TX_NOLOD, G_TX_NOLOD);
+  gSPTextureRectangle(glistp++, (TITLE_SAFE_HORIZONTAL) << 2, (dialogueBoxY - 4) << 2, (SCREEN_WD - TITLE_SAFE_HORIZONTAL) << 2, (dialogueBoxY + 64) << 2, 0, 0 << 5, 0 << 5, 1 << 10, 1 << 10);
 
 
   gDPPipeSync(glistp++);
