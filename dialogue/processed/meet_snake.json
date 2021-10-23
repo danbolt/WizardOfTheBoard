@@ -1,0 +1,37 @@
+[
+    {
+        "text": "So far, so good. I haven't died yet! ",
+        "speaker": "zatt_neutral",
+        "flags": []
+    },
+    {
+        "text": "Everyone said I wouldn't make it this far... ",
+        "speaker": "zatt_sad",
+        "flags": []
+    },
+    {
+        "text": "...but I'll show them! ",
+        "speaker": "zatt_yelling",
+        "flags": []
+    },
+    {
+        "text": "I have doubts about that. ",
+        "speaker": "snake",
+        "flags": []
+    },
+    {
+        "text": "Ahhh! Who's there?!? ",
+        "speaker": "zatt_yelling",
+        "flags": []
+    },
+    {
+        "text": "I'm here, and I can smell your blood little human. ",
+        "speaker": "snake",
+        "flags": []
+    },
+    {
+        "text": "Time to die. ",
+        "speaker": "snake",
+        "flags": []
+    }
+]

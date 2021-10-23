@@ -37,7 +37,7 @@
 #line 6 "map-gperf-mapping"
 struct dialogueMappingData;
 
-#define TOTAL_KEYWORDS 4
+#define TOTAL_KEYWORDS 5
 #define MIN_WORD_LENGTH 4
 #define MAX_WORD_LENGTH 10
 #define MIN_HASH_VALUE 0
@@ -67,7 +67,7 @@ hash (register const char *str, register size_t len)
       8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
       8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
       8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
-      8, 8, 8, 8, 8, 7, 8, 8, 2, 8,
+      8, 8, 8, 8, 8, 4, 8, 8, 7, 2,
       8, 8, 5, 8, 8, 8, 8, 0, 8, 8,
       8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
       8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
@@ -92,17 +92,19 @@ getDialogueDataOffset (register const char *str, register size_t len)
 {
   static struct dialogueMappingData wordlist[] =
     {
-#line 11 "map-gperf-mapping"
-      {"uhhh",1848},
+#line 12 "map-gperf-mapping"
+      {"uhhh",4004},
       {""},
-#line 9 "map-gperf-mapping"
-      {"longpiece",616},
-      {""}, {""},
 #line 10 "map-gperf-mapping"
-      {"powpowpow",1232},
+      {"meet_snake",1232},
       {""},
 #line 8 "map-gperf-mapping"
-      {"individual",0}
+      {"individual",0},
+#line 11 "map-gperf-mapping"
+      {"powpowpow",3388},
+      {""},
+#line 9 "map-gperf-mapping"
+      {"longpiece",616}
     };
 
   if (len <= MAX_WORD_LENGTH && len >= MIN_WORD_LENGTH)
