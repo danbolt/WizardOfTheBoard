@@ -26,90 +26,6 @@ sound FX_01_laser1Sound
     keymap = FX_01_laser1_keymap;
     envelope = FX_01_laser1_env;
 }
-envelope FX_02_nobody_bip_env
-{
-    attackTime    = 0;
-    attackVolume  = 100;
-    decayTime   = 35351;
-    decayVolume   = 90;
-    releaseTime   = 0;
-    
-}
-keymap FX_02_nobody_bip_keymap
-{
-    velocityMin = 0;
-    velocityMax = 127;
-    keyMin      = 11;
-    keyMax      = 11;
-    keyBase     = 11;
-    detune      = 0;
-}
-
-sound FX_02_nobody_bipSound
-{
-    use ("compressed/02_nobody_bip.aifc");
-    
-    pan    = 64;
-    volume = 127;
-    keymap = FX_02_nobody_bip_keymap;
-    envelope = FX_02_nobody_bip_env;
-}
-envelope FX_03_protag_bip_env
-{
-    attackTime    = 0;
-    attackVolume  = 100;
-    decayTime   = 117642;
-    decayVolume   = 90;
-    releaseTime   = 0;
-    
-}
-keymap FX_03_protag_bip_keymap
-{
-    velocityMin = 0;
-    velocityMax = 127;
-    keyMin      = 12;
-    keyMax      = 12;
-    keyBase     = 12;
-    detune      = 0;
-}
-
-sound FX_03_protag_bipSound
-{
-    use ("compressed/03_protag_bip.aifc");
-    
-    pan    = 64;
-    volume = 127;
-    keymap = FX_03_protag_bip_keymap;
-    envelope = FX_03_protag_bip_env;
-}
-envelope FX_04_zoom_in_env
-{
-    attackTime    = 0;
-    attackVolume  = 100;
-    decayTime   = 283039;
-    decayVolume   = 90;
-    releaseTime   = 0;
-    
-}
-keymap FX_04_zoom_in_keymap
-{
-    velocityMin = 0;
-    velocityMax = 127;
-    keyMin      = 13;
-    keyMax      = 13;
-    keyBase     = 13;
-    detune      = 0;
-}
-
-sound FX_04_zoom_inSound
-{
-    use ("compressed/04_zoom_in.aifc");
-    
-    pan    = 64;
-    volume = 127;
-    keymap = FX_04_zoom_in_keymap;
-    envelope = FX_04_zoom_in_env;
-}
 
 instrument sfx
 {
@@ -117,9 +33,6 @@ instrument sfx
     pan    = 64;
     
     sound = FX_01_laser1Sound;
-    sound = FX_02_nobody_bipSound;
-    sound = FX_03_protag_bipSound;
-    sound = FX_04_zoom_inSound;
 }
 
 bank sfxbank

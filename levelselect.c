@@ -128,7 +128,7 @@ void updateLevelSelect() {
     currentlySelectedLevel = (currentlySelectedLevel + 1) % NUMBER_OF_LEVELS;
     downPressed = 1;
 
-    nuAuSndPlayerPlay(SFX_02_NOBODY_BIP);
+    nuAuSndPlayerPlay(SFX_01_LASER1);
   }
 
   if (contdata[0].trigger & A_BUTTON) {
