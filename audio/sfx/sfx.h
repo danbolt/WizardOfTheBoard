@@ -3,16 +3,16 @@
 
 
 /* 01_laser1.aifc  */
-#define SFX_01_LASER1 10
+#define SFX_01_LASER1 0
 
 /* 02_nobody_bip.aifc  */
-#define SFX_02_NOBODY_BIP 11
+#define SFX_02_NOBODY_BIP 1
 
 /* 03_protag_bip.aifc  */
-#define SFX_03_PROTAG_BIP 12
+#define SFX_03_PROTAG_BIP 2
 
 /* 04_zoom_in.aifc  */
-#define SFX_04_ZOOM_IN 13
+#define SFX_04_ZOOM_IN 3
 
 
 #endif
