@@ -1,6 +1,6 @@
 #!/bin/bash
 
-count=10
+count=0
 sounds=()
 for i in compressed/*.aifc; do
   nm=${i#compressed/}
