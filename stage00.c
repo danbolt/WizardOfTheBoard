@@ -27,6 +27,8 @@
 
 static float gameplayTimePassed;
 
+static u8 hasStartedMusic;
+
 // TODO: break some of this into its own file later
 typedef void (*MonsterUpdateCall)(int index);
 
@@ -630,6 +632,8 @@ void initStage00(void)
   highlightedPieceText = "";
 
   hudBackgroundTextureIndex = currentLevel % NUMBER_OF_HUD_BACKGROUND_TILES;
+
+  hasStartedMusic = 0;
 
   playerPosition = (Vec2){ mapInformation.playerX + 0.5f, mapInformation.playerY + 0.5f };
   playerVelocity = (Vec2){ 0.f, 0.f };
@@ -1621,6 +1625,11 @@ void updateGame00(void)
 
   if (dialogueState == DIALOGUE_STATE_SHOWING) {
     return;
+  } else if ((!hasStartedMusic) && (transitioningState == NOT_TRANSITIONING)) {
+    nuAuSeqPlayerStop(0);
+    nuAuSeqPlayerSetNo(0, TRACK_5_DOOMED_HEROES);
+    nuAuSeqPlayerPlay(0);
+    hasStartedMusic = 1;
   }
 
   gameplayTimePassed += deltaTimeSeconds;

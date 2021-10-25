@@ -8,5 +8,6 @@
 #define TRACK_2_PITCHED_DRUMS 2
 #define TRACK_3_WOOD_BLOCK_TEST 3
 #define TRACK_4_OVERTURE 4
+#define TRACK_5_DOOMED_HEROES 5
 
 #endif
