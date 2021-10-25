@@ -1313,6 +1313,10 @@ void checkCollisionWithPieces() {
         continue;
       }
 
+      if (!(isActive[j])) {
+        continue;
+      }
+
       // Radius check
       const float distanceSquared = distanceSq(&positions[j], &(pieceViewPos[i]));
       if (distanceSquared > MAX(radiiSquared[j], CHESS_PIECE_RADIUS_SQ)) {
@@ -1323,7 +1327,11 @@ void checkCollisionWithPieces() {
       knockbackTimesRemaining[j] = KNOCKBACK_TIME;
 
       health[j] = MAX(health[j] - 1, 0);
-      nuAuSndPlayerPlay(SFX_19_OGRE_HURT);
+      if (j > 0) {
+        nuAuSndPlayerPlay(SFX_19_OGRE_HURT);
+      } else {
+        nuAuSndPlayerPlay(SFX_20_PLAYER_HURT_0);
+      }
       if ((j > 0) && (health[j] < 1)) {
         isActive[j] = 0;
       }
@@ -1478,6 +1486,7 @@ void checkCollisionWithMonsters() {
     }
 
     playerHealth = MAX(playerHealth - 1, 0);
+    nuAuSndPlayerPlay(SFX_21_PLAYER_HURT_1);
 
     isPlayerKnockingBack = 1;
     playerKnockbackTimeRemaining = KNOCKBACK_TIME;
@@ -1534,10 +1543,16 @@ void checkGameState() {
 
   if (playerHealth <= 0) {
     gameState = GAME_STATE_PLAYER_LOSES;
+
+    nuAuSeqPlayerStop(0);
+    nuAuSndPlayerPlay(SFX_10_PLAYER_DIE);
   }
 
   if ((!monstersAlive) && allPuzzleSpacesAreCovered) {
     gameState = GAME_STATE_PLAYER_WINS;
+
+    nuAuSeqPlayerStop(0);
+    nuAuSndPlayerPlay(SFX_09_FLOOR_CLEAR);
   }
 }
 
