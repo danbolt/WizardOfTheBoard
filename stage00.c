@@ -225,6 +225,8 @@ static u8 hudIconsTexture[TMEM_SIZE_BYTES] __attribute__((aligned(8)));
 
 static u8 hudNoiseBackgroundsTextre[TMEM_SIZE_BYTES] __attribute__((aligned(8)));
 
+static u8 hudZattPortraits[48 * 48 * 2 * 4] __attribute__((aligned(8)));
+
 #define NUMBER_OF_HUD_BACKGROUND_TILES 16
 static u32 hudBackgroundTextureIndex;
 
@@ -445,6 +447,7 @@ void loadInTextures() {
   nuPiReadRom((u32)(_hud_iconsSegmentRomStart), (void*)(hudIconsTexture), TMEM_SIZE_BYTES);
   nuPiReadRom((u32)(_floor_tilesSegmentRomStart), (void*)(floorTexture), TMEM_SIZE_BYTES);
   nuPiReadRom((u32)(_noise_backgroundsSegmentRomStart), (void*)(hudNoiseBackgroundsTextre), TMEM_SIZE_BYTES);
+  nuPiReadRom((u32)(_zatt_potraitsSegmentRomStart), (void*)(hudZattPortraits), 48 * 48 * 2 * 4);
 }
 
 void initMonsterStates() {
@@ -934,6 +937,7 @@ void makeDL00(void)
   gDPSetCycleType(glistp++, G_CYC_FILL);
   gDPSetFillColor(glistp++, GPACK_RGBA5551(0x21,0,0,1) << 16 | GPACK_RGBA5551(0x21,0,0,1));
   gDPFillRectangle(glistp++, (HUD_CHESSBOARD_X - 72), (SCREEN_HT - TITLE_SAFE_VERTICAL - 16), (HUD_CHESSBOARD_X - 7), (SCREEN_HT - TITLE_SAFE_VERTICAL));
+  gDPFillRectangle(glistp++, (TITLE_SAFE_HORIZONTAL - 3), (SCREEN_HT - TITLE_SAFE_VERTICAL - 42 - 4 - 3), (TITLE_SAFE_HORIZONTAL + 48 + 2), SCREEN_HT - TITLE_SAFE_VERTICAL - 4 + 2);
   gDPPipeSync(glistp++);
   gDPSetFillColor(glistp++, GPACK_RGBA5551(0x33,0xc0,0x22,1) << 16 | GPACK_RGBA5551(0x33,0xc0,0x22,1));
   gDPFillRectangle(glistp++, (HUD_CHESSBOARD_X - 72), (SCREEN_HT - TITLE_SAFE_VERTICAL - 16), (HUD_CHESSBOARD_X - 72) + MAX(0, playerHealthDisplay * INV_MAX_HEALTH * 65.f), (SCREEN_HT - TITLE_SAFE_VERTICAL));
@@ -958,9 +962,13 @@ void makeDL00(void)
     } else {
       renderDisplayText(SCREEN_WD / 2 - (((_nstrlen(bannerMessageText)) * 13) / 2), SCREEN_HT / 2, bannerMessageText);
     }
-
-    
   }
+
+  gDPPipeSync(glistp++);
+  gDPSetCombineMode(glistp++, G_CC_DECALRGBA, G_CC_DECALRGBA);
+  gDPLoadTextureBlock(glistp++, OS_K0_TO_PHYSICAL(hudZattPortraits + 576), G_IM_FMT_RGBA, G_IM_SIZ_16b, 48, 42, 0, G_TX_MIRROR | G_TX_WRAP, G_TX_MIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
+  
+  gSPTextureRectangle(glistp++, (TITLE_SAFE_HORIZONTAL << 2), ((SCREEN_HT - TITLE_SAFE_VERTICAL - 42 - 4) << 2), ((TITLE_SAFE_HORIZONTAL + 48) << 2), ((SCREEN_HT - TITLE_SAFE_VERTICAL - 4) << 2), 0, (0 << 5), (0 << 5), (1 << 10), (1 << 10));
 
   renderDialogueToDisplayList();
 

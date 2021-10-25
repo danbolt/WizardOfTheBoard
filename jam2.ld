@@ -97,6 +97,12 @@ SECTIONS
    }
    END_SEG(hud_icons)
 
+   BEGIN_SEG(zatt_potraits, __romPos)
+   {
+      sprites/zatt_potraits.bino(.data);
+   }
+   END_SEG(zatt_potraits)
+
    BEGIN_SEG(dialogue_backing, __romPos)
    {
       sprites/dialogue_backing.bino(.data);

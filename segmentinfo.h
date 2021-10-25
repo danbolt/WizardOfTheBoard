@@ -30,6 +30,7 @@ extern u8 _display_textSegmentRomStart[];
 extern u8 _display_textSegmentRomEnd[];
 extern u8 _level_select_backgroundSegmentRomStart[];
 extern u8 _opening_environmentSegmentRomStart[];
+extern u8 _zatt_potraitsSegmentRomStart[];
 
 
 // Cutscenes
