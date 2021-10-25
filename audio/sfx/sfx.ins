@@ -110,6 +110,538 @@ sound FX_04_zoom_inSound
     keymap = FX_04_zoom_in_keymap;
     envelope = FX_04_zoom_in_env;
 }
+envelope FX_05_illegal_move_env
+{
+    attackTime    = 0;
+    attackVolume  = 100;
+    decayTime   = 273605;
+    decayVolume   = 90;
+    releaseTime   = 0;
+    
+}
+keymap FX_05_illegal_move_keymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin      = 4;
+    keyMax      = 4;
+    keyBase     = 4;
+    detune      = 0;
+}
+
+sound FX_05_illegal_moveSound
+{
+    use ("compressed/05_illegal_move.aifc");
+    
+    pan    = 64;
+    volume = 127;
+    keymap = FX_05_illegal_move_keymap;
+    envelope = FX_05_illegal_move_env;
+}
+envelope FX_06_move_cursor_env
+{
+    attackTime    = 0;
+    attackVolume  = 100;
+    decayTime   = 284444;
+    decayVolume   = 90;
+    releaseTime   = 0;
+    
+}
+keymap FX_06_move_cursor_keymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin      = 5;
+    keyMax      = 5;
+    keyBase     = 5;
+    detune      = 0;
+}
+
+sound FX_06_move_cursorSound
+{
+    use ("compressed/06_move_cursor.aifc");
+    
+    pan    = 64;
+    volume = 127;
+    keymap = FX_06_move_cursor_keymap;
+    envelope = FX_06_move_cursor_env;
+}
+envelope FX_06_tense_move_cursor_env
+{
+    attackTime    = 0;
+    attackVolume  = 100;
+    decayTime   = 284444;
+    decayVolume   = 90;
+    releaseTime   = 0;
+    
+}
+keymap FX_06_tense_move_cursor_keymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin      = 6;
+    keyMax      = 6;
+    keyBase     = 6;
+    detune      = 0;
+}
+
+sound FX_06_tense_move_cursorSound
+{
+    use ("compressed/06_tense_move_cursor.aifc");
+    
+    pan    = 64;
+    volume = 127;
+    keymap = FX_06_tense_move_cursor_keymap;
+    envelope = FX_06_tense_move_cursor_env;
+}
+envelope FX_07_onto_puzzle_space_env
+{
+    attackTime    = 0;
+    attackVolume  = 100;
+    decayTime   = 1712472;
+    decayVolume   = 90;
+    releaseTime   = 0;
+    
+}
+keymap FX_07_onto_puzzle_space_keymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin      = 7;
+    keyMax      = 7;
+    keyBase     = 7;
+    detune      = 0;
+}
+
+sound FX_07_onto_puzzle_spaceSound
+{
+    use ("compressed/07_onto_puzzle_space.aifc");
+    
+    pan    = 64;
+    volume = 127;
+    keymap = FX_07_onto_puzzle_space_keymap;
+    envelope = FX_07_onto_puzzle_space_env;
+}
+envelope FX_08_confirm_move_env
+{
+    attackTime    = 0;
+    attackVolume  = 100;
+    decayTime   = 423764;
+    decayVolume   = 90;
+    releaseTime   = 0;
+    
+}
+keymap FX_08_confirm_move_keymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin      = 8;
+    keyMax      = 8;
+    keyBase     = 8;
+    detune      = 0;
+}
+
+sound FX_08_confirm_moveSound
+{
+    use ("compressed/08_confirm_move.aifc");
+    
+    pan    = 64;
+    volume = 127;
+    keymap = FX_08_confirm_move_keymap;
+    envelope = FX_08_confirm_move_env;
+}
+envelope FX_09_floor_clear_env
+{
+    attackTime    = 0;
+    attackVolume  = 100;
+    decayTime   = 2142041;
+    decayVolume   = 90;
+    releaseTime   = 0;
+    
+}
+keymap FX_09_floor_clear_keymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin      = 9;
+    keyMax      = 9;
+    keyBase     = 9;
+    detune      = 0;
+}
+
+sound FX_09_floor_clearSound
+{
+    use ("compressed/09_floor_clear.aifc");
+    
+    pan    = 64;
+    volume = 127;
+    keymap = FX_09_floor_clear_keymap;
+    envelope = FX_09_floor_clear_env;
+}
+envelope FX_10_player_die_env
+{
+    attackTime    = 0;
+    attackVolume  = 100;
+    decayTime   = 2565805;
+    decayVolume   = 90;
+    releaseTime   = 0;
+    
+}
+keymap FX_10_player_die_keymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin      = 10;
+    keyMax      = 10;
+    keyBase     = 10;
+    detune      = 0;
+}
+
+sound FX_10_player_dieSound
+{
+    use ("compressed/10_player_die.aifc");
+    
+    pan    = 64;
+    volume = 127;
+    keymap = FX_10_player_die_keymap;
+    envelope = FX_10_player_die_env;
+}
+envelope FX_11_menu_confirm_env
+{
+    attackTime    = 0;
+    attackVolume  = 100;
+    decayTime   = 853333;
+    decayVolume   = 90;
+    releaseTime   = 0;
+    
+}
+keymap FX_11_menu_confirm_keymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin      = 11;
+    keyMax      = 11;
+    keyBase     = 11;
+    detune      = 0;
+}
+
+sound FX_11_menu_confirmSound
+{
+    use ("compressed/11_menu_confirm.aifc");
+    
+    pan    = 64;
+    volume = 127;
+    keymap = FX_11_menu_confirm_keymap;
+    envelope = FX_11_menu_confirm_env;
+}
+envelope FX_12_menu_back_env
+{
+    attackTime    = 0;
+    attackVolume  = 100;
+    decayTime   = 853333;
+    decayVolume   = 90;
+    releaseTime   = 0;
+    
+}
+keymap FX_12_menu_back_keymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin      = 12;
+    keyMax      = 12;
+    keyBase     = 12;
+    detune      = 0;
+}
+
+sound FX_12_menu_backSound
+{
+    use ("compressed/12_menu_back.aifc");
+    
+    pan    = 64;
+    volume = 127;
+    keymap = FX_12_menu_back_keymap;
+    envelope = FX_12_menu_back_env;
+}
+envelope FX_13_zatt_bip_env
+{
+    attackTime    = 0;
+    attackVolume  = 100;
+    decayTime   = 168345;
+    decayVolume   = 90;
+    releaseTime   = 0;
+    
+}
+keymap FX_13_zatt_bip_keymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin      = 13;
+    keyMax      = 13;
+    keyBase     = 13;
+    detune      = 0;
+}
+
+sound FX_13_zatt_bipSound
+{
+    use ("compressed/13_zatt_bip.aifc");
+    
+    pan    = 64;
+    volume = 127;
+    keymap = FX_13_zatt_bip_keymap;
+    envelope = FX_13_zatt_bip_env;
+}
+envelope FX_14_zatt_screaming_bip_env
+{
+    attackTime    = 0;
+    attackVolume  = 100;
+    decayTime   = 168345;
+    decayVolume   = 90;
+    releaseTime   = 0;
+    
+}
+keymap FX_14_zatt_screaming_bip_keymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin      = 14;
+    keyMax      = 14;
+    keyBase     = 14;
+    detune      = 0;
+}
+
+sound FX_14_zatt_screaming_bipSound
+{
+    use ("compressed/14_zatt_screaming_bip.aifc");
+    
+    pan    = 64;
+    volume = 127;
+    keymap = FX_14_zatt_screaming_bip_keymap;
+    envelope = FX_14_zatt_screaming_bip_env;
+}
+envelope FX_15_monster_bip_env
+{
+    attackTime    = 0;
+    attackVolume  = 100;
+    decayTime   = 336689;
+    decayVolume   = 90;
+    releaseTime   = 0;
+    
+}
+keymap FX_15_monster_bip_keymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin      = 15;
+    keyMax      = 15;
+    keyBase     = 15;
+    detune      = 0;
+}
+
+sound FX_15_monster_bipSound
+{
+    use ("compressed/15_monster_bip.aifc");
+    
+    pan    = 64;
+    volume = 127;
+    keymap = FX_15_monster_bip_keymap;
+    envelope = FX_15_monster_bip_env;
+}
+envelope FX_16_elder_bip_env
+{
+    attackTime    = 0;
+    attackVolume  = 100;
+    decayTime   = 168345;
+    decayVolume   = 90;
+    releaseTime   = 0;
+    
+}
+keymap FX_16_elder_bip_keymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin      = 16;
+    keyMax      = 16;
+    keyBase     = 16;
+    detune      = 0;
+}
+
+sound FX_16_elder_bipSound
+{
+    use ("compressed/16_elder_bip.aifc");
+    
+    pan    = 64;
+    volume = 127;
+    keymap = FX_16_elder_bip_keymap;
+    envelope = FX_16_elder_bip_env;
+}
+envelope FX_17_ogre_grunt_env
+{
+    attackTime    = 0;
+    attackVolume  = 100;
+    decayTime   = 539864;
+    decayVolume   = 90;
+    releaseTime   = 0;
+    
+}
+keymap FX_17_ogre_grunt_keymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin      = 17;
+    keyMax      = 17;
+    keyBase     = 17;
+    detune      = 0;
+}
+
+sound FX_17_ogre_gruntSound
+{
+    use ("compressed/17_ogre_grunt.aifc");
+    
+    pan    = 64;
+    volume = 127;
+    keymap = FX_17_ogre_grunt_keymap;
+    envelope = FX_17_ogre_grunt_env;
+}
+envelope FX_18_ogre_bip_env
+{
+    attackTime    = 0;
+    attackVolume  = 100;
+    decayTime   = 163719;
+    decayVolume   = 90;
+    releaseTime   = 0;
+    
+}
+keymap FX_18_ogre_bip_keymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin      = 18;
+    keyMax      = 18;
+    keyBase     = 18;
+    detune      = 0;
+}
+
+sound FX_18_ogre_bipSound
+{
+    use ("compressed/18_ogre_bip.aifc");
+    
+    pan    = 64;
+    volume = 127;
+    keymap = FX_18_ogre_bip_keymap;
+    envelope = FX_18_ogre_bip_env;
+}
+envelope FX_19_ogre_hurt_env
+{
+    attackTime    = 0;
+    attackVolume  = 100;
+    decayTime   = 631293;
+    decayVolume   = 90;
+    releaseTime   = 0;
+    
+}
+keymap FX_19_ogre_hurt_keymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin      = 19;
+    keyMax      = 19;
+    keyBase     = 19;
+    detune      = 0;
+}
+
+sound FX_19_ogre_hurtSound
+{
+    use ("compressed/19_ogre_hurt.aifc");
+    
+    pan    = 64;
+    volume = 127;
+    keymap = FX_19_ogre_hurt_keymap;
+    envelope = FX_19_ogre_hurt_env;
+}
+envelope FX_20_player_hurt_0_env
+{
+    attackTime    = 0;
+    attackVolume  = 100;
+    decayTime   = 325986;
+    decayVolume   = 90;
+    releaseTime   = 0;
+    
+}
+keymap FX_20_player_hurt_0_keymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin      = 20;
+    keyMax      = 20;
+    keyBase     = 20;
+    detune      = 0;
+}
+
+sound FX_20_player_hurt_0Sound
+{
+    use ("compressed/20_player_hurt_0.aifc");
+    
+    pan    = 64;
+    volume = 127;
+    keymap = FX_20_player_hurt_0_keymap;
+    envelope = FX_20_player_hurt_0_env;
+}
+envelope FX_21_player_hurt_1_env
+{
+    attackTime    = 0;
+    attackVolume  = 100;
+    decayTime   = 325986;
+    decayVolume   = 90;
+    releaseTime   = 0;
+    
+}
+keymap FX_21_player_hurt_1_keymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin      = 21;
+    keyMax      = 21;
+    keyBase     = 21;
+    detune      = 0;
+}
+
+sound FX_21_player_hurt_1Sound
+{
+    use ("compressed/21_player_hurt_1.aifc");
+    
+    pan    = 64;
+    volume = 127;
+    keymap = FX_21_player_hurt_1_keymap;
+    envelope = FX_21_player_hurt_1_env;
+}
+envelope FX_22_player_hurt_2_env
+{
+    attackTime    = 0;
+    attackVolume  = 100;
+    decayTime   = 325986;
+    decayVolume   = 90;
+    releaseTime   = 0;
+    
+}
+keymap FX_22_player_hurt_2_keymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin      = 22;
+    keyMax      = 22;
+    keyBase     = 22;
+    detune      = 0;
+}
+
+sound FX_22_player_hurt_2Sound
+{
+    use ("compressed/22_player_hurt_2.aifc");
+    
+    pan    = 64;
+    volume = 127;
+    keymap = FX_22_player_hurt_2_keymap;
+    envelope = FX_22_player_hurt_2_env;
+}
 
 instrument sfx
 {
@@ -120,6 +652,25 @@ instrument sfx
     sound = FX_02_nobody_bipSound;
     sound = FX_03_protag_bipSound;
     sound = FX_04_zoom_inSound;
+    sound = FX_05_illegal_moveSound;
+    sound = FX_06_move_cursorSound;
+    sound = FX_06_tense_move_cursorSound;
+    sound = FX_07_onto_puzzle_spaceSound;
+    sound = FX_08_confirm_moveSound;
+    sound = FX_09_floor_clearSound;
+    sound = FX_10_player_dieSound;
+    sound = FX_11_menu_confirmSound;
+    sound = FX_12_menu_backSound;
+    sound = FX_13_zatt_bipSound;
+    sound = FX_14_zatt_screaming_bipSound;
+    sound = FX_15_monster_bipSound;
+    sound = FX_16_elder_bipSound;
+    sound = FX_17_ogre_gruntSound;
+    sound = FX_18_ogre_bipSound;
+    sound = FX_19_ogre_hurtSound;
+    sound = FX_20_player_hurt_0Sound;
+    sound = FX_21_player_hurt_1Sound;
+    sound = FX_22_player_hurt_2Sound;
 }
 
 bank sfxbank

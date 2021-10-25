@@ -17,6 +17,8 @@
 #include "board.h"
 #include "pieces.h"
 
+#include "audio/sfx/sfx.h"
+
 #ifdef N_AUDIO
 #include <nualsgi_n.h>
 #else
@@ -1119,14 +1121,18 @@ void updateBoardControlInput() {
 
     if(contdata[0].trigger & U_CBUTTONS) {
       fstep.y = 1.51f;
+      nuAuSndPlayerPlay((boardControlState == BOARD_CONTROL_PIECE_SELECTED) ? SFX_06_TENSE_MOVE_CURSOR : SFX_06_MOVE_CURSOR);
     } else if(contdata[0].trigger & D_CBUTTONS) {
       fstep.y = -1.51f;
+      nuAuSndPlayerPlay((boardControlState == BOARD_CONTROL_PIECE_SELECTED) ? SFX_06_TENSE_MOVE_CURSOR : SFX_06_MOVE_CURSOR);
     }
 
     if(contdata[0].trigger & R_CBUTTONS) {
       fstep.x = 1.51f;
+      nuAuSndPlayerPlay((boardControlState == BOARD_CONTROL_PIECE_SELECTED) ? SFX_06_TENSE_MOVE_CURSOR : SFX_06_MOVE_CURSOR);
     } else if(contdata[0].trigger & L_CBUTTONS) {
       fstep.x = -1.51f;
+      nuAuSndPlayerPlay((boardControlState == BOARD_CONTROL_PIECE_SELECTED) ? SFX_06_TENSE_MOVE_CURSOR : SFX_06_MOVE_CURSOR);
     }
 
     Pos2 step = (Pos2){ (int)((cosCameraRot * fstep.x) - (sinCameraRot * fstep.y)), (int)((sinCameraRot * fstep.x) + (cosCameraRot * fstep.y)) };
@@ -1136,24 +1142,27 @@ void updateBoardControlInput() {
   } else {
     if(contdata[0].trigger & U_CBUTTONS) {
       chessboardSpotHighlighted.y = (chessboardSpotHighlighted.y + 1) % BOARD_HEIGHT;
+      nuAuSndPlayerPlay((boardControlState == BOARD_CONTROL_PIECE_SELECTED) ? SFX_06_TENSE_MOVE_CURSOR : SFX_06_MOVE_CURSOR);
     } else if(contdata[0].trigger & D_CBUTTONS) {
       chessboardSpotHighlighted.y = (chessboardSpotHighlighted.y - 1 + BOARD_HEIGHT) % BOARD_HEIGHT;
+      nuAuSndPlayerPlay((boardControlState == BOARD_CONTROL_PIECE_SELECTED) ? SFX_06_TENSE_MOVE_CURSOR : SFX_06_MOVE_CURSOR);
     }
 
     if(contdata[0].trigger & R_CBUTTONS) {
       chessboardSpotHighlighted.x = (chessboardSpotHighlighted.x + 1) % BOARD_WIDTH;
+      nuAuSndPlayerPlay((boardControlState == BOARD_CONTROL_PIECE_SELECTED) ? SFX_06_TENSE_MOVE_CURSOR : SFX_06_MOVE_CURSOR);
     } else if(contdata[0].trigger & L_CBUTTONS) {
       chessboardSpotHighlighted.x = (chessboardSpotHighlighted.x - 1 + BOARD_WIDTH) % BOARD_WIDTH;
+      nuAuSndPlayerPlay((boardControlState == BOARD_CONTROL_PIECE_SELECTED) ? SFX_06_TENSE_MOVE_CURSOR : SFX_06_MOVE_CURSOR);
     }
   }
 
   if (boardControlState == BOARD_CONTROL_NO_SELECTED) {
     if (contdata[0].trigger & A_BUTTON) {
       const int pieceAtCursorSpot = isSpaceOccupied(chessboardSpotHighlighted.x, chessboardSpotHighlighted.y);
+      nuAuSndPlayerPlay(SFX_06_MOVE_CURSOR);
 
       if (pieceAtCursorSpot >= 0 && pieceData[pieceAtCursorSpot].selectable) {
-        // TODO: unselectable pieces
-
         boardControlState = BOARD_CONTROL_PIECE_SELECTED;
         selectedPiece = pieceAtCursorSpot;
 
@@ -1167,7 +1176,7 @@ void updateBoardControlInput() {
     if (contdata[0].trigger & B_BUTTON) {
       selectedPiece = -1;
       boardControlState = BOARD_CONTROL_NO_SELECTED;
-      //
+      nuAuSndPlayerPlay(SFX_06_MOVE_CURSOR);
     } else if (contdata[0].trigger & A_BUTTON) {
       assert(selectedPiece >= 0); // we should have a selected piece here
       const int pieceAtCursorSpot = isSpaceOccupied(chessboardSpotHighlighted.x, chessboardSpotHighlighted.y);
@@ -1187,8 +1196,21 @@ void updateBoardControlInput() {
         pieceLerpValue[selectedPiece] = 0.f;
 
         // TODO: play a "complete" sound
+        u32 onPuzzleSpot = 0;
+        for (int i = 0; i < numberOfPuzzleSpaces; i++) {
+          if ((puzzleSpaceSpots[i].x == chessboardSpotHighlighted.x) && (puzzleSpaceSpots[i].y == chessboardSpotHighlighted.y)) {
+            onPuzzleSpot = 1;
+            break;
+          }
+        }
+        if (onPuzzleSpot) {
+          nuAuSndPlayerPlay(SFX_07_ONTO_PUZZLE_SPACE);
+        } else {
+          nuAuSndPlayerPlay(SFX_08_CONFIRM_MOVE);
+        }
+        
       } else {
-        // TODO: play a "wrong" sound
+        nuAuSndPlayerPlay(SFX_05_ILLEGAL_MOVE);
       }
 
       selectedPiece = -1;
@@ -1301,6 +1323,7 @@ void checkCollisionWithPieces() {
       knockbackTimesRemaining[j] = KNOCKBACK_TIME;
 
       health[j] = MAX(health[j] - 1, 0);
+      nuAuSndPlayerPlay(SFX_19_OGRE_HURT);
       if ((j > 0) && (health[j] < 1)) {
         isActive[j] = 0;
       }
@@ -1433,6 +1456,7 @@ void checkCollisionWithMonsters() {
     }
 
     playerHealth = MAX(playerHealth - 1, 0);
+    nuAuSndPlayerPlay(SFX_20_PLAYER_HURT_0);
 
     isPlayerKnockingBack = 1;
     playerKnockbackTimeRemaining = KNOCKBACK_TIME;
