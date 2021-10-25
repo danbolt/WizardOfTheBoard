@@ -32,6 +32,8 @@ float wrapMP(float f);
 
 float clamp(float x, float min, float max);
 
+float lengthSq(const Vec2* a);
+
 float distanceSq(const Vec2* a, const Vec2* b);
 
 float normalize(Vec2* a);

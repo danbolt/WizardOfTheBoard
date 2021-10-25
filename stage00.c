@@ -58,6 +58,9 @@ static Vec2 projectileVelocity[NUMBER_OF_PROJECTILES];
 #define playerKnockbackTimeRemaining (knockbackTimesRemaining[0])
 #define playerRadiusSquared (radiiSquared[0])
 
+static u8 playerPortraitStep;
+static u8 portraitIndex;
+
 // Returns the index if successful, returns -1 if not
 int tryToSpawnAProjectile(const Vec2* position, const Vec2* velocity) {
   for (int i = 0; i < NUMBER_OF_PROJECTILES; i++) {
@@ -633,6 +636,9 @@ void initStage00(void)
   playerKnockbackTimeRemaining = 0.f;
   playerRadiusSquared = PLAYER_RADIUS * PLAYER_RADIUS;
 
+  playerPortraitStep = 0;
+  portraitIndex = 0;
+
   cosCameraRot = cosf(playerOrientation);
   sinCameraRot = sinf(playerOrientation);
 
@@ -966,7 +972,7 @@ void makeDL00(void)
 
   gDPPipeSync(glistp++);
   gDPSetCombineMode(glistp++, G_CC_DECALRGBA, G_CC_DECALRGBA);
-  gDPLoadTextureBlock(glistp++, OS_K0_TO_PHYSICAL(hudZattPortraits + 576), G_IM_FMT_RGBA, G_IM_SIZ_16b, 48, 42, 0, G_TX_MIRROR | G_TX_WRAP, G_TX_MIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
+  gDPLoadTextureBlock(glistp++, OS_K0_TO_PHYSICAL(hudZattPortraits + (576 - ((playerPortraitStep >> 1) * 48 * 2)) + (48 * 48 * 2 * portraitIndex)), G_IM_FMT_RGBA, G_IM_SIZ_16b, 48, 42, 0, G_TX_MIRROR | G_TX_WRAP, G_TX_MIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
   
   gSPTextureRectangle(glistp++, (TITLE_SAFE_HORIZONTAL << 2), ((SCREEN_HT - TITLE_SAFE_VERTICAL - 42 - 4) << 2), ((TITLE_SAFE_HORIZONTAL + 48) << 2), ((SCREEN_HT - TITLE_SAFE_VERTICAL - 4) << 2), 0, (0 << 5), (0 << 5), (1 << 10), (1 << 10));
 
@@ -992,10 +998,10 @@ void makeDL00(void)
   nuGfxTaskStart(&gfx_glist[gfx_gtask_no][0], (s32)(glistp - gfx_glist[gfx_gtask_no]) * sizeof (Gfx), NU_GFX_UCODE_F3DLP_REJ , NU_SC_NOSWAPBUFFER);
 
   nuDebConClear(0);
-  nuDebConTextPos(0,4,23);
+  nuDebConTextPos(0,4,22);
   sprintf(conbuf,"DL: %04d/%04d", (glistp - gfx_glist[gfx_gtask_no]), GFX_GLIST_LEN);
   nuDebConCPuts(0, conbuf);
-  nuDebConTextPos(0,4,24);
+  nuDebConTextPos(0,4,23);
   sprintf(conbuf,"delta: %3.5f", deltaTimeSeconds);
   nuDebConCPuts(0, conbuf);
     
@@ -1246,6 +1252,28 @@ void updateHUDInformation() {
 
   // Lerp the player's healthbar to their health;
   playerHealthDisplay = lerp(playerHealthDisplay, playerHealth, 0.13f);
+
+  u32 isAnyPieceLerping = 0;
+  for (int i = 0; i < MAX_NUMBER_OF_INGAME_PIECES; i++) {
+    if (pieceIsLerping[i]) {
+      isAnyPieceLerping = 1;
+      break;
+    }
+  }
+
+  if (playerHealth <= 0) {
+    portraitIndex = 3;
+  } else if (isPlayerKnockingBack) {
+    portraitIndex = 1;
+  } else if (isAnyPieceLerping) {
+    portraitIndex = 2;
+  } else {
+    portraitIndex = 0;
+
+    if (lengthSq(&playerVelocity) > 0.01f) {
+      playerPortraitStep = (playerPortraitStep + 1) % 12;
+    }
+  }
 }
 
 void checkCollisionWithPieces() {
