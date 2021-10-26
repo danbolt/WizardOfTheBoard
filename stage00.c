@@ -1703,11 +1703,13 @@ void updatePausedState() {
     transitioningState = TRANSITIONING_OUT;
     transitionTime = 0.f;
     isStagePaused = 0;
+    nuAuSndPlayerPlay(SFX_11_MENU_CONFIRM);
     return;
   } else if ((contdata[0].trigger & A_BUTTON) && (pauseMenuIndex == 2)) {
     transitioningState = TRANSITIONING_OUT;
     transitionTime = 0.f;
     isStagePaused = 0;
+    nuAuSndPlayerPlay(SFX_11_MENU_CONFIRM);
     return;
   }
 
@@ -1717,6 +1719,7 @@ void updatePausedState() {
 
   isStagePaused = !isStagePaused;
   pauseMenuIndex = 0;
+  nuAuSndPlayerPlay(isStagePaused ? SFX_11_MENU_CONFIRM : SFX_12_MENU_BACK);
 }
 
 void updateGame00(void)

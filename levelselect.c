@@ -138,5 +138,6 @@ void updateLevelSelect() {
     currentLevel = currentlySelectedLevel;
     nextStage = &gameplayStage;
     changeScreensFlag = 1;
+    nuAuSndPlayerPlay(SFX_11_MENU_CONFIRM);
   }
 }
