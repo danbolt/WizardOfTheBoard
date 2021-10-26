@@ -734,6 +734,12 @@ void makeDL00(void)
       continue;
     }
 
+    if ((boardControlState == BOARD_CONTROL_PIECE_SELECTED) && (selectedPiece == i)) {
+      gDPPipeSync(glistp++);
+      gDPSetPrimColor(glistp++, 0, 0, N64_C_BUTTONS_RED, N64_C_BUTTONS_GREEN, N64_C_BUTTONS_BLUE, 0xff);
+      gDPSetCombineLERP(glistp++, PRIMITIVE, 0, SHADE, 0, 0, 0, 0, SHADE, PRIMITIVE, 0, SHADE, 0, 0, 0, 0, SHADE);
+    }
+
     guTranslate(&(dynamicp->pieceTransforms[i]), pieceViewPos[i].x, pieceViewPos[i].y, 0.f);
     gSPMatrix(glistp++, OS_K0_TO_PHYSICAL(&(dynamicp->pieceTransforms[i])), G_MTX_MODELVIEW | G_MTX_MUL | G_MTX_PUSH);
     gSPMatrix(glistp++, OS_K0_TO_PHYSICAL(&dynamicp->blenderExportScale), G_MTX_MODELVIEW | G_MTX_MUL | G_MTX_NOPUSH);
@@ -741,6 +747,13 @@ void makeDL00(void)
     gSPDisplayList(glistp++, OS_K0_TO_PHYSICAL(pieceData[i].renderCommands));
 
     gSPPopMatrix(glistp++, G_MTX_MODELVIEW);
+
+
+
+    if ((boardControlState == BOARD_CONTROL_PIECE_SELECTED) && (selectedPiece == i)) {
+      gDPPipeSync(glistp++);
+      gDPSetCombineMode(glistp++, G_CC_SHADE, G_CC_SHADE);
+    }
   }
 
   for (int i = MONSTER_START_INDEX; i < NUMBER_OF_INGAME_ENTITIES; i++) {
