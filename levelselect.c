@@ -3,7 +3,9 @@
 
 #include <nusys.h>
 
+#include "displaytext.h"
 #include "main.h"
+#include "gamemath.h"
 #include "graphic.h"
 #include "segmentinfo.h"
 #include "stagekeys.h"
@@ -16,6 +18,7 @@
 #endif
 
 static u8 backgroundTexture[TMEM_SIZE_BYTES] __attribute__((aligned(8)));
+static u8 iconsTexture[TMEM_SIZE_BYTES] __attribute__((aligned(8)));
 
 static u32 currentlySelectedLevel;
 
@@ -25,15 +28,23 @@ static u8 downPressed;
 static u8 upPressed;
 static u8 stickInDeadzone;
 
+static float selectedLevelLerpValue;
+
+static char floorIndicatorText[32];
+
 void initLevelSelect() {
   currentlySelectedLevel = 0;
+  selectedLevelLerpValue = 0.f;
   timePassed = 0.f;
 
   downPressed = 0;
   upPressed = 0;
   stickInDeadzone = 0;
 
+  floorIndicatorText[0] = '\0';
+
   nuPiReadRom((u32)_level_select_backgroundSegmentRomStart, backgroundTexture, TMEM_SIZE_BYTES);
+  nuPiReadRom((u32)_level_select_iconsSegmentRomStart, iconsTexture, TMEM_SIZE_BYTES);
 }
 
 void makeLevelSelectDisplayList() {
@@ -71,21 +82,26 @@ void makeLevelSelectDisplayList() {
   gSPTextureRectangle(glistp++, (0) << 2, (0) << 2, (SCREEN_WD) << 2, (SCREEN_HT) << 2, 0, ((u32)(timePassed * 1.f * 64.f)) << 5, ((u32)(timePassed * 0.7f * 64.f)) << 5, 1 << 10, 1 << 10);
 
 
+  gDPPipeSync(glistp++);
+  gDPLoadTextureBlock(glistp++, OS_K0_TO_PHYSICAL(iconsTexture), G_IM_FMT_IA, G_IM_SIZ_8b, 256, 16, 0, G_TX_NOMIRROR, G_TX_NOMIRROR, 6, 6, G_TX_NOLOD, G_TX_NOLOD);
+  gDPSetPrimColor(glistp++, 0, 0, 0x99, 0x42, 0x8C, 0xff);
+
+  for (int i = 0; i < NUMBER_OF_LEVELS; i++) {
+    const s32 offset = (int)(((float)i - (selectedLevelLerpValue)) * -18.f);
+    gSPScisTextureRectangle(glistp++, (SCREEN_WD - TITLE_SAFE_HORIZONTAL - 64 - 64) << 2, (SCREEN_HT - TITLE_SAFE_VERTICAL - 16 + offset - 32) << 2, (SCREEN_WD - TITLE_SAFE_HORIZONTAL - 64) << 2, (SCREEN_HT - TITLE_SAFE_VERTICAL + offset - 32) << 2, 0, ((i % 3) * 64) << 5, 0 << 5, 1 << 10, 1 << 10);
+  }
+
+  gDPPipeSync(glistp++);
+  gDPSetPrimColor(glistp++, 0, 0, 0xff, 0xff, 0xff, 0xff);
+  gDPLoadTextureBlock_4b(glistp++, OS_K0_TO_PHYSICAL(displayTextTexture), G_IM_FMT_IA, 512, 16, 0, G_TX_NOMIRROR, G_TX_NOMIRROR, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
+  sprintf(floorIndicatorText, "FLOOR %01d", (currentlySelectedLevel + 1));
+  renderDisplayText(32, 64, floorIndicatorText);
+
+
   gDPFullSync(glistp++);
   gSPEndDisplayList(glistp++);
 
-  nuGfxTaskStart(&gfx_glist[gfx_gtask_no][0], (s32)(glistp - gfx_glist[gfx_gtask_no]) * sizeof (Gfx), NU_GFX_UCODE_F3DLP_REJ , NU_SC_NOSWAPBUFFER);
-
-  nuDebConClear(0);
-  nuDebConTextPos(0,4,4);
-  sprintf(conbuf,"level: %0u", (currentlySelectedLevel + 1));
-  nuDebConCPuts(0, conbuf);
-  nuDebConTextPos(0,4,5);
-  sprintf(conbuf,"%s", levels[currentlySelectedLevel].levelKey);
-  nuDebConCPuts(0, conbuf);
-    
-  /* Display characters on the frame buffer */
-  nuDebConDisp(NU_SC_SWAPBUFFER);
+  nuGfxTaskStart(&gfx_glist[gfx_gtask_no][0], (s32)(glistp - gfx_glist[gfx_gtask_no]) * sizeof (Gfx), NU_GFX_UCODE_F3DLP_REJ , NU_SC_SWAPBUFFER);
 
   gfx_gtask_no = (gfx_gtask_no + 1) % BUFFER_COUNT;
 }
@@ -94,6 +110,8 @@ void updateLevelSelect() {
   nuContDataGetEx(contdata,0);
 
   timePassed += deltaTimeSeconds;
+
+  selectedLevelLerpValue = lerp(selectedLevelLerpValue, currentlySelectedLevel, 0.13f);
 
   // I know this is kind of "backwards" but my hubris/laziness prevents me from addressing it 
   if(contdata[0].trigger & U_JPAD) {
