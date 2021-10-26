@@ -836,9 +836,11 @@ void makeDL00(void)
 
 
   gDPPipeSync(glistp++);
-  // gDPSetCombineMode(glistp++, G_CC_SHADE, G_CC_SHADE);
-  // gDPSetRenderMode(glistp++, G_RM_OPA_SURF, G_RM_OPA_SURF2);
-  // gSPTexture(glistp++, 0xffff, 0xffff, 0, G_TX_RENDERTILE, G_OFF);
+  if (boardControlState == BOARD_CONTROL_PIECE_SELECTED) {
+    gDPSetCombineMode(glistp++, G_CC_SHADE, G_CC_SHADE);
+    gDPSetRenderMode(glistp++, G_RM_OPA_SURF, G_RM_OPA_SURF2);
+    gSPTexture(glistp++, 0xffff, 0xffff, 0, G_TX_RENDERTILE, G_OFF);
+  }
   gSPDisplayList(glistp++, OS_K0_TO_PHYSICAL(onscreenChessboardCommands));
   
   gDPPipeSync(glistp++);
