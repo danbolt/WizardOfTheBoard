@@ -1,6 +1,7 @@
 
 #include "dialogue.h"
 
+#include "bip-mapping/bipmapping.h"
 #include "cutscene.h"
 #include "graphic.h"
 #include "cast_sprites/castlookup.h"
@@ -10,6 +11,14 @@
 #include "segmentinfo.h"
 #include "sixtwelve.h"
 #include "sixtwelve_helpers.h"
+
+#include "audio/sfx/sfx.h"
+
+#ifdef N_AUDIO
+#include <nualsgi_n.h>
+#else
+#include <nualsgi.h>
+#endif
 
 u32 dialogueState;
 
@@ -23,6 +32,8 @@ static int dialogueBoxY;
 #define STRUCT_FLAG_SHOW_BG_1 1
 #define STRUCT_FLAG_SHOW_BG_2 2
 #define STRUCT_FLAG_SHOW_BG_3 3
+
+#define DEFAULT_BIP_NOISE SFX_02_NOBODY_BIP
 
 typedef union {
   DialogueItem item;
@@ -172,6 +183,12 @@ void updateDialogue() {
       bipTimePassed = 0.f;
       bipIndex++;
 
+      struct bipMapping * bipType = getBipMapping(currentDialogueItem->speaker, _nstrlen(currentDialogueItem->speaker));
+      if (bipType != 0x0) { 
+        nuAuSndPlayerPlay(bipType->sfxKey);
+      } else { 
+        nuAuSndPlayerPlay(DEFAULT_BIP_NOISE);
+      }
     }
 
     // If the player presses the confirm button, skip ahead to the end of the dialogue.

@@ -34,7 +34,7 @@ MAP		= jam2.map
 LD_SCRIPT	= jam2.ld
 CP_LD_SCRIPT	= jam2_cp.ld
 
-HFILES =	main.h nustdfuncs.h stagekeys.h graphic.h audio/sfx/sfx.h backgroundbuffers.h levelselect.h displaytext.h cutscene.h titlescreen.h sixtwelve.h sixtwelve_helpers.h constants.h gamemath.h dialogue.h segmentinfo.h tracknumbers.h pieces.h board.h monsters.h mapdata.h dialogue/dialoguelookup.h cast_sprites/castlookup.h map/maplookup.h cutscene_backgrounds/backgroundlookup.h cutscenes/cutscenelookup.h opening/envtexture.h opening/tower.h opening/ground.h
+HFILES =	main.h nustdfuncs.h stagekeys.h graphic.h audio/sfx/sfx.h backgroundbuffers.h levelselect.h displaytext.h cutscene.h titlescreen.h sixtwelve.h sixtwelve_helpers.h constants.h gamemath.h dialogue.h segmentinfo.h tracknumbers.h pieces.h board.h monsters.h mapdata.h dialogue/dialoguelookup.h cast_sprites/castlookup.h map/maplookup.h cutscene_backgrounds/backgroundlookup.h cutscenes/cutscenelookup.h opening/envtexture.h opening/tower.h opening/ground.h bip-mapping/bipmapping.h
 
 ASMFILES	= asm/entry.s asm/rom_header.s sound_data.s
 
@@ -44,7 +44,7 @@ BOOT		= /usr/lib/n64/PR/bootcode/boot.6102
 
 BOOT_OBJ	= boot.6102.o
 
-CODEFILES   = 	main.c nustdfuncs.c backgroundbuffers.c stagekeys.c stage00.c levelselect.c displaytext.c titlescreen.c cutscene.c graphic.c sixtwelve.c sixtwelve_tex.c sixtwelve_helpers.c gfxinit.c gamemath.c dialogue.c pieces.c pawn.c rook.c bishop.c queen.c knight.c king.c wall.c board.c cursor.c toad.c projectile.c ogre.c snake.c dialogue/dialoguelookup.c cast_sprites/castlookup.c maps/maplookup.c cutscene_backgrounds/backgroundlookup.c cutscenes/cutscenelookup.c opening/envtexture.c
+CODEFILES   = 	main.c nustdfuncs.c backgroundbuffers.c stagekeys.c stage00.c levelselect.c displaytext.c titlescreen.c cutscene.c graphic.c sixtwelve.c sixtwelve_tex.c sixtwelve_helpers.c gfxinit.c gamemath.c dialogue.c pieces.c pawn.c rook.c bishop.c queen.c knight.c king.c wall.c board.c cursor.c toad.c projectile.c ogre.c snake.c dialogue/dialoguelookup.c cast_sprites/castlookup.c maps/maplookup.c cutscene_backgrounds/backgroundlookup.c cutscenes/cutscenelookup.c opening/envtexture.c bip-mapping/bipmapping.c
 
 CODEOBJECTS =	$(CODEFILES:.c=.o)  $(NUSYSLIBDIR)/nusys_rom.o
 
