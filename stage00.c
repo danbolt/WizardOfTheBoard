@@ -218,6 +218,17 @@ static int selectedPiece;
 
 static u8 isStagePaused;
 
+#define NUMBER_OF_PAUSE_MENU_ITEMS 3
+static u8 pauseMenuIndex;
+static const char* pauseItems[NUMBER_OF_PAUSE_MENU_ITEMS] = {
+  "RESUME",
+  "RETRY FLOOR",
+  "LEVEL SELECT"
+};
+static u8 downPressed;
+static u8 upPressed;
+static u8 stickInDeadzone;
+
 #define TIME_BANNER_ONSCREEN 3.f
 static const char* bannerMessageText;
 static float bannerMessageTime;
@@ -610,7 +621,11 @@ void initializeMapFromROM(const char* mapKey) {
 void initStage00(void)
 {
   isStagePaused = 0;
+  pauseMenuIndex = 0;
   gameplayTimePassed = 0.f;
+  downPressed = 0;
+  upPressed = 0;
+  stickInDeadzone = 0;
 
   transitioningState = TRANSITIONING_IN;
   transitionTime = 0.f;
@@ -982,7 +997,17 @@ void makeDL00(void)
   } else if (gameState == GAME_STATE_PLAYER_WINS) {
     renderDisplayText(SCREEN_WD / 2 - ((11 * 13) / 2), SCREEN_HT / 2, "FLOOR CLEAR!");
   } else if (isStagePaused) {
-    renderDisplayText(SCREEN_WD / 2 - ((6 * 13) / 2), SCREEN_HT / 2, "PAUSED");
+    renderDisplayText(SCREEN_WD / 2 - ((6 * 13) / 2), (SCREEN_HT / 2) - 64, "PAUSED");
+
+    for (int i = 0; i < NUMBER_OF_PAUSE_MENU_ITEMS; i++) {
+      if (i == pauseMenuIndex) {
+        gDPSetPrimColor(glistp++, 0, 0, N64_C_BUTTONS_RED, N64_C_BUTTONS_GREEN, N64_C_BUTTONS_BLUE, 0xff);
+      }
+      renderDisplayText(SCREEN_WD / 2 - ((6 * 13) / 2) + (i == pauseMenuIndex ? (int)(4.f * sinf(gameplayTimePassed * 8.f)) : 0), (SCREEN_HT / 2) + (i * 16) - 32, pauseItems[i]);
+      if (i == pauseMenuIndex) {
+        gDPSetPrimColor(glistp++, 0, 0, 0xff, 0xff, 0xff, 0xff);
+      }
+    }
   } else if (bannerMessageText != NULL) {
 
     // TODO: clean this up!
@@ -1633,11 +1658,65 @@ void updateBannerMessageText() {
 }
 
 void updatePausedState() {
-  if (!(contdata[0].trigger & START_BUTTON)) {
+
+  if (isStagePaused) {
+    if(contdata[0].trigger & U_JPAD) {
+      upPressed = 1;
+    } else if(contdata[0].trigger & D_JPAD) {
+      downPressed = 1;
+    } else {
+      upPressed = 0;
+      downPressed = 0;
+    }
+
+    if (!stickInDeadzone && (contdata[0].stick_y > -7) && (contdata[0].stick_y < 7)) {
+      stickInDeadzone = 1;
+    }
+
+    if (stickInDeadzone) {
+      if (contdata[0].stick_y < -7) {
+        downPressed = 1;
+        stickInDeadzone = 0;
+      } else if (contdata[0].stick_y > 7) {
+        upPressed = 1;
+        stickInDeadzone = 0;
+      }
+
+    }
+
+
+    if (upPressed) {
+      pauseMenuIndex = (pauseMenuIndex - 1 + NUMBER_OF_PAUSE_MENU_ITEMS) % NUMBER_OF_PAUSE_MENU_ITEMS;
+      upPressed = 0;
+
+      nuAuSndPlayerPlay(SFX_02_NOBODY_BIP);
+    }
+    if (downPressed) {
+      pauseMenuIndex = (pauseMenuIndex + 1) % NUMBER_OF_PAUSE_MENU_ITEMS;
+      downPressed = 1;
+
+      nuAuSndPlayerPlay(SFX_02_NOBODY_BIP);
+    }
+  }
+
+  if ((contdata[0].trigger & A_BUTTON) && (pauseMenuIndex == 1)) {
+    transitioningState = TRANSITIONING_OUT;
+    transitionTime = 0.f;
+    isStagePaused = 0;
+    return;
+  } else if ((contdata[0].trigger & A_BUTTON) && (pauseMenuIndex == 2)) {
+    transitioningState = TRANSITIONING_OUT;
+    transitionTime = 0.f;
+    isStagePaused = 0;
+    return;
+  }
+
+  if (!(contdata[0].trigger & START_BUTTON) && !((contdata[0].trigger & A_BUTTON) && (pauseMenuIndex == 0)) ) {
     return;
   }
 
   isStagePaused = !isStagePaused;
+  pauseMenuIndex = 0;
 }
 
 void updateGame00(void)
@@ -1662,7 +1741,14 @@ void updateGame00(void)
       if ((transitioningState == TRANSITIONING_IN) && (mapInformation.startLevelDialogue[0] != '\0')) {
         startDialogue(mapInformation.startLevelDialogue);
       } else if (transitioningState == TRANSITIONING_OUT) {
-        nextStage = &levelSelectStage;
+        if (pauseMenuIndex == 1) {
+          nextStage = &gameplayStage;
+        } else if (pauseMenuIndex == 2) {
+          nextStage = &levelSelectStage;
+        } else {
+          // We shouldn't be able to go here
+          nextStage = &titleScreenStage;
+        }
         changeScreensFlag = 1;
       }
 
