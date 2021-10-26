@@ -940,7 +940,11 @@ void makeDL00(void)
     const u32 highightedSpotX = HUD_CHESSBOARD_X + (chessboardSpotHighlighted.x * HUD_CELL_WIDTH);
     const u32 highightedSpotY = (HUD_CHESSBOARD_Y + ((BOARD_HEIGHT - 1 - chessboardSpotHighlighted.y) * HUD_CELL_HEIGHT)) - ((16 - HUD_CELL_HEIGHT) / 2);
 
-    gDPSetPrimColor(glistp++, 0, 0, N64_C_BUTTONS_RED, N64_C_BUTTONS_GREEN, N64_C_BUTTONS_BLUE, 0xff);
+    if (boardControlState == BOARD_CONTROL_PIECE_SELECTED) {
+      gDPSetPrimColor(glistp++, 0, 0, N64_C_BUTTONS_RED, N64_C_BUTTONS_GREEN, N64_C_BUTTONS_BLUE, 0xff);
+    } else {
+      gDPSetPrimColor(glistp++, 0, 0, N64_A_BUTTON_RED, N64_A_BUTTON_GREEN, N64_A_BUTTON_BLUE, 0xff);
+    }
     gSPTextureRectangle(glistp++, (highightedSpotX) << 2, (highightedSpotY) << 2, (highightedSpotX + 16) << 2, (highightedSpotY + 16) << 2, 0,  176 << 5, 0 << 5, 1 << 10, 1 << 10);
   }
 
@@ -1176,10 +1180,12 @@ void updateBoardControlInput() {
 
   if (boardControlState == BOARD_CONTROL_NO_SELECTED) {
     if (contdata[0].trigger & A_BUTTON) {
-      const int pieceAtCursorSpot = isSpaceOccupied(chessboardSpotHighlighted.x, chessboardSpotHighlighted.y);
-      nuAuSndPlayerPlay(SFX_06_MOVE_CURSOR);
-
+      Pos2 step = (Pos2){ (int)(playerPosition.x - (sinCameraRot)), (int)(playerPosition.y + (cosCameraRot)) };
+      const int pieceAtCursorSpot = isSpaceOccupied(step.x, step.y);
+      
       if (pieceAtCursorSpot >= 0 && pieceData[pieceAtCursorSpot].selectable) {
+        nuAuSndPlayerPlay(SFX_06_MOVE_CURSOR);
+
         boardControlState = BOARD_CONTROL_PIECE_SELECTED;
         selectedPiece = pieceAtCursorSpot;
 
@@ -1639,9 +1645,9 @@ void updateGame00(void)
   if (dialogueState == DIALOGUE_STATE_SHOWING) {
     return;
   } else if ((!hasStartedMusic) && (transitioningState == NOT_TRANSITIONING)) {
-    nuAuSeqPlayerStop(0);
-    nuAuSeqPlayerSetNo(0, TRACK_5_DOOMED_HEROES);
-    nuAuSeqPlayerPlay(0);
+    // nuAuSeqPlayerStop(0);
+    // nuAuSeqPlayerSetNo(0, TRACK_5_DOOMED_HEROES);
+    // nuAuSeqPlayerPlay(0);
     hasStartedMusic = 1;
   }
 
