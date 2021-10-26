@@ -1008,7 +1008,7 @@ void makeDL00(void)
         gDPSetPrimColor(glistp++, 0, 0, 0xff, 0xff, 0xff, 0xff);
       }
     }
-  } else if (bannerMessageText != NULL) {
+  } else if (bannerMessageText != NULL && (transitioningState == NOT_TRANSITIONING) && (dialogueState == DIALOGUE_STATE_OFF)) {
 
     // TODO: clean this up!
     if (bannerMessageTime < 0.25f) {
