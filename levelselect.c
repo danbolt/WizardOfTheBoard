@@ -33,6 +33,13 @@ static float slideOutLerpValue;
 
 static char floorIndicatorText[32];
 
+#define NOT_TRANSITIONING 0
+#define TRANSITIONING_IN 1
+#define TRANSITIONING_OUT 2
+#define TRANSITION_DURATION 0.8f
+static u8 transitioningState;
+static float transitionTime;
+
 void initLevelSelect() {
   currentlySelectedLevel = currentLevel % NUMBER_OF_LEVELS;
   selectedLevelLerpValue = 0.f;
@@ -44,6 +51,9 @@ void initLevelSelect() {
   stickInDeadzone = 0;
 
   floorIndicatorText[0] = '\0';
+
+  transitioningState = TRANSITIONING_IN;
+  transitionTime = 0.f;
 
   nuPiReadRom((u32)_level_select_backgroundSegmentRomStart, backgroundTexture, TMEM_SIZE_BYTES);
   nuPiReadRom((u32)_level_select_iconsSegmentRomStart, iconsTexture, TMEM_SIZE_BYTES);
@@ -110,6 +120,25 @@ void makeLevelSelectDisplayList() {
   sprintf(floorIndicatorText, "FLOOR %01d", (currentlySelectedLevel + 1));
   renderDisplayText(TITLE_SAFE_HORIZONTAL + 48, 160, floorIndicatorText);
 
+  if (transitioningState != NOT_TRANSITIONING) {
+    gDPPipeSync(glistp++);
+    gDPSetCycleType(glistp++, G_CYC_FILL);
+    gDPSetFillColor(glistp++, GPACK_RGBA5551(0,0,0,1) << 16 | GPACK_RGBA5551(0,0,0,1));
+
+    float t = (transitionTime / TRANSITION_DURATION);
+    if (transitioningState == TRANSITIONING_IN) {
+      t = 1.f - t;
+    }
+    t = cubic(t);
+
+    for (int i = 0; i < (SCREEN_HT / 24); i++) {
+      if (i % 2 == 0) {
+        gDPFillRectangle(glistp++, 0, i * 24, (int)(SCREEN_WD * t), (i + 1) * 24);
+      } else {  
+        gDPFillRectangle(glistp++, (int)(SCREEN_WD * (1.f - t)), i * 24, SCREEN_WD, (i + 1) * 24);
+      }
+    }
+  }
 
   gDPFullSync(glistp++);
   gSPEndDisplayList(glistp++);
@@ -119,10 +148,26 @@ void makeLevelSelectDisplayList() {
   gfx_gtask_no = (gfx_gtask_no + 1) % BUFFER_COUNT;
 }
 
-void updateLevelSelect() {
-  nuContDataGetEx(contdata,0);
+void updateLevelSelectTransition() {
+  if (transitioningState == NOT_TRANSITIONING) {
+    return;
+  }
 
-  timePassed += deltaTimeSeconds;
+  transitionTime += deltaTimeSeconds;
+
+  if (transitionTime > TRANSITION_DURATION) {
+    if (transitioningState == TRANSITIONING_IN) {
+      transitioningState = NOT_TRANSITIONING;
+    } else if (transitioningState == TRANSITIONING_OUT) {
+      changeScreensFlag = 1;
+    }
+  }
+}
+
+void updateInput() {
+  if (transitioningState != NOT_TRANSITIONING) {
+    return;
+  }
 
   selectedLevelLerpValue = lerp(selectedLevelLerpValue, currentlySelectedLevel, 0.19f);
   slideOutLerpValue = lerp(slideOutLerpValue, -32.f, 0.19f);
@@ -171,11 +216,22 @@ void updateLevelSelect() {
   if (contdata[0].trigger & A_BUTTON) {
     currentLevel = currentlySelectedLevel;
     nextStage = &gameplayStage;
-    changeScreensFlag = 1;
+    transitioningState = TRANSITIONING_OUT;
+    transitionTime = 0.f;
     nuAuSndPlayerPlay(SFX_11_MENU_CONFIRM);
   } else if (contdata[0].trigger & B_BUTTON) {
     nextStage = &titleScreenStage;
-    changeScreensFlag = 1;
+    transitioningState = TRANSITIONING_OUT;
+    transitionTime = 0.f;
     nuAuSndPlayerPlay(SFX_12_MENU_BACK);
   }
+}
+
+void updateLevelSelect() {
+  nuContDataGetEx(contdata,0);
+
+  timePassed += deltaTimeSeconds;
+
+  updateLevelSelectTransition();
+  updateInput();
 }

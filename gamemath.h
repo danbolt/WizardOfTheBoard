@@ -38,4 +38,6 @@ float distanceSq(const Vec2* a, const Vec2* b);
 
 float normalize(Vec2* a);
 
+float cubic(float t);
+
 #endif

@@ -89,9 +89,9 @@ void initTitleScreen() {
   spotTimePassed = 0.f;
 
 
-  nuAuSeqPlayerStop(0);
-  nuAuSeqPlayerSetNo(0, TRACK_4_OVERTURE);
-  nuAuSeqPlayerPlay(0);
+  // nuAuSeqPlayerStop(0);
+  // nuAuSeqPlayerSetNo(0, TRACK_4_OVERTURE);
+  // nuAuSeqPlayerPlay(0);
 }
 
 void makeTitleScreenDL() {

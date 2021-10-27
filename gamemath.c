@@ -63,3 +63,7 @@ float normalize(Vec2* a) {
 	a->x *= invLengthA;
 	a->y *= invLengthA;
 }
+
+float cubic(float t) {
+	return t * t * t;
+}
