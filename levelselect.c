@@ -29,12 +29,14 @@ static u8 upPressed;
 static u8 stickInDeadzone;
 
 static float selectedLevelLerpValue;
+static float slideOutLerpValue;
 
 static char floorIndicatorText[32];
 
 void initLevelSelect() {
-  currentlySelectedLevel = 0;
+  currentlySelectedLevel = currentLevel % NUMBER_OF_LEVELS;
   selectedLevelLerpValue = 0.f;
+  slideOutLerpValue = 0.f;
   timePassed = 0.f;
 
   downPressed = 0;
@@ -72,7 +74,7 @@ void makeLevelSelectDisplayList() {
   gDPSetCombineMode(glistp++, G_CC_MODULATEIDECALA_PRIM, G_CC_MODULATEIDECALA_PRIM);
   gDPSetRenderMode(glistp++, G_RM_TEX_EDGE, G_RM_TEX_EDGE2);
   gSPClearGeometryMode(glistp++,0xFFFFFFFF);
-  gSPSetGeometryMode(glistp++,G_SHADE | G_SHADING_SMOOTH | G_CULL_BACK);
+  gSPSetGeometryMode(glistp++, G_CULL_BACK);
   gSPTexture(glistp++, 0xffff, 0xffff, 0, G_TX_RENDERTILE, G_ON);
   gSPClipRatio(glistp++, FRUSTRATIO_2);
 
@@ -83,19 +85,30 @@ void makeLevelSelectDisplayList() {
 
 
   gDPPipeSync(glistp++);
-  gDPLoadTextureBlock(glistp++, OS_K0_TO_PHYSICAL(iconsTexture), G_IM_FMT_IA, G_IM_SIZ_8b, 256, 16, 0, G_TX_NOMIRROR, G_TX_NOMIRROR, 6, 6, G_TX_NOLOD, G_TX_NOLOD);
-  gDPSetPrimColor(glistp++, 0, 0, 0x99, 0x42, 0x8C, 0xff);
+  gDPLoadTextureBlock(glistp++, OS_K0_TO_PHYSICAL(iconsTexture), G_IM_FMT_IA, G_IM_SIZ_8b, 256, 16, 0, G_TX_NOMIRROR, G_TX_NOMIRROR, 0, 0, G_TX_NOLOD, G_TX_NOLOD);
+
 
   for (int i = 0; i < NUMBER_OF_LEVELS; i++) {
-    const s32 offset = (int)(((float)i - (selectedLevelLerpValue)) * -18.f);
-    gSPScisTextureRectangle(glistp++, (SCREEN_WD - TITLE_SAFE_HORIZONTAL - 64 - 64) << 2, (SCREEN_HT - TITLE_SAFE_VERTICAL - 16 + offset - 32) << 2, (SCREEN_WD - TITLE_SAFE_HORIZONTAL - 64) << 2, (SCREEN_HT - TITLE_SAFE_VERTICAL + offset - 32) << 2, 0, ((i % 3) * 64) << 5, 0 << 5, 1 << 10, 1 << 10);
+    const s32 offset = (int)(((float)i - (selectedLevelLerpValue)) * -16.f);
+    gDPSetPrimColor(glistp++, 0, 0, 0x99 >> 1, 0x42 >> 1, 0x8C >> 1, 0xff);
+    gSPScisTextureRectangle(glistp++, (SCREEN_WD - TITLE_SAFE_HORIZONTAL - 64 + 16 - 64) << 2, (SCREEN_HT - TITLE_SAFE_VERTICAL - 16 + offset - 32) << 2, (SCREEN_WD - TITLE_SAFE_HORIZONTAL + 16 - 64) << 2, (SCREEN_HT - TITLE_SAFE_VERTICAL + offset - 32) << 2, 0, ((i % 3) * 64) << 5, 0 << 5, 1 << 10, 1 << 10);
   }
+  for (int i = 0; i < NUMBER_OF_LEVELS; i++) {
+    int xOffset = (i == currentlySelectedLevel) ? (int)(slideOutLerpValue) : 0;
+    const s32 offset = (int)(((float)i - (selectedLevelLerpValue)) * -16.f);
+    gDPSetPrimColor(glistp++, 0, 0, 0x99, 0x42, 0x8C, 0xff);
+    gSPScisTextureRectangle(glistp++, (SCREEN_WD - TITLE_SAFE_HORIZONTAL - 64 + 16 - 64 + xOffset) << 2, (SCREEN_HT - TITLE_SAFE_VERTICAL - 16 + offset - 32) << 2, (SCREEN_WD - TITLE_SAFE_HORIZONTAL - 64 + 16 + xOffset) << 2, (SCREEN_HT - TITLE_SAFE_VERTICAL + offset - 32) << 2, 0, ((i % 3) * 64) << 5, 0 << 5, 1 << 10, 1 << 10);
+  }
+
+  const int cursorOffset = (int)(sinf(timePassed * 8.1616f) * 4.f);
+  gDPSetPrimColor(glistp++, 0, 0, 0xff, 0xff, 0xff, 0xff);
+  gSPTextureRectangle(glistp++, (SCREEN_WD - TITLE_SAFE_HORIZONTAL - 64 - 64 - 8 - 32 + cursorOffset) << 2, (SCREEN_HT - TITLE_SAFE_VERTICAL - 48 + 4) << 2, (SCREEN_WD - TITLE_SAFE_HORIZONTAL - 64 - 64 - 8 - 16 + cursorOffset) << 2, (SCREEN_HT - TITLE_SAFE_VERTICAL - 32 + 4) << 2, 0, 208 << 5, 0 << 5, 1 << 10, 1 << 10);
 
   gDPPipeSync(glistp++);
   gDPSetPrimColor(glistp++, 0, 0, 0xff, 0xff, 0xff, 0xff);
   gDPLoadTextureBlock_4b(glistp++, OS_K0_TO_PHYSICAL(displayTextTexture), G_IM_FMT_IA, 512, 16, 0, G_TX_NOMIRROR, G_TX_NOMIRROR, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
   sprintf(floorIndicatorText, "FLOOR %01d", (currentlySelectedLevel + 1));
-  renderDisplayText(32, 64, floorIndicatorText);
+  renderDisplayText(TITLE_SAFE_HORIZONTAL + 48, 160, floorIndicatorText);
 
 
   gDPFullSync(glistp++);
@@ -111,7 +124,8 @@ void updateLevelSelect() {
 
   timePassed += deltaTimeSeconds;
 
-  selectedLevelLerpValue = lerp(selectedLevelLerpValue, currentlySelectedLevel, 0.13f);
+  selectedLevelLerpValue = lerp(selectedLevelLerpValue, currentlySelectedLevel, 0.19f);
+  slideOutLerpValue = lerp(slideOutLerpValue, -32.f, 0.19f);
 
   // I know this is kind of "backwards" but my hubris/laziness prevents me from addressing it 
   if(contdata[0].trigger & U_JPAD) {
@@ -142,12 +156,14 @@ void updateLevelSelect() {
   if (upPressed) {
     currentlySelectedLevel = (currentlySelectedLevel - 1 + NUMBER_OF_LEVELS) % NUMBER_OF_LEVELS;
     upPressed = 0;
+    slideOutLerpValue = 0.f;
 
     nuAuSndPlayerPlay(SFX_02_NOBODY_BIP);
   }
   if (downPressed) {
     currentlySelectedLevel = (currentlySelectedLevel + 1) % NUMBER_OF_LEVELS;
-    downPressed = 1;
+    downPressed = 0;
+    slideOutLerpValue = 0.f;
 
     nuAuSndPlayerPlay(SFX_02_NOBODY_BIP);
   }
@@ -157,5 +173,9 @@ void updateLevelSelect() {
     nextStage = &gameplayStage;
     changeScreensFlag = 1;
     nuAuSndPlayerPlay(SFX_11_MENU_CONFIRM);
+  } else if (contdata[0].trigger & B_BUTTON) {
+    nextStage = &titleScreenStage;
+    changeScreensFlag = 1;
+    nuAuSndPlayerPlay(SFX_12_MENU_BACK);
   }
 }
