@@ -100,26 +100,26 @@ void makeLevelSelectDisplayList() {
   gDPSetPrimColor(glistp++, 0, 0, 0x99 >> 1, 0x42 >> 1, 0x8C >> 1, 0xff);
   for (int i = 0; i < NUMBER_OF_LEVELS; i++) {
     const s32 offset = (int)(((float)i - (selectedLevelLerpValue)) * -16.f);
-    gSPScisTextureRectangle(glistp++, (SCREEN_WD - TITLE_SAFE_HORIZONTAL - 64 + 16 - 64) << 2, (SCREEN_HT - TITLE_SAFE_VERTICAL - 16 + offset - 32) << 2, (SCREEN_WD - TITLE_SAFE_HORIZONTAL + 16 - 64) << 2, (SCREEN_HT - TITLE_SAFE_VERTICAL + offset - 32) << 2, 0, ((i % 3) * 64) << 5, 0 << 5, 1 << 10, 1 << 10);
+    gSPScisTextureRectangle(glistp++, (SCREEN_WD - TITLE_SAFE_HORIZONTAL - 16 - 64) << 2, (SCREEN_HT - TITLE_SAFE_VERTICAL - 16 + offset - 32) << 2, (SCREEN_WD - TITLE_SAFE_HORIZONTAL - 16) << 2, (SCREEN_HT - TITLE_SAFE_VERTICAL + offset - 32) << 2, 0, ((i % 3) * 64) << 5, 0 << 5, 1 << 10, 1 << 10);
   }
   gDPSetPrimColor(glistp++, 0, 0, 0x99, 0x42, 0x8C, 0xff);
   for (int i = 0; i < NUMBER_OF_LEVELS; i++) {
     int xOffset = (i == currentlySelectedLevel) ? (int)(slideOutLerpValue) : 0;
     const s32 offset = (int)(((float)i - (selectedLevelLerpValue)) * -16.f);
-    gSPScisTextureRectangle(glistp++, (SCREEN_WD - TITLE_SAFE_HORIZONTAL - 64 + 16 - 64 + xOffset) << 2, (SCREEN_HT - TITLE_SAFE_VERTICAL - 16 + offset - 32) << 2, (SCREEN_WD - TITLE_SAFE_HORIZONTAL - 64 + 16 + xOffset) << 2, (SCREEN_HT - TITLE_SAFE_VERTICAL + offset - 32) << 2, 0, ((i % 3) * 64) << 5, 0 << 5, 1 << 10, 1 << 10);
+    gSPScisTextureRectangle(glistp++, (SCREEN_WD - TITLE_SAFE_HORIZONTAL - 16 - 64 + xOffset) << 2, (SCREEN_HT - TITLE_SAFE_VERTICAL - 16 + offset - 32) << 2, (SCREEN_WD - TITLE_SAFE_HORIZONTAL - 16 + xOffset) << 2, (SCREEN_HT - TITLE_SAFE_VERTICAL + offset - 32) << 2, 0, ((i % 3) * 64) << 5, 0 << 5, 1 << 10, 1 << 10);
   }
-  gSPScisTextureRectangle(glistp++, (SCREEN_WD - TITLE_SAFE_HORIZONTAL - 64 + 16 - 64) << 2, (SCREEN_HT - TITLE_SAFE_VERTICAL - 16 + ((int)((NUMBER_OF_LEVELS - selectedLevelLerpValue) * -16)) - 32) << 2, (SCREEN_WD - TITLE_SAFE_HORIZONTAL - 64 + 16 - 48) << 2, (SCREEN_HT - TITLE_SAFE_VERTICAL + ((int)((NUMBER_OF_LEVELS - selectedLevelLerpValue) * -16)) - 32) << 2, 0, 192 << 5, 0 << 5, 1 << 10, 1 << 10);
-  gSPScisTextureRectangle(glistp++, (SCREEN_WD - TITLE_SAFE_HORIZONTAL - 64 + 16 - 64 + 48) << 2, (SCREEN_HT - TITLE_SAFE_VERTICAL - 16 + ((int)((NUMBER_OF_LEVELS - selectedLevelLerpValue) * -16)) - 32) << 2, (SCREEN_WD - TITLE_SAFE_HORIZONTAL - 64 + 16 - 48 + 48) << 2, (SCREEN_HT - TITLE_SAFE_VERTICAL + ((int)((NUMBER_OF_LEVELS - selectedLevelLerpValue) * -16)) - 32) << 2, 0, 224 << 5, 0 << 5, 1 << 10, 1 << 10);
+  gSPScisTextureRectangle(glistp++, (SCREEN_WD - TITLE_SAFE_HORIZONTAL - 16 - 64) << 2, (SCREEN_HT - TITLE_SAFE_VERTICAL - 16 + ((int)((NUMBER_OF_LEVELS - selectedLevelLerpValue) * -16)) - 32) << 2, (SCREEN_WD - TITLE_SAFE_HORIZONTAL - 16 - 48) << 2, (SCREEN_HT - TITLE_SAFE_VERTICAL + ((int)((NUMBER_OF_LEVELS - selectedLevelLerpValue) * -16)) - 32) << 2, 0, 192 << 5, 0 << 5, 1 << 10, 1 << 10);
+  gSPScisTextureRectangle(glistp++, (SCREEN_WD - TITLE_SAFE_HORIZONTAL - 16 - 64 + 48) << 2, (SCREEN_HT - TITLE_SAFE_VERTICAL - 16 + ((int)((NUMBER_OF_LEVELS - selectedLevelLerpValue) * -16)) - 32) << 2, (SCREEN_WD - TITLE_SAFE_HORIZONTAL - 16 - 48 + 48) << 2, (SCREEN_HT - TITLE_SAFE_VERTICAL + ((int)((NUMBER_OF_LEVELS - selectedLevelLerpValue) * -16)) - 32) << 2, 0, 224 << 5, 0 << 5, 1 << 10, 1 << 10);
 
   const int cursorOffset = (int)(sinf(timePassed * 8.1616f) * 4.f);
   gDPSetPrimColor(glistp++, 0, 0, 0xff, 0xff, 0xff, 0xff);
-  gSPTextureRectangle(glistp++, (SCREEN_WD - TITLE_SAFE_HORIZONTAL - 64 - 64 - 8 - 32 + cursorOffset) << 2, (SCREEN_HT - TITLE_SAFE_VERTICAL - 48 + 4) << 2, (SCREEN_WD - TITLE_SAFE_HORIZONTAL - 64 - 64 - 8 - 16 + cursorOffset) << 2, (SCREEN_HT - TITLE_SAFE_VERTICAL - 32 + 4) << 2, 0, 208 << 5, 0 << 5, 1 << 10, 1 << 10);
+  gSPTextureRectangle(glistp++, (SCREEN_WD - TITLE_SAFE_HORIZONTAL - 32 - 64 - 8 - 32 + cursorOffset) << 2, (SCREEN_HT - TITLE_SAFE_VERTICAL - 48 + 4) << 2, (SCREEN_WD - TITLE_SAFE_HORIZONTAL - 32 - 64 - 8 - 16 + cursorOffset) << 2, (SCREEN_HT - TITLE_SAFE_VERTICAL - 32 + 4) << 2, 0, 208 << 5, 0 << 5, 1 << 10, 1 << 10);
 
   gDPPipeSync(glistp++);
   gDPSetPrimColor(glistp++, 0, 0, 0xff, 0xff, 0xff, 0xff);
   gDPLoadTextureBlock_4b(glistp++, OS_K0_TO_PHYSICAL(displayTextTexture), G_IM_FMT_IA, 512, 16, 0, G_TX_NOMIRROR, G_TX_NOMIRROR, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
   sprintf(floorIndicatorText, "FLOOR %01d", (currentlySelectedLevel + 1));
-  renderDisplayText(TITLE_SAFE_HORIZONTAL + 48, 160, floorIndicatorText);
+  renderDisplayText(TITLE_SAFE_HORIZONTAL + 96, 160, floorIndicatorText);
 
   if (transitioningState != NOT_TRANSITIONING) {
     gDPPipeSync(glistp++);
