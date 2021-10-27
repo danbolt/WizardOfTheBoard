@@ -11,7 +11,7 @@
 #include "maps/maplookup.h"
 #include "monsters.h"
 #include "nustdfuncs.h"
-#include "tracknumbers.h"
+#include "audio/bgm/sequence/tracknumbers.h"
 #include "segmentinfo.h"
 #include "stagekeys.h"
 #include "board.h"
