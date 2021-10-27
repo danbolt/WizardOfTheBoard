@@ -214,6 +214,7 @@ static u8 legalDestinationState[NUMBER_OF_BOARD_CELLS];
 static Pos2 chessboardSpotHighlighted;
 static u8 lerpingAngleToCursor;
 
+static int pieceInFrontOfPlayer;
 static int selectedPiece;
 
 static u8 isStagePaused;
@@ -672,6 +673,7 @@ void initStage00(void)
   }
   cursorRotation = 0.f;
 
+  pieceInFrontOfPlayer = -1;
   selectedPiece = -1;
 
   sprintf(floorStartBanner, "FLOOR %d START!", (currentLevel + 1));
@@ -749,10 +751,17 @@ void makeDL00(void)
       continue;
     }
 
+    u32 changedTint = 0;
     if ((boardControlState == BOARD_CONTROL_PIECE_SELECTED) && (selectedPiece == i)) {
       gDPPipeSync(glistp++);
       gDPSetPrimColor(glistp++, 0, 0, N64_C_BUTTONS_RED, N64_C_BUTTONS_GREEN, N64_C_BUTTONS_BLUE, 0xff);
       gDPSetCombineLERP(glistp++, PRIMITIVE, 0, SHADE, 0, 0, 0, 0, SHADE, PRIMITIVE, 0, SHADE, 0, 0, 0, 0, SHADE);
+      changedTint = 1;
+    } else if ((boardControlState == BOARD_CONTROL_NO_SELECTED) && (pieceInFrontOfPlayer == i)) {
+      gDPPipeSync(glistp++);
+      gDPSetPrimColor(glistp++, 0, 0, 0xaa, 0xaa, 0xaa, 0xff);
+      gDPSetCombineLERP(glistp++, PRIMITIVE, 0, SHADE, 0, 0, 0, 0, SHADE, PRIMITIVE, 0, SHADE, 0, 0, 0, 0, SHADE);
+      changedTint = 1;
     }
 
     guTranslate(&(dynamicp->pieceTransforms[i]), pieceViewPos[i].x, pieceViewPos[i].y, 0.f);
@@ -763,9 +772,7 @@ void makeDL00(void)
 
     gSPPopMatrix(glistp++, G_MTX_MODELVIEW);
 
-
-
-    if ((boardControlState == BOARD_CONTROL_PIECE_SELECTED) && (selectedPiece == i)) {
+    if (changedTint) {
       gDPPipeSync(glistp++);
       gDPSetCombineMode(glistp++, G_CC_SHADE, G_CC_SHADE);
     }
@@ -1164,6 +1171,9 @@ void updateMovement() {
 }
 
 void updateBoardControlInput() {
+  const Pos2 spotInFrontOfPlayer = (Pos2){ (int)(playerPosition.x - (sinCameraRot)), (int)(playerPosition.y + (cosCameraRot)) };
+  pieceInFrontOfPlayer = isSpaceOccupied(spotInFrontOfPlayer.x, spotInFrontOfPlayer.y);
+
   if (((contdata[0].button & (L_TRIG | R_TRIG)) == (L_TRIG | R_TRIG)) || (contdata[0].button & Z_TRIG)) {
     Vec2 fstep = { 0, 0 };
 
@@ -1207,14 +1217,12 @@ void updateBoardControlInput() {
 
   if (boardControlState == BOARD_CONTROL_NO_SELECTED) {
     if (contdata[0].trigger & A_BUTTON) {
-      Pos2 step = (Pos2){ (int)(playerPosition.x - (sinCameraRot)), (int)(playerPosition.y + (cosCameraRot)) };
-      const int pieceAtCursorSpot = isSpaceOccupied(step.x, step.y);
       
-      if (pieceAtCursorSpot >= 0 && pieceData[pieceAtCursorSpot].selectable) {
+      if (pieceInFrontOfPlayer >= 0 && pieceData[pieceInFrontOfPlayer].selectable) {
         nuAuSndPlayerPlay(SFX_06_MOVE_CURSOR);
 
         boardControlState = BOARD_CONTROL_PIECE_SELECTED;
-        selectedPiece = pieceAtCursorSpot;
+        selectedPiece = pieceInFrontOfPlayer;
 
         for (int i = 0; i < NUMBER_OF_BOARD_CELLS; i++) {
           legalDestinationState[i] = 0;
@@ -1713,7 +1721,7 @@ void updatePausedState() {
     return;
   }
 
-  if (!(contdata[0].trigger & START_BUTTON) && !((contdata[0].trigger & A_BUTTON) && (pauseMenuIndex == 0)) ) {
+  if (!(contdata[0].trigger & START_BUTTON) && !(isStagePaused && (contdata[0].trigger & A_BUTTON) && (pauseMenuIndex == 0)) ) {
     return;
   }
 
@@ -1750,7 +1758,7 @@ void updateGame00(void)
           nextStage = &levelSelectStage;
         } else {
           // We shouldn't be able to go here
-          nextStage = &titleScreenStage;
+          nextStage = &levelSelectStage;
         }
         changeScreensFlag = 1;
       }
