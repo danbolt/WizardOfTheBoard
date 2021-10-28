@@ -20,12 +20,6 @@
 
 #include "audio/sfx/sfx.h"
 
-#ifdef N_AUDIO
-#include <nualsgi_n.h>
-#else
-#include <nualsgi.h>
-#endif
-
 static float gameplayTimePassed;
 
 static u8 hasStartedMusic;
@@ -1603,14 +1597,14 @@ void checkGameState() {
   if (playerHealth <= 0) {
     gameState = GAME_STATE_PLAYER_LOSES;
 
-    nuAuSeqPlayerStop(0);
+    stopPlayingMusic();
     playSound(SFX_10_PLAYER_DIE);
   }
 
   if ((!monstersAlive) && allPuzzleSpacesAreCovered) {
     gameState = GAME_STATE_PLAYER_WINS;
 
-    nuAuSeqPlayerStop(0);
+    stopPlayingMusic();
     playSound(SFX_09_FLOOR_CLEAR);
   }
 }
@@ -1713,12 +1707,14 @@ void updatePausedState() {
     transitionTime = 0.f;
     isStagePaused = 0;
     playSound(SFX_11_MENU_CONFIRM);
+    fadeOutMusic();
     return;
   } else if ((contdata[0].trigger & A_BUTTON) && (pauseMenuIndex == 2)) {
     transitioningState = TRANSITIONING_OUT;
     transitionTime = 0.f;
     isStagePaused = 0;
     playSound(SFX_11_MENU_CONFIRM);
+    fadeOutMusic();
     return;
   }
 
@@ -1738,9 +1734,7 @@ void updateGame00(void)
   if (dialogueState == DIALOGUE_STATE_SHOWING) {
     return;
   } else if ((!hasStartedMusic) && (transitioningState == NOT_TRANSITIONING)) {
-    // nuAuSeqPlayerStop(0);
-    // nuAuSeqPlayerSetNo(0, TRACK_5_DOOMED_HEROES);
-    // nuAuSeqPlayerPlay(0);
+    playMusic(TRACK_06_DOOMED_HEROES);
     hasStartedMusic = 1;
   }
 

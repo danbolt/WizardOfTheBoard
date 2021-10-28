@@ -15,12 +15,6 @@
 
 #include "audio/sfx/sfx.h"
 
-#ifdef N_AUDIO
-#include <nualsgi_n.h>
-#else
-#include <nualsgi.h>
-#endif
-
 u32 dialogueState;
 
 static int bipIndex;
