@@ -14,12 +14,6 @@
 #include "audio/sfx/sfx.h"
 #include "audio/bgm/sequence/tracknumbers.h"
 
-#ifdef N_AUDIO
-#include <nualsgi_n.h>
-#else
-#include <nualsgi.h>
-#endif
-
 static u8 backgroundTexture[TMEM_SIZE_BYTES] __attribute__((aligned(8)));
 static u8 iconsTexture[TMEM_SIZE_BYTES] __attribute__((aligned(8)));
 
@@ -285,7 +279,7 @@ void updateInput() {
       optionsIndex = (optionsIndex + 1) % OPTIONS_COUNT;
 
       if (optionsIndex == OPTIONS_3_BGM_TEST) {
-        nuAuSeqPlayerStop(0);
+        stopPlayingMusic();
       }
     } else {
       currentlySelectedLevel = (currentlySelectedLevel - 1 + NUMBER_OF_LEVELS) % NUMBER_OF_LEVELS;
@@ -300,7 +294,7 @@ void updateInput() {
       optionsIndex = (optionsIndex - 1 + OPTIONS_COUNT) % OPTIONS_COUNT;
 
       if (optionsIndex == OPTIONS_3_BGM_TEST) {
-        nuAuSeqPlayerStop(0);
+        stopPlayingMusic();
       }
     } else {
       currentlySelectedLevel = (currentlySelectedLevel + 1) % NUMBER_OF_LEVELS;
@@ -337,12 +331,10 @@ void updateInput() {
       } else if (optionsIndex == OPTIONS_2_SFX_TEST) {
         playSound(sfxIndex);
       } else if (optionsIndex == OPTIONS_3_BGM_TEST) {
-        if (nuAuSeqPlayerGetState(0) == AL_STOPPED) {
-          nuAuSeqPlayerStop(0);
-          nuAuSeqPlayerSetNo(0, bgmIndex);
-          nuAuSeqPlayerPlay(0);
-        } else if (nuAuSeqPlayerGetState(0) == AL_PLAYING) {
-          nuAuSeqPlayerStop(0);
+        if (!(isMusicPlaying())) {
+          playMusic(bgmIndex);
+        } else if (isMusicPlaying()) {
+          stopPlayingMusic();
         }
       }
     }
@@ -353,9 +345,7 @@ void updateInput() {
       } else if (optionsIndex == OPTIONS_3_BGM_TEST) {
         bgmIndex = (bgmIndex + 1) % TRACK_COUNT;
 
-        if (nuAuSeqPlayerGetState(0) == AL_PLAYING) {
-          nuAuSeqPlayerStop(0);
-        }
+        stopPlayingMusic();
       }
     } else if(contdata[0].trigger & L_CBUTTONS) {
       if (optionsIndex == OPTIONS_2_SFX_TEST) {
@@ -363,9 +353,7 @@ void updateInput() {
       } else if (optionsIndex == OPTIONS_3_BGM_TEST) {
         bgmIndex = (bgmIndex - 1 + TRACK_COUNT) % TRACK_COUNT;
 
-        if (nuAuSeqPlayerGetState(0) == AL_PLAYING) {
-          nuAuSeqPlayerStop(0);
-        }
+        stopPlayingMusic();
       }
     }
   } else {
@@ -383,9 +371,7 @@ void updateInput() {
       transitionTime = 0.f;
       playSound(SFX_12_MENU_BACK);
 
-      if (nuAuSeqPlayerGetState(0) == AL_PLAYING) {
-        nuAuSeqPlayerFadeOut(0, 25);
-      }
+      fadeOutMusic();
     }
   }
 }
