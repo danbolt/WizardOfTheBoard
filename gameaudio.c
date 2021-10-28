@@ -16,6 +16,35 @@
 
 static u32 isAudioInitialized = 0;
 
+#ifdef NO_COMPILED_AUDIO
+
+void initializeAudio() {
+  //
+}
+
+void playSound(u32 soundId) {
+  //
+}
+
+void playMusic(u32 musicId) {
+  //
+}
+
+void stopPlayingMusic() {
+  //
+}
+
+void fadeOutMusic() {
+  //
+}
+
+int isMusicPlaying() {
+  return 1;
+}
+
+
+#else
+
 void setAudioData(void) {
   nuAuSeqPlayerBankSet(_midibankSegmentRomStart, _midibankSegmentRomEnd - _midibankSegmentRomStart, _miditableSegmentRomStart);
   nuAuSeqPlayerSeqSet(_seqSegmentRomStart);
@@ -63,3 +92,5 @@ void fadeOutMusic() {
 int isMusicPlaying() {
   return (nuAuSeqPlayerGetState(0) == AL_PLAYING);
 }
+
+#endif
