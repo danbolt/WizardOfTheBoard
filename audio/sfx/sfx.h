@@ -71,7 +71,31 @@
 /* 22_player_hurt_2.aifc  */
 #define SFX_22_PLAYER_HURT_2 22
 
-#define SFX_COUNT 23
+/* 23_vo_line_0.aifc  */
+#define SFX_23_VO_LINE_0 23
+
+/* 24_vo_line_1.aifc  */
+#define SFX_24_VO_LINE_1 24
+
+/* 25_vo_line_2.aifc  */
+#define SFX_25_VO_LINE_2 25
+
+/* 26_vo_line_3.aifc  */
+#define SFX_26_VO_LINE_3 26
+
+/* 27_vo_line_4.aifc  */
+#define SFX_27_VO_LINE_4 27
+
+/* 28_vo_line_5.aifc  */
+#define SFX_28_VO_LINE_5 28
+
+/* 29_vo_line_6.aifc  */
+#define SFX_29_VO_LINE_6 29
+
+/* 30_vo_line_7.aifc  */
+#define SFX_30_VO_LINE_7 30
+
+#define SFX_COUNT 31
 
 
 #endif
