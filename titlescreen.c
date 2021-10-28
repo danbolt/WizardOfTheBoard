@@ -8,6 +8,7 @@
 #include "cutscene_backgrounds/backgroundlookup.h"
 #include "nustdfuncs.h"
 #include "main.h"
+#include "gameaudio.h"
 #include "graphic.h"
 #include "segmentinfo.h"
 #include "sixtwelve.h"
@@ -267,7 +268,8 @@ void updateTitleScreen() {
       hasPlayedSoundForTheSpot = 1;
 
       if (spots[spotIndex].soundIndex > -1) {
-        nuAuSndPlayerPlay((u32)(spots[spotIndex].soundIndex));
+        playSound((u32)(spots[spotIndex].soundIndex));
+        nuAuSndPlayerSetFXMix(127);
       }
     }
 

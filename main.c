@@ -6,16 +6,11 @@
 #include "dialogue.h"
 #include "displaytext.h"
 #include "cutscene.h"
+#include "gameaudio.h"
 #include "levelselect.h"
 #include "titlescreen.h"
 
 #include <segmentinfo.h>
-
-#ifdef N_AUDIO
-#include <nualsgi_n.h>
-#else
-#include <nualsgi.h>
-#endif
 
 // TODO: header-ify this
 void initStage00(void);
@@ -71,7 +66,7 @@ void updateTime() {
 void initalizeGameData() {
   changeScreensFlag = 1;
   currentStage = NULL;
-  nextStage = &levelSelectStage;
+  nextStage = &titleScreenStage;
 
   loadDisplayText();
 
@@ -86,16 +81,6 @@ void initalizeGameData() {
   updateTime();
 
   initalizeDialogue();
-}
-
-void setAudioData(void)
-{
-  nuAuSeqPlayerBankSet(_midibankSegmentRomStart, _midibankSegmentRomEnd - _midibankSegmentRomStart, _miditableSegmentRomStart);
-  nuAuSeqPlayerSeqSet(_seqSegmentRomStart);
-
-  nuAuSndPlayerBankSet(_sfxbankSegmentRomStart, _sfxbankSegmentRomEnd - _sfxbankSegmentRomStart, _sfxtableSegmentRomStart);
-
-  nuAuSeqPlayerSetVol(0, 0x2fff);
 }
 
 void tickCurrentStage(int pendingGfx) {
@@ -129,8 +114,7 @@ void mainproc(void)
   /* The initialization of the controller manager  */
   contPattern = nuContInit();
 
-  nuAuInit();
-  setAudioData();
+  initializeAudio();
 
   while (1) {
     currentStage = (ScreenInfo*)nextStage;

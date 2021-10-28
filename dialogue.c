@@ -3,6 +3,7 @@
 
 #include "bip-mapping/bipmapping.h"
 #include "cutscene.h"
+#include "gameaudio.h"
 #include "graphic.h"
 #include "cast_sprites/castlookup.h"
 #include "dialogue/dialoguelookup.h"
@@ -185,9 +186,9 @@ void updateDialogue() {
 
       struct bipMapping * bipType = getBipMapping(currentDialogueItem->speaker, _nstrlen(currentDialogueItem->speaker));
       if (bipType != 0x0) { 
-        nuAuSndPlayerPlay(bipType->sfxKey);
+        playSound(bipType->sfxKey);
       } else { 
-        nuAuSndPlayerPlay(DEFAULT_BIP_NOISE);
+        playSound(DEFAULT_BIP_NOISE);
       }
     }
 

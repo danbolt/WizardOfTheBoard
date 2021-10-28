@@ -5,6 +5,7 @@
 
 #include "displaytext.h"
 #include "main.h"
+#include "gameaudio.h"
 #include "gamemath.h"
 #include "graphic.h"
 #include "nustdfuncs.h"
@@ -292,7 +293,7 @@ void updateInput() {
     }
 
     upPressed = 0;
-    nuAuSndPlayerPlay(SFX_02_NOBODY_BIP);
+    playSound(SFX_02_NOBODY_BIP);
   }
   if (downPressed) {
     if (inTheOptionsPanel) {
@@ -307,20 +308,20 @@ void updateInput() {
     }
 
     downPressed = 0;
-    nuAuSndPlayerPlay(SFX_02_NOBODY_BIP);
+    playSound(SFX_02_NOBODY_BIP);
   }
 
   if (leftPressed && (!inTheOptionsPanel)) {
     inTheOptionsPanel = 1;
     leftPressed = 0;
 
-    nuAuSndPlayerPlay(SFX_02_NOBODY_BIP);
+    playSound(SFX_02_NOBODY_BIP);
   }
   if (rightPressed && inTheOptionsPanel) {
     inTheOptionsPanel = 0;
     rightPressed = 0;
 
-    nuAuSndPlayerPlay(SFX_02_NOBODY_BIP);
+    playSound(SFX_02_NOBODY_BIP);
   }
 
   if (inTheOptionsPanel) {
@@ -334,7 +335,7 @@ void updateInput() {
       } else if (optionsIndex == OPTIONS_1_FLASHING) {
         flashingProjectiles = !flashingProjectiles;
       } else if (optionsIndex == OPTIONS_2_SFX_TEST) {
-        nuAuSndPlayerPlay(sfxIndex);
+        playSound(sfxIndex);
       } else if (optionsIndex == OPTIONS_3_BGM_TEST) {
         if (nuAuSeqPlayerGetState(0) == AL_STOPPED) {
           nuAuSeqPlayerStop(0);
@@ -373,7 +374,7 @@ void updateInput() {
       nextStage = &gameplayStage;
       transitioningState = TRANSITIONING_OUT;
       transitionTime = 0.f;
-      nuAuSndPlayerPlay(SFX_11_MENU_CONFIRM);
+      playSound(SFX_11_MENU_CONFIRM);
 
       if (nuAuSeqPlayerGetState(0) == AL_PLAYING) {
         nuAuSeqPlayerFadeOut(0, 25);
@@ -382,7 +383,7 @@ void updateInput() {
       nextStage = &titleScreenStage;
       transitioningState = TRANSITIONING_OUT;
       transitionTime = 0.f;
-      nuAuSndPlayerPlay(SFX_12_MENU_BACK);
+      playSound(SFX_12_MENU_BACK);
 
       if (nuAuSeqPlayerGetState(0) == AL_PLAYING) {
         nuAuSeqPlayerFadeOut(0, 25);

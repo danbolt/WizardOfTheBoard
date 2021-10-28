@@ -5,6 +5,7 @@
 #include "dialogue.h"
 #include "displaytext.h"
 #include "main.h"
+#include "gameaudio.h"
 #include "gamemath.h"
 #include "graphic.h"
 #include "mapdata.h"
@@ -1179,18 +1180,18 @@ void updateBoardControlInput() {
 
     if(contdata[0].trigger & U_CBUTTONS) {
       fstep.y = 1.51f;
-      nuAuSndPlayerPlay((boardControlState == BOARD_CONTROL_PIECE_SELECTED) ? SFX_06_TENSE_MOVE_CURSOR : SFX_06_MOVE_CURSOR);
+      playSound((boardControlState == BOARD_CONTROL_PIECE_SELECTED) ? SFX_06_TENSE_MOVE_CURSOR : SFX_06_MOVE_CURSOR);
     } else if(contdata[0].trigger & D_CBUTTONS) {
       fstep.y = -1.51f;
-      nuAuSndPlayerPlay((boardControlState == BOARD_CONTROL_PIECE_SELECTED) ? SFX_06_TENSE_MOVE_CURSOR : SFX_06_MOVE_CURSOR);
+      playSound((boardControlState == BOARD_CONTROL_PIECE_SELECTED) ? SFX_06_TENSE_MOVE_CURSOR : SFX_06_MOVE_CURSOR);
     }
 
     if(contdata[0].trigger & R_CBUTTONS) {
       fstep.x = 1.51f;
-      nuAuSndPlayerPlay((boardControlState == BOARD_CONTROL_PIECE_SELECTED) ? SFX_06_TENSE_MOVE_CURSOR : SFX_06_MOVE_CURSOR);
+      playSound((boardControlState == BOARD_CONTROL_PIECE_SELECTED) ? SFX_06_TENSE_MOVE_CURSOR : SFX_06_MOVE_CURSOR);
     } else if(contdata[0].trigger & L_CBUTTONS) {
       fstep.x = -1.51f;
-      nuAuSndPlayerPlay((boardControlState == BOARD_CONTROL_PIECE_SELECTED) ? SFX_06_TENSE_MOVE_CURSOR : SFX_06_MOVE_CURSOR);
+      playSound((boardControlState == BOARD_CONTROL_PIECE_SELECTED) ? SFX_06_TENSE_MOVE_CURSOR : SFX_06_MOVE_CURSOR);
     }
 
     Pos2 step = (Pos2){ (int)((cosCameraRot * fstep.x) - (sinCameraRot * fstep.y)), (int)((sinCameraRot * fstep.x) + (cosCameraRot * fstep.y)) };
@@ -1200,18 +1201,18 @@ void updateBoardControlInput() {
   } else {
     if(contdata[0].trigger & U_CBUTTONS) {
       chessboardSpotHighlighted.y = (chessboardSpotHighlighted.y + 1) % BOARD_HEIGHT;
-      nuAuSndPlayerPlay((boardControlState == BOARD_CONTROL_PIECE_SELECTED) ? SFX_06_TENSE_MOVE_CURSOR : SFX_06_MOVE_CURSOR);
+      playSound((boardControlState == BOARD_CONTROL_PIECE_SELECTED) ? SFX_06_TENSE_MOVE_CURSOR : SFX_06_MOVE_CURSOR);
     } else if(contdata[0].trigger & D_CBUTTONS) {
       chessboardSpotHighlighted.y = (chessboardSpotHighlighted.y - 1 + BOARD_HEIGHT) % BOARD_HEIGHT;
-      nuAuSndPlayerPlay((boardControlState == BOARD_CONTROL_PIECE_SELECTED) ? SFX_06_TENSE_MOVE_CURSOR : SFX_06_MOVE_CURSOR);
+      playSound((boardControlState == BOARD_CONTROL_PIECE_SELECTED) ? SFX_06_TENSE_MOVE_CURSOR : SFX_06_MOVE_CURSOR);
     }
 
     if(contdata[0].trigger & R_CBUTTONS) {
       chessboardSpotHighlighted.x = (chessboardSpotHighlighted.x + 1) % BOARD_WIDTH;
-      nuAuSndPlayerPlay((boardControlState == BOARD_CONTROL_PIECE_SELECTED) ? SFX_06_TENSE_MOVE_CURSOR : SFX_06_MOVE_CURSOR);
+      playSound((boardControlState == BOARD_CONTROL_PIECE_SELECTED) ? SFX_06_TENSE_MOVE_CURSOR : SFX_06_MOVE_CURSOR);
     } else if(contdata[0].trigger & L_CBUTTONS) {
       chessboardSpotHighlighted.x = (chessboardSpotHighlighted.x - 1 + BOARD_WIDTH) % BOARD_WIDTH;
-      nuAuSndPlayerPlay((boardControlState == BOARD_CONTROL_PIECE_SELECTED) ? SFX_06_TENSE_MOVE_CURSOR : SFX_06_MOVE_CURSOR);
+      playSound((boardControlState == BOARD_CONTROL_PIECE_SELECTED) ? SFX_06_TENSE_MOVE_CURSOR : SFX_06_MOVE_CURSOR);
     }
   }
 
@@ -1219,7 +1220,7 @@ void updateBoardControlInput() {
     if (contdata[0].trigger & A_BUTTON) {
       
       if (pieceInFrontOfPlayer >= 0 && pieceData[pieceInFrontOfPlayer].selectable) {
-        nuAuSndPlayerPlay(SFX_06_MOVE_CURSOR);
+        playSound(SFX_06_MOVE_CURSOR);
 
         boardControlState = BOARD_CONTROL_PIECE_SELECTED;
         selectedPiece = pieceInFrontOfPlayer;
@@ -1234,7 +1235,7 @@ void updateBoardControlInput() {
     if (contdata[0].trigger & B_BUTTON) {
       selectedPiece = -1;
       boardControlState = BOARD_CONTROL_NO_SELECTED;
-      nuAuSndPlayerPlay(SFX_06_MOVE_CURSOR);
+      playSound(SFX_06_MOVE_CURSOR);
     } else if (contdata[0].trigger & A_BUTTON) {
       assert(selectedPiece >= 0); // we should have a selected piece here
       const int pieceAtCursorSpot = isSpaceOccupied(chessboardSpotHighlighted.x, chessboardSpotHighlighted.y);
@@ -1262,13 +1263,13 @@ void updateBoardControlInput() {
           }
         }
         if (onPuzzleSpot) {
-          nuAuSndPlayerPlay(SFX_07_ONTO_PUZZLE_SPACE);
+          playSound(SFX_07_ONTO_PUZZLE_SPACE);
         } else {
-          nuAuSndPlayerPlay(SFX_08_CONFIRM_MOVE);
+          playSound(SFX_08_CONFIRM_MOVE);
         }
         
       } else {
-        nuAuSndPlayerPlay(SFX_05_ILLEGAL_MOVE);
+        playSound(SFX_05_ILLEGAL_MOVE);
       }
 
       selectedPiece = -1;
@@ -1386,9 +1387,9 @@ void checkCollisionWithPieces() {
 
       health[j] = MAX(health[j] - 1, 0);
       if (j > 0) {
-        nuAuSndPlayerPlay(SFX_19_OGRE_HURT);
+        playSound(SFX_19_OGRE_HURT);
       } else {
-        nuAuSndPlayerPlay(SFX_20_PLAYER_HURT_0);
+        playSound(SFX_20_PLAYER_HURT_0);
       }
       if ((j > 0) && (health[j] < 1)) {
         isActive[j] = 0;
@@ -1522,7 +1523,7 @@ void checkCollisionWithMonsters() {
     }
 
     playerHealth = MAX(playerHealth - 1, 0);
-    nuAuSndPlayerPlay(SFX_20_PLAYER_HURT_0);
+    playSound(SFX_20_PLAYER_HURT_0);
 
     isPlayerKnockingBack = 1;
     playerKnockbackTimeRemaining = KNOCKBACK_TIME;
@@ -1544,7 +1545,7 @@ void checkCollisionWithMonsters() {
     }
 
     playerHealth = MAX(playerHealth - 1, 0);
-    nuAuSndPlayerPlay(SFX_21_PLAYER_HURT_1);
+    playSound(SFX_21_PLAYER_HURT_1);
 
     isPlayerKnockingBack = 1;
     playerKnockbackTimeRemaining = KNOCKBACK_TIME;
@@ -1603,14 +1604,14 @@ void checkGameState() {
     gameState = GAME_STATE_PLAYER_LOSES;
 
     nuAuSeqPlayerStop(0);
-    nuAuSndPlayerPlay(SFX_10_PLAYER_DIE);
+    playSound(SFX_10_PLAYER_DIE);
   }
 
   if ((!monstersAlive) && allPuzzleSpacesAreCovered) {
     gameState = GAME_STATE_PLAYER_WINS;
 
     nuAuSeqPlayerStop(0);
-    nuAuSndPlayerPlay(SFX_09_FLOOR_CLEAR);
+    playSound(SFX_09_FLOOR_CLEAR);
   }
 }
 
@@ -1697,13 +1698,13 @@ void updatePausedState() {
       pauseMenuIndex = (pauseMenuIndex - 1 + NUMBER_OF_PAUSE_MENU_ITEMS) % NUMBER_OF_PAUSE_MENU_ITEMS;
       upPressed = 0;
 
-      nuAuSndPlayerPlay(SFX_02_NOBODY_BIP);
+      playSound(SFX_02_NOBODY_BIP);
     }
     if (downPressed) {
       pauseMenuIndex = (pauseMenuIndex + 1) % NUMBER_OF_PAUSE_MENU_ITEMS;
       downPressed = 1;
 
-      nuAuSndPlayerPlay(SFX_02_NOBODY_BIP);
+      playSound(SFX_02_NOBODY_BIP);
     }
   }
 
@@ -1711,13 +1712,13 @@ void updatePausedState() {
     transitioningState = TRANSITIONING_OUT;
     transitionTime = 0.f;
     isStagePaused = 0;
-    nuAuSndPlayerPlay(SFX_11_MENU_CONFIRM);
+    playSound(SFX_11_MENU_CONFIRM);
     return;
   } else if ((contdata[0].trigger & A_BUTTON) && (pauseMenuIndex == 2)) {
     transitioningState = TRANSITIONING_OUT;
     transitionTime = 0.f;
     isStagePaused = 0;
-    nuAuSndPlayerPlay(SFX_11_MENU_CONFIRM);
+    playSound(SFX_11_MENU_CONFIRM);
     return;
   }
 
@@ -1727,7 +1728,7 @@ void updatePausedState() {
 
   isStagePaused = !isStagePaused;
   pauseMenuIndex = 0;
-  nuAuSndPlayerPlay(isStagePaused ? SFX_11_MENU_CONFIRM : SFX_12_MENU_BACK);
+  playSound(isStagePaused ? SFX_11_MENU_CONFIRM : SFX_12_MENU_BACK);
 }
 
 void updateGame00(void)
