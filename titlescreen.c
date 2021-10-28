@@ -20,12 +20,6 @@
 #include "opening/tower.h"
 #include "opening/ground.h"
 
-#ifdef N_AUDIO
-#include <nualsgi_n.h>
-#else
-#include <nualsgi.h>
-#endif
-
 static float timePassed;
 
 static u8 downPressed;
@@ -93,10 +87,7 @@ void initTitleScreen() {
   spotTimePassed = 0.f;
   hasPlayedSoundForTheSpot = 0;
 
-
-  nuAuSeqPlayerStop(0);
-  nuAuSeqPlayerSetNo(0, TRACK_05_OVERTURE);
-  nuAuSeqPlayerPlay(0);
+  playMusic(TRACK_05_OVERTURE);
 }
 
 void makeTitleScreenDL() {
@@ -269,7 +260,6 @@ void updateTitleScreen() {
 
       if (spots[spotIndex].soundIndex > -1) {
         playSound((u32)(spots[spotIndex].soundIndex));
-        nuAuSndPlayerSetFXMix(127);
       }
     }
 
@@ -316,5 +306,7 @@ void updateTitleScreen() {
   if (contdata[0].trigger & A_BUTTON) {
     nextStage = &levelSelectStage;
     changeScreensFlag = 1;
+
+    fadeOutMusic();
   }
 }

@@ -376,9 +376,7 @@ void updateInput() {
       transitionTime = 0.f;
       playSound(SFX_11_MENU_CONFIRM);
 
-      if (nuAuSeqPlayerGetState(0) == AL_PLAYING) {
-        nuAuSeqPlayerFadeOut(0, 25);
-      }
+      fadeOutMusic();
     } else if (contdata[0].trigger & B_BUTTON) {
       nextStage = &titleScreenStage;
       transitioningState = TRANSITIONING_OUT;

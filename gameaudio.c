@@ -41,3 +41,25 @@ void initializeAudio() {
 void playSound(u32 soundId) {
   nuAuSndPlayerPlay(soundId % SFX_COUNT);
 }
+
+void playMusic(u32 musicId) {
+  nuAuSeqPlayerStop(0);
+  nuAuSeqPlayerSetNo(0, musicId % TRACK_COUNT);
+  nuAuSeqPlayerPlay(0);
+}
+
+void stopPlayingMusic()  {
+  if (nuAuSeqPlayerGetState(0) == AL_PLAYING) {
+    nuAuSeqPlayerFadeOut(0, 25);
+  }
+}
+
+void fadeOutMusic() {
+  if (nuAuSeqPlayerGetState(0) == AL_PLAYING) {
+    nuAuSeqPlayerFadeOut(0, 25);
+  }
+}
+
+int isMusicPlaying() {
+  return (nuAuSeqPlayerGetState(0) == AL_PLAYING);
+}
