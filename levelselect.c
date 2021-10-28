@@ -282,6 +282,10 @@ void updateInput() {
   if (upPressed) {
     if (inTheOptionsPanel) {
       optionsIndex = (optionsIndex + 1) % OPTIONS_COUNT;
+
+      if (optionsIndex == OPTIONS_3_BGM_TEST) {
+        nuAuSeqPlayerStop(0);
+      }
     } else {
       currentlySelectedLevel = (currentlySelectedLevel - 1 + NUMBER_OF_LEVELS) % NUMBER_OF_LEVELS;
       slideOutLerpValue = 0.f;
@@ -293,6 +297,10 @@ void updateInput() {
   if (downPressed) {
     if (inTheOptionsPanel) {
       optionsIndex = (optionsIndex - 1 + OPTIONS_COUNT) % OPTIONS_COUNT;
+
+      if (optionsIndex == OPTIONS_3_BGM_TEST) {
+        nuAuSeqPlayerStop(0);
+      }
     } else {
       currentlySelectedLevel = (currentlySelectedLevel + 1) % NUMBER_OF_LEVELS;
       slideOutLerpValue = 0.f;
@@ -326,9 +334,15 @@ void updateInput() {
       } else if (optionsIndex == OPTIONS_1_FLASHING) {
         flashingProjectiles = !flashingProjectiles;
       } else if (optionsIndex == OPTIONS_2_SFX_TEST) {
-        // TODO: play some sounds
+        nuAuSndPlayerPlay(sfxIndex);
       } else if (optionsIndex == OPTIONS_3_BGM_TEST) {
-        // TODO: play some music
+        if (nuAuSeqPlayerGetState(0) == AL_STOPPED) {
+          nuAuSeqPlayerStop(0);
+          nuAuSeqPlayerSetNo(0, bgmIndex);
+          nuAuSeqPlayerPlay(0);
+        } else if (nuAuSeqPlayerGetState(0) == AL_PLAYING) {
+          nuAuSeqPlayerStop(0);
+        }
       }
     }
 
@@ -337,12 +351,20 @@ void updateInput() {
         sfxIndex = (sfxIndex + 1) % SFX_COUNT;
       } else if (optionsIndex == OPTIONS_3_BGM_TEST) {
         bgmIndex = (bgmIndex + 1) % TRACK_COUNT;
+
+        if (nuAuSeqPlayerGetState(0) == AL_PLAYING) {
+          nuAuSeqPlayerStop(0);
+        }
       }
     } else if(contdata[0].trigger & L_CBUTTONS) {
       if (optionsIndex == OPTIONS_2_SFX_TEST) {
         sfxIndex = (sfxIndex - 1 + SFX_COUNT) % SFX_COUNT;
       } else if (optionsIndex == OPTIONS_3_BGM_TEST) {
         bgmIndex = (bgmIndex - 1 + TRACK_COUNT) % TRACK_COUNT;
+
+        if (nuAuSeqPlayerGetState(0) == AL_PLAYING) {
+          nuAuSeqPlayerStop(0);
+        }
       }
     }
   } else {
@@ -352,11 +374,19 @@ void updateInput() {
       transitioningState = TRANSITIONING_OUT;
       transitionTime = 0.f;
       nuAuSndPlayerPlay(SFX_11_MENU_CONFIRM);
+
+      if (nuAuSeqPlayerGetState(0) == AL_PLAYING) {
+        nuAuSeqPlayerFadeOut(0, 25);
+      }
     } else if (contdata[0].trigger & B_BUTTON) {
       nextStage = &titleScreenStage;
       transitioningState = TRANSITIONING_OUT;
       transitionTime = 0.f;
       nuAuSndPlayerPlay(SFX_12_MENU_BACK);
+
+      if (nuAuSeqPlayerGetState(0) == AL_PLAYING) {
+        nuAuSeqPlayerFadeOut(0, 25);
+      }
     }
   }
 }

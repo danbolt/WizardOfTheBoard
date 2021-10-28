@@ -3,12 +3,12 @@
 .section .data
 
 glabel _miditableSegmentRomStart
-.incbin "audio/bgm/bank/lunar.tbl"
+.incbin "audio/bgm/bank/GenMidiBank.tbl"
 .balign 16
 glabel _miditableSegmentRomEnd
 
 glabel _midibankSegmentRomStart
-.incbin "audio/bgm/bank/lunar.ctl"
+.incbin "audio/bgm/bank/GenMidiBank.ctl"
 .balign 16
 glabel _midibankSegmentRomEnd
 
