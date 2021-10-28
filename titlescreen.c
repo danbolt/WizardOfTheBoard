@@ -13,6 +13,7 @@
 #include "sixtwelve.h"
 #include "sixtwelve_helpers.h"
 #include "audio/bgm/sequence/tracknumbers.h"
+#include "audio/sfx/sfx.h"
 
 #include "opening/envtexture.h"
 #include "opening/tower.h"
@@ -37,28 +38,30 @@ typedef struct {
   Vec3 camera;
   Vec3 look;
   const char* text;
+  int soundIndex;
 } Spot;
 
 static int spotIndex;
 static float spotTimePassed;
+static u8 hasPlayedSoundForTheSpot;
 
 static Spot spots[] = {
   // Sky start
-  { 6.f, { -99.3196f, -120.643f, 67.314f }, { -59.3667f, -69.484f, 123.734f }, "It is a shitty time." },
+  { 6.f, { -99.3196f, -120.643f, 67.314f }, { -59.3667f, -69.484f, 123.734f }, "It is a shitty time.", SFX_23_VO_LINE_0 },
 
   // "comes down" to view
-  { 6.f, { -59.3667f, -120.643f, 67.314f }, { -59.3667f, -69.484f, 67.314f }, "The harvests are poor, and\n  monsters roam freely\n   across the land." },
+  { 6.f, { -59.3667f, -120.643f, 67.314f }, { -59.3667f, -69.484f, 67.314f }, "The harvests are poor, and\n  monsters roam freely\n   across the land.", SFX_24_VO_LINE_1 },
 
-  { 6.5f, { 83.7952f, -115.326f, 37.987f }, { 6.07872f, 11.4772f, -9.87373f }, " Chosen by lot, warriors are\n  trained from birth\n     in the mystic artes." },
-  { 6.5f, { 178.037f, 36.7114f, 76.2756f }, { 6.07872f, 19.6313f, 21.6789f }, "A warrior must be learned\n           in cunning,\n                  strategy,\n                   and swiftness..." },
-  { 6.5f, { 76.7275f, 73.2299f, 76.2756f }, { 5.48971f, 23.1654f, 14.9429f }, "...for their final lonesome trial\n        when they come of age." },
+  { 6.0f, { 83.7952f, -115.326f, 37.987f }, { 6.07872f, 11.4772f, -9.87373f }, " Chosen by lot, warriors are\n  trained from birth\n     in the mystic artes.", SFX_25_VO_LINE_2 },
+  { 5.0f, { 178.037f, 36.7114f, 76.2756f }, { 6.07872f, 19.6313f, 21.6789f }, "A warrior must be learned\n           in cunning,\n                  strategy,\n                   and swiftness...", SFX_26_VO_LINE_3 },
+  { 6.0f, { 76.7275f, 73.2299f, 76.2756f }, { 5.48971f, 23.1654f, 14.9429f }, "...for their final lonesome trial\n        when they come of age.",  SFX_27_VO_LINE_4},
 
   // Midpoint
-  { 6.f, { 0.745361f, 44.7062f, 108.537f }, { 0.667588f, 4.2692f, 24.0872f }, "To prevail as a warrior is to\n    scale the Demon's Spire,\n     lair of the Shadow Queen." },
+  { 7.5f, { 0.745361f, 44.7062f, 108.537f }, { 0.667588f, 4.2692f, 24.0872f }, "To prevail as a warrior is to\n    scale the Demon's Spire,\n     lair of the Shadow Queen.", SFX_28_VO_LINE_5 },
 
-  { 4.f, { -103.509f, 22.3239f, 70.2484f }, { -0.489938f, 21.5849f, 22.4681f }, "Many have entered,\n but few have returned." },
-  { 6.f, { -4.55552f, -93.9098f, 44.2122f }, { 1.36965f, 21.797f, 24.2866f }, "If one prevails over the trial,\n   if one succeeds at their task,\n     they shall be known as a..." },
-  { 5.f, { 0.156551f, 7.43251f, 25.1426f }, { 1.36965f, 21.797f, 24.2866f }, "WIZARD OF THE BOARD" },
+  { 5.f, { -103.509f, 22.3239f, 70.2484f }, { -0.489938f, 21.5849f, 22.4681f }, "Many have entered,\n but few have returned.", SFX_29_VO_LINE_6 },
+  { 7.f, { -4.55552f, -93.9098f, 44.2122f }, { 1.36965f, 21.797f, 24.2866f }, "If one prevails over the trial,\n   if one succeeds at their task,\n     they shall be known as a...", SFX_30_VO_LINE_7 },
+  { 5.f, { 0.156551f, 7.43251f, 25.1426f }, { 1.36965f, 21.797f, 24.2866f }, "", -1 },
 
   { 1.f, { 0.f, -5.f, 0.f }, { 0.f, 11.5f, 26.f }, "" },
 };
@@ -87,11 +90,12 @@ void initTitleScreen() {
 
   spotIndex = 0;
   spotTimePassed = 0.f;
+  hasPlayedSoundForTheSpot = 0;
 
 
-  // nuAuSeqPlayerStop(0);
-  // nuAuSeqPlayerSetNo(0, TRACK_4_OVERTURE);
-  // nuAuSeqPlayerPlay(0);
+  nuAuSeqPlayerStop(0);
+  nuAuSeqPlayerSetNo(0, TRACK_05_OVERTURE);
+  nuAuSeqPlayerPlay(0);
 }
 
 void makeTitleScreenDL() {
@@ -259,9 +263,18 @@ void updateTitleScreen() {
   if (spotIndex < (NUMBER_OF_SPOTS)) {
     spotTimePassed += deltaTimeSeconds;
 
+    if ((!hasPlayedSoundForTheSpot) && (((spotIndex > 0) && (spotTimePassed > 1.f)) || ( spotTimePassed > 3.f)) ) {
+      hasPlayedSoundForTheSpot = 1;
+
+      if (spots[spotIndex].soundIndex > -1) {
+        nuAuSndPlayerPlay((u32)(spots[spotIndex].soundIndex));
+      }
+    }
+
     if (spotTimePassed > spots[spotIndex].duration) {
       spotTimePassed = 0.f;
       spotIndex++;
+      hasPlayedSoundForTheSpot = 0;
     }
   }
   
