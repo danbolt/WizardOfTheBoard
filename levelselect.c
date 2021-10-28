@@ -7,9 +7,11 @@
 #include "main.h"
 #include "gamemath.h"
 #include "graphic.h"
+#include "nustdfuncs.h"
 #include "segmentinfo.h"
 #include "stagekeys.h"
 #include "audio/sfx/sfx.h"
+#include "audio/bgm/sequence/tracknumbers.h"
 
 #ifdef N_AUDIO
 #include <nualsgi_n.h>
@@ -25,7 +27,16 @@ static u32 currentlySelectedLevel;
 static float timePassed;
 
 static u8 inTheOptionsPanel;
+static u8 optionsIndex;
+static u8 sfxIndex;
+static u8 bgmIndex;
 static float horizontalSwipe;
+
+#define OPTIONS_0_FOV 0
+#define OPTIONS_1_FLASHING 1
+#define OPTIONS_2_SFX_TEST 2
+#define OPTIONS_3_BGM_TEST 3
+#define OPTIONS_COUNT 4
 
 static u8 downPressed;
 static u8 upPressed;
@@ -36,7 +47,7 @@ static u8 stickInDeadzone;
 static float selectedLevelLerpValue;
 static float slideOutLerpValue;
 
-static char floorIndicatorText[32];
+static char textBuffer[32];
 
 #define NOT_TRANSITIONING 0
 #define TRANSITIONING_IN 1
@@ -51,8 +62,12 @@ void initLevelSelect() {
   slideOutLerpValue = 0.f;
   timePassed = 0.f;
 
+  optionsIndex = 0;
   inTheOptionsPanel = 0;
   horizontalSwipe = 0.f;
+
+  sfxIndex = 0;
+  bgmIndex = 0;
 
   downPressed = 0;
   upPressed = 0;
@@ -60,7 +75,7 @@ void initLevelSelect() {
   leftPressed = 0;
   stickInDeadzone = 0;
 
-  floorIndicatorText[0] = '\0';
+  textBuffer[0] = '\0';
 
   transitioningState = TRANSITIONING_IN;
   transitionTime = 0.f;
@@ -104,14 +119,50 @@ void makeLevelSelectDisplayList() {
   gDPLoadTextureBlock(glistp++, OS_K0_TO_PHYSICAL(backgroundTexture), G_IM_FMT_I, G_IM_SIZ_8b, 64, 64, 0, G_TX_NOMIRROR, G_TX_NOMIRROR, 6, 6, G_TX_NOLOD, G_TX_NOLOD);
   gDPSetPrimColor(glistp++, 0, 0, 0x00, 0x33, 0x61, 0xff);
   gSPTextureRectangle(glistp++, (0) << 2, (0) << 2, (SCREEN_WD) << 2, (SCREEN_HT) << 2, 0, ((u32)(timePassed * 1.f * 64.f)) << 5, ((u32)(timePassed * 0.7f * 64.f)) << 5, 1 << 10, 1 << 10);
+  
+  // Options pane
   gDPSetPrimColor(glistp++, 0, 0, 0x00, 0x23, 0x41, 0xff);
-  gSPScisTextureRectangle(glistp++, (-100 + ((int)swipeOffset)) << 2, (0) << 2, (-100 + ((int)swipeOffset) + 128) << 2, (SCREEN_HT) << 2, 0, ((u32)(timePassed * 1.f * 64.f)) << 5, ((u32)(timePassed * 0.7f * 64.f)) << 5, 1 << 10, 1 << 10);
-
+  gSPScisTextureRectangle(glistp++, (-128 + ((int)swipeOffset)) << 2, (0) << 2, (-128 + ((int)swipeOffset) + 164) << 2, (SCREEN_HT) << 2, 0, ((u32)(timePassed * 1.f * 64.f)) << 5, ((u32)(timePassed * 0.7f * 64.f)) << 5, 1 << 10, 1 << 10);
 
   gDPPipeSync(glistp++);
+  gDPSetPrimColor(glistp++, 0, 0, 0xff, 0xff, 0xff, 0xff);
+  gDPLoadTextureBlock_4b(glistp++, OS_K0_TO_PHYSICAL(displayTextTexture), G_IM_FMT_IA, 512, 16, 0, G_TX_NOMIRROR, G_TX_NOMIRROR, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
+  renderDisplayText(swipeOffset - 128 + TITLE_SAFE_HORIZONTAL + 16, TITLE_SAFE_VERTICAL + 8, "OPTIONS");
+
+
+  gDPSetPrimColor(glistp++, 0, 0, 0xff, 0xff, 0xff, 0xff);
+  if (inTheOptionsPanel && (optionsIndex == OPTIONS_0_FOV)) {
+    gDPSetPrimColor(glistp++, 0, 0, N64_C_BUTTONS_RED, N64_C_BUTTONS_GREEN, N64_C_BUTTONS_BLUE, 0xff);
+  }
+  sprintf(textBuffer, "FOV %02d", (int)ingameFOV);
+  renderDisplayText(swipeOffset - 128 + TITLE_SAFE_HORIZONTAL + 8, TITLE_SAFE_VERTICAL + 8 + 32, textBuffer);
+
+
+  gDPSetPrimColor(glistp++, 0, 0, 0xff, 0xff, 0xff, 0xff);
+  if (inTheOptionsPanel && (optionsIndex == OPTIONS_1_FLASHING)) {
+    gDPSetPrimColor(glistp++, 0, 0, N64_C_BUTTONS_RED, N64_C_BUTTONS_GREEN, N64_C_BUTTONS_BLUE, 0xff);
+  }
+  sprintf(textBuffer, "BULLETS\n   %s", flashingProjectiles ? "FLASHING" : "SHADED");
+  renderDisplayText(swipeOffset - 128 + TITLE_SAFE_HORIZONTAL , TITLE_SAFE_VERTICAL + 8 + (32 * 2), textBuffer);
+
+  gDPSetPrimColor(glistp++, 0, 0, 0xff, 0xff, 0xff, 0xff);
+  if (inTheOptionsPanel && (optionsIndex == OPTIONS_2_SFX_TEST)) {
+    gDPSetPrimColor(glistp++, 0, 0, N64_C_BUTTONS_RED, N64_C_BUTTONS_GREEN, N64_C_BUTTONS_BLUE, 0xff);
+  }
+  sprintf(textBuffer, "SFX TEST\n    %02d", sfxIndex);
+  renderDisplayText(swipeOffset - 128 + TITLE_SAFE_HORIZONTAL + 8, TITLE_SAFE_VERTICAL + 8 + (32 * 3) + 16, textBuffer);
+
+  gDPSetPrimColor(glistp++, 0, 0, 0xff, 0xff, 0xff, 0xff);
+  if (inTheOptionsPanel && (optionsIndex == OPTIONS_3_BGM_TEST)) {
+    gDPSetPrimColor(glistp++, 0, 0, N64_C_BUTTONS_RED, N64_C_BUTTONS_GREEN, N64_C_BUTTONS_BLUE, 0xff);
+  }
+  sprintf(textBuffer, "BGM TEST\n    %02d", bgmIndex);
+  renderDisplayText(swipeOffset - 128 + TITLE_SAFE_HORIZONTAL + 8, TITLE_SAFE_VERTICAL + 8 + (32 * 4) + 32, textBuffer);
+
+
+  // Level select
+  gDPPipeSync(glistp++);
   gDPLoadTextureBlock(glistp++, OS_K0_TO_PHYSICAL(iconsTexture), G_IM_FMT_IA, G_IM_SIZ_8b, 256, 16, 0, G_TX_NOMIRROR, G_TX_NOMIRROR, 0, 0, G_TX_NOLOD, G_TX_NOLOD);
-
-
   gDPSetPrimColor(glistp++, 0, 0, 0x99 >> 1, 0x42 >> 1, 0x8C >> 1, 0xff);
   for (int i = 0; i < NUMBER_OF_LEVELS; i++) {
     const s32 offset = (int)(((float)i - (selectedLevelLerpValue)) * -16.f);
@@ -133,8 +184,8 @@ void makeLevelSelectDisplayList() {
   gDPPipeSync(glistp++);
   gDPSetPrimColor(glistp++, 0, 0, 0xff, 0xff, 0xff, 0xff);
   gDPLoadTextureBlock_4b(glistp++, OS_K0_TO_PHYSICAL(displayTextTexture), G_IM_FMT_IA, 512, 16, 0, G_TX_NOMIRROR, G_TX_NOMIRROR, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
-  sprintf(floorIndicatorText, "FLOOR %01d", (currentlySelectedLevel + 1));
-  renderDisplayText(swipeOffset + TITLE_SAFE_HORIZONTAL + 48, 160, floorIndicatorText);
+  sprintf(textBuffer, "FLOOR %01d", (currentlySelectedLevel + 1));
+  renderDisplayText(swipeOffset + TITLE_SAFE_HORIZONTAL + 48, 160, textBuffer);
 
   if (transitioningState != NOT_TRANSITIONING) {
     gDPPipeSync(glistp++);
@@ -229,17 +280,25 @@ void updateInput() {
 
 
   if (upPressed) {
-    currentlySelectedLevel = (currentlySelectedLevel - 1 + NUMBER_OF_LEVELS) % NUMBER_OF_LEVELS;
-    upPressed = 0;
-    slideOutLerpValue = 0.f;
+    if (inTheOptionsPanel) {
+      optionsIndex = (optionsIndex + 1) % OPTIONS_COUNT;
+    } else {
+      currentlySelectedLevel = (currentlySelectedLevel - 1 + NUMBER_OF_LEVELS) % NUMBER_OF_LEVELS;
+      slideOutLerpValue = 0.f;
+    }
 
+    upPressed = 0;
     nuAuSndPlayerPlay(SFX_02_NOBODY_BIP);
   }
   if (downPressed) {
-    currentlySelectedLevel = (currentlySelectedLevel + 1) % NUMBER_OF_LEVELS;
-    downPressed = 0;
-    slideOutLerpValue = 0.f;
+    if (inTheOptionsPanel) {
+      optionsIndex = (optionsIndex - 1 + OPTIONS_COUNT) % OPTIONS_COUNT;
+    } else {
+      currentlySelectedLevel = (currentlySelectedLevel + 1) % NUMBER_OF_LEVELS;
+      slideOutLerpValue = 0.f;
+    }
 
+    downPressed = 0;
     nuAuSndPlayerPlay(SFX_02_NOBODY_BIP);
   }
 
@@ -256,17 +315,49 @@ void updateInput() {
     nuAuSndPlayerPlay(SFX_02_NOBODY_BIP);
   }
 
-  if (contdata[0].trigger & A_BUTTON) {
-    currentLevel = currentlySelectedLevel;
-    nextStage = &gameplayStage;
-    transitioningState = TRANSITIONING_OUT;
-    transitionTime = 0.f;
-    nuAuSndPlayerPlay(SFX_11_MENU_CONFIRM);
-  } else if (contdata[0].trigger & B_BUTTON) {
-    nextStage = &titleScreenStage;
-    transitioningState = TRANSITIONING_OUT;
-    transitionTime = 0.f;
-    nuAuSndPlayerPlay(SFX_12_MENU_BACK);
+  if (inTheOptionsPanel) {
+    if (contdata[0].trigger & A_BUTTON) {
+      if (optionsIndex == OPTIONS_0_FOV) {
+        if (fabsf(ingameFOV - FOV_60) < 1.f) {
+          ingameFOV = FOV_90;
+        } else {
+          ingameFOV = FOV_60;
+        }
+      } else if (optionsIndex == OPTIONS_1_FLASHING) {
+        flashingProjectiles = !flashingProjectiles;
+      } else if (optionsIndex == OPTIONS_2_SFX_TEST) {
+        // TODO: play some sounds
+      } else if (optionsIndex == OPTIONS_3_BGM_TEST) {
+        // TODO: play some music
+      }
+    }
+
+    if (contdata[0].trigger & R_CBUTTONS) {
+      if (optionsIndex == OPTIONS_2_SFX_TEST) {
+        sfxIndex = (sfxIndex + 1) % SFX_COUNT;
+      } else if (optionsIndex == OPTIONS_3_BGM_TEST) {
+        bgmIndex = (bgmIndex + 1) % TRACK_COUNT;
+      }
+    } else if(contdata[0].trigger & L_CBUTTONS) {
+      if (optionsIndex == OPTIONS_2_SFX_TEST) {
+        sfxIndex = (sfxIndex - 1 + SFX_COUNT) % SFX_COUNT;
+      } else if (optionsIndex == OPTIONS_3_BGM_TEST) {
+        bgmIndex = (bgmIndex - 1 + TRACK_COUNT) % TRACK_COUNT;
+      }
+    }
+  } else {
+    if (contdata[0].trigger & A_BUTTON) {
+      currentLevel = currentlySelectedLevel;
+      nextStage = &gameplayStage;
+      transitioningState = TRANSITIONING_OUT;
+      transitionTime = 0.f;
+      nuAuSndPlayerPlay(SFX_11_MENU_CONFIRM);
+    } else if (contdata[0].trigger & B_BUTTON) {
+      nextStage = &titleScreenStage;
+      transitioningState = TRANSITIONING_OUT;
+      transitionTime = 0.f;
+      nuAuSndPlayerPlay(SFX_12_MENU_BACK);
+    }
   }
 }
 
@@ -275,7 +366,7 @@ void updateLevelSelect() {
 
   timePassed += deltaTimeSeconds;
 
-  horizontalSwipe = lerp(horizontalSwipe, inTheOptionsPanel ? 100 : 20, 0.13f);
+  horizontalSwipe = lerp(horizontalSwipe, inTheOptionsPanel ? 128 : 20, 0.13f);
 
   updateLevelSelectTransition();
   updateInput();

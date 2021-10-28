@@ -79,7 +79,7 @@ void initalizeGameData() {
 
   currentLevel = 0;
 
-  ingameFOV = 60.f;
+  ingameFOV = FOV_60;
   flashingProjectiles = 1;
 
   time = OS_CYCLES_TO_USEC(osGetTime());

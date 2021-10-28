@@ -12,7 +12,7 @@
 #include "segmentinfo.h"
 #include "sixtwelve.h"
 #include "sixtwelve_helpers.h"
-#include "tracknumbers.h"
+#include "audio/bgm/sequence/tracknumbers.h"
 
 #include "opening/envtexture.h"
 #include "opening/tower.h"

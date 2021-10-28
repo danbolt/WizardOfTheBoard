@@ -71,5 +71,7 @@
 /* 22_player_hurt_2.aifc  */
 #define SFX_22_PLAYER_HURT_2 22
 
+#define SFX_COUNT 23
+
 
 #endif

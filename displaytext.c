@@ -13,6 +13,7 @@ void loadDisplayText() {
 
 void renderDisplayText(int x, int y, const char* text) {
   int advance = x;
+  int ySpot = y;
   for (int i = 0; text[i] != '\0'; i++) {
 
     const char letter = text[i];
@@ -23,11 +24,15 @@ void renderDisplayText(int x, int y, const char* text) {
       s = (((letter - 48)) * DISPLAY_FONT_LETTER_WIDTH) + 364;
     } else if (letter == '!') {
       s = 13;
+    } else if (letter == '\n') {
+      ySpot += DISPLAY_FONT_LETTER_HEIGHT;
+      advance = x;
+      continue;
     } else if (letter == ' ') {
       advance += 6;
       continue;
     }
-    gSPTextureRectangle(glistp++, (advance) << 2, (y) << 2, (advance + DISPLAY_FONT_LETTER_WIDTH) << 2, (y + DISPLAY_FONT_LETTER_HEIGHT - 1) << 2, 0, s << 5, 0 << 5, 1 << 10, 1 << 10);
+    gSPScisTextureRectangle(glistp++, (advance) << 2, (ySpot) << 2, (advance + DISPLAY_FONT_LETTER_WIDTH) << 2, (ySpot + DISPLAY_FONT_LETTER_HEIGHT - 1) << 2, 0, s << 5, 0 << 5, 1 << 10, 1 << 10);
     advance += DISPLAY_FONT_LETTER_WIDTH;
 
     if (letter == 'I') {

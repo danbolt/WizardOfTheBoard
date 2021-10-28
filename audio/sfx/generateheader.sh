@@ -21,6 +21,8 @@ for i in compressed/*.aifc; do
   count=$((count+1))
 done
 
+echo  "#define SFX_COUNT $count"
+echo ""
 
 echo ""
 echo "#endif"

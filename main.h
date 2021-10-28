@@ -23,6 +23,9 @@ extern OSTime time;
 extern OSTime delta;
 extern float deltaTimeSeconds;
 
+#define FOV_60 60.f
+#define FOV_90 90.f
+
 typedef void (*InitCallback)();
 typedef void (*UpdateCallback)();
 typedef void (*MakeDLCallback)();
