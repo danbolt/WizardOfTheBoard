@@ -231,9 +231,6 @@ void updateInput() {
     return;
   }
 
-  selectedLevelLerpValue = lerp(selectedLevelLerpValue, currentlySelectedLevel, 0.19f);
-  slideOutLerpValue = lerp(slideOutLerpValue, -32.f, 0.19f);
-
   // I know this is kind of "backwards" but my hubris/laziness prevents me from addressing it 
   if(contdata[0].trigger & U_JPAD) {
     downPressed = 1;
@@ -381,6 +378,8 @@ void updateLevelSelect() {
 
   timePassed += deltaTimeSeconds;
 
+  selectedLevelLerpValue = lerp(selectedLevelLerpValue, currentlySelectedLevel, 0.19f);
+  slideOutLerpValue = lerp(slideOutLerpValue, -32.f, 0.19f);
   horizontalSwipe = lerp(horizontalSwipe, inTheOptionsPanel ? 128 : 20, 0.13f);
 
   updateLevelSelectTransition();
