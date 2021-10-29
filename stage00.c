@@ -1073,11 +1073,14 @@ void updatePlayerInput() {
       ((contdata[0].button & L_TRIG) && (contdata[0].trigger & R_TRIG)) ||
       (contdata[0].trigger & Z_TRIG) 
       ) {
-    chessboardSpotHighlighted.x = (int)(playerPosition.x - (sinCameraRot * 1.51f));
-    chessboardSpotHighlighted.y = (int)(playerPosition.y + (cosCameraRot * 1.51f));
+    // chessboardSpotHighlighted.x = (int)(playerPosition.x - (sinCameraRot * 1.51f));
+    // chessboardSpotHighlighted.y = (int)(playerPosition.y + (cosCameraRot * 1.51f));
 
   } else if (((contdata[0].button & (L_TRIG | R_TRIG)) == (L_TRIG | R_TRIG)) || (contdata[0].button & Z_TRIG)) {
     cursorRotation = lerpAngle(cursorRotation, playerOrientation, 0.3f);
+    
+    chessboardSpotHighlighted.x = (int)(playerPosition.x - (sinCameraRot * 1.51f));
+    chessboardSpotHighlighted.y = (int)(playerPosition.y + (cosCameraRot * 1.51f));
 
   } else if((contdata[0].button & L_TRIG) || (contdata[0].stick_x < -7)) {
     playerOrientation += PLAYER_TURN_SPEED * deltaTimeSeconds;
@@ -1170,28 +1173,28 @@ void updateBoardControlInput() {
   pieceInFrontOfPlayer = isSpaceOccupied(spotInFrontOfPlayer.x, spotInFrontOfPlayer.y);
 
   if (((contdata[0].button & (L_TRIG | R_TRIG)) == (L_TRIG | R_TRIG)) || (contdata[0].button & Z_TRIG)) {
-    Vec2 fstep = { 0, 0 };
+    // Vec2 fstep = { 0, 0 };
 
-    if(contdata[0].trigger & U_CBUTTONS) {
-      fstep.y = 1.51f;
-      playSound((boardControlState == BOARD_CONTROL_PIECE_SELECTED) ? SFX_06_TENSE_MOVE_CURSOR : SFX_06_MOVE_CURSOR);
-    } else if(contdata[0].trigger & D_CBUTTONS) {
-      fstep.y = -1.51f;
-      playSound((boardControlState == BOARD_CONTROL_PIECE_SELECTED) ? SFX_06_TENSE_MOVE_CURSOR : SFX_06_MOVE_CURSOR);
-    }
+    // if(contdata[0].trigger & U_CBUTTONS) {
+    //   fstep.y = 1.51f;
+    //   playSound((boardControlState == BOARD_CONTROL_PIECE_SELECTED) ? SFX_06_TENSE_MOVE_CURSOR : SFX_06_MOVE_CURSOR);
+    // } else if(contdata[0].trigger & D_CBUTTONS) {
+    //   fstep.y = -1.51f;
+    //   playSound((boardControlState == BOARD_CONTROL_PIECE_SELECTED) ? SFX_06_TENSE_MOVE_CURSOR : SFX_06_MOVE_CURSOR);
+    // }
 
-    if(contdata[0].trigger & R_CBUTTONS) {
-      fstep.x = 1.51f;
-      playSound((boardControlState == BOARD_CONTROL_PIECE_SELECTED) ? SFX_06_TENSE_MOVE_CURSOR : SFX_06_MOVE_CURSOR);
-    } else if(contdata[0].trigger & L_CBUTTONS) {
-      fstep.x = -1.51f;
-      playSound((boardControlState == BOARD_CONTROL_PIECE_SELECTED) ? SFX_06_TENSE_MOVE_CURSOR : SFX_06_MOVE_CURSOR);
-    }
+    // if(contdata[0].trigger & R_CBUTTONS) {
+    //   fstep.x = 1.51f;
+    //   playSound((boardControlState == BOARD_CONTROL_PIECE_SELECTED) ? SFX_06_TENSE_MOVE_CURSOR : SFX_06_MOVE_CURSOR);
+    // } else if(contdata[0].trigger & L_CBUTTONS) {
+    //   fstep.x = -1.51f;
+    //   playSound((boardControlState == BOARD_CONTROL_PIECE_SELECTED) ? SFX_06_TENSE_MOVE_CURSOR : SFX_06_MOVE_CURSOR);
+    // }
 
-    Pos2 step = (Pos2){ (int)((cosCameraRot * fstep.x) - (sinCameraRot * fstep.y)), (int)((sinCameraRot * fstep.x) + (cosCameraRot * fstep.y)) };
+    // Pos2 step = (Pos2){ (int)((cosCameraRot * fstep.x) - (sinCameraRot * fstep.y)), (int)((sinCameraRot * fstep.x) + (cosCameraRot * fstep.y)) };
 
-    chessboardSpotHighlighted.x =  (chessboardSpotHighlighted.x + step.x + BOARD_WIDTH) % BOARD_WIDTH;
-    chessboardSpotHighlighted.y =  (chessboardSpotHighlighted.y + step.y + BOARD_HEIGHT) % BOARD_HEIGHT;
+    // chessboardSpotHighlighted.x =  (chessboardSpotHighlighted.x + step.x + BOARD_WIDTH) % BOARD_WIDTH;
+    // chessboardSpotHighlighted.y =  (chessboardSpotHighlighted.y + step.y + BOARD_HEIGHT) % BOARD_HEIGHT;
   } else {
     if(contdata[0].trigger & U_CBUTTONS) {
       chessboardSpotHighlighted.y = (chessboardSpotHighlighted.y + 1) % BOARD_HEIGHT;
