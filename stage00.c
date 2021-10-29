@@ -648,7 +648,7 @@ void initStage00(void)
 
   playerPosition = (Vec2){ mapInformation.playerX + 0.5f, mapInformation.playerY + 0.5f };
   playerVelocity = (Vec2){ 0.f, 0.f };
-  playerOrientation = wrapMP(mapInformation.playerRotation / 256.f * M_PI * 2.f);
+  playerOrientation = wrapMP((1.f - (mapInformation.playerRotation / 256.f)) * M_PI * 2.f);
   isPlayerKnockingBack = 0;
   playerKnockbackTimeRemaining = 0.f;
   playerRadiusSquared = PLAYER_RADIUS * PLAYER_RADIUS;
@@ -1078,7 +1078,7 @@ void updatePlayerInput() {
 
   } else if (((contdata[0].button & (L_TRIG | R_TRIG)) == (L_TRIG | R_TRIG)) || (contdata[0].button & Z_TRIG)) {
     cursorRotation = lerpAngle(cursorRotation, playerOrientation, 0.3f);
-    
+
     chessboardSpotHighlighted.x = (int)(playerPosition.x - (sinCameraRot * 1.51f));
     chessboardSpotHighlighted.y = (int)(playerPosition.y + (cosCameraRot * 1.51f));
 
