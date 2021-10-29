@@ -1,6 +1,6 @@
 /* ANSI-C code produced by gperf version 3.1 */
 /* Command-line: gperf --no-strlen --lookup-function-name=getMapDataOffset --struct-type --output-file=maplookup.c map-gperf-mapping  */
-/* Computed positions: -k'1' */
+/* Computed positions: -k'4' */
 
 #if !((' ' == 32) && ('!' == 33) && ('"' == 34) && ('#' == 35) \
       && ('%' == 37) && ('&' == 38) && ('\'' == 39) && ('(' == 40) \
@@ -37,12 +37,12 @@
 #line 6 "map-gperf-mapping"
 struct dialogueMappingData;
 
-#define TOTAL_KEYWORDS 4
+#define TOTAL_KEYWORDS 9
 #define MIN_WORD_LENGTH 5
 #define MAX_WORD_LENGTH 14
 #define MIN_HASH_VALUE 0
-#define MAX_HASH_VALUE 7
-/* maximum key range = 8, duplicates = 0 */
+#define MAX_HASH_VALUE 15
+/* maximum key range = 16, duplicates = 0 */
 
 #ifdef __GNUC__
 __inline
@@ -57,34 +57,34 @@ hash (register const char *str, register size_t len)
 {
   static unsigned char asso_values[] =
     {
-      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
-      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
-      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
-      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
-      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
-      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
-      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
-      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
-      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
-      8, 8, 8, 8, 8, 8, 8, 8, 7, 8,
-      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
-      8, 2, 8, 8, 8, 5, 0, 8, 8, 8,
-      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
-      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
-      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
-      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
-      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
-      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
-      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
-      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
-      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
-      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
-      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
-      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
-      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
-      8, 8, 8, 8, 8, 8
+      16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+      16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+      16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+      16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+      16, 16, 16, 16, 16, 16, 16, 16, 16,  8,
+       3, 14,  9,  4, 16, 16, 16, 16, 16, 16,
+      16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+      16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+      16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+      16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+      16, 15, 16, 16, 10, 16, 16,  5, 16, 16,
+      16, 16, 16, 16, 16, 16,  0, 16, 16, 16,
+      16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+      16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+      16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+      16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+      16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+      16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+      16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+      16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+      16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+      16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+      16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+      16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+      16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+      16, 16, 16, 16, 16, 16
     };
-  return asso_values[(unsigned char)str[0]];
+  return asso_values[(unsigned char)str[3]];
 }
 
 struct dialogueMappingData *
@@ -94,15 +94,25 @@ getMapDataOffset (register const char *str, register size_t len)
     {
 #line 11 "map-gperf-mapping"
       {"test_map",504},
-      {""},
-#line 9 "map-gperf-mapping"
-      {"other_test_map",168},
       {""}, {""},
+#line 13 "map-gperf-mapping"
+      {"tut2_rooks",840},
+#line 16 "map-gperf-mapping"
+      {"tut5_king",1344},
 #line 10 "map-gperf-mapping"
       {"snake",336},
-      {""},
+      {""}, {""},
+#line 12 "map-gperf-mapping"
+      {"tut1_move",672},
+#line 15 "map-gperf-mapping"
+      {"tut4_knights",1176},
 #line 8 "map-gperf-mapping"
-      {"bishops",0}
+      {"bishops",0},
+      {""}, {""}, {""},
+#line 14 "map-gperf-mapping"
+      {"tut3_bishops",1008},
+#line 9 "map-gperf-mapping"
+      {"other_test_map",168}
     };
 
   if (len <= MAX_WORD_LENGTH && len >= MIN_WORD_LENGTH)
