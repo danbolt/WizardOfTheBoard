@@ -383,8 +383,17 @@ void updateTitleScreen() {
       maxNumberOfTwoLineRowsToDo = (152 / 2);
       stopLastPlayedSound();
     } else {
-      nextStage = &levelSelectStage;
-      changeScreensFlag = 1;
+      if (menuIndex == 0) {
+        nextStage = &gameplayStage;
+        currentLevel = 0;
+        changeScreensFlag = 1;
+      } else if (menuIndex == 1) {
+        nextStage = &levelSelectStage;
+        changeScreensFlag = 1;
+      } else if (menuIndex == 2) {
+        // TODO: credits
+      }
+
 
       fadeOutMusic();
     }
