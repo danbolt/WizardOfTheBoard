@@ -207,7 +207,6 @@ static u32 boardControlState;
 static u8 legalDestinationState[NUMBER_OF_BOARD_CELLS];
 
 static Pos2 chessboardSpotHighlighted;
-static u8 lerpingAngleToCursor;
 
 static int pieceInFrontOfPlayer;
 static int selectedPiece;
@@ -1759,7 +1758,7 @@ void updateGame00(void)
 
     if (transitionTime > TRANSITION_DURATION) {
       if ((transitioningState == TRANSITIONING_IN) && (mapInformation.startLevelDialogue[0] != '\0')) {
-        startDialogue(mapInformation.startLevelDialogue);
+        startDialogue((const char*)(mapInformation.startLevelDialogue));
       } else if (transitioningState == TRANSITIONING_OUT) {
         if (pauseMenuIndex == 1) {
           nextStage = &gameplayStage;

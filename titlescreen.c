@@ -121,7 +121,6 @@ void initTitleScreen() {
 
 void makeTitleScreenDL() {
   Dynamic* dynamicp;
-  char conbuf[20]; 
 
   /* Specify the display list buffer */
   dynamicp = &gfx_dynamic[gfx_gtask_no];
@@ -197,7 +196,7 @@ void makeTitleScreenDL() {
   gDPLoadTextureBlock_4b(glistp++, sixtwelve_tex, G_IM_FMT_IA, SIXTWELVE_TEXTURE_WIDTH, SIXTWELVE_TEXTURE_HEIGHT, 0, G_TX_MIRROR | G_TX_WRAP, G_TX_MIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
   const char* str = NULL;
 
-  if ((spotIndex < (NUMBER_OF_SPOTS)) && (spots[spotIndex].text != NULL) && ((spotIndex > 0) && (spotTimePassed > 1.f)) || ( spotTimePassed > 3.f) ) {
+  if ((spotIndex < (NUMBER_OF_SPOTS)) && (spots[spotIndex].text != NULL) && (((spotIndex > 0) && (spotTimePassed > 1.f)) || ( spotTimePassed > 3.f) )) {
     str = spots[spotIndex].text;
   }
 
@@ -278,6 +277,8 @@ void makeTitleScreenDL() {
   gSPEndDisplayList(glistp++);
 
   nuGfxTaskStart(&gfx_glist[gfx_gtask_no][0], (s32)(glistp - gfx_glist[gfx_gtask_no]) * sizeof (Gfx), NU_GFX_UCODE_F3DLP_REJ , NU_SC_SWAPBUFFER);
+
+  // char conbuf[20]; 
 
   // nuDebConClear(0);
   // nuDebConTextPos(0,4,4);

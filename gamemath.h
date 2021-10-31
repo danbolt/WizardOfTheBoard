@@ -36,7 +36,7 @@ float lengthSq(const Vec2* a);
 
 float distanceSq(const Vec2* a, const Vec2* b);
 
-float normalize(Vec2* a);
+void normalize(Vec2* a);
 
 float cubic(float t);
 

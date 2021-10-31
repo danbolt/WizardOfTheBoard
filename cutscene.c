@@ -54,21 +54,21 @@ void initCutscene() {
   assert(cutsceneOffsetInfo != 0x0);
   nuPiReadRom((u32)(_cutscenebuffersSegmentRomStart + cutsceneOffsetInfo->offset), &infoForOurCutscene, sizeof(CutsceneInfo));
 
-  struct backgroundMappingData* bg1 = getBackgroundTextureOffset(infoForOurCutscene.imageKey1, _nstrlen(infoForOurCutscene.imageKey1));
+  struct backgroundMappingData* bg1 = getBackgroundTextureOffset((const char*)(infoForOurCutscene.imageKey1), _nstrlen((const char*)(infoForOurCutscene.imageKey1)));
   if (bg1 != NULL) {
     nuPiReadRom((u32)(_packedbackgroundsSegmentRomStart + bg1->offset), backgroundBuffers[0], 320 * 240 * 2);
   } else {
     bzero(backgroundBuffers[0], 320 * 240 * 2);
   }
 
-  struct backgroundMappingData* bg2 = getBackgroundTextureOffset(infoForOurCutscene.imageKey2, _nstrlen(infoForOurCutscene.imageKey2));
+  struct backgroundMappingData* bg2 = getBackgroundTextureOffset((const char*)(infoForOurCutscene.imageKey2), _nstrlen((const char*)(infoForOurCutscene.imageKey2)));
   if (bg2 != NULL) {
     nuPiReadRom((u32)(_packedbackgroundsSegmentRomStart + bg2->offset), backgroundBuffers[1], 320 * 240 * 2);
   } else {
     bzero(backgroundBuffers[1], 320 * 240 * 2);
   }
 
-  struct backgroundMappingData* bg3 = getBackgroundTextureOffset(infoForOurCutscene.imageKey3, _nstrlen(infoForOurCutscene.imageKey3));
+  struct backgroundMappingData* bg3 = getBackgroundTextureOffset((const char*)(infoForOurCutscene.imageKey3), _nstrlen((const char*)(infoForOurCutscene.imageKey3)));
   if (bg3 != NULL) {
     nuPiReadRom((u32)(_packedbackgroundsSegmentRomStart + bg3->offset), backgroundBuffers[2], 320 * 240 * 2);
   } else {
@@ -176,7 +176,7 @@ void updateFadingIn() {
   if (cutsceneTime > FADE_IN_TIME) {
     cutsceneState = CUTSCENE_PLAYING;
 
-    startDialogue(infoForOurCutscene.dialogue);
+    startDialogue((const char*)(infoForOurCutscene.dialogue));
   }
 }
 

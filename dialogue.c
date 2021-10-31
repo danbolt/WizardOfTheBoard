@@ -53,7 +53,6 @@ void drawString(int x, int y, const unsigned char* str, int maxWordWrapWidth) {
   int stringIndex = 0;
   int xLetterSpot = x;
   int yLetterSpot = y;
-  int verticalLineCount = 1;
   while (str[stringIndex] != '\0') {
     if (stringIndex >= bipIndex) {
       break;
@@ -113,7 +112,7 @@ void startDialogueItem(u32 offset) {
 
   currentDialogueItem = nextDialogueItem;
 
-  struct castMappingData * castSpriteOffset = getCastTextureOffset(nextDialogueItem->speaker, _nstrlen(nextDialogueItem->speaker));
+  struct castMappingData * castSpriteOffset = getCastTextureOffset((const char*)(nextDialogueItem->speaker), _nstrlen((const char*)(nextDialogueItem->speaker)));
   if (castSpriteOffset) {
 
     nuPiReadRom((u32)(_cast_sprite_dataSegmentRomStart + castSpriteOffset->offset), portraitBuffers[nextDialogueItemIndex], TMEM_SIZE_BYTES * 2);
@@ -178,7 +177,7 @@ void updateDialogue() {
       bipTimePassed = 0.f;
       bipIndex++;
 
-      struct bipMapping * bipType = getBipMapping(currentDialogueItem->speaker, _nstrlen(currentDialogueItem->speaker));
+      struct bipMapping * bipType = getBipMapping((const char*)(currentDialogueItem->speaker), _nstrlen((const char*)(currentDialogueItem->speaker)));
       if (bipType != 0x0) { 
         playSound(bipType->sfxKey);
       } else { 

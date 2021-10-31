@@ -81,7 +81,6 @@ void initLevelSelect() {
 
 void makeLevelSelectDisplayList() {
   Dynamic* dynamicp;
-  char conbuf[20]; 
 
   /* Specify the display list buffer */
   dynamicp = &gfx_dynamic[gfx_gtask_no];

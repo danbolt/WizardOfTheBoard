@@ -57,7 +57,7 @@ float lengthSq(const Vec2* a) {
 	return distanceSq(a, &ZERO);
 }
 
-float normalize(Vec2* a) {
+void normalize(Vec2* a) {
 	const float lengthSquared = lengthSq(a);
 	const float invLengthA = Q_rsqrt(lengthSquared);
 	a->x *= invLengthA;

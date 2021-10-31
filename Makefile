@@ -21,7 +21,7 @@ endif
 
 LCDEFS =	-DNDEBUG -DF3DEX_GBI_2
 LCINCS =	-I. -I$(NUSYSINCDIR) -I/usr/include/n64/PR
-LCOPTS =	-G 0
+LCOPTS =	-G 0 -Wall -Wpedantic -Werror -Wfatal-errors  -Wno-comment -Wno-missing-braces
 LDFLAGS = $(MKDEPOPT) -L$(LIB) -L$(NUSYSLIBDIR) $(NUAUDIOLIB) -lnusys -lultra_rom -L$(N64_LIBGCCDIR) -lgcc
 
 LDIRT  =  $(ELF) $(ASMOBJECTS) $(CP_LD_SCRIPT) $(MAP) $(TARGETS)
