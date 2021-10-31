@@ -39,8 +39,12 @@ HFILES =	main.h nustdfuncs.h stagekeys.h graphic.h audio/sfx/sfx.h gameaudio.h b
 ifdef NO_COMPILED_AUDIO
 LCDEFS += -DNO_COMPILED_AUDIO
 N64_ASFLAGS += -DNO_COMPILED_AUDIO
-# VASINCS += -DNO_COMPILED_AUDIO
 else
+endif
+
+ifdef PAL_ROM
+LCDEFS += -DPAL_ROM
+TARGETS	= jam2_pal.z64
 endif
 
 ASMFILES	= asm/entry.s asm/rom_header.s sound_data.s
@@ -102,5 +106,5 @@ $(CP_LD_SCRIPT): $(LD_SCRIPT)
 
 $(TARGETS): $(OBJECTS) $(CP_LD_SCRIPT) $(RAWDATAOBJ)
 	$(LD) -L. -T $(CP_LD_SCRIPT) -Map $(MAP) -o $(ELF) 
-	$(OBJCOPY) --pad-to=0x200000 --gap-fill=0xFF $(ELF) $(TARGETS) -O binary
+	$(OBJCOPY) --pad-to=0x800000 --gap-fill=0xFF $(ELF) $(TARGETS) -O binary
 	makemask $(TARGETS)
