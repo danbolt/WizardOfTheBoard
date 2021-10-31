@@ -37,9 +37,9 @@
 #line 6 "texture-gperf-mapping"
 struct backgroundMappingData;
 
-#define TOTAL_KEYWORDS 4
+#define TOTAL_KEYWORDS 5
 #define MIN_WORD_LENGTH 5
-#define MAX_WORD_LENGTH 7
+#define MAX_WORD_LENGTH 8
 #define MIN_HASH_VALUE 0
 #define MAX_HASH_VALUE 7
 /* maximum key range = 8, duplicates = 0 */
@@ -66,8 +66,8 @@ hash (register const char *str, register size_t len)
       8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
       8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
       8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
-      8, 8, 8, 8, 8, 8, 8, 7, 8, 8,
-      2, 8, 8, 8, 8, 8, 8, 8, 8, 5,
+      8, 8, 8, 8, 8, 8, 8, 4, 8, 8,
+      7, 8, 8, 2, 8, 8, 8, 8, 8, 5,
       8, 8, 8, 8, 8, 0, 8, 8, 8, 8,
       8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
       8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
@@ -92,17 +92,19 @@ getBackgroundTextureOffset (register const char *str, register size_t len)
 {
   static struct backgroundMappingData wordlist[] =
     {
+#line 12 "texture-gperf-mapping"
+      {"test_a",614400},
+      {""},
+#line 9 "texture-gperf-mapping"
+      {"logotype",153600},
+      {""},
 #line 11 "texture-gperf-mapping"
-      {"test_a",460800},
+      {"stars",460800},
+#line 10 "texture-gperf-mapping"
+      {"simplex",307200},
       {""},
 #line 8 "texture-gperf-mapping"
-      {"bedroom",0},
-      {""}, {""},
-#line 9 "texture-gperf-mapping"
-      {"simplex",153600},
-      {""},
-#line 10 "texture-gperf-mapping"
-      {"stars",307200}
+      {"bedroom",0}
     };
 
   if (len <= MAX_WORD_LENGTH && len >= MIN_WORD_LENGTH)

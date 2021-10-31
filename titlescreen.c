@@ -40,6 +40,8 @@ static int spotIndex;
 static float spotTimePassed;
 static u8 hasPlayedSoundForTheSpot;
 
+static u8 showingTitle;
+
 static Spot spots[] = {
   // Sky start
   { 6.f, { -99.3196f, -120.643f, 67.314f }, { -59.3667f, -69.484f, 123.734f }, "It is a shitty time.", SFX_23_VO_LINE_0 },
@@ -55,14 +57,14 @@ static Spot spots[] = {
   { 7.5f, { 0.745361f, 44.7062f, 108.537f }, { 0.667588f, 4.2692f, 24.0872f }, "To prevail as a warrior is to\n    scale the Demon's Spire,\n     lair of the Shadow Queen.", SFX_28_VO_LINE_5 },
 
   { 5.f, { -103.509f, 22.3239f, 70.2484f }, { -0.489938f, 21.5849f, 22.4681f }, "Many have entered,\n but few have returned.", SFX_29_VO_LINE_6 },
-  { 7.f, { -4.55552f, -93.9098f, 44.2122f }, { 1.36965f, 21.797f, 24.2866f }, "If one prevails over the trial,\n   if one succeeds at their task,\n     they shall be known as a...", SFX_30_VO_LINE_7 },
-  { 5.f, { 0.156551f, 7.43251f, 25.1426f }, { 1.36965f, 21.797f, 24.2866f }, "", -1 },
+  { 9.f, { -4.55552f, -93.9098f, 44.2122f }, { 1.36965f, 21.797f, 24.2866f }, "If one prevails over the trial,\n   if one succeeds at their task,\n     they shall be known as a...", SFX_30_VO_LINE_7 },
+  { 8.f, { 0.156551f, 7.43251f, 25.1426f }, { 1.36965f, 21.797f, 24.2866f }, "", -1 },
 
   { 1.f, { 0.f, -5.f, 0.f }, { 0.f, 11.5f, 26.f }, "" },
 };
 #define NUMBER_OF_SPOTS 9
 
-
+static int maxNumberOfTwoLineRowsToDo;
 
 void initializeBackgrounds() {
   struct backgroundMappingData* mapping = getBackgroundTextureOffset("stars", _nstrlen("stars"));
@@ -70,6 +72,11 @@ void initializeBackgrounds() {
     nuPiReadRom((u32)(_packedbackgroundsSegmentRomStart + mapping->offset), backgroundBuffers[0], 320 * 240 * 2);
   } else {
     bzero(backgroundBuffers[0], 320 * 240 * 2);
+  }
+
+  struct backgroundMappingData* titleMapping = getBackgroundTextureOffset("logotype", _nstrlen("logotype"));
+  if (titleMapping != NULL) {
+    nuPiReadRom((u32)(_packedbackgroundsSegmentRomStart + titleMapping->offset), backgroundBuffers[1], 320 * 240 * 2);
   }
 }
 
@@ -86,6 +93,10 @@ void initTitleScreen() {
   spotIndex = 0;
   spotTimePassed = 0.f;
   hasPlayedSoundForTheSpot = 0;
+
+  maxNumberOfTwoLineRowsToDo = 0;
+
+  showingTitle = 0;
 
   playMusic(TRACK_05_OVERTURE);
 }
@@ -171,10 +182,6 @@ void makeTitleScreenDL() {
     str = spots[spotIndex].text;
   }
 
-  if (spotIndex >= NUMBER_OF_SPOTS) {
-    str = "WIZARD OF THE BOARD";
-  }
-
   if ((str != NULL) ) {
     int i = 0;
     int xInit = 32;
@@ -199,6 +206,19 @@ void makeTitleScreenDL() {
     }
   }
 
+  // if (spotIndex > 7) {
+    gDPPipeSync(glistp++);
+    gDPSetTexturePersp(glistp++, G_TP_NONE);
+    gDPSetCombineMode(glistp++,G_CC_DECALRGBA, G_CC_DECALRGBA);
+    gDPSetRenderMode(glistp++, G_RM_TEX_EDGE, G_RM_TEX_EDGE2);
+    gSPTexture(glistp++, 0xffff, 0xffff, 0, G_TX_RENDERTILE, G_ON);
+    for (int i = 0; i < maxNumberOfTwoLineRowsToDo; i++) {
+      gDPPipeSync(glistp++);
+      gDPLoadTextureTile(glistp++, backgroundBuffers[1], G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, 240, 0, (i * 2), 320 - 1, ((i + 1) * 2) - 1, 0, G_TX_WRAP, G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD );
+      gSPTextureRectangle(glistp++, 0 << 2, (0 + (i * 2)) << 2, (0 + 320) << 2, (0 + ((i + 1) * 2)) << 2, 0, 0 << 5, (i * 2) << 5, 1 << 10, 1 << 10);
+    }
+  // }
+
 #ifdef LINES_CAPTURE_MARKERS
   if (spotIndex < (NUMBER_OF_SPOTS) && spotTimePassed) {
     const float percentage = (spotTimePassed) / (spots[spotIndex].duration);
@@ -222,27 +242,27 @@ void makeTitleScreenDL() {
   gDPFullSync(glistp++);
   gSPEndDisplayList(glistp++);
 
-  nuGfxTaskStart(&gfx_glist[gfx_gtask_no][0], (s32)(glistp - gfx_glist[gfx_gtask_no]) * sizeof (Gfx), NU_GFX_UCODE_F3DLP_REJ , NU_SC_NOSWAPBUFFER);
+  nuGfxTaskStart(&gfx_glist[gfx_gtask_no][0], (s32)(glistp - gfx_glist[gfx_gtask_no]) * sizeof (Gfx), NU_GFX_UCODE_F3DLP_REJ , NU_SC_SWAPBUFFER);
 
-  nuDebConClear(0);
-  nuDebConTextPos(0,4,4);
-  sprintf(conbuf,"title screen");
-  nuDebConCPuts(0, conbuf);
+  // nuDebConClear(0);
+  // nuDebConTextPos(0,4,4);
+  // sprintf(conbuf,"title screen");
+  // nuDebConCPuts(0, conbuf);
 
-  nuDebConTextPos(0,4,5);
-  sprintf(conbuf,"        t: %2.2f/%2.2f", spotTimePassed, spots[spotIndex].duration);
-  nuDebConCPuts(0, conbuf);
+  // nuDebConTextPos(0,4,5);
+  // sprintf(conbuf,"        t: %2.2f/%2.2f", spotTimePassed, spots[spotIndex].duration);
+  // nuDebConCPuts(0, conbuf);
 
-  nuDebConTextPos(0,4,6);
-  sprintf(conbuf,"spotIndex: %03d", spotIndex);
-  nuDebConCPuts(0, conbuf);
+  // nuDebConTextPos(0,4,6);
+  // sprintf(conbuf,"spotIndex: %02d", spotIndex);
+  // nuDebConCPuts(0, conbuf);
 
-  nuDebConTextPos(0,4,7);
-  sprintf(conbuf,"   time: %2.2f", timePassed);
-  nuDebConCPuts(0, conbuf);
+  // nuDebConTextPos(0,4,7);
+  // sprintf(conbuf,"   time: %2.2f", timePassed);
+  // nuDebConCPuts(0, conbuf);
     
   /* Display characters on the frame buffer */
-  nuDebConDisp(NU_SC_SWAPBUFFER);
+  // nuDebConDisp(NU_SC_SWAPBUFFER);
 
   gfx_gtask_no = (gfx_gtask_no + 1) % BUFFER_COUNT;
 }
@@ -267,6 +287,16 @@ void updateTitleScreen() {
       spotTimePassed = 0.f;
       spotIndex++;
       hasPlayedSoundForTheSpot = 0;
+    }
+
+    if (spotIndex == 7) {
+      if ((maxNumberOfTwoLineRowsToDo == 0) && (spotTimePassed > (6.015f + 1.f))) {
+        maxNumberOfTwoLineRowsToDo = (78 / 2);
+      } else if ((maxNumberOfTwoLineRowsToDo == (78 / 2)) && (spotTimePassed > (7.078f + 1.f))) {
+        maxNumberOfTwoLineRowsToDo = (106 / 2);
+      } else if ((maxNumberOfTwoLineRowsToDo == (106 / 2)) && (spotTimePassed > (7.501f + 1.f))) {
+        maxNumberOfTwoLineRowsToDo = (152 / 2);
+      }
     }
   }
   
@@ -304,9 +334,14 @@ void updateTitleScreen() {
   }
 
   if (contdata[0].trigger & A_BUTTON) {
-    nextStage = &levelSelectStage;
-    changeScreensFlag = 1;
+    if (!showingTitle) {
+      showingTitle = 1;
+      maxNumberOfTwoLineRowsToDo = (152 / 2);
+    } else {
+      nextStage = &levelSelectStage;
+      changeScreensFlag = 1;
 
-    fadeOutMusic();
+      fadeOutMusic();
+    }
   }
 }
