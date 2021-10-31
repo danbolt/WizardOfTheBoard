@@ -3,6 +3,7 @@
 
 #include <nusys.h>
 
+#include "displaytext.h"
 #include "gamemath.h"
 #include "backgroundbuffers.h"
 #include "cutscene_backgrounds/backgroundlookup.h"
@@ -41,6 +42,17 @@ static float spotTimePassed;
 static u8 hasPlayedSoundForTheSpot;
 
 static u8 showingTitle;
+
+static u8 menuIndex;
+
+#define NUMBER_OF_TITLE_MENU_ITEMS 3
+static const char* menuItems[NUMBER_OF_TITLE_MENU_ITEMS] = {
+  "START GAME",
+  "LEVEL SELECT",
+  // TODO: Marathon mode?
+  "CREDITS"
+};
+static float menuItemHorizontalOffsets[NUMBER_OF_TITLE_MENU_ITEMS];
 
 static Spot spots[] = {
   // Sky start
@@ -97,6 +109,11 @@ void initTitleScreen() {
   maxNumberOfTwoLineRowsToDo = 0;
 
   showingTitle = 0;
+
+  for (int i = 0; i < NUMBER_OF_TITLE_MENU_ITEMS; i++) {
+    menuItemHorizontalOffsets[i] = 0.f;
+  }
+  menuIndex = 0;
 
   playMusic(TRACK_05_OVERTURE);
 }
@@ -206,6 +223,21 @@ void makeTitleScreenDL() {
     }
   }
 
+  if (showingTitle) {
+    gDPPipeSync(glistp++);
+    gDPSetCombineMode(glistp++, G_CC_MODULATEIDECALA_PRIM, G_CC_MODULATEIDECALA_PRIM);
+    gDPLoadTextureBlock_4b(glistp++, OS_K0_TO_PHYSICAL(displayTextTexture), G_IM_FMT_IA, 512, 16, 0, G_TX_NOMIRROR, G_TX_NOMIRROR, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
+    for (int i = 0; i < NUMBER_OF_TITLE_MENU_ITEMS; i++) {
+      const char* item = menuItems[i];
+      if (i == menuIndex) {
+        gDPSetPrimColor(glistp++, 0, 0, N64_C_BUTTONS_RED, N64_C_BUTTONS_GREEN, N64_C_BUTTONS_BLUE, 0xff);
+      } else {
+        gDPSetPrimColor(glistp++, 0, 0, 0xff, 0xff, 0xff, 0xff);
+      }
+      renderDisplayText(112 + ((int)menuItemHorizontalOffsets[i]), 160 + (16 * i), item);
+    }
+  }
+
   gDPPipeSync(glistp++);
   gDPSetTexturePersp(glistp++, G_TP_NONE);
   gDPSetTextureFilter(glistp++, G_TF_BILERP);
@@ -303,6 +335,11 @@ void updateTitleScreen() {
     }
   }
   
+  if (showingTitle) {
+    for (int i = 0; i < NUMBER_OF_TITLE_MENU_ITEMS; i++) {
+      menuItemHorizontalOffsets[i] = lerp(menuItemHorizontalOffsets[i], (menuIndex == i) ? 16.f : 0.f, 0.13f);
+    }
+  }
 
   if(contdata[0].trigger & U_JPAD) {
     upPressed = 1;
@@ -331,9 +368,11 @@ void updateTitleScreen() {
 
   if (upPressed) {
     upPressed = 0;
+    menuIndex = (menuIndex - 1 + NUMBER_OF_TITLE_MENU_ITEMS) % NUMBER_OF_TITLE_MENU_ITEMS;
   }
   if (downPressed) {
     downPressed = 1;
+    menuIndex = (menuIndex + 1) % NUMBER_OF_TITLE_MENU_ITEMS;
   }
 
   if (contdata[0].trigger & A_BUTTON) {
