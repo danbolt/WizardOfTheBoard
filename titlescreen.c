@@ -182,7 +182,7 @@ void makeTitleScreenDL() {
     str = spots[spotIndex].text;
   }
 
-  if ((str != NULL) ) {
+  if ((str != NULL) && (maxNumberOfTwoLineRowsToDo == 0)) {
     int i = 0;
     int xInit = 32;
     int xAdv = xInit;
@@ -206,18 +206,19 @@ void makeTitleScreenDL() {
     }
   }
 
-  // if (spotIndex > 7) {
+  gDPPipeSync(glistp++);
+  gDPSetTexturePersp(glistp++, G_TP_NONE);
+  gDPSetTextureFilter(glistp++, G_TF_BILERP);
+  gDPSetCombineMode(glistp++,G_CC_DECALRGBA, G_CC_DECALRGBA);
+  gDPSetRenderMode(glistp++, G_RM_TEX_EDGE, G_RM_TEX_EDGE2);
+  gSPTexture(glistp++, 0xffff, 0xffff, 0, G_TX_RENDERTILE, G_ON);
+  const int nudgeX = (guRandom() % 4);
+  const int nudgeY = (guRandom() % 4);
+  for (int i = 0; i < maxNumberOfTwoLineRowsToDo; i++) {
     gDPPipeSync(glistp++);
-    gDPSetTexturePersp(glistp++, G_TP_NONE);
-    gDPSetCombineMode(glistp++,G_CC_DECALRGBA, G_CC_DECALRGBA);
-    gDPSetRenderMode(glistp++, G_RM_TEX_EDGE, G_RM_TEX_EDGE2);
-    gSPTexture(glistp++, 0xffff, 0xffff, 0, G_TX_RENDERTILE, G_ON);
-    for (int i = 0; i < maxNumberOfTwoLineRowsToDo; i++) {
-      gDPPipeSync(glistp++);
-      gDPLoadTextureTile(glistp++, backgroundBuffers[1], G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, 240, 0, (i * 2), 320 - 1, ((i + 1) * 2) - 1, 0, G_TX_WRAP, G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD );
-      gSPTextureRectangle(glistp++, 0 << 2, (0 + (i * 2)) << 2, (0 + 320) << 2, (0 + ((i + 1) * 2)) << 2, 0, 0 << 5, (i * 2) << 5, 1 << 10, 1 << 10);
-    }
-  // }
+    gDPLoadTextureTile(glistp++, backgroundBuffers[1], G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, 240, 0, (i * 2), 320 - 1, ((i + 1) * 2) - 1, 0, G_TX_WRAP, G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD );
+    gSPTextureRectangle(glistp++, 0 << 2, (0 + (i * 2)) << 2, (0 + 320) << 2, (0 + ((i + 1) * 2)) << 2, 0, (0 << 5) | (nudgeX << 2), ((i * 2) << 5) | (nudgeY << 2), 1 << 10, 1 << 10);
+  }
 
 #ifdef LINES_CAPTURE_MARKERS
   if (spotIndex < (NUMBER_OF_SPOTS) && spotTimePassed) {
@@ -278,7 +279,7 @@ void updateTitleScreen() {
     if ((!hasPlayedSoundForTheSpot) && (((spotIndex > 0) && (spotTimePassed > 1.f)) || ( spotTimePassed > 3.f)) ) {
       hasPlayedSoundForTheSpot = 1;
 
-      if (spots[spotIndex].soundIndex > -1) {
+      if ((spots[spotIndex].soundIndex > -1) && (!showingTitle)) {
         playSound((u32)(spots[spotIndex].soundIndex));
       }
     }
@@ -297,6 +298,8 @@ void updateTitleScreen() {
       } else if ((maxNumberOfTwoLineRowsToDo == (106 / 2)) && (spotTimePassed > (7.501f + 1.f))) {
         maxNumberOfTwoLineRowsToDo = (152 / 2);
       }
+    } else if ((spotIndex > 7) && (!showingTitle)) {
+      showingTitle = 1;
     }
   }
   
@@ -337,6 +340,7 @@ void updateTitleScreen() {
     if (!showingTitle) {
       showingTitle = 1;
       maxNumberOfTwoLineRowsToDo = (152 / 2);
+      stopLastPlayedSound();
     } else {
       nextStage = &levelSelectStage;
       changeScreensFlag = 1;

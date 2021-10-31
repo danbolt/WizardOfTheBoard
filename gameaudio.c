@@ -26,6 +26,10 @@ void playSound(u32 soundId) {
   //
 }
 
+void stopLastPlayedSound() {
+  //
+}
+
 void playMusic(u32 musicId) {
   //
 }
@@ -69,6 +73,10 @@ void initializeAudio() {
 
 void playSound(u32 soundId) {
   nuAuSndPlayerPlay(soundId % SFX_COUNT);
+}
+
+void stopLastPlayedSound() {
+  nuAuSndPlayerStop();
 }
 
 void playMusic(u32 musicId) {
