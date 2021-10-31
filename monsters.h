@@ -13,6 +13,9 @@ extern Gfx toad_commands[];
 extern Vtx snake_verts[];
 extern Gfx snake_commands[];
 
+extern Vtx jumper_verts[];
+extern Gfx jumper_commands[];
+
 extern Vtx projectile_verts[];
 extern Gfx projectile_commands[];
 
