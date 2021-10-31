@@ -368,11 +368,11 @@ void updateTitleScreen() {
 
   if (upPressed) {
     upPressed = 0;
-    menuIndex = (menuIndex - 1 + NUMBER_OF_TITLE_MENU_ITEMS) % NUMBER_OF_TITLE_MENU_ITEMS;
+    menuIndex = (menuIndex + 1) % NUMBER_OF_TITLE_MENU_ITEMS;
   }
   if (downPressed) {
     downPressed = 1;
-    menuIndex = (menuIndex + 1) % NUMBER_OF_TITLE_MENU_ITEMS;
+    menuIndex = (menuIndex - 1 + NUMBER_OF_TITLE_MENU_ITEMS) % NUMBER_OF_TITLE_MENU_ITEMS;
   }
 
   if (contdata[0].trigger & A_BUTTON) {
