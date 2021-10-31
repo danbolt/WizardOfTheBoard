@@ -1398,9 +1398,6 @@ void checkCollisionWithPieces() {
       } else {
         playSound(SFX_20_PLAYER_HURT_0);
       }
-      if ((j > 0) && (health[j] < 1)) {
-        isActive[j] = 0;
-      }
 
       // Fly back away from the piece
       // TODO: perhaps make this perpindicular via a cross product?
@@ -1423,6 +1420,10 @@ void updateKnockback() {
     if (knockbackTimesRemaining[i] <= 0.f) {
       isKnockingBackStates[i] = 0;
       velocities[i] = (Vec2){ 0.f, 0.f };
+
+      if ((i > 0) && (health[i] < 1)) {
+        isActive[i] = 0;
+      }
     }
   }
 }
