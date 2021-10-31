@@ -20,6 +20,7 @@
 #include "opening/envtexture.h"
 #include "opening/tower.h"
 #include "opening/ground.h"
+#include "opening/decor.h"
 
 static float timePassed;
 
@@ -184,8 +185,9 @@ void makeTitleScreenDL() {
   gSPDisplayList(glistp++, OS_K0_TO_PHYSICAL(gfx_Ground_None));
 
   gDPPipeSync(glistp++);
-  gDPSetRenderMode(glistp++, G_RM_ZB_OPA_SURF, G_RM_ZB_OPA_SURF2);
+  gDPSetRenderMode(glistp++, G_RM_ZB_XLU_SURF, G_RM_ZB_XLU_SURF2);
   gSPSetGeometryMode(glistp++,G_SHADE | G_ZBUFFER | G_SHADING_SMOOTH | G_CULL_BACK);
+  gSPDisplayList(glistp++, OS_K0_TO_PHYSICAL(gfx_decorations_None));
   gSPDisplayList(glistp++, OS_K0_TO_PHYSICAL(gfx_Tower_None));
 
   gDPPipeSync(glistp++);
