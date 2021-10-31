@@ -63,7 +63,12 @@ void initializeAudio() {
     return;
   }
 
+#ifdef PAL_ROM
+  nuAuInitEx();
+#else
   nuAuInit();
+#endif
+  
   setAudioData();
 
   isAudioInitialized = 1;
