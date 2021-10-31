@@ -55,7 +55,7 @@ Vtx ogre_verts[] = {
 };
 
 Gfx ogre_commands[] = {
-  gsSPVertex(&ogre_verts, 47, 0),
+  gsSPVertex(&ogre_verts, 51, 0),
   gsSP2Triangles(7, 5, 3, 0, 1, 3, 5, 0),
   gsSP2Triangles(7, 4, 2, 0, 2, 3, 1, 0),
   gsSP2Triangles(4, 7, 3, 0, 2, 1, 7, 0),

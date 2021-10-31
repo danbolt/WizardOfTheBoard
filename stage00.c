@@ -778,6 +778,11 @@ void makeDL00(void)
       continue;
     }
 
+    if (isKnockingBackStates[i]) {
+      gDPPipeSync(glistp++);
+      gDPSetPrimColor(glistp++, 0, 0, 0xff >> 2, 0x00, 0x00, 0xff);
+      gDPSetCombineLERP(glistp++, PRIMITIVE, 0, NOISE, PRIMITIVE, 0, 0, 0, SHADE, PRIMITIVE, 0, NOISE, PRIMITIVE, 0, 0, 0, SHADE);
+    }
 
     guTranslate(&(dynamicp->monsterTranslations[i - 1]), positions[i].x, positions[i].y, 0.f);
     guRotate(&(dynamicp->monsterRotations[i - 1]), orientations[i] * INV_PI * 180, 0.f, 0.f, 1.f);
@@ -790,6 +795,11 @@ void makeDL00(void)
     gSPDisplayList(glistp++, OS_K0_TO_PHYSICAL(renderCommands[i]));
 
     gSPPopMatrix(glistp++, G_MTX_MODELVIEW);
+
+    if (isKnockingBackStates[i]) {
+      gDPPipeSync(glistp++);
+      gDPSetCombineMode(glistp++, G_CC_SHADE, G_CC_SHADE);
+    }
   }
 
   // Draw the projectiles
