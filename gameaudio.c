@@ -14,8 +14,6 @@
 
 #define DEFAULT_INGAME_VOLUME 0x2fff
 
-static u32 isAudioInitialized = 0;
-
 #ifdef NO_COMPILED_AUDIO
 
 void initializeAudio() {
@@ -48,6 +46,8 @@ int isMusicPlaying() {
 
 
 #else
+
+static u32 isAudioInitialized = 0;
 
 void setAudioData(void) {
   nuAuSeqPlayerBankSet(_midibankSegmentRomStart, _midibankSegmentRomEnd - _midibankSegmentRomStart, _miditableSegmentRomStart);
