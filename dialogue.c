@@ -229,7 +229,7 @@ void renderDialogueToDisplayList() {
     gDPSetCombineMode(glistp++, G_CC_DECALRGBA, G_CC_DECALRGBA);
     gSPTextureRectangle(glistp++, (TITLE_SAFE_HORIZONTAL + 6 + 10) << 2, dialogueBoxY << 2, ((TITLE_SAFE_HORIZONTAL + 4 + 10) + 32) << 2, (dialogueBoxY + 64) << 2, 0, 0 << 5, 0 << 5, 1 << 10, 1 << 10);
   } else {
-    drawString(TITLE_SAFE_HORIZONTAL + 10, dialogueBoxY, currentDialogueItem->text, 256);
+    drawString(TITLE_SAFE_HORIZONTAL + 10 + 10, dialogueBoxY, currentDialogueItem->text, 256);
   }
 
 }

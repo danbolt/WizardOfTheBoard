@@ -7,6 +7,7 @@ struct backgroundMappingData;
 %%
 bedroom,0
 logotype,153600
-simplex,307200
-stars,460800
-test_a,614400
+restarea,307200
+simplex,460800
+stars,614400
+test_a,768000

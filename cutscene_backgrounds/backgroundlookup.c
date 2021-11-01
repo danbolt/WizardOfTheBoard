@@ -1,6 +1,6 @@
 /* ANSI-C code produced by gperf version 3.1 */
 /* Command-line: gperf --no-strlen --lookup-function-name=getBackgroundTextureOffset --struct-type --output-file=backgroundlookup.c texture-gperf-mapping  */
-/* Computed positions: -k'3' */
+/* Computed positions: -k'5' */
 
 #if !((' ' == 32) && ('!' == 33) && ('"' == 34) && ('#' == 35) \
       && ('%' == 37) && ('&' == 38) && ('\'' == 39) && ('(' == 40) \
@@ -37,7 +37,7 @@
 #line 6 "texture-gperf-mapping"
 struct backgroundMappingData;
 
-#define TOTAL_KEYWORDS 5
+#define TOTAL_KEYWORDS 6
 #define MIN_WORD_LENGTH 5
 #define MAX_WORD_LENGTH 8
 #define MIN_HASH_VALUE 0
@@ -66,9 +66,9 @@ hash (register const char *str, register size_t len)
       8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
       8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
       8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
-      8, 8, 8, 8, 8, 8, 8, 4, 8, 8,
-      7, 8, 8, 2, 8, 8, 8, 8, 8, 5,
-      8, 8, 8, 8, 8, 0, 8, 8, 8, 8,
+      8, 8, 8, 8, 8, 1, 8, 4, 8, 8,
+      8, 8, 8, 8, 8, 8, 8, 8, 7, 8,
+      8, 2, 8, 8, 8, 5, 0, 8, 8, 8,
       8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
       8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
       8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
@@ -84,7 +84,7 @@ hash (register const char *str, register size_t len)
       8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
       8, 8, 8, 8, 8, 8
     };
-  return asso_values[(unsigned char)str[2]];
+  return asso_values[(unsigned char)str[4]];
 }
 
 struct backgroundMappingData *
@@ -92,19 +92,20 @@ getBackgroundTextureOffset (register const char *str, register size_t len)
 {
   static struct backgroundMappingData wordlist[] =
     {
-#line 12 "texture-gperf-mapping"
-      {"test_a",614400},
-      {""},
 #line 9 "texture-gperf-mapping"
       {"logotype",153600},
+#line 13 "texture-gperf-mapping"
+      {"test_a",768000},
+#line 8 "texture-gperf-mapping"
+      {"bedroom",0},
+      {""},
+#line 10 "texture-gperf-mapping"
+      {"restarea",307200},
+#line 12 "texture-gperf-mapping"
+      {"stars",614400},
       {""},
 #line 11 "texture-gperf-mapping"
-      {"stars",460800},
-#line 10 "texture-gperf-mapping"
-      {"simplex",307200},
-      {""},
-#line 8 "texture-gperf-mapping"
-      {"bedroom",0}
+      {"simplex",460800}
     };
 
   if (len <= MAX_WORD_LENGTH && len >= MIN_WORD_LENGTH)
