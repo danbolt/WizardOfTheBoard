@@ -2,7 +2,7 @@
 #include "stagekeys.h"
 
 LevelEntry levels[NUMBER_OF_LEVELS] = {
-  { "jumper_test" },
+  { "tut1_move" },
   { "tut2_rooks" },
   { "tut3_bishops" },
   { "tut4_knights" },
