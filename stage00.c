@@ -156,6 +156,73 @@ void updateSnake(int index) {
   }
 }
 
+#define JUMPER_GOING_RIGHT 0
+#define JUMPER_GOING_DOWN 1
+#define JUMPER_GOING_LEFT 2
+#define JUMPER_GOING_UP 3
+#define JUMPER_WALK_SPEED 3.0161f
+void updateJumper(int index) {
+  if (isKnockingBackStates[index]) {
+    return;
+  }
+
+  u8* jumperDir = (u8*)(monsterState[index]);
+
+  Vec2 checkPoint = positions[index];
+  switch (*jumperDir) {
+    case JUMPER_GOING_RIGHT:
+      checkPoint.x += 0.25f;
+      break;
+    case JUMPER_GOING_DOWN:
+      checkPoint.y += 0.25f;
+      break;
+    case JUMPER_GOING_LEFT:
+      checkPoint.x -= 0.25f;
+      break;
+    default:
+      checkPoint.y -= 0.25f;
+      break;
+  }
+
+  int shouldChangeDirections = 0;
+
+  if ((checkPoint.x <= 0.01f) || (checkPoint.x > (BOARD_WIDTH - 0.01f))) {
+    shouldChangeDirections = 1;
+  }
+
+  if ((checkPoint.y <= 0.01f) || (checkPoint.y > (BOARD_HEIGHT - 0.01f))) {
+    shouldChangeDirections = 1;
+  }
+
+  if ((!shouldChangeDirections) && (isSpaceOccupiedButIgnoreMovingPieces((int)(checkPoint.x), (int)(checkPoint.y)) > -1)) {
+    shouldChangeDirections = 1;
+  }
+
+
+  if (shouldChangeDirections) {
+    switch (*jumperDir) {
+    case JUMPER_GOING_RIGHT:
+      *jumperDir = JUMPER_GOING_DOWN;
+      velocities[index] = (Vec2){ 0.f, JUMPER_WALK_SPEED };
+      break;
+    case JUMPER_GOING_DOWN:
+      *jumperDir = JUMPER_GOING_LEFT;
+      velocities[index] = (Vec2){ -JUMPER_WALK_SPEED, 0.f };
+      break;
+    case JUMPER_GOING_LEFT:
+      *jumperDir = JUMPER_GOING_UP;
+      velocities[index] = (Vec2){ 0.f, -JUMPER_WALK_SPEED };
+      break;
+    default:
+      *jumperDir = JUMPER_GOING_RIGHT;
+      velocities[index] = (Vec2){ JUMPER_WALK_SPEED, 0.f };
+      break;
+    }
+  }
+
+  guRotate(&(monsterSpecificTransforms[index]), gameplayTimePassed * 300.f, 0.f, 0.f, 1.f);
+}
+
 #define PLAYER_HEIGHT_ABOVE_GROUND 0.26f
 #define PLAYER_WALK_SPEED 3.f
 #define PLAYER_TURN_SPEED 3.f
@@ -517,6 +584,14 @@ void initializeMonsters(const MapData* map) {
 
       // Fuzz the firing rate based off index
       *((float*)(monsterState[i + 1])) = (float)(i * 0.2f);
+    } else if (type == MONSTER_TYPE_JUMPER) {
+      updateFunctions[i + 1] = updateJumper;
+      renderCommands[i + 1] = jumper_commands;
+      orientations[i + 1] = 0.f;
+      health[i + 1] = 1;
+
+      *((u8*)(monsterState[i + 1])) = JUMPER_GOING_RIGHT;
+      velocities[i + 1].x = JUMPER_WALK_SPEED;
     }
   }
 
@@ -661,7 +736,7 @@ void initStage00(void)
   playerHealth = PLAYER_MAX_HEALTH;
   playerHealthDisplay = 0.f;
 
-  chessboardSpotHighlighted = (Pos2){ 2, 2 };
+  chessboardSpotHighlighted = (Pos2){ 4, 2 };
   for (int i = 0; i < NUMBER_OF_BOARD_CELLS; i++) {
     legalDestinationState[i] = 0;
   }
