@@ -34,7 +34,7 @@ MAP		= jam2.map
 LD_SCRIPT	= jam2.ld
 CP_LD_SCRIPT	= jam2_cp.ld
 
-HFILES =	main.h nustdfuncs.h stagekeys.h graphic.h audio/sfx/sfx.h gameaudio.h backgroundbuffers.h levelselect.h displaytext.h cutscene.h titlescreen.h sixtwelve.h sixtwelve_helpers.h constants.h gamemath.h dialogue.h segmentinfo.h audio/bgm/sequence/tracknumbers.h pieces.h board.h monsters.h mapdata.h dialogue/dialoguelookup.h cast_sprites/castlookup.h map/maplookup.h cutscene_backgrounds/backgroundlookup.h cutscenes/cutscenelookup.h opening/envtexture.h opening/tower.h opening/ground.h bip-mapping/bipmapping.h
+HFILES =	main.h nustdfuncs.h stagekeys.h graphic.h audio/sfx/sfx.h gameaudio.h backgroundbuffers.h levelselect.h stage00.h displaytext.h cutscene.h titlescreen.h sixtwelve.h sixtwelve_helpers.h constants.h gamemath.h dialogue.h segmentinfo.h audio/bgm/sequence/tracknumbers.h pieces.h board.h monsters.h mapdata.h dialogue/dialoguelookup.h cast_sprites/castlookup.h map/maplookup.h cutscene_backgrounds/backgroundlookup.h cutscenes/cutscenelookup.h opening/envtexture.h opening/tower.h opening/ground.h bip-mapping/bipmapping.h
 
 ifdef NO_COMPILED_AUDIO
 LCDEFS += -DNO_COMPILED_AUDIO

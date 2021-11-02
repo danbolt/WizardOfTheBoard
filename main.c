@@ -8,14 +8,10 @@
 #include "cutscene.h"
 #include "gameaudio.h"
 #include "levelselect.h"
+#include "stage00.h"
 #include "titlescreen.h"
 
 #include <segmentinfo.h>
-
-// TODO: header-ify this
-void initStage00(void);
-void makeDL00(void);
-void updateGame00(void);
 
 ScreenInfo gameplayStage = {
   initStage00,
@@ -66,7 +62,7 @@ void updateTime() {
 void initalizeGameData() {
   changeScreensFlag = 1;
   currentStage = NULL;
-  nextStage = &gameplayStage;
+  nextStage = &titleScreenStage;
 
   loadDisplayText();
 
