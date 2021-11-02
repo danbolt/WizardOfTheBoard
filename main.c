@@ -118,6 +118,13 @@ void mainproc(void)
   osViSetMode(&osViModeTable[OS_VI_FPAL_LPN1]);
   osViSetYScale(FPAL_Y_SCALE);
   nuPreNMIFuncSet((NUScPreNMIFunc)callback_prenmi);
+#else
+  osViSetMode(&osViModeTable[OS_VI_NTSC_LPN1]);
+  osViSetSpecialFeatures(OS_VI_DITHER_FILTER_OFF
+         | OS_VI_GAMMA_OFF
+         | OS_VI_GAMMA_DITHER_OFF
+         | OS_VI_DIVOT_OFF);
+  osViBlack(TRUE);
 #endif
 
   /* The initialization of the controller manager  */
