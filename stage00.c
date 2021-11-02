@@ -1181,18 +1181,18 @@ void makeDL00(void)
 
   assert((glistp - gfx_glist[gfx_gtask_no]) < GFX_GLIST_LEN);
 
-  nuGfxTaskStart(&gfx_glist[gfx_gtask_no][0], (s32)(glistp - gfx_glist[gfx_gtask_no]) * sizeof (Gfx), NU_GFX_UCODE_F3DLP_REJ , NU_SC_NOSWAPBUFFER);
+  nuGfxTaskStart(&gfx_glist[gfx_gtask_no][0], (s32)(glistp - gfx_glist[gfx_gtask_no]) * sizeof (Gfx), NU_GFX_UCODE_F3DLP_REJ , NU_SC_SWAPBUFFER);
 
-  nuDebConClear(0);
-  nuDebConTextPos(0,4,22);
-  sprintf(conbuf,"DL: %04d/%04d", (glistp - gfx_glist[gfx_gtask_no]), GFX_GLIST_LEN);
-  nuDebConCPuts(0, conbuf);
-  nuDebConTextPos(0,4,23);
-  sprintf(conbuf,"delta: %3.5f", deltaTimeSeconds);
-  nuDebConCPuts(0, conbuf);
+  // nuDebConClear(0);
+  // nuDebConTextPos(0,4,22);
+  // sprintf(conbuf,"DL: %04d/%04d", (glistp - gfx_glist[gfx_gtask_no]), GFX_GLIST_LEN);
+  // nuDebConCPuts(0, conbuf);
+  // nuDebConTextPos(0,4,23);
+  // sprintf(conbuf,"delta: %3.5f", deltaTimeSeconds);
+  // nuDebConCPuts(0, conbuf);
     
-  /* Display characters on the frame buffer */
-  nuDebConDisp(NU_SC_SWAPBUFFER);
+  // /* Display characters on the frame buffer */
+  // nuDebConDisp(NU_SC_SWAPBUFFER);
 
   /* Switch display list buffers */
   gfx_gtask_no = (gfx_gtask_no + 1) % BUFFER_COUNT;
