@@ -100,7 +100,6 @@ void tickCurrentStage(int pendingGfx) {
 #ifdef PAL_ROM
 void callback_prenmi()
 {
-    osViSetYScale(1);
     nuGfxDisplayOff();
 }
 
@@ -108,16 +107,16 @@ void callback_prenmi()
 
 void mainproc(void)
 {
-#ifdef PAL_ROM
-  osViSetMode(&osViModeTable[OS_VI_FPAL_LAN1]);
-  osViSetYScale(0.833);
-  nuPreNMIFuncSet((NUScPreNMIFunc)callback_prenmi);
-#endif
 
   initalizeGameData();
   
   /* The initialization of graphic  */
   nuGfxInit();
+  
+#ifdef PAL_ROM
+  osViSetMode(&osViModeTable[OS_VI_PAL_LAN1]);
+  nuPreNMIFuncSet((NUScPreNMIFunc)callback_prenmi);
+#endif
 
   /* The initialization of the controller manager  */
   contPattern = nuContInit();
