@@ -100,7 +100,8 @@ void tickCurrentStage(int pendingGfx) {
 #ifdef PAL_ROM
 void callback_prenmi()
 {
-    nuGfxDisplayOff();
+  osViSetYScale(1);
+  nuGfxDisplayOff();
 }
 
 #endif
@@ -112,9 +113,10 @@ void mainproc(void)
   
   /* The initialization of graphic  */
   nuGfxInit();
-  
+
 #ifdef PAL_ROM
-  osViSetMode(&osViModeTable[OS_VI_PAL_LAN1]);
+  osViSetMode(&osViModeTable[OS_VI_FPAL_LPN1]);
+  osViSetYScale(FPAL_Y_SCALE);
   nuPreNMIFuncSet((NUScPreNMIFunc)callback_prenmi);
 #endif
 
@@ -131,9 +133,15 @@ void mainproc(void)
     currentStage->init();
     nuGfxFuncSet((NUGfxFunc)tickCurrentStage);
     nuGfxDisplayOn();
+#ifdef PAL_ROM
+      osViSetYScale(FPAL_Y_SCALE);
+#endif
 
     while(changeScreensFlag == 0);
 
+#ifdef PAL_ROM
+    osViSetYScale(1);
+#endif
     nuGfxDisplayOff();
     nuGfxFuncRemove();
 

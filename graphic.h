@@ -34,6 +34,8 @@
 #define N64_A_BUTTON_GREEN 0x3b
 #define N64_A_BUTTON_BLUE 0xa2
 
+#define FPAL_Y_SCALE 0.833
+
 /*-------------------------- define structure ------------------------------ */
 /* The structure of the projection-matrix  */
 typedef struct {
