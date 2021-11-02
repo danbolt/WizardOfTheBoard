@@ -1890,8 +1890,7 @@ void updateGame00(void)
         } else if (pauseMenuIndex == 2) {
           nextStage = &levelSelectStage;
         } else {
-          // We shouldn't be able to go here
-          nextStage = &levelSelectStage;
+          nextStage = &betweenStagesStage;
         }
         changeScreensFlag = 1;
       }

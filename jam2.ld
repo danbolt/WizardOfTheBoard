@@ -97,6 +97,12 @@ SECTIONS
    }
    END_SEG(hud_icons)
 
+   BEGIN_SEG(stairs_anim, __romPos)
+   {
+      sprites/stairs_anim.bino(.data);
+   }
+   END_SEG(stairs_anim)
+
    BEGIN_SEG(level_select_icons, __romPos)
    {
       sprites/level_select_icons.bino(.data);

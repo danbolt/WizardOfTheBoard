@@ -32,6 +32,7 @@ extern u8 _level_select_backgroundSegmentRomStart[];
 extern u8 _opening_environmentSegmentRomStart[];
 extern u8 _zatt_potraitsSegmentRomStart[];
 extern u8 _level_select_iconsSegmentRomStart[];
+extern u8 _stairs_animSegmentRomStart[];
 
 
 // Cutscenes

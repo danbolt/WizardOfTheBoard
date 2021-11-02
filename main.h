@@ -40,6 +40,7 @@ extern ScreenInfo gameplayStage;
 extern ScreenInfo levelSelectStage;
 extern ScreenInfo cutsceneStage;
 extern ScreenInfo titleScreenStage;
+extern ScreenInfo betweenStagesStage;
 
 extern volatile ScreenInfo* nextStage;
 

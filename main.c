@@ -3,6 +3,7 @@
 #include <nusys.h>
 #include "main.h"
 
+#include "betweenstages.h"
 #include "dialogue.h"
 #include "displaytext.h"
 #include "cutscene.h"
@@ -32,6 +33,11 @@ ScreenInfo titleScreenStage = {
   initTitleScreen,
   updateTitleScreen,
   makeTitleScreenDL
+};
+ScreenInfo betweenStagesStage = {
+  initBetweenStages,
+  updateBetweenStages,
+  makeBetweenStagesDisplaylist
 };
 
 ScreenInfo* currentStage;
