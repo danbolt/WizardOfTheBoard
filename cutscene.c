@@ -25,7 +25,7 @@ const char* cutsceneToLoad;
 
 static float cutsceneTime;
 
-#define FADE_TIME_BETWEEN_BACKGROUNDS 2.1616f
+#define FADE_TIME_BETWEEN_BACKGROUNDS 1.21616f
 u8 backgroundIndex;
 static u8 internalBackgroundIndex;
 static u8 isFading;
