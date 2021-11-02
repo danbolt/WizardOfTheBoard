@@ -60,6 +60,8 @@ static Vec2 projectileVelocity[NUMBER_OF_PROJECTILES];
 static u8 playerPortraitStep;
 static u8 portraitIndex;
 
+static u8 hudBackgroundColor[3];
+
 // Returns the index if successful, returns -1 if not
 int tryToSpawnAProjectile(const Vec2* position, const Vec2* velocity) {
   for (int i = 0; i < NUMBER_OF_PROJECTILES; i++) {
@@ -687,6 +689,48 @@ void initializeMapFromROM(const char* mapKey) {
   // TODO: Maybe we should stub this in some way?
 }
 
+// As described here:
+// https://www.rapidtables.com/convert/color/hsv-to-rgb.html
+void hsvToRGB(u32 degrees, float s, float v, u8* rgbResult) {
+  const float c = s * v;
+  const float x = c * ( 1.f - fabsf( ((float)(((int)(((float)degrees) / 60.f)) % 2)) - 1.f ) );
+  const float m = v - c;
+
+  float r = 0.f;
+  float g = 0.f;
+  float b = 0.f;
+
+  if (degrees < 60) {
+    r = c;
+    g = x;
+    b = 0;
+  } else if (degrees < 120) {
+    r = x;
+    g = c;
+    b = 0;
+  } else if (degrees < 180) {
+    r = 0;
+    g = c;
+    b = x;
+  } else if (degrees < 240) {
+    r = 0;
+    g = x;
+    b = c;
+  } else if (degrees < 300) {
+    r = x;
+    g = 0;
+    b = c;
+  } else {
+    r = c;
+    g = 0;
+    b = x;
+  }
+
+  rgbResult[0] = (u8)(r * 255.f);
+  rgbResult[1] = (u8)(g * 255.f);
+  rgbResult[2] = (u8)(b * 255.f);
+}
+
 /* The initialization of stage 0 */
 void initStage00(void)
 {
@@ -717,6 +761,9 @@ void initStage00(void)
   highlightedPieceText = "";
 
   hudBackgroundTextureIndex = currentLevel % NUMBER_OF_HUD_BACKGROUND_TILES;
+
+  hsvToRGB((165 + (currentLevel * 170)) % 360, 0.7f, 0.6f, hudBackgroundColor);
+  
 
   hasStartedMusic = 0;
 
@@ -928,7 +975,8 @@ void makeDL00(void)
   gSPMatrix(glistp++,OS_K0_TO_PHYSICAL(&(dynamicp->modelling)), G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH );
 
   gDPPipeSync(glistp++);
-  gDPSetCombineMode(glistp++, G_CC_MODULATEI, G_CC_MODULATEI);
+  gDPSetPrimColor(glistp++, 0, 0, hudBackgroundColor[0], hudBackgroundColor[1], hudBackgroundColor[2], 0xff);
+  gDPSetCombineMode(glistp++, G_CC_MODULATEI_PRIM, G_CC_MODULATEI_PRIM);
   gDPSetRenderMode(glistp++, G_RM_TEX_EDGE, G_RM_TEX_EDGE2);
   gDPSetTexturePersp(glistp++, G_TP_NONE);
   gDPLoadTextureTile(glistp++,  OS_K0_TO_PHYSICAL(hudNoiseBackgroundsTextre + (16 * 16 * hudBackgroundTextureIndex)), G_IM_FMT_I, G_IM_SIZ_8b, 16, 16, 0 << 2, 0 << 2, (0 + 15) << 2, (15) << 2, 0, G_TX_NOMIRROR, G_TX_NOMIRROR, 4, 4, G_TX_NOLOD, G_TX_NOLOD);
@@ -941,6 +989,8 @@ void makeDL00(void)
     gDPSetCombineMode(glistp++, G_CC_SHADE, G_CC_SHADE);
     gDPSetRenderMode(glistp++, G_RM_OPA_SURF, G_RM_OPA_SURF2);
     gSPTexture(glistp++, 0xffff, 0xffff, 0, G_TX_RENDERTILE, G_OFF);
+  } else {
+    gDPSetCombineMode(glistp++, G_CC_MODULATEI, G_CC_MODULATEI);
   }
   gSPDisplayList(glistp++, OS_K0_TO_PHYSICAL(onscreenChessboardCommands));
   
