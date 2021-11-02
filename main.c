@@ -122,6 +122,10 @@ void mainproc(void)
 
 #ifdef PAL_ROM
   osViSetMode(&osViModeTable[OS_VI_FPAL_LPN1]);
+  osViSetSpecialFeatures(OS_VI_DITHER_FILTER_OFF
+         | OS_VI_GAMMA_OFF
+         | OS_VI_GAMMA_DITHER_OFF
+         | OS_VI_DIVOT_OFF);
   osViSetYScale(FPAL_Y_SCALE);
   nuPreNMIFuncSet((NUScPreNMIFunc)callback_prenmi);
 #else
