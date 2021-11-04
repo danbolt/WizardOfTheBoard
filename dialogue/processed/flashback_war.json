@@ -1,0 +1,47 @@
+[
+    {
+        "text": "(in the past)",
+        "speaker": "",
+        "flags": []
+    },
+    {
+        "text": "This really sucks, Zatt. I'm dissapointed. ",
+        "speaker": "teach",
+        "flags": []
+    },
+    {
+        "text": "Leave me alone! ",
+        "speaker": "zatt_yelling",
+        "flags": []
+    },
+    {
+        "text": "I don't want to do this anymore. This is stupid. ",
+        "speaker": "zatt_neutral",
+        "flags": []
+    },
+    {
+        "text": "You need to grow up and be responsible for once. This is your place as a warrior. ",
+        "speaker": "teach",
+        "flags": []
+    },
+    {
+        "text": "And why should I be a warrior? ",
+        "speaker": "zatt_sad",
+        "flags": []
+    },
+    {
+        "text": "The world is like this because we grew lazy and weak. ",
+        "speaker": "teach",
+        "flags": []
+    },
+    {
+        "text": "Is this really how you want to live your life? ",
+        "speaker": "teach",
+        "flags": []
+    },
+    {
+        "text": "... ",
+        "speaker": "zatt_sad",
+        "flags": []
+    }
+]

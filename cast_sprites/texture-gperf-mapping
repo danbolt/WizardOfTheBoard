@@ -8,7 +8,8 @@ struct castMappingData;
 demon,0
 protag,8192
 snake,16384
-test,24576
-zatt_neutral,32768
-zatt_sad,40960
-zatt_yelling,49152
+teach,24576
+test,32768
+zatt_neutral,40960
+zatt_sad,49152
+zatt_yelling,57344

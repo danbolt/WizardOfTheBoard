@@ -78,6 +78,8 @@ void initializeAudio() {
 
 void playSound(u32 soundId) {
   nuAuSndPlayerPlay(soundId % SFX_COUNT);
+
+  nuAuSndPlayerSetVol(0x4000);
 }
 
 void stopLastPlayedSound() {

@@ -149,28 +149,28 @@ void makeCutsceneDisplaylist() {
   gDPFullSync(glistp++);
   gSPEndDisplayList(glistp++);
 
-  nuGfxTaskStart(&gfx_glist[gfx_gtask_no][0], (s32)(glistp - gfx_glist[gfx_gtask_no]) * sizeof (Gfx), NU_GFX_UCODE_F3DLP_REJ , NU_SC_NOSWAPBUFFER);
+  nuGfxTaskStart(&gfx_glist[gfx_gtask_no][0], (s32)(glistp - gfx_glist[gfx_gtask_no]) * sizeof (Gfx), NU_GFX_UCODE_F3DLP_REJ , NU_SC_SWAPBUFFER);
 
-  nuDebConClear(0);
-  nuDebConTextPos(0, 2, 22);
-  sprintf(conbuf,"bgm index %d", infoForOurCutscene.bgmIndex);
-  nuDebConCPuts(0, conbuf);
+  // nuDebConClear(0);
+  // nuDebConTextPos(0, 2, 22);
+  // sprintf(conbuf,"bgm index %d", infoForOurCutscene.bgmIndex);
+  // nuDebConCPuts(0, conbuf);
 
-  nuDebConTextPos(0, 2, 24);
-  sprintf(conbuf," audio heap: 0x%08x", NU_AU_HEAP_ADDR);
-  nuDebConCPuts(0, conbuf);
+  // nuDebConTextPos(0, 2, 24);
+  // sprintf(conbuf," audio heap: 0x%08x", NU_AU_HEAP_ADDR);
+  // nuDebConCPuts(0, conbuf);
 
-  nuDebConTextPos(0, 2, 25);
-  sprintf(conbuf,"our bss end: 0x%08x", _codeSegmentBssEnd);
-  nuDebConCPuts(0, conbuf);
+  // nuDebConTextPos(0, 2, 25);
+  // sprintf(conbuf,"our bss end: 0x%08x", _codeSegmentBssEnd);
+  // nuDebConCPuts(0, conbuf);
 
-  nuDebConTextPos(0, 2, 26);
-  sprintf(conbuf,"  remaining: 0d%08u", (u32)(NU_AU_HEAP_ADDR) - (u32)(_codeSegmentBssEnd));
-  nuDebConCPuts(0, conbuf);
+  // nuDebConTextPos(0, 2, 26);
+  // sprintf(conbuf,"  remaining: 0d%08u", (u32)(NU_AU_HEAP_ADDR) - (u32)(_codeSegmentBssEnd));
+  // nuDebConCPuts(0, conbuf);
 
     
-  /* Display characters on the frame buffer */
-  nuDebConDisp(NU_SC_SWAPBUFFER);
+  // /* Display characters on the frame buffer */
+  // nuDebConDisp(NU_SC_SWAPBUFFER);
 
   gfx_gtask_no = (gfx_gtask_no + 1) % BUFFER_COUNT;
 }
