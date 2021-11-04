@@ -345,9 +345,9 @@ void updateTitleScreen() {
   }
 
   if(contdata[0].trigger & U_JPAD) {
-    upPressed = 1;
-  } else if(contdata[0].trigger & D_JPAD) {
     downPressed = 1;
+  } else if(contdata[0].trigger & D_JPAD) {
+    upPressed = 1;
   } else {
     upPressed = 0;
     downPressed = 0;

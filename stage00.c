@@ -1872,7 +1872,7 @@ void updateGame00(void)
   if (dialogueState == DIALOGUE_STATE_SHOWING) {
     return;
   } else if ((!hasStartedMusic) && (transitioningState == NOT_TRANSITIONING)) {
-    playMusic(TRACK_06_DOOMED_HEROES);
+    playMusic(TRACK_01_PUZZLE_TIME);
     hasStartedMusic = 1;
   }
 
