@@ -1,0 +1,7348 @@
+
+envelope Percussion_01Env
+{
+    attackTime = 0;
+    attackVolume = 127;
+    decayTime = 0;
+    decayVolume = 127;
+    releaseTime = 100000;
+}
+
+keymap Percussion_01Keymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 35;
+    keyBase = 51;
+    detune = 0;
+}
+
+sound Percussion_01
+{
+    use("./sounds/Percussion_01Snd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = Percussion_01Keymap;
+    envelope = Percussion_01Env;
+}
+
+keymap Snare_Cross_StickKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 36;
+    keyMax = 36;
+    keyBase = 53;
+    detune = 0;
+}
+
+sound Snare_Cross_Stick
+{
+    use("./sounds/Snare_Cross_StickSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = Snare_Cross_StickKeymap;
+    envelope = Percussion_01Env;
+}
+
+keymap Snare_DrumKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 37;
+    keyMax = 37;
+    keyBase = 37;
+    detune = 0;
+}
+
+sound Snare_Drum
+{
+    use("./sounds/Snare_DrumSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = Snare_DrumKeymap;
+    envelope = Percussion_01Env;
+}
+
+keymap Hand_ClapKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 38;
+    keyMax = 38;
+    keyBase = 52;
+    detune = 0;
+}
+
+sound Hand_Clap
+{
+    use("./sounds/Hand_ClapSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = Hand_ClapKeymap;
+    envelope = Percussion_01Env;
+}
+
+keymap Electric_Snare_DrumKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 39;
+    keyMax = 39;
+    keyBase = 51;
+    detune = 0;
+}
+
+sound Electric_Snare_Drum
+{
+    use("./sounds/Electric_Snare_DrumSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = Electric_Snare_DrumKeymap;
+    envelope = Percussion_01Env;
+}
+
+keymap Floor_Tom_2Keymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 40;
+    keyMax = 40;
+    keyBase = 52;
+    detune = 0;
+}
+
+sound Floor_Tom_2
+{
+    use("./sounds/Floor_Tom_2Snd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = Floor_Tom_2Keymap;
+    envelope = Percussion_01Env;
+}
+
+keymap Hi_Hat_ClosedKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 41;
+    keyMax = 41;
+    keyBase = 59;
+    detune = 0;
+}
+
+sound Hi_Hat_Closed
+{
+    use("./sounds/Hi_Hat_ClosedSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = Hi_Hat_ClosedKeymap;
+    envelope = Percussion_01Env;
+}
+
+keymap Floor_Tom_1Keymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 42;
+    keyMax = 42;
+    keyBase = 54;
+    detune = 0;
+}
+
+sound Floor_Tom_1
+{
+    use("./sounds/Floor_Tom_1Snd.aifc");
+    pan = 64;
+    volume = 80;
+    keymap = Floor_Tom_1Keymap;
+    envelope = Percussion_01Env;
+}
+
+keymap Hi_Hat_FootKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 43;
+    keyMax = 43;
+    keyBase = 59;
+    detune = 0;
+}
+
+sound Hi_Hat_Foot
+{
+    use("./sounds/Hi_Hat_ClosedSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = Hi_Hat_FootKeymap;
+    envelope = Percussion_01Env;
+}
+
+envelope Low_TomEnv
+{
+    attackTime = 8000;
+    attackVolume = 127;
+    decayTime = 200000;
+    decayVolume = 80;
+    releaseTime = 100000;
+}
+
+keymap Low_TomKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 44;
+    keyMax = 44;
+    keyBase = 56;
+    detune = 0;
+}
+
+sound Low_Tom
+{
+    use("./sounds/Floor_Tom_1Snd.aifc");
+    pan = 64;
+    volume = 86;
+    keymap = Low_TomKeymap;
+    envelope = Low_TomEnv;
+}
+
+keymap Hi_Hat_OpenKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 45;
+    keyMax = 45;
+    keyBase = 59;
+    detune = 0;
+}
+
+sound Hi_Hat_Open
+{
+    use("./sounds/Hi_Hat_ClosedSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = Hi_Hat_OpenKeymap;
+    envelope = Percussion_01Env;
+}
+
+keymap Low_Mid_TomKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 46;
+    keyMax = 46;
+    keyBase = 58;
+    detune = 0;
+}
+
+sound Low_Mid_Tom
+{
+    use("./sounds/Low_Mid_TomSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = Low_Mid_TomKeymap;
+    envelope = Percussion_01Env;
+}
+
+keymap High_Mid_TomKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 47;
+    keyMax = 47;
+    keyBase = 59;
+    detune = 0;
+}
+
+sound High_Mid_Tom
+{
+    use("./sounds/Hi_Hat_ClosedSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = High_Mid_TomKeymap;
+    envelope = Percussion_01Env;
+}
+
+keymap Crash_CymbalKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 48;
+    keyMax = 48;
+    keyBase = 59;
+    detune = 0;
+}
+
+sound Crash_Cymbal
+{
+    use("./sounds/Hi_Hat_ClosedSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = Crash_CymbalKeymap;
+    envelope = Percussion_01Env;
+}
+
+envelope High_TomEnv
+{
+    attackTime = 0;
+    attackVolume = 127;
+    decayTime = 800000;
+    decayVolume = 90;
+    releaseTime = 1000000;
+}
+
+keymap High_TomKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 49;
+    keyMax = 49;
+    keyBase = 62;
+    detune = 0;
+}
+
+sound High_Tom
+{
+    use("./sounds/High_TomSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = High_TomKeymap;
+    envelope = High_TomEnv;
+}
+
+keymap Ride_CymbalKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 50;
+    keyMax = 50;
+    keyBase = 59;
+    detune = 0;
+}
+
+sound Ride_Cymbal
+{
+    use("./sounds/Hi_Hat_ClosedSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = Ride_CymbalKeymap;
+    envelope = Percussion_01Env;
+}
+
+keymap China_CymbalKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 51;
+    keyMax = 51;
+    keyBase = 63;
+    detune = 0;
+}
+
+sound China_Cymbal
+{
+    use("./sounds/China_CymbalSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = China_CymbalKeymap;
+    envelope = Percussion_01Env;
+}
+
+keymap Ride_BellKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 52;
+    keyMax = 52;
+    keyBase = 67;
+    detune = 0;
+}
+
+sound Ride_Bell
+{
+    use("./sounds/Ride_BellSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = Ride_BellKeymap;
+    envelope = Percussion_01Env;
+}
+
+keymap TambourineKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 53;
+    keyMax = 53;
+    keyBase = 67;
+    detune = 0;
+}
+
+sound Tambourine
+{
+    use("./sounds/China_CymbalSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = TambourineKeymap;
+    envelope = Percussion_01Env;
+}
+
+keymap Splash_cymbalKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 54;
+    keyMax = 54;
+    keyBase = 64;
+    detune = 0;
+}
+
+sound Splash_cymbal
+{
+    use("./sounds/Splash_cymbalSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = Splash_cymbalKeymap;
+    envelope = Percussion_01Env;
+}
+
+keymap CowbellKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 55;
+    keyMax = 55;
+    keyBase = 68;
+    detune = 0;
+}
+
+sound Cowbell
+{
+    use("./sounds/High_TomSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = CowbellKeymap;
+    envelope = Percussion_01Env;
+}
+
+keymap Crash_Cymbal_2Keymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 56;
+    keyMax = 56;
+    keyBase = 69;
+    detune = 0;
+}
+
+sound Crash_Cymbal_2
+{
+    use("./sounds/Crash_Cymbal_2Snd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = Crash_Cymbal_2Keymap;
+    envelope = Percussion_01Env;
+}
+
+keymap VibraslapKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 57;
+    keyMax = 57;
+    keyBase = 68;
+    detune = 0;
+}
+
+sound Vibraslap
+{
+    use("./sounds/High_TomSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = VibraslapKeymap;
+    envelope = Percussion_01Env;
+}
+
+keymap Ride_Cymbal_2Keymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 58;
+    keyMax = 58;
+    keyBase = 72;
+    detune = 0;
+}
+
+sound Ride_Cymbal_2
+{
+    use("./sounds/Ride_Cymbal_2Snd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = Ride_Cymbal_2Keymap;
+    envelope = Percussion_01Env;
+}
+
+keymap High_BongoKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 59;
+    keyMax = 59;
+    keyBase = 69;
+    detune = 0;
+}
+
+sound High_Bongo
+{
+    use("./sounds/China_CymbalSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = High_BongoKeymap;
+    envelope = Percussion_01Env;
+}
+
+keymap Low_BongoKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 60;
+    keyMax = 60;
+    keyBase = 76;
+    detune = 0;
+}
+
+sound Low_Bongo
+{
+    use("./sounds/Low_BongoSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = Low_BongoKeymap;
+    envelope = Percussion_01Env;
+}
+
+keymap Conga_Dead_StrokeKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 61;
+    keyMax = 61;
+    keyBase = 81;
+    detune = 0;
+}
+
+sound Conga_Dead_Stroke
+{
+    use("./sounds/Low_BongoSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = Conga_Dead_StrokeKeymap;
+    envelope = Percussion_01Env;
+}
+
+keymap CongaKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 62;
+    keyMax = 62;
+    keyBase = 77;
+    detune = 0;
+}
+
+sound Conga
+{
+    use("./sounds/CongaSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = CongaKeymap;
+    envelope = Percussion_01Env;
+}
+
+keymap TumbaKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 63;
+    keyMax = 63;
+    keyBase = 75;
+    detune = 0;
+}
+
+sound Tumba
+{
+    use("./sounds/TumbaSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = TumbaKeymap;
+    envelope = Percussion_01Env;
+}
+
+keymap High_TimbaleKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 64;
+    keyMax = 64;
+    keyBase = 83;
+    detune = 0;
+}
+
+sound High_Timbale
+{
+    use("./sounds/TumbaSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = High_TimbaleKeymap;
+    envelope = Percussion_01Env;
+}
+
+keymap Low_TimbaleKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 65;
+    keyMax = 65;
+    keyBase = 79;
+    detune = 0;
+}
+
+sound Low_Timbale
+{
+    use("./sounds/Low_TimbaleSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = Low_TimbaleKeymap;
+    envelope = Percussion_01Env;
+}
+
+keymap High_AgogoKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 66;
+    keyMax = 66;
+    keyBase = 82;
+    detune = 0;
+}
+
+sound High_Agogo
+{
+    use("./sounds/Low_TimbaleSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = High_AgogoKeymap;
+    envelope = Percussion_01Env;
+}
+
+keymap Low_AgogoKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 67;
+    keyMax = 67;
+    keyBase = 79;
+    detune = 0;
+}
+
+sound Low_Agogo
+{
+    use("./sounds/Low_AgogoSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = Low_AgogoKeymap;
+    envelope = Percussion_01Env;
+}
+
+keymap CabasaKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 68;
+    keyMax = 68;
+    keyBase = 82;
+    detune = 0;
+}
+
+sound Cabasa
+{
+    use("./sounds/Low_AgogoSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = CabasaKeymap;
+    envelope = Percussion_01Env;
+}
+
+keymap MaracasKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 69;
+    keyMax = 69;
+    keyBase = 78;
+    detune = 0;
+}
+
+sound Maracas
+{
+    use("./sounds/MaracasSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = MaracasKeymap;
+    envelope = Percussion_01Env;
+}
+
+keymap Whistle_ShortKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 70;
+    keyMax = 70;
+    keyBase = 78;
+    detune = 0;
+}
+
+sound Whistle_Short
+{
+    use("./sounds/Whistle_ShortSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = Whistle_ShortKeymap;
+    envelope = Percussion_01Env;
+}
+
+keymap Whistle_LongKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 71;
+    keyMax = 71;
+    keyBase = 85;
+    detune = 0;
+}
+
+sound Whistle_Long
+{
+    use("./sounds/Whistle_LongSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = Whistle_LongKeymap;
+    envelope = Percussion_01Env;
+}
+
+keymap Guiro_ShortKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 72;
+    keyMax = 72;
+    keyBase = 86;
+    detune = 0;
+}
+
+sound Guiro_Short
+{
+    use("./sounds/Whistle_LongSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = Guiro_ShortKeymap;
+    envelope = Percussion_01Env;
+}
+
+keymap Guiro_LongKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 73;
+    keyMax = 73;
+    keyBase = 89;
+    detune = 0;
+}
+
+sound Guiro_Long
+{
+    use("./sounds/Guiro_LongSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = Guiro_LongKeymap;
+    envelope = Percussion_01Env;
+}
+
+keymap ClavesKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 74;
+    keyMax = 74;
+    keyBase = 90;
+    detune = 0;
+}
+
+sound Claves
+{
+    use("./sounds/Guiro_LongSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = ClavesKeymap;
+    envelope = Percussion_01Env;
+}
+
+keymap High_WoodblockKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 75;
+    keyMax = 75;
+    keyBase = 93;
+    detune = 0;
+}
+
+sound High_Woodblock
+{
+    use("./sounds/High_WoodblockSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = High_WoodblockKeymap;
+    envelope = Percussion_01Env;
+}
+
+keymap Low_WoodblockKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 76;
+    keyMax = 76;
+    keyBase = 91;
+    detune = 0;
+}
+
+sound Low_Woodblock
+{
+    use("./sounds/Low_WoodblockSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = Low_WoodblockKeymap;
+    envelope = Percussion_01Env;
+}
+
+keymap Cuica_HighKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 77;
+    keyMax = 77;
+    keyBase = 94;
+    detune = 0;
+}
+
+sound Cuica_High
+{
+    use("./sounds/Low_WoodblockSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = Cuica_HighKeymap;
+    envelope = Percussion_01Env;
+}
+
+keymap Cuica_LowKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 78;
+    keyMax = 78;
+    keyBase = 95;
+    detune = 0;
+}
+
+sound Cuica_Low
+{
+    use("./sounds/Cuica_LowSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = Cuica_LowKeymap;
+    envelope = Percussion_01Env;
+}
+
+keymap Triangle_MuteKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 79;
+    keyMax = 79;
+    keyBase = 96;
+    detune = 0;
+}
+
+sound Triangle_Mute
+{
+    use("./sounds/Cuica_LowSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = Triangle_MuteKeymap;
+    envelope = Percussion_01Env;
+}
+
+keymap Triangle_OpenKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 80;
+    keyMax = 80;
+    keyBase = 90;
+    detune = 0;
+}
+
+sound Triangle_Open
+{
+    use("./sounds/Triangle_OpenSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = Triangle_OpenKeymap;
+    envelope = Percussion_01Env;
+}
+
+keymap ShakerKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 81;
+    keyMax = 81;
+    keyBase = 91;
+    detune = 0;
+}
+
+sound Shaker
+{
+    use("./sounds/Triangle_OpenSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = ShakerKeymap;
+    envelope = Percussion_01Env;
+}
+
+keymap Sleigh_BellKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 82;
+    keyMax = 82;
+    keyBase = 90;
+    detune = 0;
+}
+
+sound Sleigh_Bell
+{
+    use("./sounds/Whistle_ShortSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = Sleigh_BellKeymap;
+    envelope = Percussion_01Env;
+}
+
+keymap Bell_TreeKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 83;
+    keyMax = 83;
+    keyBase = 83;
+    detune = 0;
+}
+
+sound Bell_Tree
+{
+    use("./sounds/Bell_TreeSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = Bell_TreeKeymap;
+    envelope = Percussion_01Env;
+}
+
+keymap CastanetsKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 84;
+    keyMax = 84;
+    keyBase = 84;
+    detune = 0;
+}
+
+sound Castanets
+{
+    use("./sounds/CastanetsSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = CastanetsKeymap;
+    envelope = Percussion_01Env;
+}
+
+keymap Surdu_Dead_StrokeKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 85;
+    keyMax = 85;
+    keyBase = 99;
+    detune = 0;
+}
+
+sound Surdu_Dead_Stroke
+{
+    use("./sounds/Ride_Cymbal_2Snd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = Surdu_Dead_StrokeKeymap;
+    envelope = Percussion_01Env;
+}
+
+keymap SurduKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 86;
+    keyMax = 86;
+    keyBase = 103;
+    detune = 0;
+}
+
+sound Surdu
+{
+    use("./sounds/SurduSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = SurduKeymap;
+    envelope = Percussion_01Env;
+}
+
+keymap Percussion_88Keymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 87;
+    keyMax = 87;
+    keyBase = 104;
+    detune = 0;
+}
+
+sound Percussion_88
+{
+    use("./sounds/SurduSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = Percussion_88Keymap;
+    envelope = Percussion_01Env;
+}
+
+instrument Percussion
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = Percussion_01;
+    sound = Snare_Cross_Stick;
+    sound = Snare_Drum;
+    sound = Hand_Clap;
+    sound = Electric_Snare_Drum;
+    sound = Floor_Tom_2;
+    sound = Hi_Hat_Closed;
+    sound = Floor_Tom_1;
+    sound = Hi_Hat_Foot;
+    sound = Low_Tom;
+    sound = Hi_Hat_Open;
+    sound = Low_Mid_Tom;
+    sound = High_Mid_Tom;
+    sound = Crash_Cymbal;
+    sound = High_Tom;
+    sound = Ride_Cymbal;
+    sound = China_Cymbal;
+    sound = Ride_Bell;
+    sound = Tambourine;
+    sound = Splash_cymbal;
+    sound = Cowbell;
+    sound = Crash_Cymbal_2;
+    sound = Vibraslap;
+    sound = Ride_Cymbal_2;
+    sound = High_Bongo;
+    sound = Low_Bongo;
+    sound = Conga_Dead_Stroke;
+    sound = Conga;
+    sound = Tumba;
+    sound = High_Timbale;
+    sound = Low_Timbale;
+    sound = High_Agogo;
+    sound = Low_Agogo;
+    sound = Cabasa;
+    sound = Maracas;
+    sound = Whistle_Short;
+    sound = Whistle_Long;
+    sound = Guiro_Short;
+    sound = Guiro_Long;
+    sound = Claves;
+    sound = High_Woodblock;
+    sound = Low_Woodblock;
+    sound = Cuica_High;
+    sound = Cuica_Low;
+    sound = Triangle_Mute;
+    sound = Triangle_Open;
+    sound = Shaker;
+    sound = Sleigh_Bell;
+    sound = Bell_Tree;
+    sound = Castanets;
+    sound = Surdu_Dead_Stroke;
+    sound = Surdu;
+    sound = Percussion_88;
+}
+
+envelope _000Acoustic_Grand_PianoSoundEnv
+{
+    attackTime = 0;
+    attackVolume = 127;
+    decayTime = 4000000;
+    decayVolume = 0;
+    releaseTime = 400000;
+}
+
+keymap _000Acoustic_Grand_PianoSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 41;
+    keyBase = 36;
+    detune = 0;
+}
+
+sound _000Acoustic_Grand_PianoSound
+{
+    use("./sounds/_000Acoustic_Grand_PianoSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _000Acoustic_Grand_PianoSoundKeymap;
+    envelope = _000Acoustic_Grand_PianoSoundEnv;
+}
+
+keymap _000Acoustic_Grand_PianoSoundKeymap2
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 42;
+    keyMax = 49;
+    keyBase = 46;
+    detune = 0;
+}
+
+sound _000Acoustic_Grand_PianoSound2
+{
+    use("./sounds/_000Acoustic_Grand_PianoSoundSnd2.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _000Acoustic_Grand_PianoSoundKeymap2;
+    envelope = _000Acoustic_Grand_PianoSoundEnv;
+}
+
+keymap _000Acoustic_Grand_PianoSoundKeymap3
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 50;
+    keyMax = 57;
+    keyBase = 53;
+    detune = 0;
+}
+
+sound _000Acoustic_Grand_PianoSound3
+{
+    use("./sounds/_000Acoustic_Grand_PianoSoundSnd3.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _000Acoustic_Grand_PianoSoundKeymap3;
+    envelope = _000Acoustic_Grand_PianoSoundEnv;
+}
+
+keymap _000Acoustic_Grand_PianoSoundKeymap4
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 58;
+    keyMax = 63;
+    keyBase = 60;
+    detune = 0;
+}
+
+sound _000Acoustic_Grand_PianoSound4
+{
+    use("./sounds/_000Acoustic_Grand_PianoSoundSnd4.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _000Acoustic_Grand_PianoSoundKeymap4;
+    envelope = _000Acoustic_Grand_PianoSoundEnv;
+}
+
+keymap _000Acoustic_Grand_PianoSoundKeymap5
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 64;
+    keyMax = 69;
+    keyBase = 67;
+    detune = 0;
+}
+
+sound _000Acoustic_Grand_PianoSound5
+{
+    use("./sounds/_000Acoustic_Grand_PianoSoundSnd5.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _000Acoustic_Grand_PianoSoundKeymap5;
+    envelope = _000Acoustic_Grand_PianoSoundEnv;
+}
+
+keymap _000Acoustic_Grand_PianoSoundKeymap6
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 70;
+    keyMax = 75;
+    keyBase = 72;
+    detune = 0;
+}
+
+sound _000Acoustic_Grand_PianoSound6
+{
+    use("./sounds/_000Acoustic_Grand_PianoSoundSnd6.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _000Acoustic_Grand_PianoSoundKeymap6;
+    envelope = _000Acoustic_Grand_PianoSoundEnv;
+}
+
+keymap _000Acoustic_Grand_PianoSoundKeymap7
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 76;
+    keyMax = 81;
+    keyBase = 79;
+    detune = 0;
+}
+
+sound _000Acoustic_Grand_PianoSound7
+{
+    use("./sounds/_000Acoustic_Grand_PianoSoundSnd7.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _000Acoustic_Grand_PianoSoundKeymap7;
+    envelope = _000Acoustic_Grand_PianoSoundEnv;
+}
+
+keymap _000Acoustic_Grand_PianoSoundKeymap8
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 82;
+    keyMax = 96;
+    keyBase = 84;
+    detune = 0;
+}
+
+sound _000Acoustic_Grand_PianoSound8
+{
+    use("./sounds/_000Acoustic_Grand_PianoSoundSnd8.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _000Acoustic_Grand_PianoSoundKeymap8;
+    envelope = _000Acoustic_Grand_PianoSoundEnv;
+}
+
+instrument _000Acoustic_Grand_Piano
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _000Acoustic_Grand_PianoSound;
+    sound = _000Acoustic_Grand_PianoSound2;
+    sound = _000Acoustic_Grand_PianoSound3;
+    sound = _000Acoustic_Grand_PianoSound4;
+    sound = _000Acoustic_Grand_PianoSound5;
+    sound = _000Acoustic_Grand_PianoSound6;
+    sound = _000Acoustic_Grand_PianoSound7;
+    sound = _000Acoustic_Grand_PianoSound8;
+}
+
+envelope _001Bright_Acoustic_PianoSoundEnv
+{
+    attackTime = 0;
+    attackVolume = 127;
+    decayTime = 4000000;
+    decayVolume = 0;
+    releaseTime = 200000;
+}
+
+keymap _001Bright_Acoustic_PianoSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 41;
+    keyBase = 51;
+    detune = 0;
+}
+
+sound _001Bright_Acoustic_PianoSound
+{
+    use("./sounds/_001Bright_Acoustic_PianoSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _001Bright_Acoustic_PianoSoundKeymap;
+    envelope = _001Bright_Acoustic_PianoSoundEnv;
+}
+
+keymap _001Bright_Acoustic_PianoSoundKeymap2
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 42;
+    keyMax = 49;
+    keyBase = 63;
+    detune = 0;
+}
+
+sound _001Bright_Acoustic_PianoSound2
+{
+    use("./sounds/_001Bright_Acoustic_PianoSoundSnd2.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _001Bright_Acoustic_PianoSoundKeymap2;
+    envelope = _001Bright_Acoustic_PianoSoundEnv;
+}
+
+keymap _001Bright_Acoustic_PianoSoundKeymap3
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 50;
+    keyMax = 57;
+    keyBase = 67;
+    detune = 0;
+}
+
+sound _001Bright_Acoustic_PianoSound3
+{
+    use("./sounds/_001Bright_Acoustic_PianoSoundSnd3.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _001Bright_Acoustic_PianoSoundKeymap3;
+    envelope = _001Bright_Acoustic_PianoSoundEnv;
+}
+
+keymap _001Bright_Acoustic_PianoSoundKeymap4
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 58;
+    keyMax = 63;
+    keyBase = 72;
+    detune = 0;
+}
+
+sound _001Bright_Acoustic_PianoSound4
+{
+    use("./sounds/_001Bright_Acoustic_PianoSoundSnd4.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _001Bright_Acoustic_PianoSoundKeymap4;
+    envelope = _001Bright_Acoustic_PianoSoundEnv;
+}
+
+keymap _001Bright_Acoustic_PianoSoundKeymap5
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 64;
+    keyMax = 69;
+    keyBase = 79;
+    detune = 0;
+}
+
+sound _001Bright_Acoustic_PianoSound5
+{
+    use("./sounds/_001Bright_Acoustic_PianoSoundSnd5.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _001Bright_Acoustic_PianoSoundKeymap5;
+    envelope = _001Bright_Acoustic_PianoSoundEnv;
+}
+
+keymap _001Bright_Acoustic_PianoSoundKeymap6
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 70;
+    keyMax = 75;
+    keyBase = 84;
+    detune = 0;
+}
+
+sound _001Bright_Acoustic_PianoSound6
+{
+    use("./sounds/_001Bright_Acoustic_PianoSoundSnd6.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _001Bright_Acoustic_PianoSoundKeymap6;
+    envelope = _001Bright_Acoustic_PianoSoundEnv;
+}
+
+keymap _001Bright_Acoustic_PianoSoundKeymap7
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 76;
+    keyMax = 81;
+    keyBase = 91;
+    detune = 0;
+}
+
+sound _001Bright_Acoustic_PianoSound7
+{
+    use("./sounds/_001Bright_Acoustic_PianoSoundSnd7.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _001Bright_Acoustic_PianoSoundKeymap7;
+    envelope = _001Bright_Acoustic_PianoSoundEnv;
+}
+
+keymap _001Bright_Acoustic_PianoSoundKeymap8
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 82;
+    keyMax = 111;
+    keyBase = 99;
+    detune = 0;
+}
+
+sound _001Bright_Acoustic_PianoSound8
+{
+    use("./sounds/_001Bright_Acoustic_PianoSoundSnd8.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _001Bright_Acoustic_PianoSoundKeymap8;
+    envelope = _001Bright_Acoustic_PianoSoundEnv;
+}
+
+instrument _001Bright_Acoustic_Piano
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _001Bright_Acoustic_PianoSound;
+    sound = _001Bright_Acoustic_PianoSound2;
+    sound = _001Bright_Acoustic_PianoSound3;
+    sound = _001Bright_Acoustic_PianoSound4;
+    sound = _001Bright_Acoustic_PianoSound5;
+    sound = _001Bright_Acoustic_PianoSound6;
+    sound = _001Bright_Acoustic_PianoSound7;
+    sound = _001Bright_Acoustic_PianoSound8;
+}
+
+envelope _002Electric_Grand_PianoSoundEnv
+{
+    attackTime = 20000;
+    attackVolume = 127;
+    decayTime = 2500000;
+    decayVolume = 0;
+    releaseTime = 200000;
+}
+
+keymap _002Electric_Grand_PianoSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 41;
+    keyBase = 51;
+    detune = 0;
+}
+
+sound _002Electric_Grand_PianoSound
+{
+    use("./sounds/_001Bright_Acoustic_PianoSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _002Electric_Grand_PianoSoundKeymap;
+    envelope = _002Electric_Grand_PianoSoundEnv;
+}
+
+keymap _002Electric_Grand_PianoSoundKeymap2
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 42;
+    keyMax = 49;
+    keyBase = 63;
+    detune = 0;
+}
+
+sound _002Electric_Grand_PianoSound2
+{
+    use("./sounds/_001Bright_Acoustic_PianoSoundSnd2.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _002Electric_Grand_PianoSoundKeymap2;
+    envelope = _002Electric_Grand_PianoSoundEnv;
+}
+
+keymap _002Electric_Grand_PianoSoundKeymap3
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 50;
+    keyMax = 57;
+    keyBase = 67;
+    detune = 0;
+}
+
+sound _002Electric_Grand_PianoSound3
+{
+    use("./sounds/_001Bright_Acoustic_PianoSoundSnd3.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _002Electric_Grand_PianoSoundKeymap3;
+    envelope = _002Electric_Grand_PianoSoundEnv;
+}
+
+keymap _002Electric_Grand_PianoSoundKeymap4
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 58;
+    keyMax = 63;
+    keyBase = 72;
+    detune = 0;
+}
+
+sound _002Electric_Grand_PianoSound4
+{
+    use("./sounds/_001Bright_Acoustic_PianoSoundSnd4.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _002Electric_Grand_PianoSoundKeymap4;
+    envelope = _002Electric_Grand_PianoSoundEnv;
+}
+
+keymap _002Electric_Grand_PianoSoundKeymap5
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 64;
+    keyMax = 69;
+    keyBase = 79;
+    detune = 0;
+}
+
+sound _002Electric_Grand_PianoSound5
+{
+    use("./sounds/_001Bright_Acoustic_PianoSoundSnd5.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _002Electric_Grand_PianoSoundKeymap5;
+    envelope = _002Electric_Grand_PianoSoundEnv;
+}
+
+keymap _002Electric_Grand_PianoSoundKeymap6
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 70;
+    keyMax = 75;
+    keyBase = 84;
+    detune = 0;
+}
+
+sound _002Electric_Grand_PianoSound6
+{
+    use("./sounds/_001Bright_Acoustic_PianoSoundSnd6.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _002Electric_Grand_PianoSoundKeymap6;
+    envelope = _002Electric_Grand_PianoSoundEnv;
+}
+
+keymap _002Electric_Grand_PianoSoundKeymap7
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 76;
+    keyMax = 81;
+    keyBase = 91;
+    detune = 0;
+}
+
+sound _002Electric_Grand_PianoSound7
+{
+    use("./sounds/_001Bright_Acoustic_PianoSoundSnd7.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _002Electric_Grand_PianoSoundKeymap7;
+    envelope = _002Electric_Grand_PianoSoundEnv;
+}
+
+keymap _002Electric_Grand_PianoSoundKeymap8
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 82;
+    keyMax = 111;
+    keyBase = 99;
+    detune = 0;
+}
+
+sound _002Electric_Grand_PianoSound8
+{
+    use("./sounds/_001Bright_Acoustic_PianoSoundSnd8.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _002Electric_Grand_PianoSoundKeymap8;
+    envelope = _002Electric_Grand_PianoSoundEnv;
+}
+
+instrument _002Electric_Grand_Piano
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _002Electric_Grand_PianoSound;
+    sound = _002Electric_Grand_PianoSound2;
+    sound = _002Electric_Grand_PianoSound3;
+    sound = _002Electric_Grand_PianoSound4;
+    sound = _002Electric_Grand_PianoSound5;
+    sound = _002Electric_Grand_PianoSound6;
+    sound = _002Electric_Grand_PianoSound7;
+    sound = _002Electric_Grand_PianoSound8;
+}
+
+envelope _003Honkytonk_PianoSoundEnv
+{
+    attackTime = 0;
+    attackVolume = 127;
+    decayTime = 3000000;
+    decayVolume = 0;
+    releaseTime = 180000;
+}
+
+keymap _003Honkytonk_PianoSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 41;
+    keyBase = 51;
+    detune = 0;
+}
+
+sound _003Honkytonk_PianoSound
+{
+    use("./sounds/_001Bright_Acoustic_PianoSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _003Honkytonk_PianoSoundKeymap;
+    envelope = _003Honkytonk_PianoSoundEnv;
+}
+
+keymap _003Honkytonk_PianoSoundKeymap2
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 42;
+    keyMax = 49;
+    keyBase = 63;
+    detune = 0;
+}
+
+sound _003Honkytonk_PianoSound2
+{
+    use("./sounds/_001Bright_Acoustic_PianoSoundSnd2.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _003Honkytonk_PianoSoundKeymap2;
+    envelope = _003Honkytonk_PianoSoundEnv;
+}
+
+keymap _003Honkytonk_PianoSoundKeymap3
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 50;
+    keyMax = 57;
+    keyBase = 67;
+    detune = 0;
+}
+
+sound _003Honkytonk_PianoSound3
+{
+    use("./sounds/_001Bright_Acoustic_PianoSoundSnd3.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _003Honkytonk_PianoSoundKeymap3;
+    envelope = _003Honkytonk_PianoSoundEnv;
+}
+
+keymap _003Honkytonk_PianoSoundKeymap4
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 58;
+    keyMax = 63;
+    keyBase = 72;
+    detune = 0;
+}
+
+sound _003Honkytonk_PianoSound4
+{
+    use("./sounds/_001Bright_Acoustic_PianoSoundSnd4.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _003Honkytonk_PianoSoundKeymap4;
+    envelope = _003Honkytonk_PianoSoundEnv;
+}
+
+keymap _003Honkytonk_PianoSoundKeymap5
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 64;
+    keyMax = 69;
+    keyBase = 79;
+    detune = 0;
+}
+
+sound _003Honkytonk_PianoSound5
+{
+    use("./sounds/_001Bright_Acoustic_PianoSoundSnd5.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _003Honkytonk_PianoSoundKeymap5;
+    envelope = _003Honkytonk_PianoSoundEnv;
+}
+
+keymap _003Honkytonk_PianoSoundKeymap6
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 70;
+    keyMax = 75;
+    keyBase = 84;
+    detune = 0;
+}
+
+sound _003Honkytonk_PianoSound6
+{
+    use("./sounds/_001Bright_Acoustic_PianoSoundSnd6.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _003Honkytonk_PianoSoundKeymap6;
+    envelope = _003Honkytonk_PianoSoundEnv;
+}
+
+keymap _003Honkytonk_PianoSoundKeymap7
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 76;
+    keyMax = 81;
+    keyBase = 91;
+    detune = 0;
+}
+
+sound _003Honkytonk_PianoSound7
+{
+    use("./sounds/_001Bright_Acoustic_PianoSoundSnd7.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _003Honkytonk_PianoSoundKeymap7;
+    envelope = _003Honkytonk_PianoSoundEnv;
+}
+
+keymap _003Honkytonk_PianoSoundKeymap8
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 82;
+    keyMax = 111;
+    keyBase = 99;
+    detune = 0;
+}
+
+sound _003Honkytonk_PianoSound8
+{
+    use("./sounds/_001Bright_Acoustic_PianoSoundSnd8.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _003Honkytonk_PianoSoundKeymap8;
+    envelope = _003Honkytonk_PianoSoundEnv;
+}
+
+instrument _003Honkytonk_Piano
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _003Honkytonk_PianoSound;
+    sound = _003Honkytonk_PianoSound2;
+    sound = _003Honkytonk_PianoSound3;
+    sound = _003Honkytonk_PianoSound4;
+    sound = _003Honkytonk_PianoSound5;
+    sound = _003Honkytonk_PianoSound6;
+    sound = _003Honkytonk_PianoSound7;
+    sound = _003Honkytonk_PianoSound8;
+}
+
+envelope _004Electric_Piano_1SoundEnv
+{
+    attackTime = 0;
+    attackVolume = 127;
+    decayTime = 3200000;
+    decayVolume = 0;
+    releaseTime = 400000;
+}
+
+keymap _004Electric_Piano_1SoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 78;
+    keyBase = 84;
+    detune = 0;
+}
+
+sound _004Electric_Piano_1Sound
+{
+    use("./sounds/_004Electric_Piano_1SoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _004Electric_Piano_1SoundKeymap;
+    envelope = _004Electric_Piano_1SoundEnv;
+}
+
+keymap _004Electric_Piano_1SoundKeymap2
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 79;
+    keyMax = 108;
+    keyBase = 96;
+    detune = 0;
+}
+
+sound _004Electric_Piano_1Sound2
+{
+    use("./sounds/_004Electric_Piano_1SoundSnd2.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _004Electric_Piano_1SoundKeymap2;
+    envelope = _004Electric_Piano_1SoundEnv;
+}
+
+instrument _004Electric_Piano_1
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _004Electric_Piano_1Sound;
+    sound = _004Electric_Piano_1Sound2;
+}
+
+envelope _005Electric_Piano_2SoundEnv
+{
+    attackTime = 4000;
+    attackVolume = 127;
+    decayTime = 2000000;
+    decayVolume = 50;
+    releaseTime = 400000;
+}
+
+keymap _005Electric_Piano_2SoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 78;
+    keyBase = 84;
+    detune = 0;
+}
+
+sound _005Electric_Piano_2Sound
+{
+    use("./sounds/_004Electric_Piano_1SoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _005Electric_Piano_2SoundKeymap;
+    envelope = _005Electric_Piano_2SoundEnv;
+}
+
+keymap _005Electric_Piano_2SoundKeymap2
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 79;
+    keyMax = 108;
+    keyBase = 96;
+    detune = 0;
+}
+
+sound _005Electric_Piano_2Sound2
+{
+    use("./sounds/_004Electric_Piano_1SoundSnd2.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _005Electric_Piano_2SoundKeymap2;
+    envelope = _005Electric_Piano_2SoundEnv;
+}
+
+instrument _005Electric_Piano_2
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    tremeloType = 1;
+    tremeloRate = 140;
+    tremeloDepth = 20;
+    tremeloDelay = 1;
+    bendRange = 200;
+    sound = _005Electric_Piano_2Sound;
+    sound = _005Electric_Piano_2Sound2;
+}
+
+envelope _006HarpsichordSoundEnv
+{
+    attackTime = 20000;
+    attackVolume = 127;
+    decayTime = 1800000;
+    decayVolume = 30;
+    releaseTime = 200000;
+}
+
+keymap _006HarpsichordSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 61;
+    keyBase = 69;
+    detune = 0;
+}
+
+sound _006HarpsichordSound
+{
+    use("./sounds/_006HarpsichordSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _006HarpsichordSoundKeymap;
+    envelope = _006HarpsichordSoundEnv;
+}
+
+keymap _006HarpsichordSoundKeymap2
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 62;
+    keyMax = 68;
+    keyBase = 75;
+    detune = 0;
+}
+
+sound _006HarpsichordSound2
+{
+    use("./sounds/_006HarpsichordSoundSnd2.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _006HarpsichordSoundKeymap2;
+    envelope = _006HarpsichordSoundEnv;
+}
+
+keymap _006HarpsichordSoundKeymap3
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 69;
+    keyMax = 75;
+    keyBase = 78;
+    detune = 0;
+}
+
+sound _006HarpsichordSound3
+{
+    use("./sounds/_006HarpsichordSoundSnd3.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _006HarpsichordSoundKeymap3;
+    envelope = _006HarpsichordSoundEnv;
+}
+
+keymap _006HarpsichordSoundKeymap4
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 76;
+    keyMax = 81;
+    keyBase = 87;
+    detune = 0;
+}
+
+sound _006HarpsichordSound4
+{
+    use("./sounds/_006HarpsichordSoundSnd4.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _006HarpsichordSoundKeymap4;
+    envelope = _006HarpsichordSoundEnv;
+}
+
+keymap _006HarpsichordSoundKeymap5
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 82;
+    keyMax = 102;
+    keyBase = 90;
+    detune = 0;
+}
+
+sound _006HarpsichordSound5
+{
+    use("./sounds/_006HarpsichordSoundSnd5.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _006HarpsichordSoundKeymap5;
+    envelope = _006HarpsichordSoundEnv;
+}
+
+instrument _006Harpsichord
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _006HarpsichordSound;
+    sound = _006HarpsichordSound2;
+    sound = _006HarpsichordSound3;
+    sound = _006HarpsichordSound4;
+    sound = _006HarpsichordSound5;
+}
+
+envelope _007ClavinetSoundEnv
+{
+    attackTime = 0;
+    attackVolume = 127;
+    decayTime = 500000;
+    decayVolume = 100;
+    releaseTime = 200000;
+}
+
+keymap _007ClavinetSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 61;
+    keyBase = 69;
+    detune = 0;
+}
+
+sound _007ClavinetSound
+{
+    use("./sounds/_006HarpsichordSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _007ClavinetSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+keymap _007ClavinetSoundKeymap2
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 62;
+    keyMax = 68;
+    keyBase = 75;
+    detune = 0;
+}
+
+sound _007ClavinetSound2
+{
+    use("./sounds/_006HarpsichordSoundSnd2.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _007ClavinetSoundKeymap2;
+    envelope = _007ClavinetSoundEnv;
+}
+
+keymap _007ClavinetSoundKeymap3
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 69;
+    keyMax = 75;
+    keyBase = 78;
+    detune = 0;
+}
+
+sound _007ClavinetSound3
+{
+    use("./sounds/_006HarpsichordSoundSnd3.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _007ClavinetSoundKeymap3;
+    envelope = _007ClavinetSoundEnv;
+}
+
+keymap _007ClavinetSoundKeymap4
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 76;
+    keyMax = 81;
+    keyBase = 87;
+    detune = 0;
+}
+
+sound _007ClavinetSound4
+{
+    use("./sounds/_006HarpsichordSoundSnd4.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _007ClavinetSoundKeymap4;
+    envelope = _007ClavinetSoundEnv;
+}
+
+keymap _007ClavinetSoundKeymap5
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 82;
+    keyMax = 102;
+    keyBase = 90;
+    detune = 0;
+}
+
+sound _007ClavinetSound5
+{
+    use("./sounds/_006HarpsichordSoundSnd5.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _007ClavinetSoundKeymap5;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _007Clavinet
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _007ClavinetSound;
+    sound = _007ClavinetSound2;
+    sound = _007ClavinetSound3;
+    sound = _007ClavinetSound4;
+    sound = _007ClavinetSound5;
+}
+
+keymap _008CelestaSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 65;
+    keyBase = 72;
+    detune = 0;
+}
+
+sound _008CelestaSound
+{
+    use("./sounds/_008CelestaSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _008CelestaSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+keymap _008CelestaSoundKeymap2
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 66;
+    keyMax = 73;
+    keyBase = 82;
+    detune = 0;
+}
+
+sound _008CelestaSound2
+{
+    use("./sounds/_008CelestaSoundSnd2.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _008CelestaSoundKeymap2;
+    envelope = _007ClavinetSoundEnv;
+}
+
+keymap _008CelestaSoundKeymap3
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 74;
+    keyMax = 80;
+    keyBase = 86;
+    detune = 0;
+}
+
+sound _008CelestaSound3
+{
+    use("./sounds/_008CelestaSoundSnd3.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _008CelestaSoundKeymap3;
+    envelope = _007ClavinetSoundEnv;
+}
+
+keymap _008CelestaSoundKeymap4
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 81;
+    keyMax = 103;
+    keyBase = 91;
+    detune = 0;
+}
+
+sound _008CelestaSound4
+{
+    use("./sounds/_008CelestaSoundSnd4.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _008CelestaSoundKeymap4;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _008Celesta
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _008CelestaSound;
+    sound = _008CelestaSound2;
+    sound = _008CelestaSound3;
+    sound = _008CelestaSound4;
+}
+
+keymap _009GlockenspielSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 65;
+    keyBase = 74;
+    detune = 0;
+}
+
+sound _009GlockenspielSound
+{
+    use("./sounds/_009GlockenspielSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _009GlockenspielSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+keymap _009GlockenspielSoundKeymap2
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 66;
+    keyMax = 73;
+    keyBase = 81;
+    detune = 0;
+}
+
+sound _009GlockenspielSound2
+{
+    use("./sounds/_009GlockenspielSoundSnd2.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _009GlockenspielSoundKeymap2;
+    envelope = _007ClavinetSoundEnv;
+}
+
+keymap _009GlockenspielSoundKeymap3
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 74;
+    keyMax = 78;
+    keyBase = 85;
+    detune = 0;
+}
+
+sound _009GlockenspielSound3
+{
+    use("./sounds/_009GlockenspielSoundSnd3.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _009GlockenspielSoundKeymap3;
+    envelope = _007ClavinetSoundEnv;
+}
+
+keymap _009GlockenspielSoundKeymap4
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 79;
+    keyMax = 101;
+    keyBase = 89;
+    detune = 0;
+}
+
+sound _009GlockenspielSound4
+{
+    use("./sounds/_009GlockenspielSoundSnd4.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _009GlockenspielSoundKeymap4;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _009Glockenspiel
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _009GlockenspielSound;
+    sound = _009GlockenspielSound2;
+    sound = _009GlockenspielSound3;
+    sound = _009GlockenspielSound4;
+}
+
+keymap _010Music_BoxSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 97;
+    keyBase = 85;
+    detune = 0;
+}
+
+sound _010Music_BoxSound
+{
+    use("./sounds/_010Music_BoxSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _010Music_BoxSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _010Music_Box
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _010Music_BoxSound;
+}
+
+keymap _011VibraphoneSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 65;
+    keyBase = 72;
+    detune = 0;
+}
+
+sound _011VibraphoneSound
+{
+    use("./sounds/_011VibraphoneSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _011VibraphoneSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+keymap _011VibraphoneSoundKeymap2
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 66;
+    keyMax = 73;
+    keyBase = 82;
+    detune = 0;
+}
+
+sound _011VibraphoneSound2
+{
+    use("./sounds/_011VibraphoneSoundSnd2.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _011VibraphoneSoundKeymap2;
+    envelope = _007ClavinetSoundEnv;
+}
+
+keymap _011VibraphoneSoundKeymap3
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 74;
+    keyMax = 80;
+    keyBase = 89;
+    detune = 0;
+}
+
+sound _011VibraphoneSound3
+{
+    use("./sounds/_011VibraphoneSoundSnd3.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _011VibraphoneSoundKeymap3;
+    envelope = _007ClavinetSoundEnv;
+}
+
+keymap _011VibraphoneSoundKeymap4
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 81;
+    keyMax = 108;
+    keyBase = 96;
+    detune = 0;
+}
+
+sound _011VibraphoneSound4
+{
+    use("./sounds/_011VibraphoneSoundSnd4.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _011VibraphoneSoundKeymap4;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _011Vibraphone
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    tremeloType = 1;
+    tremeloRate = 210;
+    tremeloDepth = 30;
+    tremeloDelay = 1;
+    vibratoType = 128;
+    vibratoRate = 196;
+    vibratoDepth = 24;
+    vibratoDelay = 1;
+    bendRange = 200;
+    sound = _011VibraphoneSound;
+    sound = _011VibraphoneSound2;
+    sound = _011VibraphoneSound3;
+    sound = _011VibraphoneSound4;
+}
+
+keymap _012MarimbaSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 65;
+    keyBase = 72;
+    detune = 0;
+}
+
+sound _012MarimbaSound
+{
+    use("./sounds/_012MarimbaSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _012MarimbaSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+keymap _012MarimbaSoundKeymap2
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 66;
+    keyMax = 73;
+    keyBase = 82;
+    detune = 0;
+}
+
+sound _012MarimbaSound2
+{
+    use("./sounds/_012MarimbaSoundSnd2.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _012MarimbaSoundKeymap2;
+    envelope = _007ClavinetSoundEnv;
+}
+
+keymap _012MarimbaSoundKeymap3
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 74;
+    keyMax = 80;
+    keyBase = 89;
+    detune = 0;
+}
+
+sound _012MarimbaSound3
+{
+    use("./sounds/_012MarimbaSoundSnd3.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _012MarimbaSoundKeymap3;
+    envelope = _007ClavinetSoundEnv;
+}
+
+keymap _012MarimbaSoundKeymap4
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 81;
+    keyMax = 108;
+    keyBase = 96;
+    detune = 0;
+}
+
+sound _012MarimbaSound4
+{
+    use("./sounds/_012MarimbaSoundSnd4.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _012MarimbaSoundKeymap4;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _012Marimba
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _012MarimbaSound;
+    sound = _012MarimbaSound2;
+    sound = _012MarimbaSound3;
+    sound = _012MarimbaSound4;
+}
+
+keymap _013XylophoneSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 65;
+    keyBase = 74;
+    detune = 0;
+}
+
+sound _013XylophoneSound
+{
+    use("./sounds/_009GlockenspielSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _013XylophoneSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+keymap _013XylophoneSoundKeymap2
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 66;
+    keyMax = 73;
+    keyBase = 81;
+    detune = 0;
+}
+
+sound _013XylophoneSound2
+{
+    use("./sounds/_009GlockenspielSoundSnd2.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _013XylophoneSoundKeymap2;
+    envelope = _007ClavinetSoundEnv;
+}
+
+keymap _013XylophoneSoundKeymap3
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 74;
+    keyMax = 78;
+    keyBase = 85;
+    detune = 0;
+}
+
+sound _013XylophoneSound3
+{
+    use("./sounds/_009GlockenspielSoundSnd3.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _013XylophoneSoundKeymap3;
+    envelope = _007ClavinetSoundEnv;
+}
+
+keymap _013XylophoneSoundKeymap4
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 79;
+    keyMax = 101;
+    keyBase = 89;
+    detune = 0;
+}
+
+sound _013XylophoneSound4
+{
+    use("./sounds/_009GlockenspielSoundSnd4.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _013XylophoneSoundKeymap4;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _013Xylophone
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _013XylophoneSound;
+    sound = _013XylophoneSound2;
+    sound = _013XylophoneSound3;
+    sound = _013XylophoneSound4;
+}
+
+keymap _014Tubular_BellsSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 68;
+    keyBase = 79;
+    detune = 0;
+}
+
+sound _014Tubular_BellsSound
+{
+    use("./sounds/_014Tubular_BellsSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _014Tubular_BellsSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+keymap _014Tubular_BellsSoundKeymap2
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 69;
+    keyMax = 75;
+    keyBase = 87;
+    detune = 0;
+}
+
+sound _014Tubular_BellsSound2
+{
+    use("./sounds/_014Tubular_BellsSoundSnd2.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _014Tubular_BellsSoundKeymap2;
+    envelope = _007ClavinetSoundEnv;
+}
+
+keymap _014Tubular_BellsSoundKeymap3
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 76;
+    keyMax = 106;
+    keyBase = 94;
+    detune = 0;
+}
+
+sound _014Tubular_BellsSound3
+{
+    use("./sounds/_014Tubular_BellsSoundSnd3.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _014Tubular_BellsSoundKeymap3;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _014Tubular_Bells
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    tremeloType = 1;
+    tremeloRate = 80;
+    tremeloDepth = 24;
+    tremeloDelay = 1;
+    vibratoType = 128;
+    vibratoRate = 110;
+    vibratoDepth = 16;
+    vibratoDelay = 1;
+    bendRange = 200;
+    sound = _014Tubular_BellsSound;
+    sound = _014Tubular_BellsSound2;
+    sound = _014Tubular_BellsSound3;
+}
+
+envelope _015DulcimerSoundEnv
+{
+    attackTime = 0;
+    attackVolume = 127;
+    decayTime = 3000000;
+    decayVolume = 0;
+    releaseTime = 400000;
+}
+
+keymap _015DulcimerSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 96;
+    keyBase = 84;
+    detune = 0;
+}
+
+sound _015DulcimerSound
+{
+    use("./sounds/_015DulcimerSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _015DulcimerSoundKeymap;
+    envelope = _015DulcimerSoundEnv;
+}
+
+instrument _015Dulcimer
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _015DulcimerSound;
+}
+
+keymap _016Drawbar_OrganSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 102;
+    keyBase = 90;
+    detune = 0;
+}
+
+sound _016Drawbar_OrganSound
+{
+    use("./sounds/_016Drawbar_OrganSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _016Drawbar_OrganSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _016Drawbar_Organ
+{
+    volume = 100;
+    pan = 64;
+    priority = 5;
+    tremeloType = 1;
+    tremeloRate = 140;
+    tremeloDepth = 10;
+    tremeloDelay = 1;
+    bendRange = 200;
+    sound = _016Drawbar_OrganSound;
+}
+
+keymap _017Percussive_OrganSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 111;
+    keyBase = 99;
+    detune = 0;
+}
+
+sound _017Percussive_OrganSound
+{
+    use("./sounds/_017Percussive_OrganSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _017Percussive_OrganSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _017Percussive_Organ
+{
+    volume = 100;
+    pan = 64;
+    priority = 5;
+    tremeloType = 1;
+    tremeloRate = 140;
+    tremeloDepth = 18;
+    tremeloDelay = 1;
+    vibratoType = 128;
+    vibratoRate = 180;
+    vibratoDepth = 10;
+    vibratoDelay = 1;
+    bendRange = 200;
+    sound = _017Percussive_OrganSound;
+}
+
+keymap _018Rock_OrganSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 106;
+    keyBase = 94;
+    detune = 0;
+}
+
+sound _018Rock_OrganSound
+{
+    use("./sounds/_018Rock_OrganSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _018Rock_OrganSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _018Rock_Organ
+{
+    volume = 100;
+    pan = 64;
+    priority = 5;
+    tremeloType = 1;
+    tremeloRate = 140;
+    tremeloDepth = 10;
+    tremeloDelay = 1;
+    vibratoType = 128;
+    vibratoRate = 180;
+    vibratoDepth = 10;
+    vibratoDelay = 1;
+    bendRange = 200;
+    sound = _018Rock_OrganSound;
+}
+
+keymap _019Church_OrganSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 59;
+    keyBase = 67;
+    detune = 0;
+}
+
+sound _019Church_OrganSound
+{
+    use("./sounds/_019Church_OrganSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _019Church_OrganSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+keymap _019Church_OrganSoundKeymap2
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 60;
+    keyMax = 67;
+    keyBase = 76;
+    detune = 0;
+}
+
+sound _019Church_OrganSound2
+{
+    use("./sounds/_019Church_OrganSoundSnd2.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _019Church_OrganSoundKeymap2;
+    envelope = _007ClavinetSoundEnv;
+}
+
+keymap _019Church_OrganSoundKeymap3
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 68;
+    keyMax = 76;
+    keyBase = 84;
+    detune = 0;
+}
+
+sound _019Church_OrganSound3
+{
+    use("./sounds/_019Church_OrganSoundSnd3.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _019Church_OrganSoundKeymap3;
+    envelope = _007ClavinetSoundEnv;
+}
+
+keymap _019Church_OrganSoundKeymap4
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 77;
+    keyMax = 105;
+    keyBase = 93;
+    detune = 0;
+}
+
+sound _019Church_OrganSound4
+{
+    use("./sounds/_019Church_OrganSoundSnd4.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _019Church_OrganSoundKeymap4;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _019Church_Organ
+{
+    volume = 100;
+    pan = 64;
+    priority = 5;
+    tremeloType = 1;
+    tremeloRate = 170;
+    tremeloDepth = 10;
+    tremeloDelay = 1;
+    bendRange = 200;
+    sound = _019Church_OrganSound;
+    sound = _019Church_OrganSound2;
+    sound = _019Church_OrganSound3;
+    sound = _019Church_OrganSound4;
+}
+
+keymap _020Reed_OrganSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 103;
+    keyBase = 91;
+    detune = 0;
+}
+
+sound _020Reed_OrganSound
+{
+    use("./sounds/_020Reed_OrganSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _020Reed_OrganSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _020Reed_Organ
+{
+    volume = 100;
+    pan = 64;
+    priority = 5;
+    tremeloType = 1;
+    tremeloRate = 140;
+    tremeloDepth = 10;
+    tremeloDelay = 1;
+    bendRange = 200;
+    sound = _020Reed_OrganSound;
+}
+
+keymap _021AccordionSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 77;
+    keyBase = 79;
+    detune = 0;
+}
+
+sound _021AccordionSound
+{
+    use("./sounds/_021AccordionSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _021AccordionSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+keymap _021AccordionSoundKeymap2
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 78;
+    keyMax = 104;
+    keyBase = 92;
+    detune = 0;
+}
+
+sound _021AccordionSound2
+{
+    use("./sounds/_021AccordionSoundSnd2.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _021AccordionSoundKeymap2;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _021Accordion
+{
+    volume = 100;
+    pan = 64;
+    priority = 5;
+    tremeloType = 1;
+    tremeloRate = 160;
+    tremeloDepth = 12;
+    tremeloDelay = 1;
+    vibratoType = 130;
+    vibratoRate = 248;
+    vibratoDepth = 18;
+    vibratoDelay = 1;
+    bendRange = 200;
+    sound = _021AccordionSound;
+    sound = _021AccordionSound2;
+}
+
+keymap _022HarmonicaSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 95;
+    keyBase = 83;
+    detune = 0;
+}
+
+sound _022HarmonicaSound
+{
+    use("./sounds/_022HarmonicaSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _022HarmonicaSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _022Harmonica
+{
+    volume = 100;
+    pan = 64;
+    priority = 5;
+    tremeloType = 1;
+    tremeloRate = 140;
+    tremeloDepth = 10;
+    tremeloDelay = 1;
+    bendRange = 200;
+    sound = _022HarmonicaSound;
+}
+
+keymap _023Tango_AccordionSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 99;
+    keyBase = 87;
+    detune = 0;
+}
+
+sound _023Tango_AccordionSound
+{
+    use("./sounds/_023Tango_AccordionSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _023Tango_AccordionSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _023Tango_Accordion
+{
+    volume = 100;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _023Tango_AccordionSound;
+}
+
+keymap _024Acoustic_Guitar_nylonSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 62;
+    keyBase = 77;
+    detune = 0;
+}
+
+sound _024Acoustic_Guitar_nylonSound
+{
+    use("./sounds/_024Acoustic_Guitar_nylonSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _024Acoustic_Guitar_nylonSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+keymap _024Acoustic_Guitar_nylonSoundKeymap2
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 63;
+    keyMax = 69;
+    keyBase = 82;
+    detune = 0;
+}
+
+sound _024Acoustic_Guitar_nylonSound2
+{
+    use("./sounds/_024Acoustic_Guitar_nylonSoundSnd2.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _024Acoustic_Guitar_nylonSoundKeymap2;
+    envelope = _007ClavinetSoundEnv;
+}
+
+keymap _024Acoustic_Guitar_nylonSoundKeymap3
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 70;
+    keyMax = 99;
+    keyBase = 87;
+    detune = 0;
+}
+
+sound _024Acoustic_Guitar_nylonSound3
+{
+    use("./sounds/_024Acoustic_Guitar_nylonSoundSnd3.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _024Acoustic_Guitar_nylonSoundKeymap3;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _024Acoustic_Guitar_nylon
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _024Acoustic_Guitar_nylonSound;
+    sound = _024Acoustic_Guitar_nylonSound2;
+    sound = _024Acoustic_Guitar_nylonSound3;
+}
+
+keymap _025Acoustic_Guitar_steelSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 59;
+    keyBase = 67;
+    detune = 0;
+}
+
+sound _025Acoustic_Guitar_steelSound
+{
+    use("./sounds/_025Acoustic_Guitar_steelSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _025Acoustic_Guitar_steelSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+keymap _025Acoustic_Guitar_steelSoundKeymap2
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 60;
+    keyMax = 68;
+    keyBase = 76;
+    detune = 0;
+}
+
+sound _025Acoustic_Guitar_steelSound2
+{
+    use("./sounds/_025Acoustic_Guitar_steelSoundSnd2.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _025Acoustic_Guitar_steelSoundKeymap2;
+    envelope = _007ClavinetSoundEnv;
+}
+
+keymap _025Acoustic_Guitar_steelSoundKeymap3
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 69;
+    keyMax = 97;
+    keyBase = 85;
+    detune = 0;
+}
+
+sound _025Acoustic_Guitar_steelSound3
+{
+    use("./sounds/_025Acoustic_Guitar_steelSoundSnd3.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _025Acoustic_Guitar_steelSoundKeymap3;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _025Acoustic_Guitar_steel
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _025Acoustic_Guitar_steelSound;
+    sound = _025Acoustic_Guitar_steelSound2;
+    sound = _025Acoustic_Guitar_steelSound3;
+}
+
+envelope _026Electric_Guitar_jazzSoundEnv
+{
+    attackTime = 0;
+    attackVolume = 127;
+    decayTime = 2000000;
+    decayVolume = 40;
+    releaseTime = 400000;
+}
+
+keymap _026Electric_Guitar_jazzSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 59;
+    keyBase = 67;
+    detune = 0;
+}
+
+sound _026Electric_Guitar_jazzSound
+{
+    use("./sounds/_026Electric_Guitar_jazzSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _026Electric_Guitar_jazzSoundKeymap;
+    envelope = _026Electric_Guitar_jazzSoundEnv;
+}
+
+keymap _026Electric_Guitar_jazzSoundKeymap2
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 60;
+    keyMax = 68;
+    keyBase = 76;
+    detune = 0;
+}
+
+sound _026Electric_Guitar_jazzSound2
+{
+    use("./sounds/_026Electric_Guitar_jazzSoundSnd2.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _026Electric_Guitar_jazzSoundKeymap2;
+    envelope = _026Electric_Guitar_jazzSoundEnv;
+}
+
+keymap _026Electric_Guitar_jazzSoundKeymap3
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 69;
+    keyMax = 97;
+    keyBase = 85;
+    detune = 0;
+}
+
+sound _026Electric_Guitar_jazzSound3
+{
+    use("./sounds/_026Electric_Guitar_jazzSoundSnd3.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _026Electric_Guitar_jazzSoundKeymap3;
+    envelope = _026Electric_Guitar_jazzSoundEnv;
+}
+
+instrument _026Electric_Guitar_jazz
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _026Electric_Guitar_jazzSound;
+    sound = _026Electric_Guitar_jazzSound2;
+    sound = _026Electric_Guitar_jazzSound3;
+}
+
+envelope _027Electric_Guitar_cleanSoundEnv
+{
+    attackTime = 10000;
+    attackVolume = 127;
+    decayTime = 2000000;
+    decayVolume = 50;
+    releaseTime = 500000;
+}
+
+keymap _027Electric_Guitar_cleanSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 59;
+    keyBase = 67;
+    detune = 0;
+}
+
+sound _027Electric_Guitar_cleanSound
+{
+    use("./sounds/_025Acoustic_Guitar_steelSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _027Electric_Guitar_cleanSoundKeymap;
+    envelope = _027Electric_Guitar_cleanSoundEnv;
+}
+
+keymap _027Electric_Guitar_cleanSoundKeymap2
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 60;
+    keyMax = 68;
+    keyBase = 76;
+    detune = 0;
+}
+
+sound _027Electric_Guitar_cleanSound2
+{
+    use("./sounds/_025Acoustic_Guitar_steelSoundSnd2.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _027Electric_Guitar_cleanSoundKeymap2;
+    envelope = _027Electric_Guitar_cleanSoundEnv;
+}
+
+keymap _027Electric_Guitar_cleanSoundKeymap3
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 69;
+    keyMax = 97;
+    keyBase = 85;
+    detune = 0;
+}
+
+sound _027Electric_Guitar_cleanSound3
+{
+    use("./sounds/_025Acoustic_Guitar_steelSoundSnd3.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _027Electric_Guitar_cleanSoundKeymap3;
+    envelope = _027Electric_Guitar_cleanSoundEnv;
+}
+
+instrument _027Electric_Guitar_clean
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _027Electric_Guitar_cleanSound;
+    sound = _027Electric_Guitar_cleanSound2;
+    sound = _027Electric_Guitar_cleanSound3;
+}
+
+envelope _028Electric_Guitar_mutedSoundEnv
+{
+    attackTime = 3000;
+    attackVolume = 127;
+    decayTime = 400000;
+    decayVolume = 0;
+    releaseTime = 60000;
+}
+
+keymap _028Electric_Guitar_mutedSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 59;
+    keyBase = 67;
+    detune = 0;
+}
+
+sound _028Electric_Guitar_mutedSound
+{
+    use("./sounds/_026Electric_Guitar_jazzSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _028Electric_Guitar_mutedSoundKeymap;
+    envelope = _028Electric_Guitar_mutedSoundEnv;
+}
+
+keymap _028Electric_Guitar_mutedSoundKeymap2
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 60;
+    keyMax = 68;
+    keyBase = 76;
+    detune = 0;
+}
+
+sound _028Electric_Guitar_mutedSound2
+{
+    use("./sounds/_026Electric_Guitar_jazzSoundSnd2.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _028Electric_Guitar_mutedSoundKeymap2;
+    envelope = _028Electric_Guitar_mutedSoundEnv;
+}
+
+keymap _028Electric_Guitar_mutedSoundKeymap3
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 69;
+    keyMax = 97;
+    keyBase = 85;
+    detune = 0;
+}
+
+sound _028Electric_Guitar_mutedSound3
+{
+    use("./sounds/_026Electric_Guitar_jazzSoundSnd3.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _028Electric_Guitar_mutedSoundKeymap3;
+    envelope = _028Electric_Guitar_mutedSoundEnv;
+}
+
+instrument _028Electric_Guitar_muted
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _028Electric_Guitar_mutedSound;
+    sound = _028Electric_Guitar_mutedSound2;
+    sound = _028Electric_Guitar_mutedSound3;
+}
+
+keymap _029Overdriven_GuitarSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 48;
+    keyBase = 59;
+    detune = 0;
+}
+
+sound _029Overdriven_GuitarSound
+{
+    use("./sounds/_029Overdriven_GuitarSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _029Overdriven_GuitarSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+keymap _029Overdriven_GuitarSoundKeymap2
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 49;
+    keyMax = 55;
+    keyBase = 66;
+    detune = 0;
+}
+
+sound _029Overdriven_GuitarSound2
+{
+    use("./sounds/_029Overdriven_GuitarSoundSnd2.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _029Overdriven_GuitarSoundKeymap2;
+    envelope = _007ClavinetSoundEnv;
+}
+
+keymap _029Overdriven_GuitarSoundKeymap3
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 56;
+    keyMax = 64;
+    keyBase = 74;
+    detune = 0;
+}
+
+sound _029Overdriven_GuitarSound3
+{
+    use("./sounds/_029Overdriven_GuitarSoundSnd3.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _029Overdriven_GuitarSoundKeymap3;
+    envelope = _007ClavinetSoundEnv;
+}
+
+keymap _029Overdriven_GuitarSoundKeymap4
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 65;
+    keyMax = 95;
+    keyBase = 83;
+    detune = 0;
+}
+
+sound _029Overdriven_GuitarSound4
+{
+    use("./sounds/_029Overdriven_GuitarSoundSnd4.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _029Overdriven_GuitarSoundKeymap4;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _029Overdriven_Guitar
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _029Overdriven_GuitarSound;
+    sound = _029Overdriven_GuitarSound2;
+    sound = _029Overdriven_GuitarSound3;
+    sound = _029Overdriven_GuitarSound4;
+}
+
+envelope _030Distortion_GuitarSoundEnv
+{
+    attackTime = 10000;
+    attackVolume = 127;
+    decayTime = 800000;
+    decayVolume = 90;
+    releaseTime = 60000;
+}
+
+keymap _030Distortion_GuitarSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 48;
+    keyBase = 57;
+    detune = 0;
+}
+
+sound _030Distortion_GuitarSound
+{
+    use("./sounds/_030Distortion_GuitarSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _030Distortion_GuitarSoundKeymap;
+    envelope = _030Distortion_GuitarSoundEnv;
+}
+
+keymap _030Distortion_GuitarSoundKeymap2
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 49;
+    keyMax = 55;
+    keyBase = 64;
+    detune = 0;
+}
+
+sound _030Distortion_GuitarSound2
+{
+    use("./sounds/_030Distortion_GuitarSoundSnd2.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _030Distortion_GuitarSoundKeymap2;
+    envelope = _030Distortion_GuitarSoundEnv;
+}
+
+keymap _030Distortion_GuitarSoundKeymap3
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 56;
+    keyMax = 64;
+    keyBase = 72;
+    detune = 0;
+}
+
+sound _030Distortion_GuitarSound3
+{
+    use("./sounds/_030Distortion_GuitarSoundSnd3.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _030Distortion_GuitarSoundKeymap3;
+    envelope = _030Distortion_GuitarSoundEnv;
+}
+
+keymap _030Distortion_GuitarSoundKeymap4
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 65;
+    keyMax = 72;
+    keyBase = 81;
+    detune = 0;
+}
+
+sound _030Distortion_GuitarSound4
+{
+    use("./sounds/_030Distortion_GuitarSoundSnd4.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _030Distortion_GuitarSoundKeymap4;
+    envelope = _030Distortion_GuitarSoundEnv;
+}
+
+keymap _030Distortion_GuitarSoundKeymap5
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 73;
+    keyMax = 99;
+    keyBase = 87;
+    detune = 0;
+}
+
+sound _030Distortion_GuitarSound5
+{
+    use("./sounds/_030Distortion_GuitarSoundSnd5.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _030Distortion_GuitarSoundKeymap5;
+    envelope = _030Distortion_GuitarSoundEnv;
+}
+
+instrument _030Distortion_Guitar
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _030Distortion_GuitarSound;
+    sound = _030Distortion_GuitarSound2;
+    sound = _030Distortion_GuitarSound3;
+    sound = _030Distortion_GuitarSound4;
+    sound = _030Distortion_GuitarSound5;
+}
+
+keymap _031Guitar_harmonicsSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 90;
+    keyBase = 78;
+    detune = 0;
+}
+
+sound _031Guitar_harmonicsSound
+{
+    use("./sounds/_031Guitar_harmonicsSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _031Guitar_harmonicsSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _031Guitar_harmonics
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _031Guitar_harmonicsSound;
+}
+
+keymap _032Acoustic_BassSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 60;
+    keyBase = 48;
+    detune = 0;
+}
+
+sound _032Acoustic_BassSound
+{
+    use("./sounds/_032Acoustic_BassSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _032Acoustic_BassSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _032Acoustic_Bass
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _032Acoustic_BassSound;
+}
+
+keymap _033Electric_Bass_fingerSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 67;
+    keyBase = 55;
+    detune = 0;
+}
+
+sound _033Electric_Bass_fingerSound
+{
+    use("./sounds/_033Electric_Bass_fingerSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _033Electric_Bass_fingerSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _033Electric_Bass_finger
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _033Electric_Bass_fingerSound;
+}
+
+keymap _034Electric_Bass_pickSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 60;
+    keyBase = 48;
+    detune = 0;
+}
+
+sound _034Electric_Bass_pickSound
+{
+    use("./sounds/_034Electric_Bass_pickSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _034Electric_Bass_pickSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _034Electric_Bass_pick
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _034Electric_Bass_pickSound;
+}
+
+keymap _035Fretless_BassSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 60;
+    keyBase = 48;
+    detune = 0;
+}
+
+sound _035Fretless_BassSound
+{
+    use("./sounds/_035Fretless_BassSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _035Fretless_BassSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _035Fretless_Bass
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _035Fretless_BassSound;
+}
+
+keymap _036Slap_Bass_1SoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 60;
+    keyBase = 48;
+    detune = 0;
+}
+
+sound _036Slap_Bass_1Sound
+{
+    use("./sounds/_036Slap_Bass_1SoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _036Slap_Bass_1SoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _036Slap_Bass_1
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _036Slap_Bass_1Sound;
+}
+
+keymap _037Slap_Bass_2SoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 60;
+    keyBase = 48;
+    detune = 0;
+}
+
+sound _037Slap_Bass_2Sound
+{
+    use("./sounds/_037Slap_Bass_2SoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _037Slap_Bass_2SoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _037Slap_Bass_2
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _037Slap_Bass_2Sound;
+}
+
+keymap _038Synth_Bass_1SoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 67;
+    keyBase = 55;
+    detune = 0;
+}
+
+sound _038Synth_Bass_1Sound
+{
+    use("./sounds/_038Synth_Bass_1SoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _038Synth_Bass_1SoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _038Synth_Bass_1
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _038Synth_Bass_1Sound;
+}
+
+keymap _039Synth_Bass_2SoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 67;
+    keyBase = 55;
+    detune = 0;
+}
+
+sound _039Synth_Bass_2Sound
+{
+    use("./sounds/_039Synth_Bass_2SoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _039Synth_Bass_2SoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _039Synth_Bass_2
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _039Synth_Bass_2Sound;
+}
+
+envelope _040ViolinSoundEnv
+{
+    attackTime = 0;
+    attackVolume = 127;
+    decayTime = 500000;
+    decayVolume = 80;
+    releaseTime = 200000;
+}
+
+keymap _040ViolinSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 78;
+    keyBase = 85;
+    detune = 0;
+}
+
+sound _040ViolinSound
+{
+    use("./sounds/_040ViolinSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _040ViolinSoundKeymap;
+    envelope = _040ViolinSoundEnv;
+}
+
+keymap _040ViolinSoundKeymap2
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 79;
+    keyMax = 110;
+    keyBase = 98;
+    detune = 0;
+}
+
+sound _040ViolinSound2
+{
+    use("./sounds/_040ViolinSoundSnd2.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _040ViolinSoundKeymap2;
+    envelope = _040ViolinSoundEnv;
+}
+
+instrument _040Violin
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    vibratoType = 128;
+    vibratoRate = 228;
+    vibratoDepth = 8;
+    vibratoDelay = 6;
+    bendRange = 200;
+    sound = _040ViolinSound;
+    sound = _040ViolinSound2;
+}
+
+keymap _041ViolaSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 61;
+    keyBase = 71;
+    detune = 0;
+}
+
+sound _041ViolaSound
+{
+    use("./sounds/_041ViolaSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _041ViolaSoundKeymap;
+    envelope = _040ViolinSoundEnv;
+}
+
+keymap _041ViolaSoundKeymap2
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 62;
+    keyMax = 68;
+    keyBase = 79;
+    detune = 0;
+}
+
+sound _041ViolaSound2
+{
+    use("./sounds/_041ViolaSoundSnd2.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _041ViolaSoundKeymap2;
+    envelope = _040ViolinSoundEnv;
+}
+
+keymap _041ViolaSoundKeymap3
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 69;
+    keyMax = 96;
+    keyBase = 84;
+    detune = 0;
+}
+
+sound _041ViolaSound3
+{
+    use("./sounds/_041ViolaSoundSnd3.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _041ViolaSoundKeymap3;
+    envelope = _040ViolinSoundEnv;
+}
+
+instrument _041Viola
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    vibratoType = 128;
+    vibratoRate = 224;
+    vibratoDepth = 6;
+    vibratoDelay = 6;
+    bendRange = 200;
+    sound = _041ViolaSound;
+    sound = _041ViolaSound2;
+    sound = _041ViolaSound3;
+}
+
+keymap _042CelloSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 37;
+    keyBase = 46;
+    detune = 0;
+}
+
+sound _042CelloSound
+{
+    use("./sounds/_042CelloSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _042CelloSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+keymap _042CelloSoundKeymap2
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 38;
+    keyMax = 45;
+    keyBase = 53;
+    detune = 0;
+}
+
+sound _042CelloSound2
+{
+    use("./sounds/_042CelloSoundSnd2.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _042CelloSoundKeymap2;
+    envelope = _007ClavinetSoundEnv;
+}
+
+keymap _042CelloSoundKeymap3
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 46;
+    keyMax = 52;
+    keyBase = 60;
+    detune = 0;
+}
+
+sound _042CelloSound3
+{
+    use("./sounds/_042CelloSoundSnd3.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _042CelloSoundKeymap3;
+    envelope = _007ClavinetSoundEnv;
+}
+
+keymap _042CelloSoundKeymap4
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 53;
+    keyMax = 81;
+    keyBase = 69;
+    detune = 0;
+}
+
+sound _042CelloSound4
+{
+    use("./sounds/_042CelloSoundSnd4.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _042CelloSoundKeymap4;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _042Cello
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    vibratoType = 128;
+    vibratoRate = 222;
+    vibratoDepth = 6;
+    vibratoDelay = 1;
+    bendRange = 200;
+    sound = _042CelloSound;
+    sound = _042CelloSound2;
+    sound = _042CelloSound3;
+    sound = _042CelloSound4;
+}
+
+keymap _043ContrabassSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 37;
+    keyBase = 46;
+    detune = 0;
+}
+
+sound _043ContrabassSound
+{
+    use("./sounds/_042CelloSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _043ContrabassSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+keymap _043ContrabassSoundKeymap2
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 38;
+    keyMax = 45;
+    keyBase = 53;
+    detune = 0;
+}
+
+sound _043ContrabassSound2
+{
+    use("./sounds/_042CelloSoundSnd2.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _043ContrabassSoundKeymap2;
+    envelope = _007ClavinetSoundEnv;
+}
+
+keymap _043ContrabassSoundKeymap3
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 46;
+    keyMax = 52;
+    keyBase = 60;
+    detune = 0;
+}
+
+sound _043ContrabassSound3
+{
+    use("./sounds/_042CelloSoundSnd3.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _043ContrabassSoundKeymap3;
+    envelope = _007ClavinetSoundEnv;
+}
+
+keymap _043ContrabassSoundKeymap4
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 53;
+    keyMax = 81;
+    keyBase = 69;
+    detune = 0;
+}
+
+sound _043ContrabassSound4
+{
+    use("./sounds/_042CelloSoundSnd4.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _043ContrabassSoundKeymap4;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _043Contrabass
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    vibratoType = 128;
+    vibratoRate = 180;
+    vibratoDepth = 3;
+    vibratoDelay = 1;
+    bendRange = 200;
+    sound = _043ContrabassSound;
+    sound = _043ContrabassSound2;
+    sound = _043ContrabassSound3;
+    sound = _043ContrabassSound4;
+}
+
+keymap _044Tremolo_StringsSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 59;
+    keyBase = 68;
+    detune = 0;
+}
+
+sound _044Tremolo_StringsSound
+{
+    use("./sounds/_044Tremolo_StringsSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _044Tremolo_StringsSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+keymap _044Tremolo_StringsSoundKeymap2
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 60;
+    keyMax = 64;
+    keyBase = 76;
+    detune = 0;
+}
+
+sound _044Tremolo_StringsSound2
+{
+    use("./sounds/_044Tremolo_StringsSoundSnd2.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _044Tremolo_StringsSoundKeymap2;
+    envelope = _007ClavinetSoundEnv;
+}
+
+keymap _044Tremolo_StringsSoundKeymap3
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 65;
+    keyMax = 71;
+    keyBase = 78;
+    detune = 0;
+}
+
+sound _044Tremolo_StringsSound3
+{
+    use("./sounds/_044Tremolo_StringsSoundSnd3.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _044Tremolo_StringsSoundKeymap3;
+    envelope = _007ClavinetSoundEnv;
+}
+
+keymap _044Tremolo_StringsSoundKeymap4
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 72;
+    keyMax = 79;
+    keyBase = 86;
+    detune = 0;
+}
+
+sound _044Tremolo_StringsSound4
+{
+    use("./sounds/_044Tremolo_StringsSoundSnd4.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _044Tremolo_StringsSoundKeymap4;
+    envelope = _007ClavinetSoundEnv;
+}
+
+keymap _044Tremolo_StringsSoundKeymap5
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 80;
+    keyMax = 108;
+    keyBase = 96;
+    detune = 0;
+}
+
+sound _044Tremolo_StringsSound5
+{
+    use("./sounds/_044Tremolo_StringsSoundSnd5.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _044Tremolo_StringsSoundKeymap5;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _044Tremolo_Strings
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    tremeloType = 1;
+    tremeloRate = 120;
+    tremeloDepth = 8;
+    tremeloDelay = 1;
+    bendRange = 200;
+    sound = _044Tremolo_StringsSound;
+    sound = _044Tremolo_StringsSound2;
+    sound = _044Tremolo_StringsSound3;
+    sound = _044Tremolo_StringsSound4;
+    sound = _044Tremolo_StringsSound5;
+}
+
+keymap _045Pizzicato_StringsSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 100;
+    keyBase = 88;
+    detune = 0;
+}
+
+sound _045Pizzicato_StringsSound
+{
+    use("./sounds/_045Pizzicato_StringsSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _045Pizzicato_StringsSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _045Pizzicato_Strings
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _045Pizzicato_StringsSound;
+}
+
+keymap _046Orchestral_HarpSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 105;
+    keyBase = 93;
+    detune = 0;
+}
+
+sound _046Orchestral_HarpSound
+{
+    use("./sounds/_046Orchestral_HarpSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _046Orchestral_HarpSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _046Orchestral_Harp
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _046Orchestral_HarpSound;
+}
+
+keymap _047TimpaniSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 78;
+    keyBase = 66;
+    detune = 0;
+}
+
+sound _047TimpaniSound
+{
+    use("./sounds/_047TimpaniSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _047TimpaniSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _047Timpani
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _047TimpaniSound;
+}
+
+keymap _048String_Ensemble_1SoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 59;
+    keyBase = 68;
+    detune = 0;
+}
+
+sound _048String_Ensemble_1Sound
+{
+    use("./sounds/_044Tremolo_StringsSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _048String_Ensemble_1SoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+keymap _048String_Ensemble_1SoundKeymap2
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 60;
+    keyMax = 64;
+    keyBase = 76;
+    detune = 0;
+}
+
+sound _048String_Ensemble_1Sound2
+{
+    use("./sounds/_044Tremolo_StringsSoundSnd2.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _048String_Ensemble_1SoundKeymap2;
+    envelope = _007ClavinetSoundEnv;
+}
+
+keymap _048String_Ensemble_1SoundKeymap3
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 65;
+    keyMax = 71;
+    keyBase = 78;
+    detune = 0;
+}
+
+sound _048String_Ensemble_1Sound3
+{
+    use("./sounds/_044Tremolo_StringsSoundSnd3.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _048String_Ensemble_1SoundKeymap3;
+    envelope = _007ClavinetSoundEnv;
+}
+
+keymap _048String_Ensemble_1SoundKeymap4
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 72;
+    keyMax = 79;
+    keyBase = 86;
+    detune = 0;
+}
+
+sound _048String_Ensemble_1Sound4
+{
+    use("./sounds/_044Tremolo_StringsSoundSnd4.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _048String_Ensemble_1SoundKeymap4;
+    envelope = _007ClavinetSoundEnv;
+}
+
+keymap _048String_Ensemble_1SoundKeymap5
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 80;
+    keyMax = 108;
+    keyBase = 96;
+    detune = 0;
+}
+
+sound _048String_Ensemble_1Sound5
+{
+    use("./sounds/_044Tremolo_StringsSoundSnd5.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _048String_Ensemble_1SoundKeymap5;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _048String_Ensemble_1
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    tremeloType = 1;
+    tremeloRate = 110;
+    tremeloDepth = 9;
+    tremeloDelay = 1;
+    bendRange = 200;
+    sound = _048String_Ensemble_1Sound;
+    sound = _048String_Ensemble_1Sound2;
+    sound = _048String_Ensemble_1Sound3;
+    sound = _048String_Ensemble_1Sound4;
+    sound = _048String_Ensemble_1Sound5;
+}
+
+envelope _049String_Ensemble_2SoundEnv
+{
+    attackTime = 80000;
+    attackVolume = 127;
+    decayTime = 800000;
+    decayVolume = 100;
+    releaseTime = 100000;
+}
+
+keymap _049String_Ensemble_2SoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 59;
+    keyBase = 68;
+    detune = 0;
+}
+
+sound _049String_Ensemble_2Sound
+{
+    use("./sounds/_044Tremolo_StringsSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _049String_Ensemble_2SoundKeymap;
+    envelope = _049String_Ensemble_2SoundEnv;
+}
+
+keymap _049String_Ensemble_2SoundKeymap2
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 60;
+    keyMax = 64;
+    keyBase = 76;
+    detune = 0;
+}
+
+sound _049String_Ensemble_2Sound2
+{
+    use("./sounds/_044Tremolo_StringsSoundSnd2.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _049String_Ensemble_2SoundKeymap2;
+    envelope = _049String_Ensemble_2SoundEnv;
+}
+
+keymap _049String_Ensemble_2SoundKeymap3
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 65;
+    keyMax = 71;
+    keyBase = 78;
+    detune = 0;
+}
+
+sound _049String_Ensemble_2Sound3
+{
+    use("./sounds/_044Tremolo_StringsSoundSnd3.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _049String_Ensemble_2SoundKeymap3;
+    envelope = _049String_Ensemble_2SoundEnv;
+}
+
+keymap _049String_Ensemble_2SoundKeymap4
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 72;
+    keyMax = 79;
+    keyBase = 86;
+    detune = 0;
+}
+
+sound _049String_Ensemble_2Sound4
+{
+    use("./sounds/_044Tremolo_StringsSoundSnd4.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _049String_Ensemble_2SoundKeymap4;
+    envelope = _049String_Ensemble_2SoundEnv;
+}
+
+keymap _049String_Ensemble_2SoundKeymap5
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 80;
+    keyMax = 108;
+    keyBase = 96;
+    detune = 0;
+}
+
+sound _049String_Ensemble_2Sound5
+{
+    use("./sounds/_044Tremolo_StringsSoundSnd5.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _049String_Ensemble_2SoundKeymap5;
+    envelope = _049String_Ensemble_2SoundEnv;
+}
+
+instrument _049String_Ensemble_2
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    tremeloType = 1;
+    tremeloRate = 100;
+    tremeloDepth = 6;
+    tremeloDelay = 1;
+    bendRange = 200;
+    sound = _049String_Ensemble_2Sound;
+    sound = _049String_Ensemble_2Sound2;
+    sound = _049String_Ensemble_2Sound3;
+    sound = _049String_Ensemble_2Sound4;
+    sound = _049String_Ensemble_2Sound5;
+}
+
+keymap _050Synth_Strings_1SoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 99;
+    keyBase = 87;
+    detune = 0;
+}
+
+sound _050Synth_Strings_1Sound
+{
+    use("./sounds/_050Synth_Strings_1SoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _050Synth_Strings_1SoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _050Synth_Strings_1
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _050Synth_Strings_1Sound;
+}
+
+keymap _051Synth_Strings_2SoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 90;
+    keyBase = 78;
+    detune = 0;
+}
+
+sound _051Synth_Strings_2Sound
+{
+    use("./sounds/_051Synth_Strings_2SoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _051Synth_Strings_2SoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _051Synth_Strings_2
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _051Synth_Strings_2Sound;
+}
+
+keymap _052Choir_AahsSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 57;
+    keyBase = 65;
+    detune = 0;
+}
+
+sound _052Choir_AahsSound
+{
+    use("./sounds/_052Choir_AahsSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _052Choir_AahsSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+keymap _052Choir_AahsSoundKeymap2
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 58;
+    keyMax = 62;
+    keyBase = 72;
+    detune = 0;
+}
+
+sound _052Choir_AahsSound2
+{
+    use("./sounds/_052Choir_AahsSoundSnd2.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _052Choir_AahsSoundKeymap2;
+    envelope = _007ClavinetSoundEnv;
+}
+
+keymap _052Choir_AahsSoundKeymap3
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 63;
+    keyMax = 69;
+    keyBase = 79;
+    detune = 0;
+}
+
+sound _052Choir_AahsSound3
+{
+    use("./sounds/_052Choir_AahsSoundSnd3.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _052Choir_AahsSoundKeymap3;
+    envelope = _007ClavinetSoundEnv;
+}
+
+keymap _052Choir_AahsSoundKeymap4
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 70;
+    keyMax = 74;
+    keyBase = 84;
+    detune = 0;
+}
+
+sound _052Choir_AahsSound4
+{
+    use("./sounds/_052Choir_AahsSoundSnd4.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _052Choir_AahsSoundKeymap4;
+    envelope = _007ClavinetSoundEnv;
+}
+
+keymap _052Choir_AahsSoundKeymap5
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 75;
+    keyMax = 101;
+    keyBase = 89;
+    detune = 0;
+}
+
+sound _052Choir_AahsSound5
+{
+    use("./sounds/_052Choir_AahsSoundSnd5.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _052Choir_AahsSoundKeymap5;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _052Choir_Aahs
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    tremeloType = 1;
+    tremeloRate = 140;
+    tremeloDepth = 6;
+    tremeloDelay = 1;
+    vibratoType = 128;
+    vibratoRate = 80;
+    vibratoDepth = 7;
+    vibratoDelay = 1;
+    bendRange = 200;
+    sound = _052Choir_AahsSound;
+    sound = _052Choir_AahsSound2;
+    sound = _052Choir_AahsSound3;
+    sound = _052Choir_AahsSound4;
+    sound = _052Choir_AahsSound5;
+}
+
+keymap _053Voice_OohsSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 57;
+    keyBase = 67;
+    detune = 0;
+}
+
+sound _053Voice_OohsSound
+{
+    use("./sounds/_053Voice_OohsSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _053Voice_OohsSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+keymap _053Voice_OohsSoundKeymap2
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 58;
+    keyMax = 63;
+    keyBase = 72;
+    detune = 0;
+}
+
+sound _053Voice_OohsSound2
+{
+    use("./sounds/_053Voice_OohsSoundSnd2.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _053Voice_OohsSoundKeymap2;
+    envelope = _007ClavinetSoundEnv;
+}
+
+keymap _053Voice_OohsSoundKeymap3
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 64;
+    keyMax = 69;
+    keyBase = 79;
+    detune = 0;
+}
+
+sound _053Voice_OohsSound3
+{
+    use("./sounds/_053Voice_OohsSoundSnd3.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _053Voice_OohsSoundKeymap3;
+    envelope = _007ClavinetSoundEnv;
+}
+
+keymap _053Voice_OohsSoundKeymap4
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 70;
+    keyMax = 75;
+    keyBase = 84;
+    detune = 0;
+}
+
+sound _053Voice_OohsSound4
+{
+    use("./sounds/_053Voice_OohsSoundSnd4.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _053Voice_OohsSoundKeymap4;
+    envelope = _007ClavinetSoundEnv;
+}
+
+keymap _053Voice_OohsSoundKeymap5
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 76;
+    keyMax = 103;
+    keyBase = 91;
+    detune = 0;
+}
+
+sound _053Voice_OohsSound5
+{
+    use("./sounds/_053Voice_OohsSoundSnd5.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _053Voice_OohsSoundKeymap5;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _053Voice_Oohs
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    tremeloType = 1;
+    tremeloRate = 140;
+    tremeloDepth = 9;
+    tremeloDelay = 1;
+    vibratoType = 131;
+    vibratoRate = 120;
+    vibratoDepth = 9;
+    vibratoDelay = 1;
+    bendRange = 200;
+    sound = _053Voice_OohsSound;
+    sound = _053Voice_OohsSound2;
+    sound = _053Voice_OohsSound3;
+    sound = _053Voice_OohsSound4;
+    sound = _053Voice_OohsSound5;
+}
+
+keymap _054Synth_VoiceSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 97;
+    keyBase = 85;
+    detune = 0;
+}
+
+sound _054Synth_VoiceSound
+{
+    use("./sounds/_054Synth_VoiceSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _054Synth_VoiceSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _054Synth_Voice
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _054Synth_VoiceSound;
+}
+
+keymap _055Orchestra_HitSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 87;
+    keyBase = 75;
+    detune = 0;
+}
+
+sound _055Orchestra_HitSound
+{
+    use("./sounds/_055Orchestra_HitSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _055Orchestra_HitSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _055Orchestra_Hit
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _055Orchestra_HitSound;
+}
+
+keymap _056TrumpetSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 71;
+    keyBase = 81;
+    detune = 0;
+}
+
+sound _056TrumpetSound
+{
+    use("./sounds/_056TrumpetSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _056TrumpetSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+keymap _056TrumpetSoundKeymap2
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 72;
+    keyMax = 74;
+    keyBase = 86;
+    detune = 0;
+}
+
+sound _056TrumpetSound2
+{
+    use("./sounds/_056TrumpetSoundSnd2.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _056TrumpetSoundKeymap2;
+    envelope = _007ClavinetSoundEnv;
+}
+
+keymap _056TrumpetSoundKeymap3
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 75;
+    keyMax = 78;
+    keyBase = 89;
+    detune = 0;
+}
+
+sound _056TrumpetSound3
+{
+    use("./sounds/_056TrumpetSoundSnd3.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _056TrumpetSoundKeymap3;
+    envelope = _007ClavinetSoundEnv;
+}
+
+keymap _056TrumpetSoundKeymap4
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 79;
+    keyMax = 106;
+    keyBase = 94;
+    detune = 0;
+}
+
+sound _056TrumpetSound4
+{
+    use("./sounds/_056TrumpetSoundSnd4.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _056TrumpetSoundKeymap4;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _056Trumpet
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    tremeloType = 1;
+    tremeloRate = 170;
+    tremeloDepth = 8;
+    tremeloDelay = 1;
+    bendRange = 200;
+    sound = _056TrumpetSound;
+    sound = _056TrumpetSound2;
+    sound = _056TrumpetSound3;
+    sound = _056TrumpetSound4;
+}
+
+keymap _057TromboneSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 55;
+    keyBase = 65;
+    detune = 0;
+}
+
+sound _057TromboneSound
+{
+    use("./sounds/_057TromboneSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _057TromboneSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+keymap _057TromboneSoundKeymap2
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 56;
+    keyMax = 84;
+    keyBase = 72;
+    detune = 0;
+}
+
+sound _057TromboneSound2
+{
+    use("./sounds/_057TromboneSoundSnd2.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _057TromboneSoundKeymap2;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _057Trombone
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    tremeloType = 1;
+    tremeloRate = 140;
+    tremeloDepth = 8;
+    tremeloDelay = 1;
+    bendRange = 200;
+    sound = _057TromboneSound;
+    sound = _057TromboneSound2;
+}
+
+keymap _058TubaSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 72;
+    keyBase = 60;
+    detune = 0;
+}
+
+sound _058TubaSound
+{
+    use("./sounds/_058TubaSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _058TubaSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _058Tuba
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _058TubaSound;
+}
+
+keymap _059Muted_TrumpetSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 74;
+    keyBase = 84;
+    detune = 0;
+}
+
+sound _059Muted_TrumpetSound
+{
+    use("./sounds/_059Muted_TrumpetSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _059Muted_TrumpetSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+keymap _059Muted_TrumpetSoundKeymap2
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 75;
+    keyMax = 79;
+    keyBase = 89;
+    detune = 0;
+}
+
+sound _059Muted_TrumpetSound2
+{
+    use("./sounds/_059Muted_TrumpetSoundSnd2.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _059Muted_TrumpetSoundKeymap2;
+    envelope = _007ClavinetSoundEnv;
+}
+
+keymap _059Muted_TrumpetSoundKeymap3
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 80;
+    keyMax = 96;
+    keyBase = 94;
+    detune = 0;
+}
+
+sound _059Muted_TrumpetSound3
+{
+    use("./sounds/_059Muted_TrumpetSoundSnd3.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _059Muted_TrumpetSoundKeymap3;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _059Muted_Trumpet
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _059Muted_TrumpetSound;
+    sound = _059Muted_TrumpetSound2;
+    sound = _059Muted_TrumpetSound3;
+}
+
+keymap _060French_HornSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 89;
+    keyBase = 77;
+    detune = 0;
+}
+
+sound _060French_HornSound
+{
+    use("./sounds/_060French_HornSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _060French_HornSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _060French_Horn
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    tremeloType = 1;
+    tremeloRate = 140;
+    tremeloDepth = 10;
+    tremeloDelay = 1;
+    bendRange = 200;
+    sound = _060French_HornSound;
+}
+
+keymap _061Brass_SectionSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 67;
+    keyBase = 76;
+    detune = 0;
+}
+
+sound _061Brass_SectionSound
+{
+    use("./sounds/_061Brass_SectionSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _061Brass_SectionSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+keymap _061Brass_SectionSoundKeymap2
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 68;
+    keyMax = 96;
+    keyBase = 84;
+    detune = 0;
+}
+
+sound _061Brass_SectionSound2
+{
+    use("./sounds/_061Brass_SectionSoundSnd2.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _061Brass_SectionSoundKeymap2;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _061Brass_Section
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _061Brass_SectionSound;
+    sound = _061Brass_SectionSound2;
+}
+
+keymap _062Synth_Brass_1SoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 94;
+    keyBase = 82;
+    detune = 0;
+}
+
+sound _062Synth_Brass_1Sound
+{
+    use("./sounds/_062Synth_Brass_1SoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _062Synth_Brass_1SoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _062Synth_Brass_1
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _062Synth_Brass_1Sound;
+}
+
+keymap _063Synth_Brass_2SoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 96;
+    keyBase = 84;
+    detune = 0;
+}
+
+sound _063Synth_Brass_2Sound
+{
+    use("./sounds/_063Synth_Brass_2SoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _063Synth_Brass_2SoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _063Synth_Brass_2
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _063Synth_Brass_2Sound;
+}
+
+keymap _064Soprano_SaxSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 100;
+    keyBase = 88;
+    detune = 0;
+}
+
+sound _064Soprano_SaxSound
+{
+    use("./sounds/_064Soprano_SaxSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _064Soprano_SaxSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _064Soprano_Sax
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    vibratoType = 128;
+    vibratoRate = 190;
+    vibratoDepth = 16;
+    vibratoDelay = 1;
+    bendRange = 200;
+    sound = _064Soprano_SaxSound;
+}
+
+keymap _065Alto_SaxSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 94;
+    keyBase = 82;
+    detune = 0;
+}
+
+sound _065Alto_SaxSound
+{
+    use("./sounds/_065Alto_SaxSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _065Alto_SaxSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _065Alto_Sax
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    vibratoType = 128;
+    vibratoRate = 170;
+    vibratoDepth = 16;
+    vibratoDelay = 1;
+    bendRange = 200;
+    sound = _065Alto_SaxSound;
+}
+
+keymap _066Tenor_SaxSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 84;
+    keyBase = 72;
+    detune = 0;
+}
+
+sound _066Tenor_SaxSound
+{
+    use("./sounds/_066Tenor_SaxSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _066Tenor_SaxSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _066Tenor_Sax
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    vibratoType = 128;
+    vibratoRate = 168;
+    vibratoDepth = 14;
+    vibratoDelay = 1;
+    bendRange = 200;
+    sound = _066Tenor_SaxSound;
+}
+
+keymap _067Baritone_SaxSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 72;
+    keyBase = 60;
+    detune = 0;
+}
+
+sound _067Baritone_SaxSound
+{
+    use("./sounds/_067Baritone_SaxSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _067Baritone_SaxSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _067Baritone_Sax
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    vibratoType = 128;
+    vibratoRate = 180;
+    vibratoDepth = 12;
+    vibratoDelay = 1;
+    bendRange = 200;
+    sound = _067Baritone_SaxSound;
+}
+
+keymap _068OboeSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 100;
+    keyBase = 88;
+    detune = 0;
+}
+
+sound _068OboeSound
+{
+    use("./sounds/_068OboeSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _068OboeSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _068Oboe
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _068OboeSound;
+}
+
+keymap _069English_HornSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 96;
+    keyBase = 84;
+    detune = 0;
+}
+
+sound _069English_HornSound
+{
+    use("./sounds/_069English_HornSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _069English_HornSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _069English_Horn
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _069English_HornSound;
+}
+
+keymap _070BassoonSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 79;
+    keyBase = 67;
+    detune = 0;
+}
+
+sound _070BassoonSound
+{
+    use("./sounds/_070BassoonSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _070BassoonSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _070Bassoon
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _070BassoonSound;
+}
+
+keymap _071ClarinetSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 96;
+    keyBase = 84;
+    detune = 0;
+}
+
+sound _071ClarinetSound
+{
+    use("./sounds/_071ClarinetSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _071ClarinetSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _071Clarinet
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _071ClarinetSound;
+}
+
+keymap _072PiccoloSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 111;
+    keyBase = 99;
+    detune = 0;
+}
+
+sound _072PiccoloSound
+{
+    use("./sounds/_072PiccoloSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _072PiccoloSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _072Piccolo
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    tremeloType = 1;
+    tremeloRate = 230;
+    tremeloDepth = 8;
+    tremeloDelay = 1;
+    bendRange = 200;
+    sound = _072PiccoloSound;
+}
+
+keymap _073FluteSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 111;
+    keyBase = 99;
+    detune = 0;
+}
+
+sound _073FluteSound
+{
+    use("./sounds/_072PiccoloSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _073FluteSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _073Flute
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    tremeloType = 1;
+    tremeloRate = 200;
+    tremeloDepth = 8;
+    tremeloDelay = 1;
+    bendRange = 200;
+    sound = _073FluteSound;
+}
+
+keymap _074RecorderSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 107;
+    keyBase = 95;
+    detune = 0;
+}
+
+sound _074RecorderSound
+{
+    use("./sounds/_074RecorderSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _074RecorderSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _074Recorder
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _074RecorderSound;
+}
+
+keymap _075Pan_FluteSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 97;
+    keyBase = 85;
+    detune = 0;
+}
+
+sound _075Pan_FluteSound
+{
+    use("./sounds/_075Pan_FluteSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _075Pan_FluteSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _075Pan_Flute
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _075Pan_FluteSound;
+}
+
+keymap _076Blown_BottleSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 100;
+    keyBase = 88;
+    detune = 0;
+}
+
+sound _076Blown_BottleSound
+{
+    use("./sounds/_076Blown_BottleSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _076Blown_BottleSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _076Blown_Bottle
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _076Blown_BottleSound;
+}
+
+keymap _077ShakuhachiSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 101;
+    keyBase = 89;
+    detune = 0;
+}
+
+sound _077ShakuhachiSound
+{
+    use("./sounds/_077ShakuhachiSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _077ShakuhachiSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _077Shakuhachi
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _077ShakuhachiSound;
+}
+
+keymap _078WhistleSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 99;
+    keyBase = 87;
+    detune = 0;
+}
+
+sound _078WhistleSound
+{
+    use("./sounds/_078WhistleSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _078WhistleSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _078Whistle
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _078WhistleSound;
+}
+
+keymap _079OcarinaSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 102;
+    keyBase = 90;
+    detune = 0;
+}
+
+sound _079OcarinaSound
+{
+    use("./sounds/_079OcarinaSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _079OcarinaSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _079Ocarina
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _079OcarinaSound;
+}
+
+keymap _080Lead_1_squareSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 95;
+    keyBase = 84;
+    detune = 0;
+}
+
+sound _080Lead_1_squareSound
+{
+    use("./sounds/_080Lead_1_squareSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _080Lead_1_squareSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _080Lead_1_square
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _080Lead_1_squareSound;
+}
+
+keymap _081Lead_2_sawtoothSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 96;
+    keyBase = 84;
+    detune = 0;
+}
+
+sound _081Lead_2_sawtoothSound
+{
+    use("./sounds/_081Lead_2_sawtoothSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _081Lead_2_sawtoothSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _081Lead_2_sawtooth
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _081Lead_2_sawtoothSound;
+}
+
+keymap _082Lead_3_calliopeSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 96;
+    keyBase = 84;
+    detune = 0;
+}
+
+sound _082Lead_3_calliopeSound
+{
+    use("./sounds/_082Lead_3_calliopeSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _082Lead_3_calliopeSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _082Lead_3_calliope
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _082Lead_3_calliopeSound;
+}
+
+keymap _083Lead_4_chiffSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 96;
+    keyBase = 84;
+    detune = 0;
+}
+
+sound _083Lead_4_chiffSound
+{
+    use("./sounds/_083Lead_4_chiffSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _083Lead_4_chiffSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _083Lead_4_chiff
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _083Lead_4_chiffSound;
+}
+
+keymap _084Lead_5_charangSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 96;
+    keyBase = 84;
+    detune = 0;
+}
+
+sound _084Lead_5_charangSound
+{
+    use("./sounds/_084Lead_5_charangSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _084Lead_5_charangSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _084Lead_5_charang
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _084Lead_5_charangSound;
+}
+
+keymap _085Lead_6_voiceSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 96;
+    keyBase = 84;
+    detune = 0;
+}
+
+sound _085Lead_6_voiceSound
+{
+    use("./sounds/_085Lead_6_voiceSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _085Lead_6_voiceSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _085Lead_6_voice
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _085Lead_6_voiceSound;
+}
+
+keymap _086Lead_7_fifthsSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 96;
+    keyBase = 84;
+    detune = 0;
+}
+
+sound _086Lead_7_fifthsSound
+{
+    use("./sounds/_086Lead_7_fifthsSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _086Lead_7_fifthsSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _086Lead_7_fifths
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _086Lead_7_fifthsSound;
+}
+
+keymap _087Lead_8_bass_leadSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 96;
+    keyBase = 84;
+    detune = 0;
+}
+
+sound _087Lead_8_bass_leadSound
+{
+    use("./sounds/_087Lead_8_bass_leadSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _087Lead_8_bass_leadSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _087Lead_8_bass_lead
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _087Lead_8_bass_leadSound;
+}
+
+keymap _088Pad_1_new_ageSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 96;
+    keyBase = 84;
+    detune = 0;
+}
+
+sound _088Pad_1_new_ageSound
+{
+    use("./sounds/_088Pad_1_new_ageSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _088Pad_1_new_ageSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _088Pad_1_new_age
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _088Pad_1_new_ageSound;
+}
+
+keymap _089Pad_2_warmSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 96;
+    keyBase = 84;
+    detune = 0;
+}
+
+sound _089Pad_2_warmSound
+{
+    use("./sounds/_089Pad_2_warmSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _089Pad_2_warmSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _089Pad_2_warm
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _089Pad_2_warmSound;
+}
+
+keymap _090Pad_3_polysynthSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 96;
+    keyBase = 84;
+    detune = 0;
+}
+
+sound _090Pad_3_polysynthSound
+{
+    use("./sounds/_090Pad_3_polysynthSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _090Pad_3_polysynthSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _090Pad_3_polysynth
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _090Pad_3_polysynthSound;
+}
+
+keymap _091Pad_4_choirSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 96;
+    keyBase = 84;
+    detune = 0;
+}
+
+sound _091Pad_4_choirSound
+{
+    use("./sounds/_091Pad_4_choirSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _091Pad_4_choirSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _091Pad_4_choir
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _091Pad_4_choirSound;
+}
+
+keymap _092Pad_5_bowedSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 96;
+    keyBase = 84;
+    detune = 0;
+}
+
+sound _092Pad_5_bowedSound
+{
+    use("./sounds/_092Pad_5_bowedSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _092Pad_5_bowedSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _092Pad_5_bowed
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _092Pad_5_bowedSound;
+}
+
+keymap _093Pad_6_metallicSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 96;
+    keyBase = 84;
+    detune = 0;
+}
+
+sound _093Pad_6_metallicSound
+{
+    use("./sounds/_093Pad_6_metallicSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _093Pad_6_metallicSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _093Pad_6_metallic
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _093Pad_6_metallicSound;
+}
+
+keymap _094Pad_7_haloSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 96;
+    keyBase = 84;
+    detune = 0;
+}
+
+sound _094Pad_7_haloSound
+{
+    use("./sounds/_094Pad_7_haloSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _094Pad_7_haloSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _094Pad_7_halo
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _094Pad_7_haloSound;
+}
+
+keymap _095Pad_8_sweepSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 96;
+    keyBase = 84;
+    detune = 0;
+}
+
+sound _095Pad_8_sweepSound
+{
+    use("./sounds/_095Pad_8_sweepSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _095Pad_8_sweepSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _095Pad_8_sweep
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _095Pad_8_sweepSound;
+}
+
+keymap _096FX_1_rainSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 96;
+    keyBase = 84;
+    detune = 0;
+}
+
+sound _096FX_1_rainSound
+{
+    use("./sounds/_096FX_1_rainSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _096FX_1_rainSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _096FX_1_rain
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _096FX_1_rainSound;
+}
+
+keymap _097FX_2_soundtrackSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 96;
+    keyBase = 84;
+    detune = 0;
+}
+
+sound _097FX_2_soundtrackSound
+{
+    use("./sounds/_097FX_2_soundtrackSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _097FX_2_soundtrackSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _097FX_2_soundtrack
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _097FX_2_soundtrackSound;
+}
+
+keymap _098FX_3_crystalSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 96;
+    keyBase = 84;
+    detune = 0;
+}
+
+sound _098FX_3_crystalSound
+{
+    use("./sounds/_098FX_3_crystalSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _098FX_3_crystalSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _098FX_3_crystal
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _098FX_3_crystalSound;
+}
+
+keymap _099FX_4_atmosphereSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 96;
+    keyBase = 84;
+    detune = 0;
+}
+
+sound _099FX_4_atmosphereSound
+{
+    use("./sounds/_099FX_4_atmosphereSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _099FX_4_atmosphereSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _099FX_4_atmosphere
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _099FX_4_atmosphereSound;
+}
+
+keymap _100FX_5_brightnessSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 96;
+    keyBase = 84;
+    detune = 0;
+}
+
+sound _100FX_5_brightnessSound
+{
+    use("./sounds/_100FX_5_brightnessSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _100FX_5_brightnessSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _100FX_5_brightness
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _100FX_5_brightnessSound;
+}
+
+keymap _101FX_6_goblinsSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 96;
+    keyBase = 84;
+    detune = 0;
+}
+
+sound _101FX_6_goblinsSound
+{
+    use("./sounds/_101FX_6_goblinsSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _101FX_6_goblinsSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _101FX_6_goblins
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _101FX_6_goblinsSound;
+}
+
+keymap _102FX_7_echoesSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 96;
+    keyBase = 84;
+    detune = 0;
+}
+
+sound _102FX_7_echoesSound
+{
+    use("./sounds/_102FX_7_echoesSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _102FX_7_echoesSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _102FX_7_echoes
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _102FX_7_echoesSound;
+}
+
+keymap _103FX_8_sci_fiSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 96;
+    keyBase = 84;
+    detune = 0;
+}
+
+sound _103FX_8_sci_fiSound
+{
+    use("./sounds/_103FX_8_sci_fiSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _103FX_8_sci_fiSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _103FX_8_sci_fi
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _103FX_8_sci_fiSound;
+}
+
+keymap _104SitarSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 92;
+    keyBase = 80;
+    detune = 0;
+}
+
+sound _104SitarSound
+{
+    use("./sounds/_104SitarSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _104SitarSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _104Sitar
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _104SitarSound;
+}
+
+keymap _105BanjoSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 95;
+    keyBase = 83;
+    detune = 0;
+}
+
+sound _105BanjoSound
+{
+    use("./sounds/_105BanjoSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _105BanjoSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _105Banjo
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _105BanjoSound;
+}
+
+keymap _106ShamisenSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 98;
+    keyBase = 86;
+    detune = 0;
+}
+
+sound _106ShamisenSound
+{
+    use("./sounds/_106ShamisenSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _106ShamisenSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _106Shamisen
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _106ShamisenSound;
+}
+
+keymap _107KotoSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 96;
+    keyBase = 84;
+    detune = 0;
+}
+
+sound _107KotoSound
+{
+    use("./sounds/_107KotoSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _107KotoSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _107Koto
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _107KotoSound;
+}
+
+keymap _108KalimbaSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 96;
+    keyBase = 84;
+    detune = 0;
+}
+
+sound _108KalimbaSound
+{
+    use("./sounds/_108KalimbaSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _108KalimbaSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _108Kalimba
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _108KalimbaSound;
+}
+
+keymap _109Bag_pipeSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 93;
+    keyBase = 81;
+    detune = 0;
+}
+
+sound _109Bag_pipeSound
+{
+    use("./sounds/_109Bag_pipeSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _109Bag_pipeSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _109Bag_pipe
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _109Bag_pipeSound;
+}
+
+keymap _110FiddleSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 127;
+    keyBase = 85;
+    detune = 0;
+}
+
+sound _110FiddleSound
+{
+    use("./sounds/_040ViolinSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _110FiddleSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _110Fiddle
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _110FiddleSound;
+}
+
+keymap _111ShanaiSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 96;
+    keyBase = 84;
+    detune = 0;
+}
+
+sound _111ShanaiSound
+{
+    use("./sounds/_111ShanaiSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _111ShanaiSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _111Shanai
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _111ShanaiSound;
+}
+
+keymap _112Tinkle_BellSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 127;
+    keyBase = 70;
+    detune = 0;
+}
+
+sound _112Tinkle_BellSound
+{
+    use("./sounds/Triangle_OpenSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _112Tinkle_BellSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _112Tinkle_Bell
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _112Tinkle_BellSound;
+}
+
+keymap _113AgogoSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 127;
+    keyBase = 73;
+    detune = 0;
+}
+
+sound _113AgogoSound
+{
+    use("./sounds/Low_AgogoSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _113AgogoSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _113Agogo
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _113AgogoSound;
+}
+
+keymap _114Steel_DrumsSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 78;
+    keyBase = 72;
+    detune = 0;
+}
+
+sound _114Steel_DrumsSound
+{
+    use("./sounds/_114Steel_DrumsSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _114Steel_DrumsSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+keymap _114Steel_DrumsSoundKeymap2
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 79;
+    keyMax = 96;
+    keyBase = 84;
+    detune = 0;
+}
+
+sound _114Steel_DrumsSound2
+{
+    use("./sounds/_114Steel_DrumsSoundSnd2.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _114Steel_DrumsSoundKeymap2;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _114Steel_Drums
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _114Steel_DrumsSound;
+    sound = _114Steel_DrumsSound2;
+}
+
+keymap _115WoodblockSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 127;
+    keyBase = 76;
+    detune = 0;
+}
+
+sound _115WoodblockSound
+{
+    use("./sounds/Low_WoodblockSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _115WoodblockSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _115Woodblock
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _115WoodblockSound;
+}
+
+keymap _116Taiko_DrumSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 127;
+    keyBase = 72;
+    detune = 0;
+}
+
+sound _116Taiko_DrumSound
+{
+    use("./sounds/_116Taiko_DrumSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _116Taiko_DrumSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _116Taiko_Drum
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _116Taiko_DrumSound;
+}
+
+keymap _117Melodic_TomSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 127;
+    keyBase = 75;
+    detune = 0;
+}
+
+sound _117Melodic_TomSound
+{
+    use("./sounds/Hi_Hat_ClosedSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _117Melodic_TomSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _117Melodic_Tom
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _117Melodic_TomSound;
+}
+
+keymap _118Synth_DrumSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 127;
+    keyBase = 72;
+    detune = 0;
+}
+
+sound _118Synth_DrumSound
+{
+    use("./sounds/_118Synth_DrumSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _118Synth_DrumSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _118Synth_Drum
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _118Synth_DrumSound;
+}
+
+keymap _119Reverse_CymbalSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 127;
+    keyBase = 72;
+    detune = 0;
+}
+
+sound _119Reverse_CymbalSound
+{
+    use("./sounds/_119Reverse_CymbalSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _119Reverse_CymbalSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _119Reverse_Cymbal
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _119Reverse_CymbalSound;
+}
+
+keymap _120Guitar_Fret_NoiseSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 127;
+    keyBase = 60;
+    detune = 0;
+}
+
+sound _120Guitar_Fret_NoiseSound
+{
+    use("./sounds/_120Guitar_Fret_NoiseSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _120Guitar_Fret_NoiseSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _120Guitar_Fret_Noise
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _120Guitar_Fret_NoiseSound;
+}
+
+keymap _121Breath_NoiseSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 127;
+    keyBase = 91;
+    detune = 0;
+}
+
+sound _121Breath_NoiseSound
+{
+    use("./sounds/_121Breath_NoiseSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _121Breath_NoiseSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _121Breath_Noise
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _121Breath_NoiseSound;
+}
+
+keymap _122SeashoreSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 127;
+    keyBase = 72;
+    detune = 0;
+}
+
+sound _122SeashoreSound
+{
+    use("./sounds/_122SeashoreSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _122SeashoreSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _122Seashore
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _122SeashoreSound;
+}
+
+keymap _123Bird_TweetSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 127;
+    keyBase = 72;
+    detune = 0;
+}
+
+sound _123Bird_TweetSound
+{
+    use("./sounds/_123Bird_TweetSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _123Bird_TweetSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _123Bird_Tweet
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _123Bird_TweetSound;
+}
+
+keymap _124Telephone_RingSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 127;
+    keyBase = 72;
+    detune = 0;
+}
+
+sound _124Telephone_RingSound
+{
+    use("./sounds/_124Telephone_RingSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _124Telephone_RingSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _124Telephone_Ring
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _124Telephone_RingSound;
+}
+
+keymap _125HelicopterSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 127;
+    keyBase = 72;
+    detune = 0;
+}
+
+sound _125HelicopterSound
+{
+    use("./sounds/_125HelicopterSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _125HelicopterSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _125Helicopter
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _125HelicopterSound;
+}
+
+keymap _126ApplauseSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 127;
+    keyBase = 72;
+    detune = 0;
+}
+
+sound _126ApplauseSound
+{
+    use("./sounds/_126ApplauseSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _126ApplauseSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _126Applause
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _126ApplauseSound;
+}
+
+keymap _127GunshotSoundKeymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin = 0;
+    keyMax = 127;
+    keyBase = 72;
+    detune = 0;
+}
+
+sound _127GunshotSound
+{
+    use("./sounds/_127GunshotSoundSnd.aifc");
+    pan = 64;
+    volume = 127;
+    keymap = _127GunshotSoundKeymap;
+    envelope = _007ClavinetSoundEnv;
+}
+
+instrument _127Gunshot
+{
+    volume = 127;
+    pan = 64;
+    priority = 5;
+    bendRange = 200;
+    sound = _127GunshotSound;
+}
+
+bank DrumsOnGunshot
+{
+    sampleRate = 44100;
+    percussionDefault = Percussion;
+    instrument [0] = _000Acoustic_Grand_Piano;
+    instrument [1] = _001Bright_Acoustic_Piano;
+    instrument [2] = _002Electric_Grand_Piano;
+    instrument [3] = _003Honkytonk_Piano;
+    instrument [4] = _004Electric_Piano_1;
+    instrument [5] = _005Electric_Piano_2;
+    instrument [6] = _006Harpsichord;
+    instrument [7] = _007Clavinet;
+    instrument [8] = _008Celesta;
+    instrument [9] = _009Glockenspiel;
+    instrument [10] = _010Music_Box;
+    instrument [11] = _011Vibraphone;
+    instrument [12] = _012Marimba;
+    instrument [13] = _013Xylophone;
+    instrument [14] = _014Tubular_Bells;
+    instrument [15] = _015Dulcimer;
+    instrument [16] = _016Drawbar_Organ;
+    instrument [17] = _017Percussive_Organ;
+    instrument [18] = _018Rock_Organ;
+    instrument [19] = _019Church_Organ;
+    instrument [20] = _020Reed_Organ;
+    instrument [21] = _021Accordion;
+    instrument [22] = _022Harmonica;
+    instrument [23] = _023Tango_Accordion;
+    instrument [24] = _024Acoustic_Guitar_nylon;
+    instrument [25] = _025Acoustic_Guitar_steel;
+    instrument [26] = _026Electric_Guitar_jazz;
+    instrument [27] = _027Electric_Guitar_clean;
+    instrument [28] = _028Electric_Guitar_muted;
+    instrument [29] = _029Overdriven_Guitar;
+    instrument [30] = _030Distortion_Guitar;
+    instrument [31] = _031Guitar_harmonics;
+    instrument [32] = _032Acoustic_Bass;
+    instrument [33] = _033Electric_Bass_finger;
+    instrument [34] = _034Electric_Bass_pick;
+    instrument [35] = _035Fretless_Bass;
+    instrument [36] = _036Slap_Bass_1;
+    instrument [37] = _037Slap_Bass_2;
+    instrument [38] = _038Synth_Bass_1;
+    instrument [39] = _039Synth_Bass_2;
+    instrument [40] = _040Violin;
+    instrument [41] = _041Viola;
+    instrument [42] = _042Cello;
+    instrument [43] = _043Contrabass;
+    instrument [44] = _044Tremolo_Strings;
+    instrument [45] = _045Pizzicato_Strings;
+    instrument [46] = _046Orchestral_Harp;
+    instrument [47] = _047Timpani;
+    instrument [48] = _048String_Ensemble_1;
+    instrument [49] = _049String_Ensemble_2;
+    instrument [50] = _050Synth_Strings_1;
+    instrument [51] = _051Synth_Strings_2;
+    instrument [52] = _052Choir_Aahs;
+    instrument [53] = _053Voice_Oohs;
+    instrument [54] = _054Synth_Voice;
+    instrument [55] = _055Orchestra_Hit;
+    instrument [56] = _056Trumpet;
+    instrument [57] = _057Trombone;
+    instrument [58] = _058Tuba;
+    instrument [59] = _059Muted_Trumpet;
+    instrument [60] = _060French_Horn;
+    instrument [61] = _061Brass_Section;
+    instrument [62] = _062Synth_Brass_1;
+    instrument [63] = _063Synth_Brass_2;
+    instrument [64] = _064Soprano_Sax;
+    instrument [65] = _065Alto_Sax;
+    instrument [66] = _066Tenor_Sax;
+    instrument [67] = _067Baritone_Sax;
+    instrument [68] = _068Oboe;
+    instrument [69] = _069English_Horn;
+    instrument [70] = _070Bassoon;
+    instrument [71] = _071Clarinet;
+    instrument [72] = _072Piccolo;
+    instrument [73] = _073Flute;
+    instrument [74] = _074Recorder;
+    instrument [75] = _075Pan_Flute;
+    instrument [76] = _076Blown_Bottle;
+    instrument [77] = _077Shakuhachi;
+    instrument [78] = _078Whistle;
+    instrument [79] = _079Ocarina;
+    instrument [80] = _080Lead_1_square;
+    instrument [81] = _081Lead_2_sawtooth;
+    instrument [82] = _082Lead_3_calliope;
+    instrument [83] = _083Lead_4_chiff;
+    instrument [84] = _084Lead_5_charang;
+    instrument [85] = _085Lead_6_voice;
+    instrument [86] = _086Lead_7_fifths;
+    instrument [87] = _087Lead_8_bass_lead;
+    instrument [88] = _088Pad_1_new_age;
+    instrument [89] = _089Pad_2_warm;
+    instrument [90] = _090Pad_3_polysynth;
+    instrument [91] = _091Pad_4_choir;
+    instrument [92] = _092Pad_5_bowed;
+    instrument [93] = _093Pad_6_metallic;
+    instrument [94] = _094Pad_7_halo;
+    instrument [95] = _095Pad_8_sweep;
+    instrument [96] = _096FX_1_rain;
+    instrument [97] = _097FX_2_soundtrack;
+    instrument [98] = _098FX_3_crystal;
+    instrument [99] = _099FX_4_atmosphere;
+    instrument [100] = _100FX_5_brightness;
+    instrument [101] = _101FX_6_goblins;
+    instrument [102] = _102FX_7_echoes;
+    instrument [103] = _103FX_8_sci_fi;
+    instrument [104] = _104Sitar;
+    instrument [105] = _105Banjo;
+    instrument [106] = _106Shamisen;
+    instrument [107] = _107Koto;
+    instrument [108] = _108Kalimba;
+    instrument [109] = _109Bag_pipe;
+    instrument [110] = _110Fiddle;
+    instrument [111] = _111Shanai;
+    instrument [112] = _112Tinkle_Bell;
+    instrument [113] = _113Agogo;
+    instrument [114] = _114Steel_Drums;
+    instrument [115] = _115Woodblock;
+    instrument [116] = _116Taiko_Drum;
+    instrument [117] = _117Melodic_Tom;
+    instrument [118] = _118Synth_Drum;
+    instrument [119] = _119Reverse_Cymbal;
+    instrument [120] = _120Guitar_Fret_Noise;
+    instrument [121] = _121Breath_Noise;
+    instrument [122] = _122Seashore;
+    instrument [123] = _123Bird_Tweet;
+    instrument [124] = _124Telephone_Ring;
+    instrument [125] = _125Helicopter;
+    instrument [126] = _126Applause;
+    instrument [127] = Percussion;
+}

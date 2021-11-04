@@ -22,12 +22,12 @@ glabel _sfxtableSegmentRomEnd
 #else
 
 glabel _miditableSegmentRomStart
-.incbin "audio/bgm/bank/GenMidiBank.tbl"
+.incbin "audio/bgm/bank/DrumsOnGunshot.tbl"
 .balign 16
 glabel _miditableSegmentRomEnd
 
 glabel _midibankSegmentRomStart
-.incbin "audio/bgm/bank/GenMidiBank.ctl"
+.incbin "audio/bgm/bank/DrumsOnGunshot.ctl"
 .balign 16
 glabel _midibankSegmentRomEnd
 
