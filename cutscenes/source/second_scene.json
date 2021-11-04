@@ -3,5 +3,7 @@
 
   "imageKey1": "bedroom",
   "imageKey2": "stars",
-  "imageKey3": "test_a"
+  "imageKey3": "test_a",
+
+  "bgm": -1
 }

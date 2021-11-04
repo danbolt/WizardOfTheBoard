@@ -93,7 +93,7 @@ getCutsceneOffset (register const char *str, register size_t len)
   static struct cutsceneMappingData wordlist[] =
     {
 #line 9 "cutscene-gperf-mapping"
-      {"test_scene",64},
+      {"test_scene",68},
 #line 8 "cutscene-gperf-mapping"
       {"second_scene",0}
     };

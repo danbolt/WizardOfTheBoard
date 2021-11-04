@@ -3,5 +3,7 @@
 
   "imageKey1": "restarea",
   "imageKey2": "test_a",
-  "imageKey3": ""
+  "imageKey3": "",
+
+  "bgm": 6
 }

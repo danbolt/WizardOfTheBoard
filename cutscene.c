@@ -6,6 +6,7 @@
 
 #include "backgroundbuffers.h"
 #include "main.h"
+#include "gameaudio.h"
 #include "graphic.h"
 #include "nustdfuncs.h"
 #include "segmentinfo.h"
@@ -19,7 +20,7 @@
 #include <nualsgi.h>
 #endif
 
-static CutsceneInfo infoForOurCutscene;
+static CutsceneInfo infoForOurCutscene __attribute__((aligned(8)));
 
 const char* cutsceneToLoad;
 
@@ -31,7 +32,7 @@ static u8 internalBackgroundIndex;
 static u8 isFading;
 static float backgroundFadeTime;
 
-#define FADE_IN_TIME 1.24f
+#define FADE_IN_TIME 2.24f
 #define FADE_OUT_TIME 1.5f
 #define DONE_TIME 0.56f
 
@@ -73,6 +74,10 @@ void initCutscene() {
     nuPiReadRom((u32)(_packedbackgroundsSegmentRomStart + bg3->offset), backgroundBuffers[2], 320 * 240 * 2);
   } else {
     bzero(backgroundBuffers[2], 320 * 240 * 2);
+  }
+
+  if (infoForOurCutscene.bgmIndex > -1) {
+    playMusic((u32)(infoForOurCutscene.bgmIndex));
   }
 }
 
@@ -148,7 +153,7 @@ void makeCutsceneDisplaylist() {
 
   nuDebConClear(0);
   nuDebConTextPos(0, 2, 22);
-  sprintf(conbuf,"cutscene");
+  sprintf(conbuf,"bgm index %d", infoForOurCutscene.bgmIndex);
   nuDebConCPuts(0, conbuf);
 
   nuDebConTextPos(0, 2, 24);
@@ -200,6 +205,7 @@ void updatePlayingDialogue() {
 
   cutsceneTime = 0.f;
   cutsceneState = CUTSCENE_FADING_OUT;
+  fadeOutMusic();
 }
 
 void updateFadingOut() {

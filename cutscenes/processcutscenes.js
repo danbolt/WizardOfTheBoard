@@ -10,6 +10,8 @@ const structs = sharedStructs(`
     uint8_t imageKey1[16];
     uint8_t imageKey2[16];
     uint8_t imageKey3[16];
+
+    int32_t bgmIndex;
   }
 `, {
   alignment: {
@@ -28,6 +30,16 @@ const processedCutscenes = cutsceneFiles.map((filename, i) => {
   }
 })
 
+
+// Endianness flip from:
+// https://stackoverflow.com/questions/5320439/how-do-i-swap-endian-ness-byte-order-of-a-variable-in-javascript
+function swap32(val) {
+    return ((val & 0xFF) << 24)
+           | ((val & 0xFF00) << 8)
+           | ((val >> 8) & 0xFF00)
+           | ((val >> 24) & 0xFF);
+}
+
 // Convert the cutscenes into their raw buffers
 const cutsceneItems = processedCutscenes.map((map, i) => {
 
@@ -41,7 +53,7 @@ const cutsceneItems = processedCutscenes.map((map, i) => {
   strings.encode(map.data.imageKey2.substring(0, 15), struct.imageKey2);
   strings.encode(map.data.imageKey3.substring(0, 15), struct.imageKey3);
   
-
+  struct.bgmIndex = swap32(map.data.bgm);
 
   return struct;
 })

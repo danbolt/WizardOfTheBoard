@@ -10,6 +10,8 @@ typedef struct {
   unsigned char imageKey1[16];
   unsigned char imageKey2[16];
   unsigned char imageKey3[16];
+
+  int bgmIndex;
 } CutsceneInfo;
 
 // Set this before calling `initCutscene`!

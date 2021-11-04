@@ -28,7 +28,7 @@ static int dialogueBoxY;
 #define STRUCT_FLAG_SHOW_BG_2 2
 #define STRUCT_FLAG_SHOW_BG_3 3
 
-#define DEFAULT_BIP_NOISE SFX_02_NOBODY_BIP
+#define DEFAULT_BIP_NOISE SFX_03_PROTAG_BIP
 
 typedef union {
   DialogueItem item;
