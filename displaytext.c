@@ -11,6 +11,22 @@ void loadDisplayText() {
   nuPiReadRom((u32)(_display_textSegmentRomStart), (void*)(displayTextTexture), TMEM_SIZE_BYTES);
 }
 
+int measureDisplayText(const char* text) {
+  int sum = 0;
+
+  for (int i = 0; text[i] != '\0'; i++) {
+    sum += DISPLAY_FONT_LETTER_WIDTH;
+
+    if (text[i] == 'I') {
+      sum -= 6;
+    } else if (text[i] == ' ') {
+      sum -= (DISPLAY_FONT_LETTER_WIDTH - 6);
+    }
+  }
+
+  return sum;
+}
+
 void renderDisplayText(int x, int y, const char* text) {
   int advance = x;
   int ySpot = y;

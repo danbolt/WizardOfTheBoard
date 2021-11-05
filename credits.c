@@ -2,15 +2,39 @@
 
 #include <nusys.h>
 
+#include "displaytext.h"
 #include "graphic.h"
 #include "main.h"
 #include "sixtwelve.h"
 #include "sixtwelve_helpers.h"
 
+#define MAX_NAMES_PER_CREDIT_ITEM 8
+
+typedef struct {
+  const char* title;
+
+  u32 numberOfItems;
+  const char* names[MAX_NAMES_PER_CREDIT_ITEM];
+} CreditsItem;
+
+CreditsItem palTesting = {
+  "PAL TESTING",
+
+  2,
+  {
+  "kivan117",
+  "gravatos",
+  }
+};
+
+CreditsItem* currentCreditItem;
+
 static float creditsTime;
 
 void initCredits() {
   creditsTime = 0.f;
+
+  currentCreditItem = &palTesting;
 }
 
 void writeString(int x, int y, const char* str) {
@@ -61,9 +85,31 @@ void makeCreditsDisplaylist() {
   gSPTexture(glistp++, 0xffff, 0xffff, 0, G_TX_RENDERTILE, G_ON);
   gSPClipRatio(glistp++, FRUSTRATIO_2);
 
-  gDPPipeSync(glistp++);
-  gDPLoadTextureBlock_4b(glistp++, sixtwelve_tex, G_IM_FMT_IA, SIXTWELVE_TEXTURE_WIDTH, SIXTWELVE_TEXTURE_HEIGHT, 0, G_TX_MIRROR | G_TX_WRAP, G_TX_MIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
-  writeString(32, 32, "hello, world!");
+
+  
+  
+
+  if (currentCreditItem != NULL) {
+
+    const int namesVerticalSpot = (SCREEN_HT - (MIN(MAX_NAMES_PER_CREDIT_ITEM ,currentCreditItem->numberOfItems) * (SIXTWELVE_LINE_HEIGHT + 2))) / 2 + 16;
+
+    const int titleWidth = measureDisplayText(currentCreditItem->title);
+    const int titleVerticalSpot = namesVerticalSpot - 32;
+    const int titleHorizontalSpot = (SCREEN_WD - titleWidth) / 2;
+
+    gDPPipeSync(glistp++);
+    gDPLoadTextureBlock_4b(glistp++, OS_K0_TO_PHYSICAL(displayTextTexture), G_IM_FMT_IA, 512, 16, 0, G_TX_NOMIRROR, G_TX_NOMIRROR, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
+    renderDisplayText(titleHorizontalSpot, titleVerticalSpot, currentCreditItem->title);
+
+    gDPPipeSync(glistp++);
+    gDPLoadTextureBlock_4b(glistp++, sixtwelve_tex, G_IM_FMT_IA, SIXTWELVE_TEXTURE_WIDTH, SIXTWELVE_TEXTURE_HEIGHT, 0, G_TX_MIRROR | G_TX_WRAP, G_TX_MIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
+    for (int i = 0; i < MIN(MAX_NAMES_PER_CREDIT_ITEM ,currentCreditItem->numberOfItems); i++) {
+
+      s32 lineWidth = (s32)sixtwelve_calculate_string_crass_width(currentCreditItem->names[i]);
+      int xSpot = (SCREEN_WD - (lineWidth / 2)) / 2;
+      writeString(xSpot, namesVerticalSpot + (i * (SIXTWELVE_LINE_HEIGHT + 2)), currentCreditItem->names[i]);
+    }
+  }
 
   gDPFullSync(glistp++);
   gSPEndDisplayList(glistp++);
