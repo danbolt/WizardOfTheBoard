@@ -104,7 +104,7 @@ void initCredits() {
   currentCreditIndex = 0;
   fadedOutMusic = 0;
 
-  //playMusic(TRACK_05_OVERTURE);
+  playMusic(TRACK_08_OVERTURE_ENDING);
 }
 
 void writeString(int x, int y, const char* str) {
