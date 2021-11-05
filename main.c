@@ -3,6 +3,7 @@
 #include <nusys.h>
 #include "main.h"
 
+#include "credits.h"
 #include "betweenstages.h"
 #include "dialogue.h"
 #include "displaytext.h"
@@ -39,6 +40,12 @@ ScreenInfo betweenStagesStage = {
   updateBetweenStages,
   makeBetweenStagesDisplaylist
 };
+ScreenInfo creditsStage = {
+  initCredits,
+  updateCredits,
+  makeCreditsDisplaylist
+};
+
 
 ScreenInfo* currentStage;
 volatile ScreenInfo* nextStage;
@@ -68,7 +75,7 @@ void updateTime() {
 void initalizeGameData() {
   changeScreensFlag = 1;
   currentStage = NULL;
-  nextStage = &cutsceneStage;
+  nextStage = &creditsStage;
 
   loadDisplayText();
 
