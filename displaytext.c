@@ -13,6 +13,7 @@ void loadDisplayText() {
 
 int measureDisplayText(const char* text) {
   int sum = 0;
+  int maxSum = 0;
 
   for (int i = 0; text[i] != '\0'; i++) {
     sum += DISPLAY_FONT_LETTER_WIDTH;
@@ -21,10 +22,16 @@ int measureDisplayText(const char* text) {
       sum -= 6;
     } else if (text[i] == ' ') {
       sum -= (DISPLAY_FONT_LETTER_WIDTH - 6);
+    } else if (text[i] == '\n') {
+      sum = 0;
+    }
+
+    if (sum > maxSum) {
+      maxSum = sum;
     }
   }
 
-  return sum;
+  return maxSum;
 }
 
 void renderDisplayText(int x, int y, const char* text) {

@@ -392,7 +392,8 @@ void updateTitleScreen() {
         nextStage = &levelSelectStage;
         changeScreensFlag = 1;
       } else if (menuIndex == 2) {
-        // TODO: credits
+        nextStage = &creditsStage;
+        changeScreensFlag = 1;
       }
 
 

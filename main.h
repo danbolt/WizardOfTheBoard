@@ -41,6 +41,7 @@ extern ScreenInfo levelSelectStage;
 extern ScreenInfo cutsceneStage;
 extern ScreenInfo titleScreenStage;
 extern ScreenInfo betweenStagesStage;
+extern ScreenInfo creditsStage;
 
 extern volatile ScreenInfo* nextStage;
 
