@@ -23,7 +23,10 @@
 /* 07_contemplation.mid  */
 #define TRACK_07_CONTEMPLATION 6
 
-#define TRACK_COUNT 7
+/* 08_overture_ending.mid  */
+#define TRACK_08_OVERTURE_ENDING 7
+
+#define TRACK_COUNT 8
 
 
 #endif
