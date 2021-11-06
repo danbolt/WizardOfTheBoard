@@ -1216,6 +1216,9 @@ void updatePlayerInput() {
     chessboardSpotHighlighted.x = (int)(playerPosition.x - (sinCameraRot * 1.51f));
     chessboardSpotHighlighted.y = (int)(playerPosition.y + (cosCameraRot * 1.51f));
 
+    chessboardSpotHighlighted.x = MAX(0, MIN(chessboardSpotHighlighted.x, BOARD_WIDTH - 1));
+    chessboardSpotHighlighted.y = MAX(0, MIN(chessboardSpotHighlighted.y, BOARD_HEIGHT - 1));
+
   } else if((contdata[0].button & L_TRIG) || (contdata[0].stick_x < -7)) {
     playerOrientation += PLAYER_TURN_SPEED * deltaTimeSeconds;
 
