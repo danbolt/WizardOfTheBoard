@@ -340,11 +340,26 @@ static Gfx renderPuzzleSpaceCommands[] = {
   gsSPEndDisplayList()
 };
 
+int isPointLOSToTorch(const Vec2* pos, const Vec2* torchPos) {
+  for (int i = 0; i < 16; i++) {
+    Vec2 spot = { lerp(pos->x, torchPos->x, (float)i /  16.f), lerp(pos->y, torchPos->y, (float)i /  16.f) };
+
+    int occupiedSpaceIndex = isSpaceOccupied((int)(spot.x), (int)(spot.y));
+    if ((occupiedSpaceIndex > -1) && (pieceData[occupiedSpaceIndex].type == WALL)) {
+      return 0;
+    }
+  }
+
+  return 1;
+}
+
 // TODO: let us customize/randomize the textures for this on init time
 void generateFloorTiles() {
   Gfx* commands = floorDL;
   Vtx* verts = floorVerts;
   Vtx* lastLoad = verts;
+
+  const Vec2 torchPoints[4] = { { -1.f, -1.f }, { BOARD_WIDTH + 1.f, -1.f }, { BOARD_WIDTH + 1.f, BOARD_HEIGHT + 1.f }, { -1.f, BOARD_HEIGHT + 1.f } };
 
   
   gDPPipeSync(commands++);
@@ -353,16 +368,27 @@ void generateFloorTiles() {
     const int x = (i % BOARD_WIDTH);
     const int y = (i / BOARD_WIDTH);
 
+    u8 mod[4] = {0, 0, 0, 0};
+    const Vec2 boardPoints[4] = { {x + 0, y + 0}, { x + 1, y + 0 }, { x + 1, y + 1 }, { x + 0, y + 1 } };
+    for (int i = 0; i < 4; i++) {
+      for (int j = 0; j < 4; j++) {
+        int pointHasLOSToTorch = isPointLOSToTorch(&(boardPoints[i]), &(torchPoints[j]));
+        if (!pointHasLOSToTorch) {
+          mod[i] += 0x18;
+        }
+      }
+    }
+
     if (tileIsDark(x, y)) {
-      *(verts++) = (Vtx){ x + 0, y + 0,  0, 0,  0 << 5,  0 << 5, 0x33, 0x33, 0x88 - ((i / BOARD_WIDTH) * 14), 0xff };
-      *(verts++) = (Vtx){ x + 1, y + 0,  0, 0, 32 << 5,  0 << 5, 0x33, 0x33, 0x88 - ((i / BOARD_WIDTH) * 14), 0xff };
-      *(verts++) = (Vtx){ x + 1, y + 1,  0, 0, 32 << 5, 32 << 5, 0x33, 0x33, 0x88 - ((i / BOARD_WIDTH) * 14), 0xff };
-      *(verts++) = (Vtx){ x + 0, y + 1,  0, 0,  0 << 5, 32 << 5, 0x33, 0x33, 0x88 - ((i / BOARD_WIDTH) * 14), 0xff };
+      *(verts++) = (Vtx){ x + 0, y + 0,  0, 0,  0 << 5,  0 << 5, 0x33- (mod[0] >> 2), 0x33- (mod[0] >> 2), 0x88 - ((i / BOARD_WIDTH) * 14) - (mod[0] >> 2), 0xff };
+      *(verts++) = (Vtx){ x + 1, y + 0,  0, 0, 32 << 5,  0 << 5, 0x33- (mod[1] >> 2), 0x33- (mod[1] >> 2), 0x88 - ((i / BOARD_WIDTH) * 14) - (mod[1] >> 2), 0xff };
+      *(verts++) = (Vtx){ x + 1, y + 1,  0, 0, 32 << 5, 32 << 5, 0x33- (mod[2] >> 2), 0x33- (mod[2] >> 2), 0x88 - ((i / BOARD_WIDTH) * 14) - (mod[2] >> 2), 0xff };
+      *(verts++) = (Vtx){ x + 0, y + 1,  0, 0,  0 << 5, 32 << 5, 0x33- (mod[3] >> 2), 0x33- (mod[3] >> 2), 0x88 - ((i / BOARD_WIDTH) * 14) - (mod[3] >> 2), 0xff };
     } else {
-      *(verts++) = (Vtx){ x + 0, y + 0,  0, 0,  0 << 5,  0 << 5, 0xbf, 0xbf, 0xbf - (y * 15), 0xff };
-      *(verts++) = (Vtx){ x + 1, y + 0,  0, 0, 32 << 5,  0 << 5, 0xbf, 0xbf, 0xbf - (y * 15), 0xff };
-      *(verts++) = (Vtx){ x + 1, y + 1,  0, 0, 32 << 5, 32 << 5, 0xbf, 0xbf, 0xbf - (y * 15), 0xff };
-      *(verts++) = (Vtx){ x + 0, y + 1,  0, 0,  0 << 5, 32 << 5, 0xbf, 0xbf, 0xbf - (y * 15), 0xff };
+      *(verts++) = (Vtx){ x + 0, y + 0,  0, 0,  0 << 5,  0 << 5, 0xbf - mod[0], 0xbf - mod[0], 0xbf - (y * 15)- (mod[0]), 0xff };
+      *(verts++) = (Vtx){ x + 1, y + 0,  0, 0, 32 << 5,  0 << 5, 0xbf - mod[1], 0xbf - mod[1], 0xbf - (y * 15)- (mod[1]), 0xff };
+      *(verts++) = (Vtx){ x + 1, y + 1,  0, 0, 32 << 5, 32 << 5, 0xbf - mod[2], 0xbf - mod[2], 0xbf - (y * 15)- (mod[2]), 0xff };
+      *(verts++) = (Vtx){ x + 0, y + 1,  0, 0,  0 << 5, 32 << 5, 0xbf - mod[3], 0xbf - mod[3], 0xbf - (y * 15)- (mod[3]), 0xff };
     }
 
     if ((verts - lastLoad) >= VERT_BUFFER_SIZE) {
