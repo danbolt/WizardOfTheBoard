@@ -585,6 +585,38 @@ static Vtx decorVerts[] = {
   { -1,   9, 1,  0,       96 << 5, 32 << 5,   0x1a, 0x23, 0x23, 0xff },
 };
 
+static Vtx fireVerts[] = {
+  { -1,   1,  2,  0,       50 << 5,  0 << 5,   0xff, 0xb2, 0x10, 0xff },
+  {  1,  -1,  2,  0,       63 << 5,  0 << 5,   0xff, 0xb2, 0x10, 0xff },
+  {  1,  -1,  0,  0,       63 << 5, 12 << 5,   0xac, 0x4c, 0x00, 0xff },
+  { -1,   1,  0,  0,       50 << 5, 12 << 5,   0xac, 0x4c, 0x00, 0xff },
+
+  {  1,  BOARD_HEIGHT + 1,  2,  0,       63 << 5, 12 << 5,   0xff, 0xb2, 0x10, 0xff },
+  { -1,   BOARD_HEIGHT   ,  2,  0,       50 << 5, 12 << 5,   0xff, 0xb2, 0x10, 0xff },
+  { -1,   BOARD_HEIGHT   ,  0,  0,       50 << 5, 24 << 5,   0xac, 0x4c, 0x00, 0xff },
+  {  1,  BOARD_HEIGHT + 1,  0,  0,       63 << 5, 24 << 5,   0xac, 0x4c, 0x00, 0xff },
+
+  {  BOARD_WIDTH + 1,  BOARD_HEIGHT    ,  2,  0,       50 << 5,  0 << 5,   0xff, 0xb2, 0x10, 0xff },
+  {  BOARD_WIDTH    ,  BOARD_HEIGHT + 1,  2,  0,       63 << 5,  0 << 5,   0xff, 0xb2, 0x10, 0xff },
+  {  BOARD_WIDTH    ,  BOARD_HEIGHT + 1,  0,  0,       63 << 5, 12 << 5,   0xac, 0x4c, 0x00, 0xff },
+  {  BOARD_WIDTH + 1,  BOARD_HEIGHT    ,  0,  0,       50 << 5, 12 << 5,   0xac, 0x4c, 0x00, 0xff },
+
+  { BOARD_WIDTH    ,  -1,  2,  0,       50 << 5, 12 << 5,   0xff, 0xb2, 0x10, 0xff },
+  { BOARD_WIDTH + 1,   1,  2,  0,       63 << 5, 12 << 5,   0xff, 0xb2, 0x10, 0xff },
+  { BOARD_WIDTH + 1,   1,  0,  0,       63 << 5, 24 << 5,   0xac, 0x4c, 0x00, 0xff },
+  { BOARD_WIDTH    ,  -1,  0,  0,       50 << 5, 24 << 5,   0xac, 0x4c, 0x00, 0xff },
+};
+
+
+static Gfx fireCommands[] = {
+  gsSPVertex(fireVerts, 16, 0),
+  gsSP2Triangles(0, 1, 2, 0, 0, 2, 3, 0),
+  gsSP2Triangles(4, 5, 6, 0, 4, 6, 7, 0),
+  gsSP2Triangles(8, 9,10, 0, 8,10,11, 0),
+  gsSP2Triangles(12,13,14, 0,12,14,15, 0),
+  gsSPEndDisplayList()
+};
+
 static Gfx decorCommands[] = {
   gsSPVertex(decorVerts, 64, 0),
   gsSP2Triangles(0, 1, 2, 0, 0, 2, 3, 0),
@@ -606,6 +638,7 @@ static Gfx decorCommands[] = {
   gsSP2Triangles( 4 + 48,  5 + 48,  6 + 48, 0,  4 + 48,  6 + 48,  7 + 48, 0),
   gsSP2Triangles( 8 + 48,  9 + 48, 10 + 48, 0,  8 + 48, 10 + 48, 11 + 48, 0),
   gsSP2Triangles(12 + 48, 13 + 48, 14 + 48, 0, 12 + 48, 14 + 48, 15 + 48, 0),
+
   gsSPEndDisplayList()
 };
 
@@ -934,6 +967,7 @@ void makeDL00(void)
   gSPTexture(glistp++, 0xffff, 0xffff, 0, G_TX_RENDERTILE, G_ON);
 
   gSPDisplayList(glistp++, OS_K0_TO_PHYSICAL(decorCommands));
+  gSPDisplayList(glistp++, OS_K0_TO_PHYSICAL(fireCommands));
 
   gSPDisplayList(glistp++, OS_K0_TO_PHYSICAL(floorDL));
 
