@@ -607,9 +607,30 @@ static Vtx fireVerts[] = {
   { BOARD_WIDTH    ,  -1,  0,  0,       50 << 5, 24 << 5,   0xac, 0x4c, 0x00, 0xff },
 };
 
+static Vtx fireVerts2[] = {
+  { -1,   1,  2,  0,       50 << 5, 12 << 5,   0xff, 0xb2, 0x10, 0xff },
+  {  1,  -1,  2,  0,       63 << 5, 12 << 5,   0xff, 0xb2, 0x10, 0xff },
+  {  1,  -1,  0,  0,       63 << 5, 24 << 5,   0xac, 0x4c, 0x00, 0xff },
+  { -1,   1,  0,  0,       50 << 5, 24 << 5,   0xac, 0x4c, 0x00, 0xff },
+
+  {  1,  BOARD_HEIGHT + 1,  2,  0,       63 << 5,  0 << 5,   0xff, 0xb2, 0x10, 0xff },
+  { -1,   BOARD_HEIGHT   ,  2,  0,       50 << 5,  0 << 5,   0xff, 0xb2, 0x10, 0xff },
+  { -1,   BOARD_HEIGHT   ,  0,  0,       50 << 5, 12 << 5,   0xac, 0x4c, 0x00, 0xff },
+  {  1,  BOARD_HEIGHT + 1,  0,  0,       63 << 5, 12 << 5,   0xac, 0x4c, 0x00, 0xff },
+
+  {  BOARD_WIDTH + 1,  BOARD_HEIGHT    ,  2,  0,       50 << 5, 12 << 5,   0xff, 0xb2, 0x10, 0xff },
+  {  BOARD_WIDTH    ,  BOARD_HEIGHT + 1,  2,  0,       63 << 5, 12 << 5,   0xff, 0xb2, 0x10, 0xff },
+  {  BOARD_WIDTH    ,  BOARD_HEIGHT + 1,  0,  0,       63 << 5, 24 << 5,   0xac, 0x4c, 0x00, 0xff },
+  {  BOARD_WIDTH + 1,  BOARD_HEIGHT    ,  0,  0,       50 << 5, 24 << 5,   0xac, 0x4c, 0x00, 0xff },
+
+  { BOARD_WIDTH    ,  -1,  2,  0,       50 << 5,  0 << 5,   0xff, 0xb2, 0x10, 0xff },
+  { BOARD_WIDTH + 1,   1,  2,  0,       63 << 5,  0 << 5,   0xff, 0xb2, 0x10, 0xff },
+  { BOARD_WIDTH + 1,   1,  0,  0,       63 << 5, 12 << 5,   0xac, 0x4c, 0x00, 0xff },
+  { BOARD_WIDTH    ,  -1,  0,  0,       50 << 5, 12 << 5,   0xac, 0x4c, 0x00, 0xff },
+};
+
 
 static Gfx fireCommands[] = {
-  gsSPVertex(fireVerts, 16, 0),
   gsSP2Triangles(0, 1, 2, 0, 0, 2, 3, 0),
   gsSP2Triangles(4, 5, 6, 0, 4, 6, 7, 0),
   gsSP2Triangles(8, 9,10, 0, 8,10,11, 0),
@@ -967,6 +988,10 @@ void makeDL00(void)
   gSPTexture(glistp++, 0xffff, 0xffff, 0, G_TX_RENDERTILE, G_ON);
 
   gSPDisplayList(glistp++, OS_K0_TO_PHYSICAL(decorCommands));
+
+
+  const u32 oddFireFrame = (((int)(gameplayTimePassed * 8.f)) % 2 == 0);
+  gSPVertex(glistp++, oddFireFrame ? fireVerts : fireVerts2, 16, 0);
   gSPDisplayList(glistp++, OS_K0_TO_PHYSICAL(fireCommands));
 
   gSPDisplayList(glistp++, OS_K0_TO_PHYSICAL(floorDL));
