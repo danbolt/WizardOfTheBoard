@@ -1,7 +1,9 @@
 #include <assert.h>
 #include <nusys.h>
 
+#include "backgroundbuffers.h"
 #include "constants.h"
+#include "cutscene_backgrounds/backgroundlookup.h"
 #include "dialogue.h"
 #include "displaytext.h"
 #include "main.h"
@@ -463,6 +465,62 @@ void generateWalls() {
   gSPEndDisplayList(commands++);
 }
 
+void generateTopOfTheTowerWalls() {
+  Gfx* commands = wallDL;
+  Vtx* verts = wallVerts;
+  Vtx* lastLoad = verts;
+
+  for (int i = 0; i < BOARD_WIDTH; i++) {
+    *(verts++) = (Vtx){ i + 1, 0,  0, 0,  64 << 5,  0 << 5, 0x8d, 0x5a, 0x8a, 0xff };
+    *(verts++) = (Vtx){ i + 0, 0,  0, 0,  96 << 5,  0 << 5, 0x8d, 0x5a, 0x8a, 0xff };
+    *(verts++) = (Vtx){ i + 0,-1,  0, 0,  96 << 5, 32 << 5, 0x8d, 0x5a, 0x8a, 0xff };
+    *(verts++) = (Vtx){ i + 1,-1,  0, 0,  64 << 5, 32 << 5, 0x8d, 0x5a, 0x8a, 0xff };
+  }
+  gSPVertex(commands++, &(lastLoad[0]), (BOARD_WIDTH * 4), 0);
+  for (int j = 0; j < (BOARD_WIDTH * 4); j += 4) {
+    gSP2Triangles(commands++, j + 0, j + 1, j + 2, 0, j + 0, j + 2, j + 3, 0);
+  }
+  lastLoad = verts;
+
+  for (int i = 0; i < BOARD_WIDTH; i++) {
+    *(verts++) = (Vtx){ i + 0, BOARD_HEIGHT,  0, 0,  64 << 5,  0 << 5, 0x8d, 0x5a, 0x8a, 0xff };
+    *(verts++) = (Vtx){ i + 1, BOARD_HEIGHT,  0, 0,  96 << 5,  0 << 5, 0x8d, 0x5a, 0x8a, 0xff };
+    *(verts++) = (Vtx){ i + 1, BOARD_HEIGHT + 1,  0, 0,  96 << 5, 32 << 5, 0x8d, 0x5a, 0x8a, 0xff };
+    *(verts++) = (Vtx){ i + 0, BOARD_HEIGHT + 1,  0, 0,  64 << 5, 32 << 5, 0x8d, 0x5a, 0x8a, 0xff };
+  }
+  gSPVertex(commands++, &(lastLoad[0]), (BOARD_WIDTH * 4), 0);
+  for (int j = 0; j < (BOARD_WIDTH * 4); j += 4) {
+    gSP2Triangles(commands++, j + 0, j + 1, j + 2, 0, j + 0, j + 2, j + 3, 0);
+  }
+  lastLoad = verts;
+
+  for (int i = 0; i < BOARD_HEIGHT; i++) {
+    *(verts++) = (Vtx){ 0, i + 0,  0, 0,  64 << 5,  0 << 5, 0x8d, 0x5a, 0x8a, 0xff };
+    *(verts++) = (Vtx){ 0, i + 1,  0, 0,  96 << 5,  0 << 5, 0x8d, 0x5a, 0x8a, 0xff };
+    *(verts++) = (Vtx){-1, i + 1,  0, 0,  96 << 5, 32 << 5, 0x8d, 0x5a, 0x8a, 0xff };
+    *(verts++) = (Vtx){-1, i + 0,  0, 0,  64 << 5, 32 << 5, 0x8d, 0x5a, 0x8a, 0xff };
+  }
+  gSPVertex(commands++, &(lastLoad[0]), (BOARD_HEIGHT * 4), 0);
+  for (int j = 0; j < (BOARD_HEIGHT * 4); j += 4) {
+    gSP2Triangles(commands++, j + 0, j + 1, j + 2, 0, j + 0, j + 2, j + 3, 0);
+  }
+  lastLoad = verts;
+
+  for (int i = 0; i < BOARD_HEIGHT; i++) {
+    *(verts++) = (Vtx){ BOARD_WIDTH, i + 1,  0, 0,  64 << 5,  0 << 5, 0x8d, 0x5a, 0x8a, 0xff };
+    *(verts++) = (Vtx){ BOARD_WIDTH, i + 0,  0, 0,  96 << 5,  0 << 5, 0x8d, 0x5a, 0x8a, 0xff };
+    *(verts++) = (Vtx){ BOARD_WIDTH + 1, i + 0,  0, 0,  96 << 5, 32 << 5, 0x8d, 0x5a, 0x8a, 0xff };
+    *(verts++) = (Vtx){ BOARD_WIDTH + 1, i + 1,  0, 0,  64 << 5, 32 << 5, 0x8d, 0x5a, 0x8a, 0xff };
+  }
+  gSPVertex(commands++, &(lastLoad[0]), (BOARD_HEIGHT * 4), 0);
+  for (int j = 0; j < (BOARD_HEIGHT * 4); j += 4) {
+    gSP2Triangles(commands++, j + 0, j + 1, j + 2, 0, j + 0, j + 2, j + 3, 0);
+  }
+  lastLoad = verts;
+
+  gSPEndDisplayList(commands++);
+}
+
 
 static Vtx HUDBackgroundVerts[] = {
   {             ACTION_SAFE_HORIZONTAL,                    0,  0, 0,               ACTION_SAFE_HORIZONTAL << 5,  0 << 5, 0x1d, 0x61, 0x50, 0xff },
@@ -611,6 +669,31 @@ static Vtx decorVerts[] = {
   { -1,   9, 1,  0,       96 << 5, 32 << 5,   0x1a, 0x23, 0x23, 0xff },
 };
 
+static Gfx decorCommands[] = {
+  gsSPVertex(decorVerts, 64, 0),
+  gsSP2Triangles(0, 1, 2, 0, 0, 2, 3, 0),
+  gsSP2Triangles(4, 5, 6, 0, 4, 6, 7, 0),
+  gsSP2Triangles(8, 9,10, 0, 8, 10,11, 0),
+  gsSP2Triangles(12, 13,14, 0,12,14,15, 0),
+
+  gsSP2Triangles( 0 + 16,  1 + 16,  2 + 16, 0,  0 + 16,  2 + 16,  3 + 16, 0),
+  gsSP2Triangles( 4 + 16,  5 + 16,  6 + 16, 0,  4 + 16,  6 + 16,  7 + 16, 0),
+  gsSP2Triangles( 8 + 16,  9 + 16, 10 + 16, 0,  8 + 16, 10 + 16, 11 + 16, 0),
+  gsSP2Triangles(12 + 16, 13 + 16, 14 + 16, 0, 12 + 16, 14 + 16, 15 + 16, 0),
+
+  gsSP2Triangles( 0 + 32,  1 + 32,  2 + 32, 0,  0 + 32,  2 + 32,  3 + 32, 0),
+  gsSP2Triangles( 4 + 32,  5 + 32,  6 + 32, 0,  4 + 32,  6 + 32,  7 + 32, 0),
+  gsSP2Triangles( 8 + 32,  9 + 32, 10 + 32, 0,  8 + 32, 10 + 32, 11 + 32, 0),
+  gsSP2Triangles(12 + 32, 13 + 32, 14 + 32, 0, 12 + 32, 14 + 32, 15 + 32, 0),
+
+  gsSP2Triangles( 0 + 48,  1 + 48,  2 + 48, 0,  0 + 48,  2 + 48,  3 + 48, 0),
+  gsSP2Triangles( 4 + 48,  5 + 48,  6 + 48, 0,  4 + 48,  6 + 48,  7 + 48, 0),
+  gsSP2Triangles( 8 + 48,  9 + 48, 10 + 48, 0,  8 + 48, 10 + 48, 11 + 48, 0),
+  gsSP2Triangles(12 + 48, 13 + 48, 14 + 48, 0, 12 + 48, 14 + 48, 15 + 48, 0),
+
+  gsSPEndDisplayList()
+};
+
 static Vtx fireVerts[] = {
   { -1,   1,  2,  0,       50 << 5,  0 << 5,   0xff, 0xb2, 0x10, 0xff },
   {  1,  -1,  2,  0,       63 << 5,  0 << 5,   0xff, 0xb2, 0x10, 0xff },
@@ -664,28 +747,65 @@ static Gfx fireCommands[] = {
   gsSPEndDisplayList()
 };
 
-static Gfx decorCommands[] = {
-  gsSPVertex(decorVerts, 64, 0),
+
+
+static Vtx topPillarVerts[] = {
+  { -1,  -1,  1,  0,       64 << 5,  0 << 5,   0x8d, 0x5a, 0x8a, 0xff },
+  {  0,  -1,  0,  0,       96 << 5,  0 << 5,   0x8d, 0x5a, 0x8a, 0xff },
+  {  0,  -1,  0,  0,       96 << 5, 32 << 5,   0x6d, 0x5a, 0x6a, 0xff },
+  {  0,   0,  0,  0,       64 << 5, 32 << 5,   0x6d, 0x5a, 0x6a, 0xff },
+
+  { -1,   0,  0,  0,       96 << 5,  0 << 5,   0x8d, 0x5a, 0x8a, 0xff },
+  { -1,  -1,  1,  0,       64 << 5,  0 << 5,   0x8d, 0x5a, 0x8a, 0xff },
+  {  0,   0,  0,  0,       64 << 5, 32 << 5,   0x6d, 0x5a, 0x6a, 0xff },
+  { -1,   0,  0,  0,       96 << 5, 32 << 5,   0x6d, 0x5a, 0x6a, 0xff },
+
+  { BOARD_WIDTH +  0,  -1,  0,  0,       96 << 5,  0 << 5,   0x8d, 0x5a, 0x8a, 0xff },
+  { BOARD_WIDTH +  1,  -1,  1,  0,       64 << 5,  0 << 5,   0x8d, 0x5a, 0x8a, 0xff },
+  { BOARD_WIDTH +  0,   0,  0,  0,       64 << 5, 32 << 5,   0x6d, 0x5a, 0x6a, 0xff },
+  { BOARD_WIDTH +  0,  -1,  0,  0,       96 << 5, 32 << 5,   0x6d, 0x5a, 0x6a, 0xff },
+
+  { BOARD_WIDTH +  1,  -1,  1,  0,       64 << 5,  0 << 5,   0x8d, 0x5a, 0x8a, 0xff },
+  { BOARD_WIDTH +  1,   0,  0,  0,       96 << 5,  0 << 5,   0x8d, 0x5a, 0x8a, 0xff },
+  { BOARD_WIDTH +  1,   0,  0,  0,       96 << 5, 32 << 5,   0x6d, 0x5a, 0x6a, 0xff },
+  { BOARD_WIDTH +  0,   0,  0,  0,       64 << 5, 32 << 5,   0x6d, 0x5a, 0x6a, 0xff },
+
+
+  {  0,  BOARD_HEIGHT +  1,  0,  0,       96 << 5,  0 << 5,   0x8d, 0x5a, 0x8a, 0xff },
+  { -1,  BOARD_HEIGHT +  1,  1,  0,       64 << 5,  0 << 5,   0x8d, 0x5a, 0x8a, 0xff },
+  {  0,  BOARD_HEIGHT +  0,  0,  0,       64 << 5, 32 << 5,   0x6d, 0x5a, 0x6a, 0xff },
+  {  0,  BOARD_HEIGHT +  1,  0,  0,       96 << 5, 32 << 5,   0x6d, 0x5a, 0x6a, 0xff },
+
+  { -1,  BOARD_HEIGHT +  1,  1,  0,       64 << 5,  0 << 5,   0x8d, 0x5a, 0x8a, 0xff },
+  { -1,  BOARD_HEIGHT +  0,  0,  0,       96 << 5,  0 << 5,   0x8d, 0x5a, 0x8a, 0xff },
+  { -1,  BOARD_HEIGHT +  0,  0,  0,       96 << 5, 32 << 5,   0x6d, 0x5a, 0x6a, 0xff },
+  {  0,  BOARD_HEIGHT +  0,  0,  0,       64 << 5, 32 << 5,   0x6d, 0x5a, 0x6a, 0xff },
+
+  { BOARD_WIDTH +  1,  BOARD_HEIGHT +  1,  1,  0,       64 << 5,  0 << 5,   0x8d, 0x5a, 0x8a, 0xff },
+  { BOARD_WIDTH +  0,  BOARD_HEIGHT +  1,  0,  0,       96 << 5,  0 << 5,   0x8d, 0x5a, 0x8a, 0xff },
+  { BOARD_WIDTH +  0,  BOARD_HEIGHT +  1,  0,  0,       96 << 5, 32 << 5,   0x6d, 0x5a, 0x6a, 0xff },
+  { BOARD_WIDTH +  0,  BOARD_HEIGHT +  0,  0,  0,       64 << 5, 32 << 5,   0x6d, 0x5a, 0x6a, 0xff },
+
+  { BOARD_WIDTH +  1,  BOARD_HEIGHT +  0,  0,  0,       96 << 5,  0 << 5,   0x8d, 0x5a, 0x8a, 0xff },
+  { BOARD_WIDTH +  1,  BOARD_HEIGHT +  1,  1,  0,       64 << 5,  0 << 5,   0x8d, 0x5a, 0x8a, 0xff },
+  { BOARD_WIDTH +  0,  BOARD_HEIGHT +  0,  0,  0,       64 << 5, 32 << 5,   0x6d, 0x5a, 0x6a, 0xff },
+  { BOARD_WIDTH +  1,  BOARD_HEIGHT +  0,  0,  0,       96 << 5, 32 << 5,   0x6d, 0x5a, 0x6a, 0xff },
+};
+
+
+static Gfx topPillarCommands[] = {
+  gsSPVertex(topPillarVerts, 32, 0),
   gsSP2Triangles(0, 1, 2, 0, 0, 2, 3, 0),
-  gsSP2Triangles(4, 5, 6, 0, 4, 6, 7, 0),
-  gsSP2Triangles(8, 9,10, 0, 8, 10,11, 0),
-  gsSP2Triangles(12, 13,14, 0,12,14,15, 0),
+  gsSP2Triangles(4, 5, 7, 0, 6, 7, 5, 0),
 
-  gsSP2Triangles( 0 + 16,  1 + 16,  2 + 16, 0,  0 + 16,  2 + 16,  3 + 16, 0),
-  gsSP2Triangles( 4 + 16,  5 + 16,  6 + 16, 0,  4 + 16,  6 + 16,  7 + 16, 0),
-  gsSP2Triangles( 8 + 16,  9 + 16, 10 + 16, 0,  8 + 16, 10 + 16, 11 + 16, 0),
-  gsSP2Triangles(12 + 16, 13 + 16, 14 + 16, 0, 12 + 16, 14 + 16, 15 + 16, 0),
+  gsSP2Triangles(0 + 8, 1 + 8, 2 + 8, 0, 0 + 8, 2 + 8, 3 + 8, 0),
+  gsSP2Triangles(4 + 8, 5 + 8, 7 + 8, 0, 6 + 8, 7 + 8, 5 + 8, 0),
 
-  gsSP2Triangles( 0 + 32,  1 + 32,  2 + 32, 0,  0 + 32,  2 + 32,  3 + 32, 0),
-  gsSP2Triangles( 4 + 32,  5 + 32,  6 + 32, 0,  4 + 32,  6 + 32,  7 + 32, 0),
-  gsSP2Triangles( 8 + 32,  9 + 32, 10 + 32, 0,  8 + 32, 10 + 32, 11 + 32, 0),
-  gsSP2Triangles(12 + 32, 13 + 32, 14 + 32, 0, 12 + 32, 14 + 32, 15 + 32, 0),
+  gsSP2Triangles(0 + 16, 1 + 16, 2 + 16, 0, 0 + 16, 2 + 16, 3 + 16, 0),
+  gsSP2Triangles(4 + 16, 5 + 16, 7 + 16, 0, 6 + 16, 7 + 16, 5 + 16, 0),
 
-  gsSP2Triangles( 0 + 48,  1 + 48,  2 + 48, 0,  0 + 48,  2 + 48,  3 + 48, 0),
-  gsSP2Triangles( 4 + 48,  5 + 48,  6 + 48, 0,  4 + 48,  6 + 48,  7 + 48, 0),
-  gsSP2Triangles( 8 + 48,  9 + 48, 10 + 48, 0,  8 + 48, 10 + 48, 11 + 48, 0),
-  gsSP2Triangles(12 + 48, 13 + 48, 14 + 48, 0, 12 + 48, 14 + 48, 15 + 48, 0),
-
+  gsSP2Triangles(0 + 24, 1 + 24, 2 + 24, 0, 0 + 24, 2 + 24, 3 + 24, 0),
+  gsSP2Triangles(4 + 24, 5 + 24, 7 + 24, 0, 6 + 24, 7 + 24, 5 + 24, 0),
   gsSPEndDisplayList()
 };
 
@@ -918,13 +1038,22 @@ void initStage00(void)
   gameState = GAME_STATE_ACTIVE;
   gameStateTime = 0.f;
 
+  struct backgroundMappingData* mapping = getBackgroundTextureOffset("stars", _nstrlen("stars"));
+  if (mapping != NULL) {
+    nuPiReadRom((u32)(_packedbackgroundsSegmentRomStart + mapping->offset), backgroundBuffers[0], 320 * 240 * 2);
+  }
+
   initializeMapFromROM(levels[(currentLevel % NUMBER_OF_LEVELS)].levelKey);
 
   isActive[0] = 1; // player is always active
   initializeMonsters(&mapInformation);
   initializePuzzleSpots(&mapInformation);
   initializeStartingPieces(&mapInformation);
-  generateWalls();
+  if (currentLevel == (NUMBER_OF_LEVELS - 1)) {
+    generateTopOfTheTowerWalls();
+  } else {
+    generateWalls();
+  }
   generateHUDChessboard();
   generateFloorTiles();
   loadInTextures();
@@ -1002,10 +1131,23 @@ void makeDL00(void)
 
   gDPPipeSync(glistp++);
   gDPSetCycleType(glistp++,G_CYC_1CYCLE);
-  gDPSetTexturePersp(glistp++, G_TP_PERSP);
+  gDPSetTexturePersp(glistp++, G_TP_NONE);
   gDPSetTextureFilter(glistp++, G_TF_POINT);
-  gDPSetCombineMode(glistp++, G_CC_MODULATEIA, G_CC_MODULATEIA);
+  gDPSetCombineMode(glistp++,G_CC_DECALRGBA, G_CC_DECALRGBA);
   gDPSetRenderMode(glistp++, G_RM_TEX_EDGE, G_RM_TEX_EDGE2);
+  gSPTexture(glistp++, 0xffff, 0xffff, 0, G_TX_RENDERTILE, G_ON);
+
+  if (currentLevel == (NUMBER_OF_LEVELS - 1)) {
+    for (int i = 0; i < (240 / 6); i++) {
+      gDPPipeSync(glistp++);
+      gDPLoadTextureTile(glistp++, backgroundBuffers[0], G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, 240, 0, (i * 6), 320 - 1, ((i + 1) * 6) - 1, 0, G_TX_WRAP, G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD );
+      gSPTextureRectangle(glistp++, 0 << 2, (0 + (i * 6)) << 2, (0 + 320) << 2, (0 + ((i + 1) * 6)) << 2, 0, 0 << 5, (i * 6) << 5, 1 << 10, 1 << 10);
+    }
+  }
+
+  gDPPipeSync(glistp++);
+  gDPSetTexturePersp(glistp++, G_TP_PERSP);
+  gDPSetCombineMode(glistp++, G_CC_MODULATEIA, G_CC_MODULATEIA);
   gDPLoadTextureBlock(glistp++,  OS_K0_TO_PHYSICAL(floorTexture), G_IM_FMT_IA, G_IM_SIZ_8b, 128, 32, 0, G_TX_NOMIRROR, G_TX_NOMIRROR, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
 
   gSPClearGeometryMode(glistp++,0xFFFFFFFF);
@@ -1013,12 +1155,16 @@ void makeDL00(void)
   gSPClipRatio(glistp++, FRUSTRATIO_6);
   gSPTexture(glistp++, 0xffff, 0xffff, 0, G_TX_RENDERTILE, G_ON);
 
-  gSPDisplayList(glistp++, OS_K0_TO_PHYSICAL(decorCommands));
 
 
-  const u32 oddFireFrame = (((int)(gameplayTimePassed * 8.f)) % 2 == 0);
-  gSPVertex(glistp++, oddFireFrame ? fireVerts : fireVerts2, 16, 0);
-  gSPDisplayList(glistp++, OS_K0_TO_PHYSICAL(fireCommands));
+  if (currentLevel != (NUMBER_OF_LEVELS - 1)) {
+    gSPDisplayList(glistp++, OS_K0_TO_PHYSICAL(decorCommands));
+    const u32 oddFireFrame = (((int)(gameplayTimePassed * 8.f)) % 2 == 0);
+    gSPVertex(glistp++, oddFireFrame ? fireVerts : fireVerts2, 16, 0);
+    gSPDisplayList(glistp++, OS_K0_TO_PHYSICAL(fireCommands));
+  } else {
+    gSPDisplayList(glistp++, OS_K0_TO_PHYSICAL(topPillarCommands));
+  }
 
   gSPDisplayList(glistp++, OS_K0_TO_PHYSICAL(floorDL));
 
