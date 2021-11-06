@@ -346,11 +346,8 @@ void generateFloorTiles() {
   Vtx* verts = floorVerts;
   Vtx* lastLoad = verts;
 
-  gDPSetCombineMode(commands++, G_CC_MODULATEIA, G_CC_MODULATEIA);
-  gDPSetRenderMode(commands++, G_RM_TEX_EDGE, G_RM_TEX_EDGE2);
-  gDPLoadTextureBlock(commands++,  OS_K0_TO_PHYSICAL(floorTexture), G_IM_FMT_IA, G_IM_SIZ_8b, 128, 32, 0, G_TX_NOMIRROR, G_TX_NOMIRROR, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
+  
   gDPPipeSync(commands++);
-  gSPTexture(commands++, 0xffff, 0xffff, 0, G_TX_RENDERTILE, G_ON);
 
   for (int i = 0; i < NUMBER_OF_BOARD_CELLS; i++) {
     const int x = (i % BOARD_WIDTH);
@@ -517,6 +514,100 @@ void generateHUDChessboard() {
 
   gSPEndDisplayList(commands++);
 }
+
+static Vtx decorVerts[] = {
+  { -4,  -1,  2,  0,       64 << 5, 0 << 5,   0x1d, 0x61, 0x50, 0xff },
+  {  0,  -1,  2,  0,       96 << 5, 0 << 5,   0x1d, 0x61, 0x50, 0xff },
+  {  0,  -1,  1,  0,       96 << 5, 32 << 5,   0x1a, 0x23, 0x23, 0xff },
+  { -4,  -1,  1,  0,       64 << 5, 32 << 5,   0x1a, 0x48, 0x48, 0xff },
+  {  0,  -1,  2,  0,       64 << 5, 0 << 5,   0x1d, 0x61, 0x50, 0xff },
+  {  4,  -1,  2,  0,       96 << 5, 0 << 5,   0x1d, 0x61, 0x50, 0xff },
+  {  4,  -1,  1,  0,       96 << 5, 32 << 5,   0x1a, 0x23, 0x23, 0xff },
+  {  0,  -1,  1,  0,       64 << 5, 32 << 5,   0x1a, 0x48, 0x48, 0xff },
+  {  4,  -1,  2,  0,       64 << 5, 0 << 5,   0x1d, 0x61, 0x50, 0xff },
+  {  8,  -1,  2,  0,       96 << 5, 0 << 5,   0x1d, 0x61, 0x50, 0xff },
+  {  8,  -1,  1,  0,       96 << 5, 32 << 5,   0x1a, 0x23, 0x23, 0xff },
+  {  4,  -1,  1,  0,       64 << 5, 32 << 5,   0x1a, 0x48, 0x48, 0xff },
+  {  8,  -1,  2,  0,       64 << 5, 0 << 5,   0x1d, 0x61, 0x50, 0xff },
+  { 12,  -1,  2,  0,       96 << 5, 0 << 5,   0x1d, 0x61, 0x50, 0xff },
+  { 12,  -1,  1,  0,       96 << 5, 32 << 5,   0x1a, 0x23, 0x23, 0xff },
+  {  8,  -1,  1,  0,       64 << 5, 32 << 5,   0x1a, 0x48, 0x48, 0xff },
+
+  {  0,   9,  2,  0,       96 << 5, 0 << 5,   0x1d, 0x61, 0x50, 0xff },
+  { -4,   9,  2,  0,       64 << 5, 0 << 5,   0x1d, 0x61, 0x50, 0xff },
+  { -4,   9,  1,  0,       64 << 5, 32 << 5,   0x1a, 0x48, 0x48, 0xff },
+  {  0,   9,  1,  0,       96 << 5, 32 << 5,   0x1a, 0x23, 0x23, 0xff },
+  {  4,   9,  2,  0,       96 << 5, 0 << 5,   0x1d, 0x61, 0x50, 0xff },
+  {  0,   9,  2,  0,       64 << 5, 0 << 5,   0x1d, 0x61, 0x50, 0xff },
+  {  0,   9,  1,  0,       64 << 5, 32 << 5,   0x1a, 0x48, 0x48, 0xff },
+  {  4,   9,  1,  0,       96 << 5, 32 << 5,   0x1a, 0x23, 0x23, 0xff },
+  {  8,   9,  2,  0,       96 << 5, 0 << 5,   0x1d, 0x61, 0x50, 0xff },
+  {  4,   9,  2,  0,       64 << 5, 0 << 5,   0x1d, 0x61, 0x50, 0xff },
+  {  4,   9,  1,  0,       64 << 5, 32 << 5,   0x1a, 0x48, 0x48, 0xff },
+  {  8,   9,  1,  0,       96 << 5, 32 << 5,   0x1a, 0x23, 0x23, 0xff },
+  { 12,   9,  2,  0,       96 << 5, 0 << 5,   0x1d, 0x61, 0x50, 0xff },
+  {  8,   9,  2,  0,       64 << 5, 0 << 5,   0x1d, 0x61, 0x50, 0xff },
+  {  8,   9,  1,  0,       64 << 5, 32 << 5,   0x1a, 0x48, 0x48, 0xff },
+  { 12,   9,  1,  0,       96 << 5, 32 << 5,   0x1a, 0x23, 0x23, 0xff },
+
+  {  9,  -1, 2,  0,       64 << 5, 0 << 5,   0x1d, 0x61, 0x50, 0xff },
+  {  9,   0, 2,  0,       96 << 5, 0 << 5,   0x1d, 0x61, 0x50, 0xff },
+  {  9,   0, 1,  0,       96 << 5, 32 << 5,   0x1a, 0x23, 0x23, 0xff },
+  {  9,  -1, 1,  0,       64 << 5, 32 << 5,   0x1a, 0x48, 0x48, 0xff },
+  {  9,   0, 2,  0,       64 << 5, 0 << 5,   0x1d, 0x61, 0x50, 0xff },
+  {  9,   4, 2,  0,       96 << 5, 0 << 5,   0x1d, 0x61, 0x50, 0xff },
+  {  9,   4, 1,  0,       96 << 5, 32 << 5,   0x1a, 0x23, 0x23, 0xff },
+  {  9,   0, 1,  0,       64 << 5, 32 << 5,   0x1a, 0x48, 0x48, 0xff },
+  {  9,   4, 2,  0,       64 << 5, 0 << 5,   0x1d, 0x61, 0x50, 0xff },
+  {  9,   8, 2,  0,       96 << 5, 0 << 5,   0x1d, 0x61, 0x50, 0xff },
+  {  9,   8, 1,  0,       96 << 5, 32 << 5,   0x1a, 0x23, 0x23, 0xff },
+  {  9,   4, 1,  0,       64 << 5, 32 << 5,   0x1a, 0x48, 0x48, 0xff },
+  {  9,   8, 2,  0,       64 << 5, 0 << 5,   0x1d, 0x61, 0x50, 0xff },
+  {  9,   9, 2,  0,       96 << 5, 0 << 5,   0x1d, 0x61, 0x50, 0xff },
+  {  9,   9, 1,  0,       96 << 5, 32 << 5,   0x1a, 0x23, 0x23, 0xff },
+  {  9,   8, 1,  0,       64 << 5, 32 << 5,   0x1a, 0x48, 0x48, 0xff },
+
+  { -1,   0, 2,  0,       96 << 5, 0 << 5,   0x1d, 0x61, 0x50, 0xff },
+  { -1,  -1, 2,  0,       64 << 5, 0 << 5,   0x1d, 0x61, 0x50, 0xff },
+  { -1,  -1, 1,  0,       64 << 5, 32 << 5,   0x1a, 0x48, 0x48, 0xff },
+  { -1,   0, 1,  0,       96 << 5, 32 << 5,   0x1a, 0x23, 0x23, 0xff },
+  { -1,   4, 2,  0,       96 << 5, 0 << 5,   0x1d, 0x61, 0x50, 0xff },
+  { -1,   0, 2,  0,       64 << 5, 0 << 5,   0x1d, 0x61, 0x50, 0xff },
+  { -1,   0, 1,  0,       64 << 5, 32 << 5,   0x1a, 0x48, 0x48, 0xff },
+  { -1,   4, 1,  0,       96 << 5, 32 << 5,   0x1a, 0x23, 0x23, 0xff },
+  { -1,   8, 2,  0,       96 << 5, 0 << 5,   0x1d, 0x61, 0x50, 0xff },
+  { -1,   4, 2,  0,       64 << 5, 0 << 5,   0x1d, 0x61, 0x50, 0xff },
+  { -1,   4, 1,  0,       64 << 5, 32 << 5,   0x1a, 0x48, 0x48, 0xff },
+  { -1,   8, 1,  0,       96 << 5, 32 << 5,   0x1a, 0x23, 0x23, 0xff },
+  { -1,   9, 2,  0,       96 << 5, 0 << 5,   0x1d, 0x61, 0x50, 0xff },
+  { -1,   8, 2,  0,       64 << 5, 0 << 5,   0x1d, 0x61, 0x50, 0xff },
+  { -1,   8, 1,  0,       64 << 5, 32 << 5,   0x1a, 0x48, 0x48, 0xff },
+  { -1,   9, 1,  0,       96 << 5, 32 << 5,   0x1a, 0x23, 0x23, 0xff },
+};
+
+static Gfx decorCommands[] = {
+  gsSPVertex(decorVerts, 64, 0),
+  gsSP2Triangles(0, 1, 2, 0, 0, 2, 3, 0),
+  gsSP2Triangles(4, 5, 6, 0, 4, 6, 7, 0),
+  gsSP2Triangles(8, 9,10, 0, 8, 10,11, 0),
+  gsSP2Triangles(12, 13,14, 0,12,14,15, 0),
+
+  gsSP2Triangles( 0 + 16,  1 + 16,  2 + 16, 0,  0 + 16,  2 + 16,  3 + 16, 0),
+  gsSP2Triangles( 4 + 16,  5 + 16,  6 + 16, 0,  4 + 16,  6 + 16,  7 + 16, 0),
+  gsSP2Triangles( 8 + 16,  9 + 16, 10 + 16, 0,  8 + 16, 10 + 16, 11 + 16, 0),
+  gsSP2Triangles(12 + 16, 13 + 16, 14 + 16, 0, 12 + 16, 14 + 16, 15 + 16, 0),
+
+  gsSP2Triangles( 0 + 32,  1 + 32,  2 + 32, 0,  0 + 32,  2 + 32,  3 + 32, 0),
+  gsSP2Triangles( 4 + 32,  5 + 32,  6 + 32, 0,  4 + 32,  6 + 32,  7 + 32, 0),
+  gsSP2Triangles( 8 + 32,  9 + 32, 10 + 32, 0,  8 + 32, 10 + 32, 11 + 32, 0),
+  gsSP2Triangles(12 + 32, 13 + 32, 14 + 32, 0, 12 + 32, 14 + 32, 15 + 32, 0),
+
+  gsSP2Triangles( 0 + 48,  1 + 48,  2 + 48, 0,  0 + 48,  2 + 48,  3 + 48, 0),
+  gsSP2Triangles( 4 + 48,  5 + 48,  6 + 48, 0,  4 + 48,  6 + 48,  7 + 48, 0),
+  gsSP2Triangles( 8 + 48,  9 + 48, 10 + 48, 0,  8 + 48, 10 + 48, 11 + 48, 0),
+  gsSP2Triangles(12 + 48, 13 + 48, 14 + 48, 0, 12 + 48, 14 + 48, 15 + 48, 0),
+  gsSPEndDisplayList()
+};
 
 static Vtx playerFOVHUDVerts[] = {
   {  0,  20,  0, 0, 128 << 5,  0 << 5, 0xff, 0xff, 0xff, 0xff },
@@ -829,14 +920,20 @@ void makeDL00(void)
   gSPMatrix(glistp++,OS_K0_TO_PHYSICAL(&(dynamicp->projection)), G_MTX_PROJECTION | G_MTX_LOAD | G_MTX_NOPUSH);
   gSPMatrix(glistp++,OS_K0_TO_PHYSICAL(&(dynamicp->camera)), G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH );
 
+  gDPPipeSync(glistp++);
   gDPSetCycleType(glistp++,G_CYC_1CYCLE);
   gDPSetTexturePersp(glistp++, G_TP_PERSP);
   gDPSetTextureFilter(glistp++, G_TF_POINT);
-  gDPSetRenderMode(glistp++,G_RM_OPA_SURF, G_RM_OPA_SURF2);
-  gDPPipeSync(glistp++);
+  gDPSetCombineMode(glistp++, G_CC_MODULATEIA, G_CC_MODULATEIA);
+  gDPSetRenderMode(glistp++, G_RM_TEX_EDGE, G_RM_TEX_EDGE2);
+  gDPLoadTextureBlock(glistp++,  OS_K0_TO_PHYSICAL(floorTexture), G_IM_FMT_IA, G_IM_SIZ_8b, 128, 32, 0, G_TX_NOMIRROR, G_TX_NOMIRROR, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
+
   gSPClearGeometryMode(glistp++,0xFFFFFFFF);
   gSPSetGeometryMode(glistp++,G_SHADE | G_SHADING_SMOOTH | G_CULL_BACK);
   gSPClipRatio(glistp++, FRUSTRATIO_6);
+  gSPTexture(glistp++, 0xffff, 0xffff, 0, G_TX_RENDERTILE, G_ON);
+
+  gSPDisplayList(glistp++, OS_K0_TO_PHYSICAL(decorCommands));
 
   gSPDisplayList(glistp++, OS_K0_TO_PHYSICAL(floorDL));
 
@@ -1181,18 +1278,18 @@ void makeDL00(void)
 
   assert((glistp - gfx_glist[gfx_gtask_no]) < GFX_GLIST_LEN);
 
-  nuGfxTaskStart(&gfx_glist[gfx_gtask_no][0], (s32)(glistp - gfx_glist[gfx_gtask_no]) * sizeof (Gfx), NU_GFX_UCODE_F3DLP_REJ , NU_SC_SWAPBUFFER);
+  nuGfxTaskStart(&gfx_glist[gfx_gtask_no][0], (s32)(glistp - gfx_glist[gfx_gtask_no]) * sizeof (Gfx), NU_GFX_UCODE_F3DLP_REJ , NU_SC_NOSWAPBUFFER);
 
-  // nuDebConClear(0);
-  // nuDebConTextPos(0,4,22);
-  // sprintf(conbuf,"DL: %04d/%04d", (glistp - gfx_glist[gfx_gtask_no]), GFX_GLIST_LEN);
-  // nuDebConCPuts(0, conbuf);
-  // nuDebConTextPos(0,4,23);
-  // sprintf(conbuf,"delta: %3.5f", deltaTimeSeconds);
-  // nuDebConCPuts(0, conbuf);
+  nuDebConClear(0);
+  nuDebConTextPos(0,4,22);
+  sprintf(conbuf,"DL: %04d/%04d", (glistp - gfx_glist[gfx_gtask_no]), GFX_GLIST_LEN);
+  nuDebConCPuts(0, conbuf);
+  nuDebConTextPos(0,4,23);
+  sprintf(conbuf,"delta: %3.5f", deltaTimeSeconds);
+  nuDebConCPuts(0, conbuf);
     
-  // /* Display characters on the frame buffer */
-  // nuDebConDisp(NU_SC_SWAPBUFFER);
+  /* Display characters on the frame buffer */
+  nuDebConDisp(NU_SC_SWAPBUFFER);
 
   /* Switch display list buffers */
   gfx_gtask_no = (gfx_gtask_no + 1) % BUFFER_COUNT;
