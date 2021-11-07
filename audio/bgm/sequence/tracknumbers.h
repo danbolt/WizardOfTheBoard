@@ -26,7 +26,10 @@
 /* 08_overture_ending.mid  */
 #define TRACK_08_OVERTURE_ENDING 7
 
-#define TRACK_COUNT 8
+/* 09_between_the_floors.mid  */
+#define TRACK_09_BETWEEN_THE_FLOORS 8
+
+#define TRACK_COUNT 9
 
 
 #endif
