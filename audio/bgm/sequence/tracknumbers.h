@@ -29,7 +29,10 @@
 /* 09_between_the_floors.mid  */
 #define TRACK_09_BETWEEN_THE_FLOORS 8
 
-#define TRACK_COUNT 9
+/* 10_harbour.mid  */
+#define TRACK_10_HARBOUR 9
+
+#define TRACK_COUNT 10
 
 
 #endif
