@@ -37,7 +37,7 @@
 #line 6 "map-gperf-mapping"
 struct dialogueMappingData;
 
-#define TOTAL_KEYWORDS 10
+#define TOTAL_KEYWORDS 11
 #define MIN_WORD_LENGTH 5
 #define MAX_WORD_LENGTH 14
 #define MIN_HASH_VALUE 0
@@ -61,12 +61,12 @@ hash (register const char *str, register size_t len)
       16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
       16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
       16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
-      16, 16, 16, 16, 16, 16, 16, 16, 16, 13,
-       8,  3, 14,  9, 16, 16, 16, 16, 16, 16,
+      16, 16, 16, 16, 16, 16, 16, 16, 16,  2,
+      13,  8,  3, 14, 16, 16, 16, 16, 16, 16,
       16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
       16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
       16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
-      16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+      16, 16, 16, 16, 16, 16, 16,  9, 16, 16,
       16,  4, 16, 16, 15, 16, 16, 10, 16, 16,
       16, 16,  5, 16, 16, 16,  0, 16, 16, 16,
       16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
@@ -92,27 +92,29 @@ getMapDataOffset (register const char *str, register size_t len)
 {
   static struct dialogueMappingData wordlist[] =
     {
+#line 13 "map-gperf-mapping"
+      {"test_map",840},
+      {""},
+#line 14 "map-gperf-mapping"
+      {"tut1_move",1008},
+#line 17 "map-gperf-mapping"
+      {"tut4_knights",1512},
+#line 11 "map-gperf-mapping"
+      {"other_test_map",504},
+#line 10 "map-gperf-mapping"
+      {"jumper_test",336},
+      {""}, {""},
+#line 16 "map-gperf-mapping"
+      {"tut3_bishops",1344},
+#line 9 "map-gperf-mapping"
+      {"finale",168},
 #line 12 "map-gperf-mapping"
-      {"test_map",672},
+      {"snake",672},
       {""}, {""},
 #line 15 "map-gperf-mapping"
-      {"tut3_bishops",1176},
-#line 10 "map-gperf-mapping"
-      {"other_test_map",336},
-#line 9 "map-gperf-mapping"
-      {"jumper_test",168},
-      {""}, {""},
-#line 14 "map-gperf-mapping"
-      {"tut2_rooks",1008},
-#line 17 "map-gperf-mapping"
-      {"tut5_king",1512},
-#line 11 "map-gperf-mapping"
-      {"snake",504},
-      {""}, {""},
-#line 13 "map-gperf-mapping"
-      {"tut1_move",840},
-#line 16 "map-gperf-mapping"
-      {"tut4_knights",1344},
+      {"tut2_rooks",1176},
+#line 18 "map-gperf-mapping"
+      {"tut5_king",1680},
 #line 8 "map-gperf-mapping"
       {"bishops",0}
     };

@@ -6,12 +6,13 @@
 struct dialogueMappingData;
 %%
 bishops,0
-jumper_test,168
-other_test_map,336
-snake,504
-test_map,672
-tut1_move,840
-tut2_rooks,1008
-tut3_bishops,1176
-tut4_knights,1344
-tut5_king,1512
+finale,168
+jumper_test,336
+other_test_map,504
+snake,672
+test_map,840
+tut1_move,1008
+tut2_rooks,1176
+tut3_bishops,1344
+tut4_knights,1512
+tut5_king,1680

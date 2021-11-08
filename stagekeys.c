@@ -11,4 +11,5 @@ LevelEntry levels[NUMBER_OF_LEVELS] = {
   { "other_test_map" },
   { "bishops" },
   { "snake" },
+  { "finale" },
 };

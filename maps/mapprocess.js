@@ -28,6 +28,9 @@ const MONSTER_TYPE_SNAKE = 2;
 const MONSTER_EDITOR_NAME_JUMPER = 'jumper';
 const MONSTER_TYPE_JUMPER = 3;
 
+const MONSTER_EDITOR_NAME_SHADOWQUEEN = 'shadowqueen';
+const MONSTER_TYPE_SHADOWQUEEN = 4;
+
 const BOARD_WIDTH = 8;
 const BOARD_HEIGHT = 8;
 
@@ -122,6 +125,13 @@ const processMap = (mapJSON, i) => {
         } else if (object.type === MONSTER_EDITOR_NAME_JUMPER || object.name === MONSTER_EDITOR_NAME_JUMPER) {
           result.activeMonsters[monsterCount] = 1;
           result.monsterType[monsterCount] = MONSTER_TYPE_JUMPER;
+          result.monsterX[monsterCount] = ~~(object.x / EDITOR_TILE_SIZE);
+          result.monsterY[monsterCount] = BOARD_HEIGHT - 1 - ~~(object.y / EDITOR_TILE_SIZE);
+
+          monsterCount++;
+        } else if (object.type === MONSTER_EDITOR_NAME_SHADOWQUEEN || object.name === MONSTER_EDITOR_NAME_SHADOWQUEEN) {
+          result.activeMonsters[monsterCount] = 1;
+          result.monsterType[monsterCount] = MONSTER_TYPE_SHADOWQUEEN;
           result.monsterX[monsterCount] = ~~(object.x / EDITOR_TILE_SIZE);
           result.monsterY[monsterCount] = BOARD_HEIGHT - 1 - ~~(object.y / EDITOR_TILE_SIZE);
 

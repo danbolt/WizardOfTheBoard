@@ -227,6 +227,10 @@ void updateJumper(int index) {
   guRotate(&(monsterSpecificTransforms[index]), gameplayTimePassed * 300.f, 0.f, 0.f, 1.f);
 }
 
+void updateShadowQueen(int index) {
+  return;
+}
+
 #define PLAYER_HEIGHT_ABOVE_GROUND 0.26f
 #define PLAYER_WALK_SPEED 3.f
 #define PLAYER_TURN_SPEED 3.f
@@ -885,6 +889,11 @@ void initializeMonsters(const MapData* map) {
 
       *((u8*)(monsterState[i + 1])) = JUMPER_GOING_RIGHT;
       velocities[i + 1].x = JUMPER_WALK_SPEED;
+    } else if (type == MONSTER_TYPE_SHADOQUEEN) {
+      updateFunctions[i + 1] = updateShadowQueen;
+      renderCommands[i + 1] = shadowqueen_commands;
+      health[i + 1] = 5;
+      radiiSquared[i + 1] = 0.23f * 0.23f;
     }
   }
 
