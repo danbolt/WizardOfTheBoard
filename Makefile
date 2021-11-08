@@ -55,7 +55,7 @@ BOOT		= /usr/lib/n64/PR/bootcode/boot.6102
 
 BOOT_OBJ	= boot.6102.o
 
-CODEFILES   = 	main.c nustdfuncs.c backgroundbuffers.c gameaudio.c stagekeys.c stage00.c levelselect.c displaytext.c titlescreen.c credits.c cutscene.c graphic.c sixtwelve.c sixtwelve_tex.c sixtwelve_helpers.c gfxinit.c gamemath.c dialogue.c pieces.c pawn.c rook.c bishop.c queen.c knight.c king.c betweenstages.c wall.c board.c cursor.c toad.c projectile.c ogre.c jumper.c snake.c dialogue/dialoguelookup.c cast_sprites/castlookup.c maps/maplookup.c cutscene_backgrounds/backgroundlookup.c cutscenes/cutscenelookup.c opening/envtexture.c bip-mapping/bipmapping.c
+CODEFILES   = 	main.c nustdfuncs.c backgroundbuffers.c gameaudio.c stagekeys.c stage00.c levelselect.c displaytext.c titlescreen.c credits.c cutscene.c graphic.c sixtwelve.c sixtwelve_tex.c sixtwelve_helpers.c gfxinit.c gamemath.c dialogue.c pieces.c pawn.c rook.c bishop.c queen.c knight.c king.c betweenstages.c wall.c board.c cursor.c toad.c projectile.c shadowqueen.c ogre.c jumper.c snake.c dialogue/dialoguelookup.c cast_sprites/castlookup.c maps/maplookup.c cutscene_backgrounds/backgroundlookup.c cutscenes/cutscenelookup.c opening/envtexture.c bip-mapping/bipmapping.c
 
 ifdef USB_DEBUGGING
 CODEFILES += usb.c debug.c
