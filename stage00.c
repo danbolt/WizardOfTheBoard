@@ -1101,7 +1101,11 @@ void initStage00(void)
   pieceInFrontOfPlayer = -1;
   selectedPiece = -1;
 
-  sprintf(floorStartBanner, "FLOOR %d START!", (currentLevel + 1));
+  if (currentLevel == (NUMBER_OF_LEVELS - 1)) {
+    sprintf(floorStartBanner, "SHADOW QUEEN!!!");
+  } else {
+    sprintf(floorStartBanner, "FLOOR %d START!", (currentLevel + 1));
+  }
   bannerMessageText = floorStartBanner;
   bannerMessageTime = 0.f;
 }

@@ -1,6 +1,6 @@
 /* ANSI-C code produced by gperf version 3.1 */
 /* Command-line: gperf --no-strlen --lookup-function-name=getCastTextureOffset --struct-type --output-file=castlookup.c texture-gperf-mapping  */
-/* Computed positions: -k'1,$' */
+/* Computed positions: -k'1,5,9' */
 
 #if !((' ' == 32) && ('!' == 33) && ('"' == 34) && ('#' == 35) \
       && ('%' == 37) && ('&' == 38) && ('\'' == 39) && ('(' == 40) \
@@ -37,7 +37,7 @@
 #line 6 "texture-gperf-mapping"
 struct castMappingData;
 
-#define TOTAL_KEYWORDS 8
+#define TOTAL_KEYWORDS 11
 #define MIN_WORD_LENGTH 4
 #define MAX_WORD_LENGTH 12
 #define MIN_HASH_VALUE 0
@@ -65,10 +65,10 @@ hash (register const char *str, register size_t len)
       26, 26, 26, 26, 26, 26, 26, 26, 26, 26,
       26, 26, 26, 26, 26, 26, 26, 26, 26, 26,
       26, 26, 26, 26, 26, 26, 26, 26, 26, 26,
-      26, 26, 26, 26, 26, 26, 26, 26, 26, 26,
-      15, 15, 26,  5,  9, 26, 26, 26,  4, 26,
-       5, 26,  5, 26, 26, 10,  0, 26, 26, 26,
-      26, 26,  0, 26, 26, 26, 26, 26, 26, 26,
+      26, 26, 26, 26, 26,  5, 26, 15, 26, 26,
+      10,  5, 26, 26,  4, 26, 26, 26,  5, 26,
+       0,  5, 10,  0, 26,  0,  4, 26, 26, 26,
+      26, 26, 10, 26, 26, 26, 26, 26, 26, 26,
       26, 26, 26, 26, 26, 26, 26, 26, 26, 26,
       26, 26, 26, 26, 26, 26, 26, 26, 26, 26,
       26, 26, 26, 26, 26, 26, 26, 26, 26, 26,
@@ -83,7 +83,27 @@ hash (register const char *str, register size_t len)
       26, 26, 26, 26, 26, 26, 26, 26, 26, 26,
       26, 26, 26, 26, 26, 26
     };
-  return asso_values[(unsigned char)str[len - 1]] + asso_values[(unsigned char)str[0]];
+  register unsigned int hval = 0;
+
+  switch (len)
+    {
+      default:
+        hval += asso_values[(unsigned char)str[8]];
+      /*FALLTHROUGH*/
+      case 8:
+      case 7:
+      case 6:
+      case 5:
+        hval += asso_values[(unsigned char)str[4]];
+      /*FALLTHROUGH*/
+      case 4:
+      case 3:
+      case 2:
+      case 1:
+        hval += asso_values[(unsigned char)str[0]];
+        break;
+    }
+  return hval;
 }
 
 struct castMappingData *
@@ -91,27 +111,33 @@ getCastTextureOffset (register const char *str, register size_t len)
 {
   static struct castMappingData wordlist[] =
     {
-#line 12 "texture-gperf-mapping"
-      {"test",32768},
+#line 10 "texture-gperf-mapping"
+      {"queen",16384},
       {""}, {""}, {""},
 #line 13 "texture-gperf-mapping"
-      {"zatt_neutral",40960},
-#line 15 "texture-gperf-mapping"
-      {"zatt_yelling",57344},
-      {""}, {""}, {""},
+      {"test",40960},
 #line 11 "texture-gperf-mapping"
-      {"teach",24576},
-#line 9 "texture-gperf-mapping"
-      {"protag",8192},
-      {""}, {""}, {""}, {""},
+      {"snake",24576},
+      {""}, {""},
+#line 12 "texture-gperf-mapping"
+      {"teach",32768},
 #line 14 "texture-gperf-mapping"
-      {"zatt_sad",49152},
-      {""}, {""}, {""}, {""},
+      {"themouse",49152},
 #line 8 "texture-gperf-mapping"
       {"demon",0},
+      {""}, {""}, {""},
+#line 15 "texture-gperf-mapping"
+      {"themouse_hah",57344},
+#line 17 "texture-gperf-mapping"
+      {"zatt_sad",73728},
+      {""}, {""}, {""},
+#line 16 "texture-gperf-mapping"
+      {"zatt_neutral",65536},
+#line 18 "texture-gperf-mapping"
+      {"zatt_yelling",81920},
       {""}, {""}, {""}, {""},
-#line 10 "texture-gperf-mapping"
-      {"snake",16384}
+#line 9 "texture-gperf-mapping"
+      {"protag",8192}
     };
 
   if (len <= MAX_WORD_LENGTH && len >= MIN_WORD_LENGTH)

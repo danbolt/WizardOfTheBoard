@@ -1,0 +1,57 @@
+[
+    {
+        "text": "Well... this is it. This is the top of the Demon's Spire. ",
+        "speaker": "zatt_neutral",
+        "flags": []
+    },
+    {
+        "text": "It's kind of hard to believe. ",
+        "speaker": "zatt_neutral",
+        "flags": []
+    },
+    {
+        "text": "I guess I should be happier... ",
+        "speaker": "zatt_sad",
+        "flags": []
+    },
+    {
+        "text": "Well holy shit kid! I'll be a lot happier once I'm done with you. ",
+        "speaker": "queen",
+        "flags": []
+    },
+    {
+        "text": "Ahhhhh! It's the Shadow Queen! ",
+        "speaker": "zatt_yelling",
+        "flags": []
+    },
+    {
+        "text": "What is it with you humans? You're always running around wrecking my stuff. ",
+        "speaker": "queen",
+        "flags": []
+    },
+    {
+        "text": "I'm away for like, one day! ",
+        "speaker": "queen",
+        "flags": []
+    },
+    {
+        "text": "It takes just one goddamn day for you to break into my home, kill all my staff, and even rearrange my furniture. The nerve! ",
+        "speaker": "queen",
+        "flags": []
+    },
+    {
+        "text": "Oh Shadow Queen, please don't eat me! I never wanted to be a Wizard of the Board. ",
+        "speaker": "zatt_yelling",
+        "flags": []
+    },
+    {
+        "text": "Eat you? That's disguisting. Why would I eat something as foolish and misguided as you? ",
+        "speaker": "queen",
+        "flags": []
+    },
+    {
+        "text": "It's the end of the line for you, kid. ",
+        "speaker": "queen",
+        "flags": []
+    }
+]
