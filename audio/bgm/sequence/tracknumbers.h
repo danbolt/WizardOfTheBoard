@@ -32,7 +32,10 @@
 /* 10_harbour.mid  */
 #define TRACK_10_HARBOUR 9
 
-#define TRACK_COUNT 10
+/* 11_arena1.mid  */
+#define TRACK_11_ARENA1 10
+
+#define TRACK_COUNT 11
 
 
 #endif
