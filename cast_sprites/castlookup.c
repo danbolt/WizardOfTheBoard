@@ -1,6 +1,6 @@
 /* ANSI-C code produced by gperf version 3.1 */
 /* Command-line: gperf --no-strlen --lookup-function-name=getCastTextureOffset --struct-type --output-file=castlookup.c texture-gperf-mapping  */
-/* Computed positions: -k'1,5,9' */
+/* Computed positions: -k'2,$' */
 
 #if !((' ' == 32) && ('!' == 33) && ('"' == 34) && ('#' == 35) \
       && ('%' == 37) && ('&' == 38) && ('\'' == 39) && ('(' == 40) \
@@ -37,12 +37,12 @@
 #line 6 "texture-gperf-mapping"
 struct castMappingData;
 
-#define TOTAL_KEYWORDS 11
-#define MIN_WORD_LENGTH 4
-#define MAX_WORD_LENGTH 12
+#define TOTAL_KEYWORDS 16
+#define MIN_WORD_LENGTH 1
+#define MAX_WORD_LENGTH 14
 #define MIN_HASH_VALUE 0
-#define MAX_HASH_VALUE 25
-/* maximum key range = 26, duplicates = 0 */
+#define MAX_HASH_VALUE 38
+/* maximum key range = 39, duplicates = 0 */
 
 #ifdef __GNUC__
 __inline
@@ -56,54 +56,44 @@ hash (register const char *str, register size_t len)
 {
   static unsigned char asso_values[] =
     {
-      26, 26, 26, 26, 26, 26, 26, 26, 26, 26,
-      26, 26, 26, 26, 26, 26, 26, 26, 26, 26,
-      26, 26, 26, 26, 26, 26, 26, 26, 26, 26,
-      26, 26, 26, 26, 26, 26, 26, 26, 26, 26,
-      26, 26, 26, 26, 26, 26, 26, 26, 26, 26,
-      26, 26, 26, 26, 26, 26, 26, 26, 26, 26,
-      26, 26, 26, 26, 26, 26, 26, 26, 26, 26,
-      26, 26, 26, 26, 26, 26, 26, 26, 26, 26,
-      26, 26, 26, 26, 26, 26, 26, 26, 26, 26,
-      26, 26, 26, 26, 26,  5, 26, 15, 26, 26,
-      10,  5, 26, 26,  4, 26, 26, 26,  5, 26,
-       0,  5, 10,  0, 26,  0,  4, 26, 26, 26,
-      26, 26, 10, 26, 26, 26, 26, 26, 26, 26,
-      26, 26, 26, 26, 26, 26, 26, 26, 26, 26,
-      26, 26, 26, 26, 26, 26, 26, 26, 26, 26,
-      26, 26, 26, 26, 26, 26, 26, 26, 26, 26,
-      26, 26, 26, 26, 26, 26, 26, 26, 26, 26,
-      26, 26, 26, 26, 26, 26, 26, 26, 26, 26,
-      26, 26, 26, 26, 26, 26, 26, 26, 26, 26,
-      26, 26, 26, 26, 26, 26, 26, 26, 26, 26,
-      26, 26, 26, 26, 26, 26, 26, 26, 26, 26,
-      26, 26, 26, 26, 26, 26, 26, 26, 26, 26,
-      26, 26, 26, 26, 26, 26, 26, 26, 26, 26,
-      26, 26, 26, 26, 26, 26, 26, 26, 26, 26,
-      26, 26, 26, 26, 26, 26, 26, 26, 26, 26,
-      26, 26, 26, 26, 26, 26
+      39, 39, 39, 39, 39, 39, 39, 39, 39, 39,
+      39, 39, 39, 39, 39, 39, 39, 39, 39, 39,
+      39, 39, 39, 39, 39, 39, 39, 39, 39, 39,
+      39, 39, 39, 39, 39, 39, 39, 39, 39, 39,
+      39, 39, 39, 39, 39, 39, 39, 39, 39, 39,
+      39, 39, 39, 39, 39, 39, 39, 39, 39, 39,
+      39, 39, 39, 39, 39, 39, 39, 39, 39, 39,
+      39, 39, 39, 39, 39, 39, 39, 39, 39, 39,
+      39, 39, 39, 39, 39, 39, 39, 39, 39, 39,
+      39, 39, 39, 39, 39, 39, 39, 39,  5, 39,
+      30, 28,  0, 20, 23,  5, 39, 39, 10, 39,
+      13, 10, 39, 39, 39,  0,  3, 39,  5, 39,
+      39,  0, 39, 39, 39, 39, 39, 39, 39, 39,
+      39, 39, 39, 39, 39, 39, 39, 39, 39, 39,
+      39, 39, 39, 39, 39, 39, 39, 39, 39, 39,
+      39, 39, 39, 39, 39, 39, 39, 39, 39, 39,
+      39, 39, 39, 39, 39, 39, 39, 39, 39, 39,
+      39, 39, 39, 39, 39, 39, 39, 39, 39, 39,
+      39, 39, 39, 39, 39, 39, 39, 39, 39, 39,
+      39, 39, 39, 39, 39, 39, 39, 39, 39, 39,
+      39, 39, 39, 39, 39, 39, 39, 39, 39, 39,
+      39, 39, 39, 39, 39, 39, 39, 39, 39, 39,
+      39, 39, 39, 39, 39, 39, 39, 39, 39, 39,
+      39, 39, 39, 39, 39, 39, 39, 39, 39, 39,
+      39, 39, 39, 39, 39, 39, 39, 39, 39, 39,
+      39, 39, 39, 39, 39, 39, 39
     };
   register unsigned int hval = 0;
 
   switch (len)
     {
       default:
-        hval += asso_values[(unsigned char)str[8]];
+        hval += asso_values[(unsigned char)str[1]+1];
       /*FALLTHROUGH*/
-      case 8:
-      case 7:
-      case 6:
-      case 5:
-        hval += asso_values[(unsigned char)str[4]];
-      /*FALLTHROUGH*/
-      case 4:
-      case 3:
-      case 2:
       case 1:
-        hval += asso_values[(unsigned char)str[0]];
         break;
     }
-  return hval;
+  return hval + asso_values[(unsigned char)str[len - 1]];
 }
 
 struct castMappingData *
@@ -111,33 +101,53 @@ getCastTextureOffset (register const char *str, register size_t len)
 {
   static struct castMappingData wordlist[] =
     {
-#line 10 "texture-gperf-mapping"
-      {"queen",16384},
-      {""}, {""}, {""},
-#line 13 "texture-gperf-mapping"
-      {"test",40960},
-#line 11 "texture-gperf-mapping"
-      {"snake",24576},
-      {""}, {""},
 #line 12 "texture-gperf-mapping"
-      {"teach",32768},
-#line 14 "texture-gperf-mapping"
-      {"themouse",49152},
-#line 8 "texture-gperf-mapping"
-      {"demon",0},
-      {""}, {""}, {""},
-#line 15 "texture-gperf-mapping"
-      {"themouse_hah",57344},
+      {"protag_happy",32768},
+      {""}, {""},
 #line 17 "texture-gperf-mapping"
-      {"zatt_sad",73728},
-      {""}, {""}, {""},
-#line 16 "texture-gperf-mapping"
-      {"zatt_neutral",65536},
-#line 18 "texture-gperf-mapping"
-      {"zatt_yelling",81920},
-      {""}, {""}, {""}, {""},
+      {"test",73728},
+      {""},
+#line 8 "texture-gperf-mapping"
+      {"b",0},
+      {""}, {""},
+#line 20 "texture-gperf-mapping"
+      {"wait",98304},
+      {""},
+#line 13 "texture-gperf-mapping"
+      {"protag_neutral",40960},
+      {""}, {""},
 #line 9 "texture-gperf-mapping"
-      {"protag",8192}
+      {"demon",8192},
+      {""},
+#line 21 "texture-gperf-mapping"
+      {"zatt_neutral",106496},
+      {""}, {""},
+#line 14 "texture-gperf-mapping"
+      {"queen",49152},
+      {""},
+#line 10 "texture-gperf-mapping"
+      {"protag",16384},
+      {""}, {""},
+#line 16 "texture-gperf-mapping"
+      {"teach",65536},
+      {""},
+#line 23 "texture-gperf-mapping"
+      {"zatt_yelling",122880},
+      {""}, {""},
+#line 19 "texture-gperf-mapping"
+      {"themouse_hah",90112},
+      {""},
+#line 11 "texture-gperf-mapping"
+      {"protag_annoyed",24576},
+      {""}, {""},
+#line 18 "texture-gperf-mapping"
+      {"themouse",81920},
+      {""},
+#line 22 "texture-gperf-mapping"
+      {"zatt_sad",114688},
+      {""}, {""},
+#line 15 "texture-gperf-mapping"
+      {"snake",57344}
     };
 
   if (len <= MAX_WORD_LENGTH && len >= MIN_WORD_LENGTH)

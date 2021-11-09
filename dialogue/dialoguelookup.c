@@ -37,12 +37,12 @@
 #line 6 "map-gperf-mapping"
 struct dialogueMappingData;
 
-#define TOTAL_KEYWORDS 7
+#define TOTAL_KEYWORDS 8
 #define MIN_WORD_LENGTH 4
 #define MAX_WORD_LENGTH 13
 #define MIN_HASH_VALUE 0
-#define MAX_HASH_VALUE 7
-/* maximum key range = 8, duplicates = 0 */
+#define MAX_HASH_VALUE 15
+/* maximum key range = 16, duplicates = 0 */
 
 #ifdef __GNUC__
 __inline
@@ -57,32 +57,32 @@ hash (register const char *str, register size_t len)
 {
   static unsigned char asso_values[] =
     {
-      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
-      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
-      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
-      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
-      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
-      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
-      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
-      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
-      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
-      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
-      8, 8, 6, 8, 8, 1, 8, 8, 4, 7,
-      8, 8, 2, 8, 8, 8, 5, 0, 8, 8,
-      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
-      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
-      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
-      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
-      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
-      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
-      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
-      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
-      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
-      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
-      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
-      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
-      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
-      8, 8, 8, 8, 8, 8
+      16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+      16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+      16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+      16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+      16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+      16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+      16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+      16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+      16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+      16, 16, 16, 16, 16, 16, 16, 16, 16,  3,
+      16, 16, 14, 16, 16,  9, 16, 16,  4, 15,
+      16, 16, 10, 16, 16, 16,  5,  0, 16, 16,
+      16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+      16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+      16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+      16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+      16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+      16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+      16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+      16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+      16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+      16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+      16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+      16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+      16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+      16, 16, 16, 16, 16, 16
     };
   return asso_values[(unsigned char)str[0]];
 }
@@ -92,21 +92,25 @@ getDialogueDataOffset (register const char *str, register size_t len)
 {
   static struct dialogueMappingData wordlist[] =
     {
-#line 14 "map-gperf-mapping"
-      {"uhhh",10472},
-#line 9 "map-gperf-mapping"
-      {"individual",2772},
-#line 12 "map-gperf-mapping"
-      {"powpowpow",6468},
-      {""},
-#line 10 "map-gperf-mapping"
-      {"longpiece",3388},
-#line 13 "map-gperf-mapping"
-      {"thequeen",7084},
+#line 15 "map-gperf-mapping"
+      {"uhhh",18172},
+      {""}, {""},
 #line 8 "map-gperf-mapping"
-      {"flashback_war",0},
+      {"check",0},
 #line 11 "map-gperf-mapping"
-      {"meet_snake",4004}
+      {"longpiece",11088},
+#line 14 "map-gperf-mapping"
+      {"thequeen",14784},
+      {""}, {""}, {""},
+#line 10 "map-gperf-mapping"
+      {"individual",10472},
+#line 13 "map-gperf-mapping"
+      {"powpowpow",14168},
+      {""}, {""}, {""},
+#line 9 "map-gperf-mapping"
+      {"flashback_war",7700},
+#line 12 "map-gperf-mapping"
+      {"meet_snake",11704}
     };
 
   if (len <= MAX_WORD_LENGTH && len >= MIN_WORD_LENGTH)

@@ -1,0 +1,127 @@
+[
+    {
+        "text": "December 16th",
+        "speaker": "",
+        "flags": []
+    },
+    {
+        "text": "(A few floors below)",
+        "speaker": "",
+        "flags": []
+    },
+    {
+        "text": "*ring* *ring* *ring* ",
+        "speaker": "wait",
+        "flags": []
+    },
+    {
+        "text": "It's been ten minutes now. ",
+        "speaker": "protag_neutral",
+        "flags": []
+    },
+    {
+        "text": "Is he even there? ",
+        "speaker": "protag_annoyed",
+        "flags": []
+    },
+    {
+        "text": "*ring* *ring* *ring* ",
+        "speaker": "wait",
+        "flags": []
+    },
+    {
+        "text": "*CLICK*",
+        "speaker": "",
+        "flags": []
+    },
+    {
+        "text": "Hello? This is Spotter Office LA-64. ",
+        "speaker": "b",
+        "flags": []
+    },
+    {
+        "text": "Hey, it's me, Wren Buster. I'm calling from inside the Mark XI superstructure. ",
+        "speaker": "protag_neutral",
+        "flags": []
+    },
+    {
+        "text": "Oh, it's just you kid. ",
+        "speaker": "b",
+        "flags": []
+    },
+    {
+        "text": "Whew.",
+        "speaker": "b",
+        "flags": []
+    },
+    {
+        "text": "All done in there? ",
+        "speaker": "b",
+        "flags": []
+    },
+    {
+        "text": "Yeah, well, that's the thing. ",
+        "speaker": "protag_neutral",
+        "flags": []
+    },
+    {
+        "text": "I've been looking all over, but there aren't any Lunarbeasts here. ",
+        "speaker": "protag_neutral",
+        "flags": []
+    },
+    {
+        "text": "Are you sure the readings said that it was this one? ",
+        "speaker": "protag_neutral",
+        "flags": []
+    },
+    {
+        "text": "Uhhhhmmmmm... let me check. ",
+        "speaker": "b",
+        "flags": []
+    },
+    {
+        "text": "... ",
+        "speaker": "protag_neutral",
+        "flags": []
+    },
+    {
+        "text": "Yeah, okay. The scanners picked up like a whole lot. Did you check outside? ",
+        "speaker": "b",
+        "flags": []
+    },
+    {
+        "text": "Yes, I checked outside. ",
+        "speaker": "protag_annoyed",
+        "flags": []
+    },
+    {
+        "text": "Huh. ",
+        "speaker": "b",
+        "flags": []
+    },
+    {
+        "text": "Well, if there aren't any Lunarbeasts, then we're ahead of schedule. ",
+        "speaker": "b",
+        "flags": []
+    },
+    {
+        "text": "Don't you think this is odd? I've never read about a Mark XI being empty. ",
+        "speaker": "protag_neutral",
+        "flags": []
+    },
+    {
+        "text": "Funny enough, your job is isn't about reading, but rather making Lunarbeasts go away. ",
+        "speaker": "b",
+        "flags": []
+    },
+    {
+        "text": "Finish up here, and we'll call it a day. ",
+        "speaker": "b",
+        "flags": []
+    },
+    {
+        "text": "Sure... ",
+        "speaker": "protag_neutral",
+        "flags": []
+    }
+]
