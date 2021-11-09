@@ -95,7 +95,13 @@
 /* 30_vo_line_7.aifc  */
 #define SFX_30_VO_LINE_7 30
 
-#define SFX_COUNT 31
+/* 31_n64_noises.aifc  */
+#define SFX_31_N64_NOISES 31
+
+/* 32_b_bip.aifc  */
+#define SFX_32_B_BIP 32
+
+#define SFX_COUNT 33
 
 
 #endif

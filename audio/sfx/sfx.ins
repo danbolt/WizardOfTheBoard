@@ -866,6 +866,62 @@ sound FX_30_vo_line_7Sound
     keymap = FX_30_vo_line_7_keymap;
     envelope = FX_30_vo_line_7_env;
 }
+envelope FX_31_n64_noises_env
+{
+    attackTime    = 0;
+    attackVolume  = 100;
+    decayTime   = 1927120;
+    decayVolume   = 90;
+    releaseTime   = 0;
+    
+}
+keymap FX_31_n64_noises_keymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin      = 31;
+    keyMax      = 31;
+    keyBase     = 31;
+    detune      = 0;
+}
+
+sound FX_31_n64_noisesSound
+{
+    use ("compressed/31_n64_noises.aifc");
+    
+    pan    = 64;
+    volume = 127;
+    keymap = FX_31_n64_noises_keymap;
+    envelope = FX_31_n64_noises_env;
+}
+envelope FX_32_b_bip_env
+{
+    attackTime    = 0;
+    attackVolume  = 100;
+    decayTime   = 107563;
+    decayVolume   = 90;
+    releaseTime   = 0;
+    
+}
+keymap FX_32_b_bip_keymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin      = 32;
+    keyMax      = 32;
+    keyBase     = 32;
+    detune      = 0;
+}
+
+sound FX_32_b_bipSound
+{
+    use ("compressed/32_b_bip.aifc");
+    
+    pan    = 64;
+    volume = 127;
+    keymap = FX_32_b_bip_keymap;
+    envelope = FX_32_b_bip_env;
+}
 
 instrument sfx
 {
@@ -903,6 +959,8 @@ instrument sfx
     sound = FX_28_vo_line_5Sound;
     sound = FX_29_vo_line_6Sound;
     sound = FX_30_vo_line_7Sound;
+    sound = FX_31_n64_noisesSound;
+    sound = FX_32_b_bipSound;
 }
 
 bank sfxbank
