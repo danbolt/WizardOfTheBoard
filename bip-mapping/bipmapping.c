@@ -37,7 +37,7 @@
 #line 6 "gperf-bip-mapping"
 struct bipMapping;
 
-#define TOTAL_KEYWORDS 8
+#define TOTAL_KEYWORDS 9
 #define MIN_WORD_LENGTH 1
 #define MAX_WORD_LENGTH 14
 #define MIN_HASH_VALUE 0
@@ -65,9 +65,9 @@ hash (register const char *str, register size_t len)
       21, 21, 21, 21, 21, 21, 21, 21, 21, 21,
       21, 21, 21, 21, 21, 21, 21, 21, 21, 21,
       21, 21, 21, 21, 21, 21, 21, 21, 21, 21,
-      21, 21, 21, 21, 21, 21, 21,  9,  9, 21,
-       4, 21, 21, 21, 15, 21, 21, 21, 15, 21,
-       5, 21,  5, 21, 21,  5, 21,  0, 21, 21,
+      21, 21, 21, 21, 21, 21, 21, 14, 14, 21,
+       9, 21, 21, 21, 15, 21, 21, 21,  4, 21,
+      10, 21,  5, 10, 21,  5, 21,  0, 21, 21,
       21, 21,  0, 21, 21, 21, 21, 21, 21, 21,
       21, 21, 21, 21, 21, 21, 21, 21, 21, 21,
       21, 21, 21, 21, 21, 21, 21, 21, 21, 21,
@@ -111,10 +111,15 @@ getBipMapping (register const char *str, register size_t len)
 #line 8 "gperf-bip-mapping"
       {"zatt_neutral",SFX_13_ZATT_BIP},
       {""}, {""}, {""},
-#line 9 "gperf-bip-mapping"
-      {"zatt_sad",SFX_13_ZATT_BIP},
+#line 10 "gperf-bip-mapping"
+      {"zatt_yelling",SFX_14_ZATT_SCREAMING_BIP},
 #line 11 "gperf-bip-mapping"
       {"snake",SFX_18_OGRE_BIP},
+      {""}, {""}, {""},
+#line 9 "gperf-bip-mapping"
+      {"zatt_sad",SFX_13_ZATT_BIP},
+#line 16 "gperf-bip-mapping"
+      {"queen",SFX_35_QUEEN_BIP},
       {""}, {""}, {""},
 #line 15 "gperf-bip-mapping"
       {"b",SFX_32_B_BIP},
@@ -123,9 +128,6 @@ getBipMapping (register const char *str, register size_t len)
       {""}, {""}, {""},
 #line 12 "gperf-bip-mapping"
       {"protag_annoyed",SFX_02_NOBODY_BIP},
-#line 10 "gperf-bip-mapping"
-      {"zatt_yelling",SFX_14_ZATT_SCREAMING_BIP},
-      {""}, {""}, {""}, {""},
 #line 13 "gperf-bip-mapping"
       {"protag_happy",SFX_02_NOBODY_BIP}
     };
