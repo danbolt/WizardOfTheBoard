@@ -162,6 +162,16 @@ void makeTitleScreenDL() {
   gDPSetCombineMode(glistp++,G_CC_DECALRGBA, G_CC_DECALRGBA);
   gDPSetRenderMode(glistp++, G_RM_TEX_EDGE, G_RM_TEX_EDGE2);
   gSPTexture(glistp++, 0xffff, 0xffff, 0, G_TX_RENDERTILE, G_ON);
+
+  if ((spotIndex == 0) && (spotTimePassed < 1.f)) {
+    gDPPipeSync(glistp++);
+    float t = (spotTimePassed / 1.f);
+    int tVal = t * 255;
+    gDPSetPrimColor(glistp++, 0, 0, tVal, tVal, tVal, (tVal));
+
+    gDPSetCombineMode(glistp++,G_CC_MODULATERGBA_PRIM, G_CC_MODULATERGBA_PRIM);
+  }
+
   for (int i = 0; i < (240 / 6); i++) {
     gDPPipeSync(glistp++);
     gDPLoadTextureTile(glistp++, backgroundBuffers[0], G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, 240, 0, (i * 6), 320 - 1, ((i + 1) * 6) - 1, 0, G_TX_WRAP, G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD );
