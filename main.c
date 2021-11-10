@@ -11,6 +11,7 @@
 #include "gameaudio.h"
 #include "levelselect.h"
 #include "stage00.h"
+#include "splashscreen.h"
 #include "titlescreen.h"
 
 #include <segmentinfo.h>
@@ -45,6 +46,11 @@ ScreenInfo creditsStage = {
   updateCredits,
   makeCreditsDisplaylist
 };
+ScreenInfo splashScreenStage = {
+  initSplashScreen,
+  updateSplashScreen,
+  makeSplashScreenDL
+};
 
 
 ScreenInfo* currentStage;
@@ -75,7 +81,7 @@ void updateTime() {
 void initalizeGameData() {
   changeScreensFlag = 1;
   currentStage = NULL;
-  nextStage = &levelSelectStage;
+  nextStage = &splashScreenStage;
 
   loadDisplayText();
 
