@@ -922,6 +922,90 @@ sound FX_32_b_bipSound
     keymap = FX_32_b_bip_keymap;
     envelope = FX_32_b_bip_env;
 }
+envelope FX_33_call_env
+{
+    attackTime    = 0;
+    attackVolume  = 100;
+    decayTime   = 1712472;
+    decayVolume   = 90;
+    releaseTime   = 0;
+    
+}
+keymap FX_33_call_keymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin      = 33;
+    keyMax      = 33;
+    keyBase     = 33;
+    detune      = 0;
+}
+
+sound FX_33_callSound
+{
+    use ("compressed/33_call.aifc");
+    
+    pan    = 64;
+    volume = 127;
+    keymap = FX_33_call_keymap;
+    envelope = FX_33_call_env;
+}
+envelope FX_34_mouse_bip_env
+{
+    attackTime    = 0;
+    attackVolume  = 100;
+    decayTime   = 145510;
+    decayVolume   = 90;
+    releaseTime   = 0;
+    
+}
+keymap FX_34_mouse_bip_keymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin      = 34;
+    keyMax      = 34;
+    keyBase     = 34;
+    detune      = 0;
+}
+
+sound FX_34_mouse_bipSound
+{
+    use ("compressed/34_mouse_bip.aifc");
+    
+    pan    = 64;
+    volume = 127;
+    keymap = FX_34_mouse_bip_keymap;
+    envelope = FX_34_mouse_bip_env;
+}
+envelope FX_35_queen_bip_env
+{
+    attackTime    = 0;
+    attackVolume  = 100;
+    decayTime   = 262200;
+    decayVolume   = 90;
+    releaseTime   = 0;
+    
+}
+keymap FX_35_queen_bip_keymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin      = 35;
+    keyMax      = 35;
+    keyBase     = 35;
+    detune      = 0;
+}
+
+sound FX_35_queen_bipSound
+{
+    use ("compressed/35_queen_bip.aifc");
+    
+    pan    = 64;
+    volume = 127;
+    keymap = FX_35_queen_bip_keymap;
+    envelope = FX_35_queen_bip_env;
+}
 
 instrument sfx
 {
@@ -961,6 +1045,9 @@ instrument sfx
     sound = FX_30_vo_line_7Sound;
     sound = FX_31_n64_noisesSound;
     sound = FX_32_b_bipSound;
+    sound = FX_33_callSound;
+    sound = FX_34_mouse_bipSound;
+    sound = FX_35_queen_bipSound;
 }
 
 bank sfxbank

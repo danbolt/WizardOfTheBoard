@@ -101,7 +101,16 @@
 /* 32_b_bip.aifc  */
 #define SFX_32_B_BIP 32
 
-#define SFX_COUNT 33
+/* 33_call.aifc  */
+#define SFX_33_CALL 33
+
+/* 34_mouse_bip.aifc  */
+#define SFX_34_MOUSE_BIP 34
+
+/* 35_queen_bip.aifc  */
+#define SFX_35_QUEEN_BIP 35
+
+#define SFX_COUNT 36
 
 
 #endif
