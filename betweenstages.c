@@ -6,6 +6,8 @@
 #include "segmentinfo.h"
 #include "stagekeys.h"
 
+#define BETWEEN_STAGES_TIME 2.5f
+#define BUFFER_TIME 0.3f
 
 static u8 walkingAnimTexture[TMEM_SIZE_BYTES * 2] __attribute__((aligned(8)));
 
@@ -48,14 +50,16 @@ void makeBetweenStagesDisplaylist() {
   gSPTexture(glistp++, 0xffff, 0xffff, 0, G_TX_RENDERTILE, G_ON);
   gSPClipRatio(glistp++, FRUSTRATIO_2);
 
-  gDPPipeSync(glistp++);
-  gDPSetCombineMode(glistp++, G_CC_MODULATEIDECALA_PRIM, G_CC_MODULATEIDECALA_PRIM);
-  gDPSetPrimColor(glistp++, 0, 0, 0xff, 0xff, 0xff, 0xff);
-  gDPLoadTextureBlock_4b(glistp++, OS_K0_TO_PHYSICAL(walkingAnimTexture), G_IM_FMT_I, 512, 16, 0, G_TX_NOMIRROR, G_TX_NOMIRROR, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
-  gSPScisTextureRectangle(glistp++, (((SCREEN_WD - 32) / 2)) << 2, (((SCREEN_HT - 32) / 2 ) + 16) << 2, (((SCREEN_WD - 32) / 2) + 32) << 2, (((SCREEN_HT - 32) / 2 ) + 16 + 16) << 2, 0, (animationFrame * 32) << 5, 0 << 5, 1 << 10, 1 << 10);
-  gDPPipeSync(glistp++);
-  gDPLoadTextureBlock_4b(glistp++, OS_K0_TO_PHYSICAL(walkingAnimTexture + TMEM_SIZE_BYTES), G_IM_FMT_I, 512, 16, 0, G_TX_NOMIRROR, G_TX_NOMIRROR, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
-  gSPScisTextureRectangle(glistp++, (((SCREEN_WD - 32) / 2)) << 2, (((SCREEN_HT - 32) / 2 ) + 32) << 2, (((SCREEN_WD - 32) / 2) + 32) << 2, (((SCREEN_HT - 32) / 2 ) + 32 + 16) << 2, 0, (animationFrame * 32) << 5, 0 << 5, 1 << 10, 1 << 10);
+  if ((betweenTimePassed > BUFFER_TIME) && (betweenTimePassed < (BETWEEN_STAGES_TIME - BUFFER_TIME))) {
+    gDPPipeSync(glistp++);
+    gDPSetCombineMode(glistp++, G_CC_MODULATEIDECALA_PRIM, G_CC_MODULATEIDECALA_PRIM);
+    gDPSetPrimColor(glistp++, 0, 0, 0xff, 0xff, 0xff, 0xff);
+    gDPLoadTextureBlock_4b(glistp++, OS_K0_TO_PHYSICAL(walkingAnimTexture), G_IM_FMT_I, 512, 16, 0, G_TX_NOMIRROR, G_TX_NOMIRROR, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
+    gSPScisTextureRectangle(glistp++, (((SCREEN_WD - 32) / 2)) << 2, (((SCREEN_HT - 32) / 2 ) + 16 - 16) << 2, (((SCREEN_WD - 32) / 2) + 32) << 2, (((SCREEN_HT - 32) / 2 ) + 16 + 16 - 16) << 2, 0, (animationFrame * 32) << 5, 0 << 5, 1 << 10, 1 << 10);
+    gDPPipeSync(glistp++);
+    gDPLoadTextureBlock_4b(glistp++, OS_K0_TO_PHYSICAL(walkingAnimTexture + TMEM_SIZE_BYTES), G_IM_FMT_I, 512, 16, 0, G_TX_NOMIRROR, G_TX_NOMIRROR, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
+    gSPScisTextureRectangle(glistp++, (((SCREEN_WD - 32) / 2)) << 2, (((SCREEN_HT - 32) / 2 ) + 32 - 16) << 2, (((SCREEN_WD - 32) / 2) + 32) << 2, (((SCREEN_HT - 32) / 2 ) + 32 + 16 - 16) << 2, 0, (animationFrame * 32) << 5, 0 << 5, 1 << 10, 1 << 10);
+  }
 
   gDPFullSync(glistp++);
   gSPEndDisplayList(glistp++);
@@ -70,7 +74,7 @@ void updateBetweenStages() {
   betweenTimePassed += deltaTimeSeconds;
   animationFrame = ((int)(betweenTimePassed * 24.f)) % NUMBER_OF_ANIMATION_FRAMES;
 
-  if (betweenTimePassed > 1.5f) {
+  if (betweenTimePassed > BETWEEN_STAGES_TIME) {
     nextStage = &gameplayStage;
     currentLevel = (currentLevel + 1) % NUMBER_OF_LEVELS; // TODO: finish the game if we top out
     changeScreensFlag = 1;
