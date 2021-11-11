@@ -2216,7 +2216,7 @@ void updateGame00(void)
   if (dialogueState == DIALOGUE_STATE_SHOWING) {
     return;
   } else if ((!hasStartedMusic) && (transitioningState == NOT_TRANSITIONING)) {
-    playMusic(TRACK_01_PUZZLE_TIME);
+    playMusic((u32)(levels[(currentLevel % NUMBER_OF_LEVELS)].bgmTrack));
     hasStartedMusic = 1;
   }
 

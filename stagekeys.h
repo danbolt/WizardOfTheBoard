@@ -4,6 +4,7 @@
 
 typedef struct {
   const char* levelKey;
+  unsigned char bgmTrack;
 } LevelEntry;
 
 // TODO: maybe we could try some preprocessor trickery to automate this?
