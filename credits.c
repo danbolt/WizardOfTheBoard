@@ -212,7 +212,7 @@ void updateCredits() {
     currentCreditIndex++;
     creditsTime = 0.f;
   } else if ((itemsToShow[currentCreditIndex] == NULL) && (creditsTime > 5.f)) {
-    nextStage = &titleScreenStage;
+    nextStage = &splashScreenStage;
     changeScreensFlag = 1;
   }
 

@@ -46,6 +46,9 @@ static u8 showingTitle;
 
 static u8 menuIndex;
 
+static u8 isTransitioningOut;
+static float transitionOutTime;
+
 #define NUMBER_OF_TITLE_MENU_ITEMS 3
 static const char* menuItems[NUMBER_OF_TITLE_MENU_ITEMS] = {
   "START GAME",
@@ -115,6 +118,9 @@ void initTitleScreen() {
     menuItemHorizontalOffsets[i] = 0.f;
   }
   menuIndex = 0;
+
+  isTransitioningOut = 0;
+  transitionOutTime = 0.f;
 
   playMusic(TRACK_05_OVERTURE);
 }
@@ -282,6 +288,13 @@ void makeTitleScreenDL() {
   }
 #endif
 
+  if (isTransitioningOut) {
+    gDPPipeSync(glistp++);
+    gDPSetCycleType(glistp++, G_CYC_FILL);
+    gDPSetFillColor(glistp++, GPACK_RGBA5551(0x0,0,0,1) << 16 | GPACK_RGBA5551(0x0,0,0,1));
+    gDPFillRectangle(glistp++, 0, 0, SCREEN_WD - 1, SCREEN_HT * MIN(1.f, transitionOutTime));
+  }
+
 
   gDPFullSync(glistp++);
   gSPEndDisplayList(glistp++);
@@ -354,60 +367,68 @@ void updateTitleScreen() {
     }
   }
 
-  if(contdata[0].trigger & U_JPAD) {
-    downPressed = 1;
-  } else if(contdata[0].trigger & D_JPAD) {
-    upPressed = 1;
-  } else {
-    upPressed = 0;
-    downPressed = 0;
-  }
-
-  if (!stickInDeadzone && (contdata[0].stick_y > -7) && (contdata[0].stick_y < 7)) {
-    stickInDeadzone = 1;
-  }
-
-  if (stickInDeadzone) {
-    if (contdata[0].stick_y < -7) {
-      upPressed = 1;
-      stickInDeadzone = 0;
-    } else if (contdata[0].stick_y > 7) {
+  if (!isTransitioningOut) {
+    if(contdata[0].trigger & U_JPAD) {
       downPressed = 1;
-      stickInDeadzone = 0;
+    } else if(contdata[0].trigger & D_JPAD) {
+      upPressed = 1;
+    } else {
+      upPressed = 0;
+      downPressed = 0;
     }
 
-  }
+    if (!stickInDeadzone && (contdata[0].stick_y > -7) && (contdata[0].stick_y < 7)) {
+      stickInDeadzone = 1;
+    }
 
-
-  if (upPressed) {
-    upPressed = 0;
-    menuIndex = (menuIndex + 1) % NUMBER_OF_TITLE_MENU_ITEMS;
-  }
-  if (downPressed) {
-    downPressed = 1;
-    menuIndex = (menuIndex - 1 + NUMBER_OF_TITLE_MENU_ITEMS) % NUMBER_OF_TITLE_MENU_ITEMS;
-  }
-
-  if (contdata[0].trigger & A_BUTTON) {
-    if (!showingTitle) {
-      showingTitle = 1;
-      maxNumberOfTwoLineRowsToDo = (152 / 2);
-      stopLastPlayedSound();
-    } else {
-      if (menuIndex == 0) {
-        nextStage = &gameplayStage;
-        currentLevel = 0;
-        changeScreensFlag = 1;
-      } else if (menuIndex == 1) {
-        nextStage = &levelSelectStage;
-        changeScreensFlag = 1;
-      } else if (menuIndex == 2) {
-        nextStage = &creditsStage;
-        changeScreensFlag = 1;
+    if (stickInDeadzone) {
+      if (contdata[0].stick_y < -7) {
+        upPressed = 1;
+        stickInDeadzone = 0;
+      } else if (contdata[0].stick_y > 7) {
+        downPressed = 1;
+        stickInDeadzone = 0;
       }
 
+    }
 
-      fadeOutMusic();
+
+    if (upPressed) {
+      upPressed = 0;
+      menuIndex = (menuIndex + 1) % NUMBER_OF_TITLE_MENU_ITEMS;
+    }
+    if (downPressed) {
+      downPressed = 1;
+      menuIndex = (menuIndex - 1 + NUMBER_OF_TITLE_MENU_ITEMS) % NUMBER_OF_TITLE_MENU_ITEMS;
+    }
+
+    if (contdata[0].trigger & A_BUTTON) {
+      if (!showingTitle) {
+        showingTitle = 1;
+        maxNumberOfTwoLineRowsToDo = (152 / 2);
+        stopLastPlayedSound();
+      } else {
+        if (menuIndex == 0) {
+          nextStage = &gameplayStage;
+          currentLevel = 0;
+          isTransitioningOut = 1;
+        } else if (menuIndex == 1) {
+          nextStage = &levelSelectStage;
+          isTransitioningOut = 1;
+        } else if (menuIndex == 2) {
+          nextStage = &creditsStage;
+          isTransitioningOut = 1;
+        }
+
+
+        fadeOutMusic();
+      }
+    }
+  } else {
+    transitionOutTime += deltaTimeSeconds;
+
+    if (transitionOutTime > 1.5f) {
+      changeScreensFlag = 1;
     }
   }
 }
