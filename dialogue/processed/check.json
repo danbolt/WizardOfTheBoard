@@ -123,5 +123,15 @@
         "text": "Sure... ",
         "speaker": "protag_neutral",
         "flags": []
+    },
+    {
+        "text": "*CLICK*",
+        "speaker": "",
+        "flags": []
+    },
+    {
+        "text": "This is fishy... ",
+        "speaker": "protag_annoyed",
+        "flags": []
     }
 ]

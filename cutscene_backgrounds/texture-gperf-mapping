@@ -6,10 +6,18 @@
 struct backgroundMappingData;
 %%
 bedroom,0
-logotype,153600
-outside,307200
-restarea,460800
-simplex,614400
-stars,768000
-test_a,921600
-zatts_room,1075200
+cornered,153600
+holdup,307200
+logotype,460800
+outside,614400
+rescued,768000
+restarea,921600
+revelation,1075200
+simplex,1228800
+slain,1382400
+spotted,1536000
+stars,1689600
+test_a,1843200
+themouse,1996800
+wandering,2150400
+zatts_room,2304000

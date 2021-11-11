@@ -6,10 +6,11 @@
 struct dialogueMappingData;
 %%
 check,0
-flashback_war,7700
-individual,10472
-longpiece,11088
-meet_snake,11704
-powpowpow,14168
-thequeen,14784
-uhhh,18172
+flashback_war,8316
+individual,11088
+longpiece,11704
+meet_snake,12320
+powpowpow,14784
+rest,15400
+thequeen,21560
+uhhh,24948

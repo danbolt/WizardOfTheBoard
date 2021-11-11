@@ -1,0 +1,104 @@
+[
+    {
+        "text": "Whew! ",
+        "speaker": "zatt_neutral",
+        "flags": []
+    },
+    {
+        "text": "This tower sure has a lot of stairs. ",
+        "speaker": "zatt_neutral",
+        "flags": []
+    },
+    {
+        "text": "I should probably pace myself. ",
+        "speaker": "zatt_neutral",
+        "flags": []
+    },
+    {
+        "text": "Looks to me like you climbed those big steps pretty easily! ",
+        "speaker": "themouse",
+        "flags": []
+    },
+    {
+        "text": "Ah!",
+        "speaker": "zatt_yelling",
+        "flags": []
+    },
+    {
+        "text": "Who's there? ",
+        "speaker": "zatt_neutral",
+        "flags": []
+    },
+    {
+        "text": "It's me! Down here! ",
+        "speaker": "themouse",
+        "flags": []
+    },
+    {
+        "text": "Oh, hello. ",
+        "speaker": "zatt_neutral",
+        "flags": []
+    },
+    {
+        "text": "Two questions!",
+        "speaker": "themouse",
+        "flags": []
+    },
+    {
+        "text": "First, you're not going to eat me, are you?",
+        "speaker": "themouse",
+        "flags": []
+    },
+    {
+        "text": "Um, no, you're safe with me little guy.  ",
+        "speaker": "zatt_neutral",
+        "flags": [
+            "ik2"
+        ]
+    },
+    {
+        "text": "That's good. I figured as much, but it's good to check and all. You know what I mean?",
+        "speaker": "themouse",
+        "flags": []
+    },
+    {
+        "text": "I guess so. ",
+        "speaker": "zatt_neutral",
+        "flags": []
+    },
+    {
+        "text": "What's your second question? ",
+        "speaker": "zatt_neutral",
+        "flags": []
+    },
+    {
+        "text": "Do you have anything for me to eat?",
+        "speaker": "themouse",
+        "flags": []
+    },
+    {
+        "text": "No, I don't have any food with me. ",
+        "speaker": "zatt_neutral",
+        "flags": []
+    },
+    {
+        "text": "...",
+        "speaker": "themouse",
+        "flags": []
+    },
+    {
+        "text": "Okay.",
+        "speaker": "themouse",
+        "flags": []
+    },
+    {
+        "text": "I, um, should get going. ",
+        "speaker": "zatt_neutral",
+        "flags": []
+    },
+    {
+        "text": "Buh-bye! I'll check in if you have food later.",
+        "speaker": "themouse",
+        "flags": []
+    }
+]

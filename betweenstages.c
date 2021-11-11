@@ -1,5 +1,6 @@
 #include "betweenstages.h"
 
+#include "cutscene.h"
 #include "graphic.h"
 #include "displaytext.h"
 #include "main.h"
@@ -78,6 +79,7 @@ void updateBetweenStages() {
 
 
     if (levels[currentLevel].completionCutsceneKey != 0x0) {
+      cutsceneToLoad = levels[currentLevel].completionCutsceneKey;
       nextStage = &cutsceneStage;
     } else {
       nextStage = &gameplayStage;
