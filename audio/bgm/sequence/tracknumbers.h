@@ -35,7 +35,10 @@
 /* 11_arena1.mid  */
 #define TRACK_11_ARENA1 10
 
-#define TRACK_COUNT 11
+/* 12_top_of_the_tower.mid  */
+#define TRACK_12_TOP_OF_THE_TOWER 11
+
+#define TRACK_COUNT 12
 
 
 #endif
