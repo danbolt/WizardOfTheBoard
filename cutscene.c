@@ -222,7 +222,10 @@ void updateCutsceneDone() {
   cutsceneTime += deltaTimeSeconds;
 
   if (cutsceneTime > DONE_TIME) {
-    nextStage = &levelSelectStage;
+
+    // TODO: handle the ending when the final stage finishes
+
+    nextStage = &gameplayStage;
     changeScreensFlag = 1;
 
   }

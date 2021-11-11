@@ -75,7 +75,13 @@ void updateBetweenStages() {
   animationFrame = ((int)(betweenTimePassed * 24.f)) % NUMBER_OF_ANIMATION_FRAMES;
 
   if (betweenTimePassed > BETWEEN_STAGES_TIME) {
-    nextStage = &gameplayStage;
+
+
+    if (levels[currentLevel].completionCutsceneKey != 0x0) {
+      nextStage = &cutsceneStage;
+    } else {
+      nextStage = &gameplayStage;
+    }
     currentLevel = (currentLevel + 1) % NUMBER_OF_LEVELS; // TODO: finish the game if we top out
     changeScreensFlag = 1;
   }
