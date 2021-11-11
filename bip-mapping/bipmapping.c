@@ -1,6 +1,6 @@
 /* ANSI-C code produced by gperf version 3.1 */
 /* Command-line: gperf --no-strlen --output-file=bipmapping.c --lookup-function-name=getBipMapping --struct-type gperf-bip-mapping  */
-/* Computed positions: -k'1,$' */
+/* Computed positions: -k'8,$' */
 
 #if !((' ' == 32) && ('!' == 33) && ('"' == 34) && ('#' == 35) \
       && ('%' == 37) && ('&' == 38) && ('\'' == 39) && ('(' == 40) \
@@ -37,7 +37,7 @@
 #line 6 "gperf-bip-mapping"
 struct bipMapping;
 
-#define TOTAL_KEYWORDS 10
+#define TOTAL_KEYWORDS 12
 #define MIN_WORD_LENGTH 1
 #define MAX_WORD_LENGTH 14
 #define MIN_HASH_VALUE 0
@@ -65,10 +65,10 @@ hash (register const char *str, register size_t len)
       31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
       31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
       31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
-      31, 31, 31, 31, 31, 31, 31, 31,  4, 31,
-      10,  4, 31,  4, 15, 31, 31, 31,  0, 31,
-      15, 31,  5, 10, 31,  5, 15, 31, 31, 31,
-      31, 15,  0, 31, 31, 31, 31, 31, 31, 31,
+      31, 31, 31, 31, 31, 31, 31,  4,  3, 31,
+      15,  5, 31, 10, 15, 31, 31, 31,  4, 31,
+       0, 31, 31, 31, 31, 31, 31,  5, 31, 31,
+      31, 10, 31, 31, 31, 31, 31, 31, 31, 31,
       31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
       31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
       31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
@@ -83,7 +83,23 @@ hash (register const char *str, register size_t len)
       31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
       31, 31, 31, 31, 31, 31
     };
-  return asso_values[(unsigned char)str[len - 1]] + asso_values[(unsigned char)str[0]];
+  register unsigned int hval = 0;
+
+  switch (len)
+    {
+      default:
+        hval += asso_values[(unsigned char)str[7]];
+      /*FALLTHROUGH*/
+      case 7:
+      case 6:
+      case 5:
+      case 4:
+      case 3:
+      case 2:
+      case 1:
+        break;
+    }
+  return hval + asso_values[(unsigned char)str[len - 1]];
 }
 
 struct bipMapping *
@@ -91,32 +107,36 @@ getBipMapping (register const char *str, register size_t len)
 {
   static struct bipMapping wordlist[] =
     {
-#line 8 "gperf-bip-mapping"
-      {"zatt_neutral",SFX_13_ZATT_BIP},
-      {""}, {""}, {""},
-#line 10 "gperf-bip-mapping"
-      {"zatt_yelling",SFX_14_ZATT_SCREAMING_BIP},
-#line 14 "gperf-bip-mapping"
-      {"protag_neutral",SFX_02_NOBODY_BIP},
+#line 16 "gperf-bip-mapping"
+      {"queen",SFX_35_QUEEN_BIP},
       {""}, {""},
 #line 15 "gperf-bip-mapping"
       {"b",SFX_32_B_BIP},
+#line 14 "gperf-bip-mapping"
+      {"protag_neutral",SFX_02_NOBODY_BIP},
 #line 11 "gperf-bip-mapping"
       {"snake",SFX_18_OGRE_BIP},
-#line 9 "gperf-bip-mapping"
-      {"zatt_sad",SFX_13_ZATT_BIP},
-      {""}, {""}, {""}, {""},
+      {""}, {""}, {""},
+#line 8 "gperf-bip-mapping"
+      {"zatt_neutral",SFX_13_ZATT_BIP},
+#line 18 "gperf-bip-mapping"
+      {"themouse",SFX_34_MOUSE_BIP},
+      {""}, {""}, {""},
+#line 10 "gperf-bip-mapping"
+      {"zatt_yelling",SFX_14_ZATT_SCREAMING_BIP},
+#line 17 "gperf-bip-mapping"
+      {"teach",SFX_16_ELDER_BIP},
+      {""}, {""}, {""},
 #line 12 "gperf-bip-mapping"
       {"protag_annoyed",SFX_02_NOBODY_BIP},
+#line 19 "gperf-bip-mapping"
+      {"themouse_hah",SFX_34_MOUSE_BIP},
       {""}, {""}, {""}, {""},
 #line 13 "gperf-bip-mapping"
       {"protag_happy",SFX_02_NOBODY_BIP},
       {""}, {""}, {""}, {""},
-#line 16 "gperf-bip-mapping"
-      {"queen",SFX_35_QUEEN_BIP},
-      {""}, {""}, {""}, {""},
-#line 17 "gperf-bip-mapping"
-      {"teach",SFX_16_ELDER_BIP}
+#line 9 "gperf-bip-mapping"
+      {"zatt_sad",SFX_13_ZATT_BIP}
     };
 
   if (len <= MAX_WORD_LENGTH && len >= MIN_WORD_LENGTH)
