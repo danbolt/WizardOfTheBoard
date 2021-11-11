@@ -38,7 +38,10 @@
 /* 12_top_of_the_tower.mid  */
 #define TRACK_12_TOP_OF_THE_TOWER 11
 
-#define TRACK_COUNT 12
+/* 13_warming_up.mid  */
+#define TRACK_13_WARMING_UP 12
+
+#define TRACK_COUNT 13
 
 
 #endif
