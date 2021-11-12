@@ -17,7 +17,8 @@ LevelEntry levels[NUMBER_OF_LEVELS] = {
   { "ogre", TRACK_01_PUZZLE_TIME, 0x0 },
 
 
-  // promotion level here
+  { "oneweirdtrick", TRACK_01_PUZZLE_TIME, 0x0 },
+
   // also include flashback
 
 
