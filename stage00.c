@@ -1804,6 +1804,8 @@ void updateHUDInformation() {
     } else {
       highlightedPieceText = "";
     }
+  } else if (boardControlState == BOARD_CONTROL_PIECE_SELECTED) {
+    highlightedPieceText = pieceData[selectedPiece].displayName;
   }
 
   // Lerp the player's healthbar to their health;

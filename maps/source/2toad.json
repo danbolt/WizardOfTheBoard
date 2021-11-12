@@ -3,7 +3,7 @@
  "infinite":false,
  "layers":[
         {
-         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 14, 0, 0, 0, 0, 14, 0, 0, 4, 0, 0, 0, 0, 3, 0, 0, 15, 0, 0, 0, 0, 15, 0, 15, 0, 0, 0, 0, 0, 0, 15, 0, 0, 0, 0, 0, 0, 0, 0],
+         "data":[0, 0, 0, 0, 0, 0, 14, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 15, 0, 0, 0, 0, 15, 0, 0, 0, 0, 0, 0, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":8,
          "id":2,
          "name":"board",
@@ -21,25 +21,36 @@
          "objects":[
                 {
                  "height":0,
-                 "id":3,
-                 "name":"",
-                 "rotation":358.973144653206,
-                 "type":"player",
-                 "visible":true,
-                 "width":0,
-                 "x":67.75,
-                 "y":115.75
-                }, 
-                {
-                 "height":0,
                  "id":4,
-                 "name":"snake",
+                 "name":"toad",
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":62,
-                 "y":28.25
+                 "x":58.8320115356885,
+                 "y":38.0908435472242
+                }, 
+                {
+                 "height":0,
+                 "id":5,
+                 "name":"toad",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":25.0555155010815,
+                 "y":57.4708002883922
+                }, 
+                {
+                 "height":0,
+                 "id":3,
+                 "name":"",
+                 "rotation":317.542812203791,
+                 "type":"player",
+                 "visible":true,
+                 "width":0,
+                 "x":109.433850036049,
+                 "y":111.906272530642
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -48,13 +59,13 @@
          "y":0
         }],
  "nextlayerid":6,
- "nextobjectid":5,
+ "nextobjectid":6,
  "orientation":"orthogonal",
  "properties":[
         {
          "name":"dialogue",
          "type":"string",
-         "value":"meet_snake"
+         "value":""
         }],
  "renderorder":"right-up",
  "tiledversion":"1.7.2",

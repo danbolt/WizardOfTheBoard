@@ -3,7 +3,7 @@
  "infinite":false,
  "layers":[
         {
-         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 14, 0, 0, 0, 0, 14, 0, 0, 4, 0, 0, 0, 0, 3, 0, 0, 15, 0, 0, 0, 0, 15, 0, 15, 0, 0, 0, 0, 0, 0, 15, 0, 0, 0, 0, 0, 0, 0, 0],
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 15, 0, 0, 0, 0, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":8,
          "id":2,
          "name":"board",
@@ -21,25 +21,25 @@
          "objects":[
                 {
                  "height":0,
-                 "id":3,
-                 "name":"",
-                 "rotation":358.973144653206,
-                 "type":"player",
-                 "visible":true,
-                 "width":0,
-                 "x":67.75,
-                 "y":115.75
-                }, 
-                {
-                 "height":0,
                  "id":4,
-                 "name":"snake",
+                 "name":"toad",
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":62,
-                 "y":28.25
+                 "x":53.2559480894016,
+                 "y":41.6231074260995
+                }, 
+                {
+                 "height":0,
+                 "id":3,
+                 "name":"",
+                 "rotation":0,
+                 "type":"player",
+                 "visible":true,
+                 "width":0,
+                 "x":62.1836697909156,
+                 "y":110.245133381399
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -54,7 +54,7 @@
         {
          "name":"dialogue",
          "type":"string",
-         "value":"meet_snake"
+         "value":""
         }],
  "renderorder":"right-up",
  "tiledversion":"1.7.2",
