@@ -1,10 +1,10 @@
 check
 December 16th
 (A few floors below)
-*ring* *ring* *ring* @wait
+*ring* *ring* *ring* @wait #sound33
 It's been ten minutes now. @protag_neutral
 Is he even there? @protag_annoyed
-*ring* *ring* *ring* @wait
+*ring* *ring* *ring* @wait #sound33
 *CLICK*
 Hello? This is Spotter Office LA-64. @b
 Hey, it's me, Wren Buster. I'm calling from inside the Mark XI superstructure. @protag_neutral

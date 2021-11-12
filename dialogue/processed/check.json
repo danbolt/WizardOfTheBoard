@@ -10,9 +10,11 @@
         "flags": []
     },
     {
-        "text": "*ring* *ring* *ring* ",
+        "text": "*ring* *ring* *ring*  ",
         "speaker": "wait",
-        "flags": []
+        "flags": [
+            "sound33"
+        ]
     },
     {
         "text": "It's been ten minutes now. ",
@@ -25,9 +27,11 @@
         "flags": []
     },
     {
-        "text": "*ring* *ring* *ring* ",
+        "text": "*ring* *ring* *ring*  ",
         "speaker": "wait",
-        "flags": []
+        "flags": [
+            "sound33"
+        ]
     },
     {
         "text": "*CLICK*",

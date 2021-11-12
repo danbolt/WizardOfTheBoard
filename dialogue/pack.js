@@ -76,6 +76,13 @@ const STRUCT_FLAG_SHOW_BG_1 = 1;
 const STRUCT_FLAG_SHOW_BG_2 = 2;
 const STRUCT_FLAG_SHOW_BG_3 = 3;
 
+const STRUCT_FLAG_PLAY_SOUND = 'sound'
+
+const FLAG_INDEX_BG_CHANGE = 0
+
+const FLAG_INDEX_PLAY_SOUND = 1
+const FLAG_INDEX_SOUND_ID = 2
+
 const structDialogueItems = rawDialogueItems.map((item) => {
 	const struct = structs.dialogue();
 
@@ -84,12 +91,22 @@ const structDialogueItems = rawDialogueItems.map((item) => {
 	struct.nextAddress = ReverseEndian(item.nextAddress);
 
 	if (item.flags.indexOf(FLAG_SHOW_BG_1) > -1) {
-		struct.flags[0] = STRUCT_FLAG_SHOW_BG_1;
+		struct.flags[FLAG_INDEX_BG_CHANGE] = STRUCT_FLAG_SHOW_BG_1;
 	} else if (item.flags.indexOf(FLAG_SHOW_BG_2) > -1) {
-		struct.flags[0] = STRUCT_FLAG_SHOW_BG_2;
+		struct.flags[FLAG_INDEX_BG_CHANGE] = STRUCT_FLAG_SHOW_BG_2;
 	}else if (item.flags.indexOf(FLAG_SHOW_BG_3) > -1) {
-		struct.flags[0] = STRUCT_FLAG_SHOW_BG_3;
+		struct.flags[FLAG_INDEX_BG_CHANGE] = STRUCT_FLAG_SHOW_BG_3;
 	}
+
+	item.flags.forEach((flag) => {
+		if (flag.startsWith(STRUCT_FLAG_PLAY_SOUND) && flag.length > STRUCT_FLAG_PLAY_SOUND.length) {
+			const soundIndexToPlayString = (flag.substr(STRUCT_FLAG_PLAY_SOUND.length));
+			const soundIndex = parseInt(soundIndexToPlayString) % 256;
+
+			struct.flags[FLAG_INDEX_PLAY_SOUND] = 1;
+			struct.flags[FLAG_INDEX_SOUND_ID] = soundIndex;
+		}
+	})
 
 	return struct;
 })

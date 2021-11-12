@@ -131,6 +131,10 @@ void startDialogueItem(u32 offset) {
     }
   }
 
+  if (nextDialogueItem->flags[1] > 0) {
+    playSound(nextDialogueItem->flags[2] % SFX_COUNT);
+  }
+
   nextDialogueItemIndex = (nextDialogueItemIndex + 1) % NUMBER_OF_DIALOGUE_ITEM_BUFFERS;
 
   dialogueState = DIALOGUE_STATE_SHOWING;
