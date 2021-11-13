@@ -227,8 +227,32 @@ void updateJumper(int index) {
   guRotate(&(monsterSpecificTransforms[index]), gameplayTimePassed * 300.f, 0.f, 0.f, 1.f);
 }
 
+#define SHADOW_QUEEN_MOVE_SPEED 5.f
+
 void updateShadowQueen(int index) {
-  return;
+  const Vec2* ourPosition = &(positions[index]);
+
+  Vec2 playerDirectionToBoardCenter = { (((float)BOARD_WIDTH) * 0.5f) - playerPosition.x, (((float)BOARD_HEIGHT) * 0.5f ) - playerPosition.y };
+  normalize(&playerDirectionToBoardCenter);
+
+  const Vec2 ourTargetLocation = { (playerDirectionToBoardCenter.x * BOARD_WIDTH * 0.45f) + (((float)BOARD_WIDTH) * 0.5f), (playerDirectionToBoardCenter.y * BOARD_HEIGHT * 0.45f)  + (((float)BOARD_HEIGHT) * 0.5f ) };
+
+  Vec2* ourVelocity = &(velocities[index]);
+  if (distanceSq(ourPosition, &ourTargetLocation) > (2.f * 2.f)) {
+    ourVelocity->x = ourTargetLocation.x - ourPosition->x;
+    ourVelocity->y = ourTargetLocation.y - ourPosition->y;
+    normalize(ourVelocity);
+    ourVelocity->x *= SHADOW_QUEEN_MOVE_SPEED;
+    ourVelocity->y *= SHADOW_QUEEN_MOVE_SPEED;
+
+    orientations[index] = lerpAngle(orientations[index], nu_atan2(playerPosition.y - ourPosition->y, playerPosition.x - ourPosition->x) + M_PI_2, 0.13f);
+  } else {
+    ourVelocity->x *= 0.93f;
+    ourVelocity->y *= 0.93f;
+  }
+
+  // ourPosition->x = ourTargetLocation.x;
+  // ourPosition->y = ourTargetLocation.y;
 }
 
 #define PLAYER_HEIGHT_ABOVE_GROUND 0.26f
