@@ -228,6 +228,8 @@ void updateJumper(int index) {
 }
 
 #define SHADOW_QUEEN_MOVE_SPEED 5.f
+#define SHADOW_QUEEN_FIRE_PERIOD 0.75f
+#define SHADOW_QUEEN_PROJETILE_SPEED 3.1f
 
 void updateShadowQueen(int index) {
   const Vec2* ourPosition = &(positions[index]);
@@ -244,15 +246,26 @@ void updateShadowQueen(int index) {
     normalize(ourVelocity);
     ourVelocity->x *= SHADOW_QUEEN_MOVE_SPEED;
     ourVelocity->y *= SHADOW_QUEEN_MOVE_SPEED;
-
-    orientations[index] = lerpAngle(orientations[index], nu_atan2(playerPosition.y - ourPosition->y, playerPosition.x - ourPosition->x) + M_PI_2, 0.13f);
   } else {
     ourVelocity->x *= 0.93f;
     ourVelocity->y *= 0.93f;
   }
 
-  // ourPosition->x = ourTargetLocation.x;
-  // ourPosition->y = ourTargetLocation.y;
+  orientations[index] = lerpAngle(orientations[index], nu_atan2(playerPosition.y - ourPosition->y, playerPosition.x - ourPosition->x) + M_PI_2, 0.11f);
+
+  if (isKnockingBackStates[index]) {
+    return;
+  }
+
+  // If we've made it here, update our fire rate time
+  float* timePassed = (float*)(monsterState[index]);
+  *timePassed += deltaTimeSeconds;
+
+  if (*timePassed > SHADOW_QUEEN_FIRE_PERIOD) {
+    *timePassed = 0.f;
+    const Vec2 firingDirection = (Vec2){ cosf(orientations[index] - M_PI_2) * SHADOW_QUEEN_PROJETILE_SPEED, sinf(orientations[index] - M_PI_2) * SHADOW_QUEEN_PROJETILE_SPEED};
+    tryToSpawnAProjectile(&(positions[index]), &firingDirection);
+  }
 }
 
 #define PLAYER_HEIGHT_ABOVE_GROUND 0.26f
@@ -918,6 +931,7 @@ void initializeMonsters(const MapData* map) {
       renderCommands[i + 1] = shadowqueen_commands;
       health[i + 1] = 5;
       radiiSquared[i + 1] = 0.23f * 0.23f;
+      *((float*)(monsterState[i + 1])) = 0.f;
     }
   }
 
