@@ -1,0 +1,99 @@
+[
+    {
+        "text": "(about a year ago)",
+        "speaker": "",
+        "flags": []
+    },
+    {
+        "text": "... ",
+        "speaker": "zatt_sad",
+        "flags": []
+    },
+    {
+        "text": "I hate this. ",
+        "speaker": "zatt_sad",
+        "flags": []
+    },
+    {
+        "text": "Why do I even have to be a warrior if I'm not even good at the mystic artes? ",
+        "speaker": "zatt_sad",
+        "flags": []
+    },
+    {
+        "text": "It's just so stupid. ",
+        "speaker": "zatt_sad",
+        "flags": []
+    },
+    {
+        "text": "Wait...! ",
+        "speaker": "zatt_neutral",
+        "flags": []
+    },
+    {
+        "text": "Is that... a demon?  ",
+        "speaker": "zatt_neutral",
+        "flags": [
+            "ik2"
+        ]
+    },
+    {
+        "text": "It's still pretty small, so I bet it's slow.",
+        "speaker": "zatt_neutral",
+        "flags": []
+    },
+    {
+        "text": "...",
+        "speaker": "",
+        "flags": []
+    },
+    {
+        "text": "I could strike now while it doesn't see me!",
+        "speaker": "zatt_neutral",
+        "flags": []
+    },
+    {
+        "text": "I can be a warrior. Everyone will see!",
+        "speaker": "zatt_neutral",
+        "flags": []
+    },
+    {
+        "text": "Here goes...",
+        "speaker": "zatt_neutral",
+        "flags": []
+    },
+    {
+        "text": "!!!  ",
+        "speaker": "",
+        "flags": [
+            "sound36",
+            "blood"
+        ]
+    },
+    {
+        "text": "Did I get it?",
+        "speaker": "zatt_neutral",
+        "flags": []
+    },
+    {
+        "text": "...  ",
+        "speaker": "zatt_neutral",
+        "flags": [
+            "ik3"
+        ]
+    },
+    {
+        "text": "...",
+        "speaker": "zatt_despair",
+        "flags": []
+    },
+    {
+        "text": "I...",
+        "speaker": "zatt_despair",
+        "flags": []
+    },
+    {
+        "text": "I wonder if it saw me just now...",
+        "speaker": "zatt_despair",
+        "flags": []
+    }
+]

@@ -5,12 +5,13 @@
 %}
 struct dialogueMappingData;
 %%
-check,0
-flashback_war,8316
-individual,11088
-longpiece,11704
-meet_snake,12320
-powpowpow,14784
-rest,15400
-thequeen,21560
-uhhh,24948
+chance,0
+check,5544
+flashback_war,13860
+individual,16632
+longpiece,17248
+meet_snake,17864
+powpowpow,20328
+rest,20944
+thequeen,27104
+uhhh,30492

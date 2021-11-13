@@ -18,6 +18,7 @@ test,73728
 themouse,81920
 themouse_hah,90112
 wait,98304
-zatt_neutral,106496
-zatt_sad,114688
-zatt_yelling,122880
+zatt_despair,106496
+zatt_neutral,114688
+zatt_sad,122880
+zatt_yelling,131072

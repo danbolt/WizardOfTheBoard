@@ -1,0 +1,9 @@
+{
+  "dialogue": "chance",
+
+  "imageKey1": "wandering",
+  "imageKey2": "spotted",
+  "imageKey3": "slain",
+
+  "bgm": 6
+}

@@ -1006,6 +1006,34 @@ sound FX_35_queen_bipSound
     keymap = FX_35_queen_bip_keymap;
     envelope = FX_35_queen_bip_env;
 }
+envelope FX_36_slain_env
+{
+    attackTime    = 0;
+    attackVolume  = 100;
+    decayTime   = 419365;
+    decayVolume   = 90;
+    releaseTime   = 0;
+    
+}
+keymap FX_36_slain_keymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin      = 36;
+    keyMax      = 36;
+    keyBase     = 36;
+    detune      = 0;
+}
+
+sound FX_36_slainSound
+{
+    use ("compressed/36_slain.aifc");
+    
+    pan    = 64;
+    volume = 127;
+    keymap = FX_36_slain_keymap;
+    envelope = FX_36_slain_env;
+}
 
 instrument sfx
 {
@@ -1048,6 +1076,7 @@ instrument sfx
     sound = FX_33_callSound;
     sound = FX_34_mouse_bipSound;
     sound = FX_35_queen_bipSound;
+    sound = FX_36_slainSound;
 }
 
 bank sfxbank

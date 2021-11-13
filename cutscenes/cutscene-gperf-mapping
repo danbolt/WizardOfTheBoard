@@ -6,6 +6,7 @@
 struct cutsceneMappingData;
 %%
 first_rest,0
-odd,68
-second_scene,136
-test_scene,204
+grass,68
+odd,136
+second_scene,204
+test_scene,272

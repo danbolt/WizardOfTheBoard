@@ -37,7 +37,7 @@
 #line 6 "cutscene-gperf-mapping"
 struct cutsceneMappingData;
 
-#define TOTAL_KEYWORDS 4
+#define TOTAL_KEYWORDS 5
 #define MIN_WORD_LENGTH 3
 #define MAX_WORD_LENGTH 12
 #define MIN_HASH_VALUE 0
@@ -67,7 +67,7 @@ hash (register const char *str, register size_t len)
       8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
       8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
       8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
-      8, 8, 7, 8, 8, 8, 8, 8, 8, 8,
+      8, 8, 4, 7, 8, 8, 8, 8, 8, 8,
       8, 2, 8, 8, 8, 5, 0, 8, 8, 8,
       8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
       8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
@@ -92,17 +92,19 @@ getCutsceneOffset (register const char *str, register size_t len)
 {
   static struct cutsceneMappingData wordlist[] =
     {
-#line 11 "cutscene-gperf-mapping"
-      {"test_scene",204},
+#line 12 "cutscene-gperf-mapping"
+      {"test_scene",272},
       {""},
-#line 9 "cutscene-gperf-mapping"
-      {"odd",68},
-      {""}, {""},
 #line 10 "cutscene-gperf-mapping"
-      {"second_scene",136},
+      {"odd",136},
       {""},
 #line 8 "cutscene-gperf-mapping"
-      {"first_rest",0}
+      {"first_rest",0},
+#line 11 "cutscene-gperf-mapping"
+      {"second_scene",204},
+      {""},
+#line 9 "cutscene-gperf-mapping"
+      {"grass",68}
     };
 
   if (len <= MAX_WORD_LENGTH && len >= MIN_WORD_LENGTH)

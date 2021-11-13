@@ -110,7 +110,10 @@
 /* 35_queen_bip.aifc  */
 #define SFX_35_QUEEN_BIP 35
 
-#define SFX_COUNT 36
+/* 36_slain.aifc  */
+#define SFX_36_SLAIN 36
+
+#define SFX_COUNT 37
 
 
 #endif

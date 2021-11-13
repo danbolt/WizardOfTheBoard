@@ -37,12 +37,12 @@
 #line 6 "texture-gperf-mapping"
 struct castMappingData;
 
-#define TOTAL_KEYWORDS 16
+#define TOTAL_KEYWORDS 17
 #define MIN_WORD_LENGTH 1
 #define MAX_WORD_LENGTH 14
 #define MIN_HASH_VALUE 0
-#define MAX_HASH_VALUE 38
-/* maximum key range = 39, duplicates = 0 */
+#define MAX_HASH_VALUE 35
+/* maximum key range = 36, duplicates = 0 */
 
 #ifdef __GNUC__
 __inline
@@ -56,32 +56,32 @@ hash (register const char *str, register size_t len)
 {
   static unsigned char asso_values[] =
     {
-      39, 39, 39, 39, 39, 39, 39, 39, 39, 39,
-      39, 39, 39, 39, 39, 39, 39, 39, 39, 39,
-      39, 39, 39, 39, 39, 39, 39, 39, 39, 39,
-      39, 39, 39, 39, 39, 39, 39, 39, 39, 39,
-      39, 39, 39, 39, 39, 39, 39, 39, 39, 39,
-      39, 39, 39, 39, 39, 39, 39, 39, 39, 39,
-      39, 39, 39, 39, 39, 39, 39, 39, 39, 39,
-      39, 39, 39, 39, 39, 39, 39, 39, 39, 39,
-      39, 39, 39, 39, 39, 39, 39, 39, 39, 39,
-      39, 39, 39, 39, 39, 39, 39, 39,  5, 39,
-      30, 28,  0, 20, 23,  5, 39, 39, 10, 39,
-      13, 10, 39, 39, 39,  0,  3, 39,  5, 39,
-      39,  0, 39, 39, 39, 39, 39, 39, 39, 39,
-      39, 39, 39, 39, 39, 39, 39, 39, 39, 39,
-      39, 39, 39, 39, 39, 39, 39, 39, 39, 39,
-      39, 39, 39, 39, 39, 39, 39, 39, 39, 39,
-      39, 39, 39, 39, 39, 39, 39, 39, 39, 39,
-      39, 39, 39, 39, 39, 39, 39, 39, 39, 39,
-      39, 39, 39, 39, 39, 39, 39, 39, 39, 39,
-      39, 39, 39, 39, 39, 39, 39, 39, 39, 39,
-      39, 39, 39, 39, 39, 39, 39, 39, 39, 39,
-      39, 39, 39, 39, 39, 39, 39, 39, 39, 39,
-      39, 39, 39, 39, 39, 39, 39, 39, 39, 39,
-      39, 39, 39, 39, 39, 39, 39, 39, 39, 39,
-      39, 39, 39, 39, 39, 39, 39, 39, 39, 39,
-      39, 39, 39, 39, 39, 39, 39
+      36, 36, 36, 36, 36, 36, 36, 36, 36, 36,
+      36, 36, 36, 36, 36, 36, 36, 36, 36, 36,
+      36, 36, 36, 36, 36, 36, 36, 36, 36, 36,
+      36, 36, 36, 36, 36, 36, 36, 36, 36, 36,
+      36, 36, 36, 36, 36, 36, 36, 36, 36, 36,
+      36, 36, 36, 36, 36, 36, 36, 36, 36, 36,
+      36, 36, 36, 36, 36, 36, 36, 36, 36, 36,
+      36, 36, 36, 36, 36, 36, 36, 36, 36, 36,
+      36, 36, 36, 36, 36, 36, 36, 36, 36, 36,
+      36, 36, 36, 36, 36, 36, 36, 36,  5, 36,
+      30,  1,  0, 20, 28,  5, 36, 36, 10, 36,
+      13,  0, 36, 36, 18,  0,  3, 36,  5, 36,
+      36,  0, 36, 36, 36, 36, 36, 36, 36, 36,
+      36, 36, 36, 36, 36, 36, 36, 36, 36, 36,
+      36, 36, 36, 36, 36, 36, 36, 36, 36, 36,
+      36, 36, 36, 36, 36, 36, 36, 36, 36, 36,
+      36, 36, 36, 36, 36, 36, 36, 36, 36, 36,
+      36, 36, 36, 36, 36, 36, 36, 36, 36, 36,
+      36, 36, 36, 36, 36, 36, 36, 36, 36, 36,
+      36, 36, 36, 36, 36, 36, 36, 36, 36, 36,
+      36, 36, 36, 36, 36, 36, 36, 36, 36, 36,
+      36, 36, 36, 36, 36, 36, 36, 36, 36, 36,
+      36, 36, 36, 36, 36, 36, 36, 36, 36, 36,
+      36, 36, 36, 36, 36, 36, 36, 36, 36, 36,
+      36, 36, 36, 36, 36, 36, 36, 36, 36, 36,
+      36, 36, 36, 36, 36, 36, 36
     };
   register unsigned int hval = 0;
 
@@ -103,13 +103,17 @@ getCastTextureOffset (register const char *str, register size_t len)
     {
 #line 12 "texture-gperf-mapping"
       {"protag_happy",32768},
-      {""}, {""},
+#line 15 "texture-gperf-mapping"
+      {"snake",57344},
+      {""},
 #line 17 "texture-gperf-mapping"
       {"test",73728},
       {""},
 #line 8 "texture-gperf-mapping"
       {"b",0},
-      {""}, {""},
+#line 18 "texture-gperf-mapping"
+      {"themouse",81920},
+      {""},
 #line 20 "texture-gperf-mapping"
       {"wait",98304},
       {""},
@@ -119,8 +123,8 @@ getCastTextureOffset (register const char *str, register size_t len)
 #line 9 "texture-gperf-mapping"
       {"demon",8192},
       {""},
-#line 21 "texture-gperf-mapping"
-      {"zatt_neutral",106496},
+#line 22 "texture-gperf-mapping"
+      {"zatt_neutral",114688},
       {""}, {""},
 #line 14 "texture-gperf-mapping"
       {"queen",49152},
@@ -128,26 +132,23 @@ getCastTextureOffset (register const char *str, register size_t len)
 #line 10 "texture-gperf-mapping"
       {"protag",16384},
       {""}, {""},
+#line 21 "texture-gperf-mapping"
+      {"zatt_despair",106496},
+      {""},
+#line 24 "texture-gperf-mapping"
+      {"zatt_yelling",131072},
+      {""}, {""},
 #line 16 "texture-gperf-mapping"
       {"teach",65536},
-      {""},
-#line 23 "texture-gperf-mapping"
-      {"zatt_yelling",122880},
-      {""}, {""},
-#line 19 "texture-gperf-mapping"
-      {"themouse_hah",90112},
       {""},
 #line 11 "texture-gperf-mapping"
       {"protag_annoyed",24576},
       {""}, {""},
-#line 18 "texture-gperf-mapping"
-      {"themouse",81920},
+#line 19 "texture-gperf-mapping"
+      {"themouse_hah",90112},
       {""},
-#line 22 "texture-gperf-mapping"
-      {"zatt_sad",114688},
-      {""}, {""},
-#line 15 "texture-gperf-mapping"
-      {"snake",57344}
+#line 23 "texture-gperf-mapping"
+      {"zatt_sad",122880}
     };
 
   if (len <= MAX_WORD_LENGTH && len >= MIN_WORD_LENGTH)
