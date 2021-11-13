@@ -83,6 +83,9 @@ const FLAG_INDEX_BG_CHANGE = 0
 const FLAG_INDEX_PLAY_SOUND = 1
 const FLAG_INDEX_SOUND_ID = 2
 
+const FLAG_INDEX_BLOOD = 3
+const STRUCT_FLAG_BLOOD = 'blood'
+
 const structDialogueItems = rawDialogueItems.map((item) => {
 	const struct = structs.dialogue();
 
@@ -107,6 +110,10 @@ const structDialogueItems = rawDialogueItems.map((item) => {
 			struct.flags[FLAG_INDEX_SOUND_ID] = soundIndex;
 		}
 	})
+
+	if (item.flags.indexOf(STRUCT_FLAG_BLOOD) > -1) {
+		struct.flags[FLAG_INDEX_BLOOD] = 1;
+	}
 
 	return struct;
 })

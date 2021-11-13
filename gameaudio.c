@@ -55,7 +55,7 @@ void setAudioData(void) {
 
   nuAuSndPlayerBankSet(_sfxbankSegmentRomStart, _sfxbankSegmentRomEnd - _sfxbankSegmentRomStart, _sfxtableSegmentRomStart);
 
-  nuAuSeqPlayerSetVol(0, 0x3fff);
+  nuAuSeqPlayerSetVol(0, 0x4fff);
 }
 
 void initializeAudio() {

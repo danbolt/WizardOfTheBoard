@@ -19,6 +19,8 @@ extern const char* cutsceneToLoad;
 
 extern u8 backgroundIndex;
 
+extern u8 showBlood;
+
 void initCutscene();
 void makeCutsceneDisplaylist();
 void updateCutscene();

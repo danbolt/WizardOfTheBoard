@@ -42,6 +42,10 @@ static float backgroundFadeTime;
 #define CUTSCENE_DONE 3
 static u8 cutsceneState;
 
+u8 showBlood;
+static float bloodTime;
+#define ONSCREEN_BLOOD_DURATION 0.6f
+
 void initCutscene() {
   cutsceneTime = 0.f;
   cutsceneState = CUTSCENE_FADING_IN;
@@ -50,6 +54,9 @@ void initCutscene() {
   internalBackgroundIndex = 0;
   isFading = 0;
   backgroundFadeTime = 0.f;
+
+  showBlood = 0;
+  bloodTime = 0.f;
 
   struct cutsceneMappingData* cutsceneOffsetInfo = getCutsceneOffset(cutsceneToLoad, _nstrlen(cutsceneToLoad));
   assert(cutsceneOffsetInfo != 0x0);
@@ -144,6 +151,16 @@ void makeCutsceneDisplaylist() {
 
   }
 
+  if (showBlood) {
+    gDPPipeSync(glistp++);
+    gDPSetCycleType(glistp++, G_CYC_FILL);
+    gDPSetFillColor(glistp++, GPACK_RGBA5551(0xa7,0x1b,0x00,1) << 16 | GPACK_RGBA5551(0xa7,0x1b,0x00,1));
+    gDPFillRectangle(glistp++, 0, 0, SCREEN_WD - 1, SCREEN_HT - 1);
+
+    gDPPipeSync(glistp++);
+    gDPSetCycleType(glistp++,G_CYC_1CYCLE);
+  }
+
   renderDialogueToDisplayList();
 
   gDPFullSync(glistp++);
@@ -186,6 +203,14 @@ void updateFadingIn() {
 }
 
 void updatePlayingDialogue() {
+
+  if (showBlood) {
+    bloodTime += deltaTimeSeconds;
+
+    if (bloodTime > ONSCREEN_BLOOD_DURATION) {
+      showBlood = 0;
+    }
+  }
 
   if ((!isFading) && (backgroundIndex != internalBackgroundIndex)) {
     isFading = 1;

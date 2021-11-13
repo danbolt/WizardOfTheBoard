@@ -93,31 +93,31 @@ getDialogueDataOffset (register const char *str, register size_t len)
   static struct dialogueMappingData wordlist[] =
     {
 #line 15 "map-gperf-mapping"
-      {"rest",20944},
+      {"rest",21560},
       {""}, {""}, {""},
 #line 8 "map-gperf-mapping"
       {"chance",0},
 #line 14 "map-gperf-mapping"
-      {"powpowpow",20328},
+      {"powpowpow",20944},
       {""}, {""}, {""},
 #line 9 "map-gperf-mapping"
-      {"check",5544},
+      {"check",6160},
 #line 16 "map-gperf-mapping"
-      {"thequeen",27104},
+      {"thequeen",27720},
       {""}, {""}, {""},
 #line 10 "map-gperf-mapping"
-      {"flashback_war",13860},
+      {"flashback_war",14476},
 #line 13 "map-gperf-mapping"
-      {"meet_snake",17864},
+      {"meet_snake",18480},
       {""}, {""}, {""}, {""},
 #line 12 "map-gperf-mapping"
-      {"longpiece",17248},
+      {"longpiece",17864},
       {""}, {""}, {""}, {""},
 #line 17 "map-gperf-mapping"
-      {"uhhh",30492},
+      {"uhhh",31108},
       {""}, {""}, {""}, {""},
 #line 11 "map-gperf-mapping"
-      {"individual",16632}
+      {"individual",17248}
     };
 
   if (len <= MAX_WORD_LENGTH && len >= MIN_WORD_LENGTH)

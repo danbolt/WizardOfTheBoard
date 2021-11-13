@@ -95,5 +95,15 @@
         "text": "I wonder if it saw me just now...",
         "speaker": "zatt_despair",
         "flags": []
+    },
+    {
+        "text": "...",
+        "speaker": "zatt_despair",
+        "flags": []
+    },
+    {
+        "text": "Oh god...",
+        "speaker": "zatt_despair",
+        "flags": []
     }
 ]

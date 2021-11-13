@@ -135,6 +135,10 @@ void startDialogueItem(u32 offset) {
     playSound(nextDialogueItem->flags[2] % SFX_COUNT);
   }
 
+  if (nextDialogueItem->flags[3]) {
+    showBlood = 1;
+  }
+
   nextDialogueItemIndex = (nextDialogueItemIndex + 1) % NUMBER_OF_DIALOGUE_ITEM_BUFFERS;
 
   dialogueState = DIALOGUE_STATE_SHOWING;
