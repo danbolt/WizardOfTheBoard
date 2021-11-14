@@ -8,40 +8,43 @@
 /* 02_drums_test.mid  */
 #define TRACK_02_DRUMS_TEST 1
 
+/* 02_odd_board.mid  */
+#define TRACK_02_ODD_BOARD 2
+
 /* 03_pitched_drums.mid  */
-#define TRACK_03_PITCHED_DRUMS 2
+#define TRACK_03_PITCHED_DRUMS 3
 
 /* 04_wood_block.mid  */
-#define TRACK_04_WOOD_BLOCK 3
+#define TRACK_04_WOOD_BLOCK 4
 
 /* 05_overture.mid  */
-#define TRACK_05_OVERTURE 4
+#define TRACK_05_OVERTURE 5
 
 /* 06_doomed_heroes.mid  */
-#define TRACK_06_DOOMED_HEROES 5
+#define TRACK_06_DOOMED_HEROES 6
 
 /* 07_contemplation.mid  */
-#define TRACK_07_CONTEMPLATION 6
+#define TRACK_07_CONTEMPLATION 7
 
 /* 08_overture_ending.mid  */
-#define TRACK_08_OVERTURE_ENDING 7
+#define TRACK_08_OVERTURE_ENDING 8
 
 /* 09_between_the_floors.mid  */
-#define TRACK_09_BETWEEN_THE_FLOORS 8
+#define TRACK_09_BETWEEN_THE_FLOORS 9
 
 /* 10_harbour.mid  */
-#define TRACK_10_HARBOUR 9
+#define TRACK_10_HARBOUR 10
 
 /* 11_arena1.mid  */
-#define TRACK_11_ARENA1 10
+#define TRACK_11_ARENA1 11
 
 /* 12_top_of_the_tower.mid  */
-#define TRACK_12_TOP_OF_THE_TOWER 11
+#define TRACK_12_TOP_OF_THE_TOWER 12
 
 /* 13_warming_up.mid  */
-#define TRACK_13_WARMING_UP 12
+#define TRACK_13_WARMING_UP 13
 
-#define TRACK_COUNT 13
+#define TRACK_COUNT 14
 
 
 #endif
