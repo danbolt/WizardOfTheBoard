@@ -47,6 +47,8 @@ static DialogueItem* currentDialogueItem;
 
 static u8 dialogueBackingBuffer[TMEM_SIZE_BYTES] __attribute__((aligned(8)));
 
+static u8 playingSoundForFirstTicks;
+
 // TODO: add a "simple string" drawing function as well
 
 void drawString(int x, int y, const unsigned char* str, int maxWordWrapWidth) {
@@ -133,6 +135,7 @@ void startDialogueItem(u32 offset) {
 
   if (nextDialogueItem->flags[1] > 0) {
     playSound(nextDialogueItem->flags[2] % SFX_COUNT);
+    playingSoundForFirstTicks = 1;
   }
 
   if (nextDialogueItem->flags[3]) {
@@ -185,11 +188,17 @@ void updateDialogue() {
       bipTimePassed = 0.f;
       bipIndex++;
 
-      struct bipMapping * bipType = getBipMapping((const char*)(currentDialogueItem->speaker), _nstrlen((const char*)(currentDialogueItem->speaker)));
-      if (bipType != 0x0) { 
-        playSound(bipType->sfxKey);
-      } else { 
-        playSound(DEFAULT_BIP_NOISE);
+      if (playingSoundForFirstTicks && (bipIndex > 3)) {
+        playingSoundForFirstTicks = 0;
+      }
+
+      if (!playingSoundForFirstTicks) {
+        struct bipMapping * bipType = getBipMapping((const char*)(currentDialogueItem->speaker), _nstrlen((const char*)(currentDialogueItem->speaker)));
+        if (bipType != 0x0) { 
+          playSound(bipType->sfxKey);
+        } else { 
+          playSound(DEFAULT_BIP_NOISE);
+        }
       }
     }
 
