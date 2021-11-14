@@ -37,7 +37,7 @@
 #line 6 "map-gperf-mapping"
 struct dialogueMappingData;
 
-#define TOTAL_KEYWORDS 11
+#define TOTAL_KEYWORDS 12
 #define MIN_WORD_LENGTH 4
 #define MAX_WORD_LENGTH 13
 #define MIN_HASH_VALUE 0
@@ -66,9 +66,9 @@ hash (register const char *str, register size_t len)
       31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
       31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
       31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
-      31, 31, 31, 31, 31, 31, 31, 31, 31, 15,
-      31, 31,  4,  4,  4, 10, 31, 31, 10,  4,
-      10,  5,  5,  5,  0, 15,  0,  5, 31, 31,
+      31, 31, 31, 31, 31, 31, 31, 31, 31,  5,
+      31, 31,  4,  4,  4, 15, 31, 31, 15,  4,
+       4, 10, 10, 15,  0,  4,  0, 10, 31, 31,
       31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
       31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
       31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
@@ -92,34 +92,36 @@ getDialogueDataOffset (register const char *str, register size_t len)
 {
   static struct dialogueMappingData wordlist[] =
     {
-#line 16 "map-gperf-mapping"
-      {"rest",21868},
+#line 17 "map-gperf-mapping"
+      {"rest",22792},
       {""}, {""}, {""},
 #line 14 "map-gperf-mapping"
       {"meet_snake",18788},
-#line 17 "map-gperf-mapping"
-      {"thequeen",28028},
+#line 16 "map-gperf-mapping"
+      {"rescue",21868},
+      {""}, {""},
+#line 10 "map-gperf-mapping"
+      {"flashback_war",14476},
+#line 8 "map-gperf-mapping"
+      {"chance",0},
+#line 9 "map-gperf-mapping"
+      {"check",6160},
       {""}, {""}, {""},
+#line 19 "map-gperf-mapping"
+      {"uhhh",32340},
 #line 18 "map-gperf-mapping"
-      {"uhhh",31416},
-#line 15 "map-gperf-mapping"
-      {"powpowpow",21252},
+      {"thequeen",28952},
       {""}, {""}, {""},
 #line 13 "map-gperf-mapping"
       {"longpiece",18172},
+#line 15 "map-gperf-mapping"
+      {"powpowpow",21252},
+      {""}, {""}, {""}, {""},
 #line 12 "map-gperf-mapping"
       {"itsover",17864},
-      {""}, {""}, {""},
-#line 10 "map-gperf-mapping"
-      {"flashback_war",14476},
+      {""}, {""}, {""}, {""},
 #line 11 "map-gperf-mapping"
-      {"individual",17248},
-      {""}, {""}, {""}, {""},
-#line 8 "map-gperf-mapping"
-      {"chance",0},
-      {""}, {""}, {""}, {""},
-#line 9 "map-gperf-mapping"
-      {"check",6160}
+      {"individual",17248}
     };
 
   if (len <= MAX_WORD_LENGTH && len >= MIN_WORD_LENGTH)

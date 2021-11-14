@@ -5,8 +5,9 @@
 %}
 struct cutsceneMappingData;
 %%
-first_rest,0
-grass,68
-odd,136
-second_scene,204
-test_scene,272
+confrontation,0
+first_rest,68
+grass,136
+odd,204
+second_scene,272
+test_scene,340

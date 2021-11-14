@@ -1,0 +1,21 @@
+[
+    {
+        "text": "DANIEL! Add some more dialogue ",
+        "speaker": "queen",
+        "flags": []
+    },
+    {
+        "text": "Yeah, this has gotta land!  ",
+        "speaker": "protag_happy",
+        "flags": [
+            "ik2"
+        ]
+    },
+    {
+        "text": "!!! ",
+        "speaker": "",
+        "flags": [
+            "ik3"
+        ]
+    }
+]

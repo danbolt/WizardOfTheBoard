@@ -3,6 +3,7 @@
 
 #include "backgroundbuffers.h"
 #include "constants.h"
+#include "cutscene.h"
 #include "cutscene_backgrounds/backgroundlookup.h"
 #include "dialogue.h"
 #include "displaytext.h"
@@ -2292,6 +2293,9 @@ void updateGame00(void)
           nextStage = &gameplayStage;
         } else if (pauseMenuIndex == 2) {
           nextStage = &levelSelectStage;
+        } else if ((renderCommands[MONSTER_START_INDEX] == shadowqueen_commands) && monsterState[MONSTER_START_INDEX][1] == 1) {
+          nextStage = &cutsceneStage;
+          cutsceneToLoad = "confrontation";
         } else {
           nextStage = &betweenStagesStage;
         }
