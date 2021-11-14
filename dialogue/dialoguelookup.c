@@ -1,6 +1,6 @@
 /* ANSI-C code produced by gperf version 3.1 */
 /* Command-line: gperf --no-strlen --lookup-function-name=getDialogueDataOffset --struct-type --output-file=dialoguelookup.c map-gperf-mapping  */
-/* Computed positions: -k'1,3' */
+/* Computed positions: -k'1,4' */
 
 #if !((' ' == 32) && ('!' == 33) && ('"' == 34) && ('#' == 35) \
       && ('%' == 37) && ('&' == 38) && ('\'' == 39) && ('(' == 40) \
@@ -37,7 +37,7 @@
 #line 6 "map-gperf-mapping"
 struct dialogueMappingData;
 
-#define TOTAL_KEYWORDS 10
+#define TOTAL_KEYWORDS 11
 #define MIN_WORD_LENGTH 4
 #define MAX_WORD_LENGTH 13
 #define MIN_HASH_VALUE 0
@@ -66,9 +66,9 @@ hash (register const char *str, register size_t len)
       31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
       31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
       31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
-      31, 31, 31, 31, 31, 31, 31,  0, 31,  4,
-      15,  5, 14, 31, 15, 15, 31, 31, 10, 10,
-      10, 31,  5, 31,  0,  0,  5, 10, 31,  0,
+      31, 31, 31, 31, 31, 31, 31, 31, 31, 15,
+      31, 31,  4,  4,  4, 10, 31, 31, 10,  4,
+      10,  5,  5,  5,  0, 15,  0,  5, 31, 31,
       31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
       31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
       31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
@@ -84,7 +84,7 @@ hash (register const char *str, register size_t len)
       31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
       31, 31, 31, 31, 31, 31
     };
-  return asso_values[(unsigned char)str[2]] + asso_values[(unsigned char)str[0]];
+  return asso_values[(unsigned char)str[3]] + asso_values[(unsigned char)str[0]];
 }
 
 struct dialogueMappingData *
@@ -92,32 +92,34 @@ getDialogueDataOffset (register const char *str, register size_t len)
 {
   static struct dialogueMappingData wordlist[] =
     {
-#line 15 "map-gperf-mapping"
-      {"rest",21560},
-      {""}, {""}, {""},
-#line 8 "map-gperf-mapping"
-      {"chance",0},
-#line 14 "map-gperf-mapping"
-      {"powpowpow",20944},
-      {""}, {""}, {""},
-#line 9 "map-gperf-mapping"
-      {"check",6160},
 #line 16 "map-gperf-mapping"
-      {"thequeen",27720},
+      {"rest",21868},
+      {""}, {""}, {""},
+#line 14 "map-gperf-mapping"
+      {"meet_snake",18788},
+#line 17 "map-gperf-mapping"
+      {"thequeen",28028},
+      {""}, {""}, {""},
+#line 18 "map-gperf-mapping"
+      {"uhhh",31416},
+#line 15 "map-gperf-mapping"
+      {"powpowpow",21252},
+      {""}, {""}, {""},
+#line 13 "map-gperf-mapping"
+      {"longpiece",18172},
+#line 12 "map-gperf-mapping"
+      {"itsover",17864},
       {""}, {""}, {""},
 #line 10 "map-gperf-mapping"
       {"flashback_war",14476},
-#line 13 "map-gperf-mapping"
-      {"meet_snake",18480},
-      {""}, {""}, {""}, {""},
-#line 12 "map-gperf-mapping"
-      {"longpiece",17864},
-      {""}, {""}, {""}, {""},
-#line 17 "map-gperf-mapping"
-      {"uhhh",31108},
-      {""}, {""}, {""}, {""},
 #line 11 "map-gperf-mapping"
-      {"individual",17248}
+      {"individual",17248},
+      {""}, {""}, {""}, {""},
+#line 8 "map-gperf-mapping"
+      {"chance",0},
+      {""}, {""}, {""}, {""},
+#line 9 "map-gperf-mapping"
+      {"check",6160}
     };
 
   if (len <= MAX_WORD_LENGTH && len >= MIN_WORD_LENGTH)

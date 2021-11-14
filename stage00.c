@@ -64,6 +64,16 @@ static u8 portraitIndex;
 
 static u8 hudBackgroundColor[3];
 
+static float cosCameraRot;
+static float sinCameraRot;
+
+#define TRANSITION_DURATION 1.7f
+#define NOT_TRANSITIONING 0
+#define TRANSITIONING_IN 1
+#define TRANSITIONING_OUT 2
+static u8 transitioningState;
+static float transitionTime;
+
 // Returns the index if successful, returns -1 if not
 int tryToSpawnAProjectile(const Vec2* position, const Vec2* velocity) {
   for (int i = 0; i < NUMBER_OF_PROJECTILES; i++) {
@@ -237,7 +247,13 @@ void updateShadowQueen(int index) {
   Vec2 playerDirectionToBoardCenter = { (((float)BOARD_WIDTH) * 0.5f) - playerPosition.x, (((float)BOARD_HEIGHT) * 0.5f ) - playerPosition.y };
   normalize(&playerDirectionToBoardCenter);
 
-  const Vec2 ourTargetLocation = { (playerDirectionToBoardCenter.x * BOARD_WIDTH * 0.45f) + (((float)BOARD_WIDTH) * 0.5f), (playerDirectionToBoardCenter.y * BOARD_HEIGHT * 0.45f)  + (((float)BOARD_HEIGHT) * 0.5f ) };
+  Vec2 ourTargetLocation = { (playerDirectionToBoardCenter.x * BOARD_WIDTH * 0.45f) + (((float)BOARD_WIDTH) * 0.5f), (playerDirectionToBoardCenter.y * BOARD_HEIGHT * 0.45f)  + (((float)BOARD_HEIGHT) * 0.5f ) };
+  if (health[index] <= 2) {
+    ourTargetLocation.x = playerPosition.x + (2.f * cosCameraRot);
+    ourTargetLocation.y = playerPosition.y + (2.f * sinCameraRot);
+
+    health[index] = 2;
+  }
 
   Vec2* ourVelocity = &(velocities[index]);
   if (distanceSq(ourPosition, &ourTargetLocation) > (2.f * 2.f)) {
@@ -249,11 +265,24 @@ void updateShadowQueen(int index) {
   } else {
     ourVelocity->x *= 0.93f;
     ourVelocity->y *= 0.93f;
+
+    if (health[index] <= 2) {
+      if (monsterState[index][1] == 0) {
+        monsterState[index][1] = 1;
+
+        startDialogue("itsover");
+      } else if (dialogueState == DIALOGUE_STATE_OFF) {
+        transitioningState = TRANSITIONING_OUT;
+        transitionTime = 0.f;
+
+        // TODO: hack in some completion logic
+      }
+    }
   }
 
   orientations[index] = lerpAngle(orientations[index], nu_atan2(playerPosition.y - ourPosition->y, playerPosition.x - ourPosition->x) + M_PI_2, 0.11f);
 
-  if (isKnockingBackStates[index]) {
+  if (isKnockingBackStates[index] || health[index] <= 2 ) {
     return;
   }
 
@@ -299,17 +328,7 @@ static float cursorRotation;
 static u8 gameState;
 static float gameStateTime;
 
-#define TRANSITION_DURATION 1.7f
-#define NOT_TRANSITIONING 0
-#define TRANSITIONING_IN 1
-#define TRANSITIONING_OUT 2
-static u8 transitioningState;
-static float transitionTime;
-
 static float playerHealthDisplay;
-
-static float cosCameraRot;
-static float sinCameraRot;
 
 static int lineOfSightCheckIndex;
 
