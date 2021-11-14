@@ -1,21 +1,96 @@
 [
     {
-        "text": "DANIEL! Add some more dialogue ",
+        "text": "You know kid, you put up a pretty decent fight for a human.",
         "speaker": "queen",
         "flags": []
     },
     {
-        "text": "Yeah, this has gotta land!  ",
-        "speaker": "protag_happy",
+        "text": "It's kind of a shame you have to die this way.",
+        "speaker": "queen",
+        "flags": []
+    },
+    {
+        "text": "Ugh...",
+        "speaker": "zatt_despair",
+        "flags": []
+    },
+    {
+        "text": "...I don't...",
+        "speaker": "zatt_despair",
+        "flags": []
+    },
+    {
+        "text": "...I don't want to be a warrior anymore...",
+        "speaker": "zatt_despair",
+        "flags": []
+    },
+    {
+        "text": "Warrior? You're a weird kid.",
+        "speaker": "queen",
+        "flags": []
+    },
+    {
+        "text": "You're pretty strange yourself, you know. Why would you hold a child that way?  ",
+        "speaker": "protag_neutral",
+        "flags": [
+            "sound3"
+        ]
+    },
+    {
+        "text": "Huh?",
+        "speaker": "queen",
+        "flags": []
+    },
+    {
+        "text": "I'm actually kind of curious if this will work or not. ",
+        "speaker": "protag_neutral",
         "flags": [
             "ik2"
         ]
     },
     {
-        "text": "!!! ",
-        "speaker": "",
+        "text": "Like, you command all the Lunarbeasts, right? Will the Satellite Laser affect you? The positron inflection matches up.",
+        "speaker": "protag_happy",
+        "flags": []
+    },
+    {
+        "text": "The beam doesn't hurt people, but you should emit a quantum lunar substate. ",
+        "speaker": "protag_happy",
+        "flags": []
+    },
+    {
+        "text": "Hmm, maybe I should try realigning the diatonic tachyon meter before firing-- ",
+        "speaker": "protag_annoyed",
+        "flags": []
+    },
+    {
+        "text": "Oh geez, pease shut up the hell up.",
+        "speaker": "queen",
+        "flags": []
+    },
+    {
+        "text": "Are you always like this?",
+        "speaker": "queen",
+        "flags": []
+    },
+    {
+        "text": "How can someone not be? It's so cool!   ",
+        "speaker": "protag_happy",
         "flags": [
+            "sound0",
             "ik3"
         ]
+    },
+    {
+        "text": "AUGH!!!  ",
+        "speaker": "queen",
+        "flags": [
+            "sound37"
+        ]
+    },
+    {
+        "text": "Don't think this is over kid... ",
+        "speaker": "queen",
+        "flags": []
     }
 ]

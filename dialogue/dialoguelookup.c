@@ -93,7 +93,7 @@ getDialogueDataOffset (register const char *str, register size_t len)
   static struct dialogueMappingData wordlist[] =
     {
 #line 17 "map-gperf-mapping"
-      {"rest",22792},
+      {"rest",27104},
       {""}, {""}, {""},
 #line 14 "map-gperf-mapping"
       {"meet_snake",18788},
@@ -108,9 +108,9 @@ getDialogueDataOffset (register const char *str, register size_t len)
       {"check",6160},
       {""}, {""}, {""},
 #line 19 "map-gperf-mapping"
-      {"uhhh",32340},
+      {"uhhh",36652},
 #line 18 "map-gperf-mapping"
-      {"thequeen",28952},
+      {"thequeen",33264},
       {""}, {""}, {""},
 #line 13 "map-gperf-mapping"
       {"longpiece",18172},

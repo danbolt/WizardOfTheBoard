@@ -249,16 +249,16 @@ void updateShadowQueen(int index) {
   Vec2 playerDirectionToBoardCenter = { (((float)BOARD_WIDTH) * 0.5f) - playerPosition.x, (((float)BOARD_HEIGHT) * 0.5f ) - playerPosition.y };
   normalize(&playerDirectionToBoardCenter);
 
-  Vec2 ourTargetLocation = { (playerDirectionToBoardCenter.x * BOARD_WIDTH * 0.45f) + (((float)BOARD_WIDTH) * 0.5f), (playerDirectionToBoardCenter.y * BOARD_HEIGHT * 0.45f)  + (((float)BOARD_HEIGHT) * 0.5f ) };
+  Vec2 ourTargetLocation = { (playerDirectionToBoardCenter.x * BOARD_WIDTH * 0.4f) + (((float)BOARD_WIDTH) * 0.5f), (playerDirectionToBoardCenter.y * BOARD_HEIGHT * 0.4f)  + (((float)BOARD_HEIGHT) * 0.5f ) };
   if (health[index] <= 2) {
-    ourTargetLocation.x = playerPosition.x + (2.f * cosCameraRot);
-    ourTargetLocation.y = playerPosition.y + (2.f * sinCameraRot);
+    ourTargetLocation.x = playerPosition.x + (2.f * sinCameraRot);
+    ourTargetLocation.y = playerPosition.y + (2.f * cosCameraRot);
 
     health[index] = 2;
   }
 
   Vec2* ourVelocity = &(velocities[index]);
-  if (distanceSq(ourPosition, &ourTargetLocation) > (2.f * 2.f)) {
+  if (distanceSq(ourPosition, &ourTargetLocation) > (1.f * 1.f)) {
     ourVelocity->x = ourTargetLocation.x - ourPosition->x;
     ourVelocity->y = ourTargetLocation.y - ourPosition->y;
     normalize(ourVelocity);
