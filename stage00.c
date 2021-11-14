@@ -926,7 +926,7 @@ void initializeMonsters(const MapData* map) {
     if (type == MONSTER_TYPE_OGRE) {
       updateFunctions[i + 1] = updateOgre;
       renderCommands[i + 1] = ogre_commands;
-      health[i + 1] = 2;
+      health[i + 1] = 3;
     } else if (type == MONSTER_TYPE_TOAD) {
       updateFunctions[i + 1] = updateToad;
       renderCommands[i + 1] = toad_commands;
@@ -936,7 +936,7 @@ void initializeMonsters(const MapData* map) {
     } else if (type == MONSTER_TYPE_SNAKE) {
       updateFunctions[i + 1] = updateSnake;
       renderCommands[i + 1] = snake_commands;
-      health[i + 1] = 2;
+      health[i + 1] = 1;
 
       // Fuzz the firing rate based off index
       *((float*)(monsterState[i + 1])) = (float)(i * 0.2f);
@@ -944,7 +944,7 @@ void initializeMonsters(const MapData* map) {
       updateFunctions[i + 1] = updateJumper;
       renderCommands[i + 1] = jumper_commands;
       orientations[i + 1] = 0.f;
-      health[i + 1] = 1;
+      health[i + 1] = 2;
 
       *((u8*)(monsterState[i + 1])) = JUMPER_GOING_RIGHT;
       velocities[i + 1].x = JUMPER_WALK_SPEED;
