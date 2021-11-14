@@ -43,6 +43,7 @@ static MonsterUpdateCall updateFunctions[NUMBER_OF_INGAME_ENTITIES];
 static Gfx* renderCommands[NUMBER_OF_INGAME_ENTITIES];
 static Mtx monsterSpecificTransforms[NUMBER_OF_INGAME_ENTITIES];
 static u32 monsterState[NUMBER_OF_INGAME_ENTITIES][2];
+static u8 monsterHurtSound[NUMBER_OF_INGAME_ENTITIES];
 
 // TODO: be brave and combine this with the other positions
 #define PROJECTILE_RADIUS 0.037f
@@ -900,6 +901,7 @@ void initMonsterStates() {
     guMtxIdent(&(monsterSpecificTransforms[i]));
     monsterState[i][0] = 0;
     monsterState[i][1] = 0;
+    monsterHurtSound[i] = SFX_19_OGRE_HURT;
   }
 
   for (int i = 0; i < NUMBER_OF_PROJECTILES; i++) {
@@ -1922,7 +1924,7 @@ void checkCollisionWithPieces() {
 
       health[j] = MAX(health[j] - 1, 0);
       if (j > 0) {
-        playSound(SFX_19_OGRE_HURT);
+        playSound(monsterHurtSound[j]);
       } else {
         playSound(SFX_20_PLAYER_HURT_0);
       }
