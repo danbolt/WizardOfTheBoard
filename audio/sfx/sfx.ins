@@ -1034,6 +1034,34 @@ sound FX_36_slainSound
     keymap = FX_36_slain_keymap;
     envelope = FX_36_slain_env;
 }
+envelope FX_37_queen_grunt_env
+{
+    attackTime    = 0;
+    attackVolume  = 100;
+    decayTime   = 403651;
+    decayVolume   = 90;
+    releaseTime   = 0;
+    
+}
+keymap FX_37_queen_grunt_keymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin      = 37;
+    keyMax      = 37;
+    keyBase     = 37;
+    detune      = 0;
+}
+
+sound FX_37_queen_gruntSound
+{
+    use ("compressed/37_queen_grunt.aifc");
+    
+    pan    = 64;
+    volume = 127;
+    keymap = FX_37_queen_grunt_keymap;
+    envelope = FX_37_queen_grunt_env;
+}
 
 instrument sfx
 {
@@ -1077,6 +1105,7 @@ instrument sfx
     sound = FX_34_mouse_bipSound;
     sound = FX_35_queen_bipSound;
     sound = FX_36_slainSound;
+    sound = FX_37_queen_gruntSound;
 }
 
 bank sfxbank

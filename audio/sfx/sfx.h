@@ -113,7 +113,10 @@
 /* 36_slain.aifc  */
 #define SFX_36_SLAIN 36
 
-#define SFX_COUNT 37
+/* 37_queen_grunt.aifc  */
+#define SFX_37_QUEEN_GRUNT 37
+
+#define SFX_COUNT 38
 
 
 #endif

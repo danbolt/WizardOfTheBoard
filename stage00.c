@@ -954,6 +954,7 @@ void initializeMonsters(const MapData* map) {
       health[i + 1] = 5;
       radiiSquared[i + 1] = 0.23f * 0.23f;
       *((float*)(monsterState[i + 1])) = 0.f;
+      monsterHurtSound[i + 1] = SFX_37_QUEEN_GRUNT;
     }
   }
 
