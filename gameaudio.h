@@ -6,6 +6,7 @@
 void initializeAudio();
 
 void playSound(u32 soundId);
+void playSoundAtDoublePitch(u32 soundId);
 void stopLastPlayedSound();
 
 void playMusic(u32 musicId);

@@ -2217,6 +2217,8 @@ void checkPawnsForPromotion() {
 
     bannerMessageTime = 0.f;
     bannerMessageText = "PROMOTION";
+
+    playSoundAtDoublePitch(SFX_09_FLOOR_CLEAR);
   }
 }
 

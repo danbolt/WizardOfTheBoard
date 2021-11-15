@@ -24,6 +24,9 @@ void playSound(u32 soundId) {
   //
 }
 
+void playSoundAtDoublePitch(u32 soundId) {
+}
+
 void stopLastPlayedSound() {
   //
 }
@@ -80,6 +83,12 @@ void playSound(u32 soundId) {
   nuAuSndPlayerPlay(soundId % SFX_COUNT);
 
   // nuAuSndPlayerSetVol(0x4000);
+}
+
+
+void playSoundAtDoublePitch(u32 soundId) {
+  nuAuSndPlayerPlay(soundId % SFX_COUNT);
+  nuAuSndPlayerSetPitch(2.f);
 }
 
 void stopLastPlayedSound() {
