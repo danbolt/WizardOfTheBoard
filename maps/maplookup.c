@@ -1,6 +1,6 @@
 /* ANSI-C code produced by gperf version 3.1 */
 /* Command-line: gperf --no-strlen --lookup-function-name=getMapDataOffset --struct-type --output-file=maplookup.c map-gperf-mapping  */
-/* Computed positions: -k'1-2,8' */
+/* Computed positions: -k'1,4,7' */
 
 #if !((' ' == 32) && ('!' == 33) && ('"' == 34) && ('#' == 35) \
       && ('%' == 37) && ('&' == 38) && ('\'' == 39) && ('(' == 40) \
@@ -37,12 +37,12 @@
 #line 6 "map-gperf-mapping"
 struct dialogueMappingData;
 
-#define TOTAL_KEYWORDS 18
+#define TOTAL_KEYWORDS 19
 #define MIN_WORD_LENGTH 4
 #define MAX_WORD_LENGTH 14
-#define MIN_HASH_VALUE 3
-#define MAX_HASH_VALUE 40
-/* maximum key range = 38, duplicates = 0 */
+#define MIN_HASH_VALUE 0
+#define MAX_HASH_VALUE 55
+/* maximum key range = 56, duplicates = 0 */
 
 #ifdef __GNUC__
 __inline
@@ -56,48 +56,47 @@ hash (register const char *str, register size_t len)
 {
   static unsigned char asso_values[] =
     {
-      41, 41, 41, 41, 41, 41, 41, 41, 41, 41,
-      41, 41, 41, 41, 41, 41, 41, 41, 41, 41,
-      41, 41, 41, 41, 41, 41, 41, 41, 41, 41,
-      41, 41, 41, 41, 41, 41, 41, 41, 41, 41,
-      41, 41, 41, 41, 41, 41, 41, 41, 41,  6,
-       1, 41, 41, 41, 41, 41, 41, 41, 41, 41,
-      41, 41, 41, 41, 41, 41, 41, 41, 41, 41,
-      41, 41, 41, 41, 41, 41, 41, 41, 41, 41,
-      41, 41, 41, 41, 41, 41, 41, 41, 41, 41,
-      41, 41, 41, 41, 41, 41, 41, 41, 28, 41,
-       0,  5, 18, 15, 41, 10,  3, 41, 41, 41,
-      25,  8, 30, 41, 41,  0,  5,  0, 30,  5,
-      41, 41, 41, 41, 41, 41, 41, 41, 41, 41,
-      41, 41, 41, 41, 41, 41, 41, 41, 41, 41,
-      41, 41, 41, 41, 41, 41, 41, 41, 41, 41,
-      41, 41, 41, 41, 41, 41, 41, 41, 41, 41,
-      41, 41, 41, 41, 41, 41, 41, 41, 41, 41,
-      41, 41, 41, 41, 41, 41, 41, 41, 41, 41,
-      41, 41, 41, 41, 41, 41, 41, 41, 41, 41,
-      41, 41, 41, 41, 41, 41, 41, 41, 41, 41,
-      41, 41, 41, 41, 41, 41, 41, 41, 41, 41,
-      41, 41, 41, 41, 41, 41, 41, 41, 41, 41,
-      41, 41, 41, 41, 41, 41, 41, 41, 41, 41,
-      41, 41, 41, 41, 41, 41, 41, 41, 41, 41,
-      41, 41, 41, 41, 41, 41, 41, 41, 41, 41,
-      41, 41, 41, 41, 41, 41
+      56, 56, 56, 56, 56, 56, 56, 56, 56, 56,
+      56, 56, 56, 56, 56, 56, 56, 56, 56, 56,
+      56, 56, 56, 56, 56, 56, 56, 56, 56, 56,
+      56, 56, 56, 56, 56, 56, 56, 56, 56, 56,
+      56, 56, 56, 56, 56, 56, 56, 56, 56, 10,
+       0,  3, 23, 25, 56, 56, 56, 56, 56, 56,
+      56, 56, 56, 56, 56, 56, 56, 56, 56, 56,
+      56, 56, 56, 56, 56, 56, 56, 56, 56, 56,
+      56, 56, 56, 56, 56, 56, 56, 56, 56, 56,
+      56, 56, 56, 56, 56, 56, 20,  5,  8, 56,
+      56, 20, 15, 20,  5, 56,  3,  3, 56, 56,
+      56, 10,  0, 56, 56, 15,  0,  5, 25, 15,
+      56, 56, 56, 56, 56, 56, 56, 56, 56, 56,
+      56, 56, 56, 56, 56, 56, 56, 56, 56, 56,
+      56, 56, 56, 56, 56, 56, 56, 56, 56, 56,
+      56, 56, 56, 56, 56, 56, 56, 56, 56, 56,
+      56, 56, 56, 56, 56, 56, 56, 56, 56, 56,
+      56, 56, 56, 56, 56, 56, 56, 56, 56, 56,
+      56, 56, 56, 56, 56, 56, 56, 56, 56, 56,
+      56, 56, 56, 56, 56, 56, 56, 56, 56, 56,
+      56, 56, 56, 56, 56, 56, 56, 56, 56, 56,
+      56, 56, 56, 56, 56, 56, 56, 56, 56, 56,
+      56, 56, 56, 56, 56, 56, 56, 56, 56, 56,
+      56, 56, 56, 56, 56, 56, 56, 56, 56, 56,
+      56, 56, 56, 56, 56, 56, 56, 56, 56, 56,
+      56, 56, 56, 56, 56, 56, 56
     };
   register unsigned int hval = 0;
 
   switch (len)
     {
       default:
-        hval += asso_values[(unsigned char)str[7]];
+        hval += asso_values[(unsigned char)str[6]+1];
       /*FALLTHROUGH*/
-      case 7:
       case 6:
       case 5:
       case 4:
+        hval += asso_values[(unsigned char)str[3]];
+      /*FALLTHROUGH*/
       case 3:
       case 2:
-        hval += asso_values[(unsigned char)str[1]];
-      /*FALLTHROUGH*/
       case 1:
         hval += asso_values[(unsigned char)str[0]];
         break;
@@ -110,58 +109,61 @@ getMapDataOffset (register const char *str, register size_t len)
 {
   static struct dialogueMappingData wordlist[] =
     {
-      {""}, {""}, {""},
+#line 22 "map-gperf-mapping"
+      {"tut2_rooks",2352},
+      {""}, {""},
 #line 12 "map-gperf-mapping"
       {"jumper",672},
       {""},
-#line 22 "map-gperf-mapping"
-      {"tut3_bishops",2352},
 #line 9 "map-gperf-mapping"
       {"2toad",168},
-      {""},
-#line 13 "map-gperf-mapping"
-      {"jumper_test",840},
-      {""},
-#line 25 "map-gperf-mapping"
-      {"twoogres",2856},
-#line 8 "map-gperf-mapping"
-      {"1toad",0},
-      {""},
-#line 21 "map-gperf-mapping"
-      {"tut2_rooks",2184},
-      {""},
 #line 23 "map-gperf-mapping"
-      {"tut4_knights",2520},
-      {""}, {""},
-#line 16 "map-gperf-mapping"
-      {"other_test_map",1344},
-      {""},
-#line 17 "map-gperf-mapping"
-      {"singlefile",1512},
-      {""}, {""},
-#line 14 "map-gperf-mapping"
-      {"ogre",1008},
-      {""},
-#line 18 "map-gperf-mapping"
-      {"snake",1680},
-      {""}, {""},
-#line 11 "map-gperf-mapping"
-      {"finale",504},
-      {""},
-#line 24 "map-gperf-mapping"
-      {"tut5_king",2688},
-      {""}, {""},
-#line 15 "map-gperf-mapping"
-      {"oneweirdtrick",1176},
+      {"tut3_bishops",2520},
       {""},
 #line 20 "map-gperf-mapping"
-      {"tut1_move",2016},
+      {"test_map",2016},
+      {""},
+#line 21 "map-gperf-mapping"
+      {"tut1_move",2184},
       {""}, {""},
 #line 10 "map-gperf-mapping"
       {"bishops",336},
       {""},
+#line 8 "map-gperf-mapping"
+      {"1toad",0},
+      {""}, {""},
+#line 18 "map-gperf-mapping"
+      {"snake",1680},
+      {""},
+#line 11 "map-gperf-mapping"
+      {"finale",504},
+      {""}, {""},
+#line 13 "map-gperf-mapping"
+      {"jumper_test",840},
+      {""},
+#line 26 "map-gperf-mapping"
+      {"twoogres",3024},
+      {""}, {""},
+#line 25 "map-gperf-mapping"
+      {"tut5_king",2856},
+      {""},
+#line 14 "map-gperf-mapping"
+      {"ogre",1008},
+      {""}, {""},
+#line 24 "map-gperf-mapping"
+      {"tut4_knights",2688},
+      {""},
+#line 16 "map-gperf-mapping"
+      {"other_test_map",1344},
+      {""}, {""}, {""}, {""},
+#line 15 "map-gperf-mapping"
+      {"oneweirdtrick",1176},
+      {""}, {""}, {""}, {""},
 #line 19 "map-gperf-mapping"
-      {"test_map",1848}
+      {"solveit",1848},
+      {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""},
+#line 17 "map-gperf-mapping"
+      {"singlefile",1512}
     };
 
   if (len <= MAX_WORD_LENGTH && len >= MIN_WORD_LENGTH)
