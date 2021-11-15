@@ -346,7 +346,8 @@ void updateShadowQueen(int index) {
 #define CHESS_PIECE_RADIUS_SQ (CHESS_PIECE_RADIUS * CHESS_PIECE_RADIUS)
 
 #define KNOCKBACK_SPEED 7.5f
-#define KNOCKBACK_TIME 0.216f
+#define PLAYER_KNOCKBACK_TIME 0.216f
+#define KNOCKBACK_TIME 0.416f
 
 #define PLAYER_RADIUS 0.25f
 
@@ -1957,7 +1958,7 @@ void checkCollisionWithPieces() {
       }
 
       isKnockingBackStates[j] = 1;
-      knockbackTimesRemaining[j] = KNOCKBACK_TIME;
+      knockbackTimesRemaining[j] = j == 0 ? PLAYER_KNOCKBACK_TIME : KNOCKBACK_TIME;
 
       health[j] = MAX(health[j] - 1, 0);
       if (j > 0) {
