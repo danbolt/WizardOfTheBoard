@@ -116,7 +116,10 @@
 /* 37_queen_grunt.aifc  */
 #define SFX_37_QUEEN_GRUNT 37
 
-#define SFX_COUNT 38
+/* 38_ogre_what.aifc  */
+#define SFX_38_OGRE_WHAT 38
+
+#define SFX_COUNT 39
 
 
 #endif

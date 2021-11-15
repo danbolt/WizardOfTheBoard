@@ -92,23 +92,59 @@ int tryToSpawnAProjectile(const Vec2* position, const Vec2* velocity) {
   return -1;
 }
 
-#define OGRE_WALK_SPEED 0.5f
+#define OGRE_WALK_SPEED 2.79f
+#define OGRE_MIN_NOTICE_TIME 2.2f
+#define OGRE_FOV 0.15f
+#define OGRE_CHASING_FOV 0.05f
 void updateOgre(int index) {
   if (isKnockingBackStates[index]) {
     return;
   }
 
-  if (!(lineOfSightVisible[index])) {
+  float* ogreTime = (float*)(&monsterState[index][1]);
+
+
+  Vec2 directionToPlayer = { playerPosition.x - positions[index].x, playerPosition.y - positions[index].y };
+  normalize(&(directionToPlayer));
+  Vec2 ourDirection = { cosf(orientations[index] - M_PI_2), sinf(orientations[index] - M_PI_2) };
+  normalize(&ourDirection);
+
+  int canSeePlayer = lineOfSightVisible[index] && (dotProduct(&ourDirection, &directionToPlayer) > (lineOfSightVisible[index] ? OGRE_CHASING_FOV : OGRE_FOV));
+  if (!canSeePlayer) {
     velocities[index].x = 0.f;
     velocities[index].y = 0.f;
-    return;
+
+    if (monsterState[index][0]) {
+      playSound(SFX_38_OGRE_WHAT);
+    }
+    monsterState[index][0] = 0;
+    *ogreTime = 0.f;
+  } else {
+    *ogreTime += deltaTimeSeconds;
   }
 
-  velocities[index] = (Vec2){ playerPosition.x - positions[index].x, playerPosition.y - positions[index].y };
-  normalize(&(velocities[index]));
-  orientations[index] = nu_atan2(velocities[index].y, velocities[index].x) + M_PI_2;
-  velocities[index].x *= OGRE_WALK_SPEED;
-  velocities[index].y *= OGRE_WALK_SPEED;
+  if ((monsterState[index][0] == 0) && canSeePlayer && (*ogreTime > OGRE_MIN_NOTICE_TIME)) {
+    playSound(SFX_17_OGRE_GRUNT);
+    monsterState[index][0] = 1;
+  } 
+
+  if (monsterState[index][0] == 0) {
+    const float t = sinf(gameplayTimePassed * 3.f) * 0.0425f;
+    guScale(&(monsterSpecificTransforms[index]), 1.f, 1.f, 1.f + t);
+  } else {
+    const float t = sinf(gameplayTimePassed * 14.f) ;
+    guRotateRPY(&(monsterSpecificTransforms[index]), t * 10.f, t * 6.f, 0.f);
+
+    orientations[index] = lerpAngle(orientations[index], nu_atan2(directionToPlayer.y, directionToPlayer.x) + M_PI_2, 2.9f * deltaTimeSeconds);
+    velocities[index] = (Vec2){ cosf(orientations[index] - M_PI_2), sinf(orientations[index] - M_PI_2) };
+    velocities[index].x *= OGRE_WALK_SPEED;
+    velocities[index].y *= OGRE_WALK_SPEED;
+  }
+
+  if (isPlayerKnockingBack) {
+    velocities[index].x = 0.f;
+    velocities[index].y = 0.f;
+  }
 }
 
 #define TOAD_WALK_SPEED 2.1616f

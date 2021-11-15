@@ -13,8 +13,8 @@ LevelEntry levels[NUMBER_OF_LEVELS] = {
   { "1toad", TRACK_01_PUZZLE_TIME, 0x0 },
   { "2toad", TRACK_01_PUZZLE_TIME, 0x0 },
   { "jumper", TRACK_01_PUZZLE_TIME, 0x0 },
-  { "snake", TRACK_01_PUZZLE_TIME, 0x0 },
-  { "ogre", TRACK_01_PUZZLE_TIME, 0x0 },
+  { "snake", TRACK_02_ODD_BOARD, 0x0 },
+  { "ogre", TRACK_02_ODD_BOARD, 0x0 },
 
 
   { "oneweirdtrick", TRACK_01_PUZZLE_TIME, 0x0 },

@@ -38,6 +38,9 @@ float distanceSq(const Vec2* a, const Vec2* b);
 
 void normalize(Vec2* a);
 
+// Normalize these yourself, kid!
+float dotProduct(const Vec2* a, const Vec2* b);
+
 float cubic(float t);
 
 #endif

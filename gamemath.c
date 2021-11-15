@@ -64,6 +64,11 @@ void normalize(Vec2* a) {
 	a->y *= invLengthA;
 }
 
+
+float dotProduct(const Vec2* a, const Vec2* b) {
+	return (a->x * b->x) + (a->y * b->y);
+}
+
 float cubic(float t) {
 	return t * t * t;
 }

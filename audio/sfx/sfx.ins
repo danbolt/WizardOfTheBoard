@@ -1062,6 +1062,34 @@ sound FX_37_queen_gruntSound
     keymap = FX_37_queen_grunt_keymap;
     envelope = FX_37_queen_grunt_env;
 }
+envelope FX_38_ogre_what_env
+{
+    attackTime    = 0;
+    attackVolume  = 100;
+    decayTime   = 348685;
+    decayVolume   = 90;
+    releaseTime   = 0;
+    
+}
+keymap FX_38_ogre_what_keymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin      = 38;
+    keyMax      = 38;
+    keyBase     = 38;
+    detune      = 0;
+}
+
+sound FX_38_ogre_whatSound
+{
+    use ("compressed/38_ogre_what.aifc");
+    
+    pan    = 64;
+    volume = 127;
+    keymap = FX_38_ogre_what_keymap;
+    envelope = FX_38_ogre_what_env;
+}
 
 instrument sfx
 {
@@ -1106,6 +1134,7 @@ instrument sfx
     sound = FX_35_queen_bipSound;
     sound = FX_36_slainSound;
     sound = FX_37_queen_gruntSound;
+    sound = FX_38_ogre_whatSound;
 }
 
 bank sfxbank
