@@ -10,6 +10,8 @@
 #include "graphic.h"
 #include "nustdfuncs.h"
 #include "segmentinfo.h"
+#include "sixtwelve.h"
+#include "sixtwelve_helpers.h"
 #include "stagekeys.h"
 #include "audio/sfx/sfx.h"
 #include "audio/bgm/sequence/tracknumbers.h"
@@ -172,14 +174,58 @@ void makeLevelSelectDisplayList() {
   gSPScisTextureRectangle(glistp++, (swipeOffset + SCREEN_WD - TITLE_SAFE_HORIZONTAL - 64 - 64 + 48) << 2, (SCREEN_HT - TITLE_SAFE_VERTICAL - 16 + ((int)((NUMBER_OF_LEVELS - selectedLevelLerpValue) * -16)) - 32) << 2, (swipeOffset + SCREEN_WD - TITLE_SAFE_HORIZONTAL - 64 - 48 + 48) << 2, (SCREEN_HT - TITLE_SAFE_VERTICAL + ((int)((NUMBER_OF_LEVELS - selectedLevelLerpValue) * -16)) - 32) << 2, 0, 224 << 5, 0 << 5, 1 << 10, 1 << 10);
 
   const int cursorOffset = (int)(sinf(timePassed * 8.1616f) * 4.f);
-  gDPSetPrimColor(glistp++, 0, 0, 0xff, 0xff, 0xff, 0xff);
+  if (inTheOptionsPanel) {
+    gDPSetPrimColor(glistp++, 0, 0, 0x70, 0x70, 0x70, 0xff);
+  } else {
+    gDPSetPrimColor(glistp++, 0, 0, 0xff, 0xff, 0xff, 0xff);
+  }
   gSPTextureRectangle(glistp++, (swipeOffset + SCREEN_WD - TITLE_SAFE_HORIZONTAL - 64 - 64 - 8 - 32 + cursorOffset) << 2, (SCREEN_HT - TITLE_SAFE_VERTICAL - 48 + 4) << 2, (swipeOffset + SCREEN_WD - TITLE_SAFE_HORIZONTAL - 64 - 64 - 8 - 16 + cursorOffset) << 2, (SCREEN_HT - TITLE_SAFE_VERTICAL - 32 + 4) << 2, 0, 208 << 5, 0 << 5, 1 << 10, 1 << 10);
 
   gDPPipeSync(glistp++);
-  gDPSetPrimColor(glistp++, 0, 0, 0xff, 0xff, 0xff, 0xff);
   gDPLoadTextureBlock_4b(glistp++, OS_K0_TO_PHYSICAL(displayTextTexture), G_IM_FMT_IA, 512, 16, 0, G_TX_NOMIRROR, G_TX_NOMIRROR, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
   sprintf(textBuffer, "FLOOR %01d", (currentlySelectedLevel + 1));
   renderDisplayText(swipeOffset + TITLE_SAFE_HORIZONTAL + 48, 160, textBuffer);
+
+  if (inTheOptionsPanel) {
+    const char* str = NULL;
+    if (optionsIndex == OPTIONS_0_FOV) {
+      str = "Change the FOV of\nthe camera.\n\nPlayers on emulators\nmay find a wider FOV\nmore comfortable.\n\nN64 players may\nexperience F3DLP_REJ\nclipping though.";
+    } else if (optionsIndex == OPTIONS_1_FLASHING) {
+      str = "Toggle flashing\nprojectiles ingame.\n\nProjectiles can be\nshaded instead of\nflashing for players\nthat might prefer it.";
+    } else if (optionsIndex == OPTIONS_2_SFX_TEST) {
+      str = "Use the C buttons\nto change sounds.\n\nPress A to play a\nsound.";
+    } else if (optionsIndex == OPTIONS_3_BGM_TEST) {
+      str = "Use the C buttons\nto change tracks.\n\nPress A to start\nand stop playback.";
+    }
+
+    if (str != NULL) {
+      gDPPipeSync(glistp++);
+      gDPSetPrimColor(glistp++, 0, 0, 0xff, 0xff, 0xff, 0xff);
+      gDPLoadTextureBlock_4b(glistp++, sixtwelve_tex, G_IM_FMT_IA, SIXTWELVE_TEXTURE_WIDTH, SIXTWELVE_TEXTURE_HEIGHT, 0, G_TX_MIRROR | G_TX_WRAP, G_TX_MIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
+
+      int i = 0;
+      int xInit = SCREEN_WD / 2 + 16;
+      int xAdv = xInit;
+      int y = TITLE_SAFE_VERTICAL + 2;
+      while (str[i] != '\0') {
+        const sixtwelve_character_info* characterInfo = sixtwelve_get_character_info(str[i]);
+
+        if (str[i] == '\n') {
+          xAdv = xInit;
+          y += SIXTWELVE_LINE_HEIGHT;
+          i++;
+          continue;
+        }
+
+        const int xLoc = xAdv + characterInfo->x_offset;
+        const int yLoc = y + characterInfo->y_offset;
+
+        gSPScisTextureRectangle(glistp++, (xLoc) << 2, (yLoc) << 2, (xLoc + characterInfo->width) << 2, (yLoc + characterInfo->height) << 2, 0, (characterInfo->x) << 5, (characterInfo->y) << 5, 1 << 10, 1 << 10);
+        xAdv += characterInfo->x_advance;
+        i++;
+      }
+    }
+  }
 
   if (transitioningState != NOT_TRANSITIONING) {
     gDPPipeSync(glistp++);
