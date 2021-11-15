@@ -1,6 +1,6 @@
 /* ANSI-C code produced by gperf version 3.1 */
 /* Command-line: gperf --no-strlen --lookup-function-name=getDialogueDataOffset --struct-type --output-file=dialoguelookup.c map-gperf-mapping  */
-/* Computed positions: -k'1,4' */
+/* Computed positions: -k'2,5' */
 
 #if !((' ' == 32) && ('!' == 33) && ('"' == 34) && ('#' == 35) \
       && ('%' == 37) && ('&' == 38) && ('\'' == 39) && ('(' == 40) \
@@ -37,7 +37,7 @@
 #line 6 "map-gperf-mapping"
 struct dialogueMappingData;
 
-#define TOTAL_KEYWORDS 12
+#define TOTAL_KEYWORDS 14
 #define MIN_WORD_LENGTH 4
 #define MAX_WORD_LENGTH 13
 #define MIN_HASH_VALUE 0
@@ -51,7 +51,6 @@ __inline
 inline
 #endif
 #endif
-/*ARGSUSED*/
 static unsigned int
 hash (register const char *str, register size_t len)
 {
@@ -62,13 +61,13 @@ hash (register const char *str, register size_t len)
       31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
       31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
       31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
+       3, 14, 31, 31, 31, 31, 31, 31, 31, 31,
       31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
       31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
       31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
-      31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
-      31, 31, 31, 31, 31, 31, 31, 31, 31,  5,
-      31, 31,  4,  4,  4, 15, 31, 31, 15,  4,
-       4, 10, 10, 15,  0,  4,  0, 10, 31, 31,
+      31, 31, 31, 31, 31,  9, 31, 31, 31,  3,
+      31, 10, 31, 31,  0, 31, 31,  9,  4, 31,
+       4, 15, 10, 31, 31, 31, 10,  5, 10, 31,
       31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
       31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
       31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
@@ -84,7 +83,20 @@ hash (register const char *str, register size_t len)
       31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
       31, 31, 31, 31, 31, 31
     };
-  return asso_values[(unsigned char)str[3]] + asso_values[(unsigned char)str[0]];
+  register unsigned int hval = 0;
+
+  switch (len)
+    {
+      default:
+        hval += asso_values[(unsigned char)str[4]];
+      /*FALLTHROUGH*/
+      case 4:
+      case 3:
+      case 2:
+        hval += asso_values[(unsigned char)str[1]];
+        break;
+    }
+  return hval;
 }
 
 struct dialogueMappingData *
@@ -92,36 +104,40 @@ getDialogueDataOffset (register const char *str, register size_t len)
 {
   static struct dialogueMappingData wordlist[] =
     {
+#line 21 "map-gperf-mapping"
+      {"uhhh",46816},
+      {""}, {""},
+#line 8 "map-gperf-mapping"
+      {"chance",0},
+#line 10 "map-gperf-mapping"
+      {"flashback_war",14476},
+#line 20 "map-gperf-mapping"
+      {"thequeen",43428},
+      {""}, {""}, {""},
+#line 9 "map-gperf-mapping"
+      {"check",6160},
 #line 17 "map-gperf-mapping"
       {"rest",27104},
+      {""}, {""},
+#line 18 "map-gperf-mapping"
+      {"rest2",33264},
+#line 11 "map-gperf-mapping"
+      {"individual",17248},
+#line 16 "map-gperf-mapping"
+      {"rescue",21868},
       {""}, {""}, {""},
 #line 14 "map-gperf-mapping"
       {"meet_snake",18788},
-#line 16 "map-gperf-mapping"
-      {"rescue",21868},
-      {""}, {""},
-#line 10 "map-gperf-mapping"
-      {"flashback_war",14476},
-#line 8 "map-gperf-mapping"
-      {"chance",0},
-#line 9 "map-gperf-mapping"
-      {"check",6160},
-      {""}, {""}, {""},
-#line 19 "map-gperf-mapping"
-      {"uhhh",36652},
-#line 18 "map-gperf-mapping"
-      {"thequeen",33264},
-      {""}, {""}, {""},
-#line 13 "map-gperf-mapping"
-      {"longpiece",18172},
-#line 15 "map-gperf-mapping"
-      {"powpowpow",21252},
-      {""}, {""}, {""}, {""},
 #line 12 "map-gperf-mapping"
       {"itsover",17864},
+      {""}, {""}, {""},
+#line 19 "map-gperf-mapping"
+      {"rest3",38192},
+#line 13 "map-gperf-mapping"
+      {"longpiece",18172},
       {""}, {""}, {""}, {""},
-#line 11 "map-gperf-mapping"
-      {"individual",17248}
+#line 15 "map-gperf-mapping"
+      {"powpowpow",21252}
     };
 
   if (len <= MAX_WORD_LENGTH && len >= MIN_WORD_LENGTH)

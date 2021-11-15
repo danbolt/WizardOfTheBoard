@@ -1,6 +1,6 @@
 /* ANSI-C code produced by gperf version 3.1 */
 /* Command-line: gperf --no-strlen --lookup-function-name=getCutsceneOffset --struct-type --output-file=cutscenelookup.c cutscene-gperf-mapping  */
-/* Computed positions: -k'1' */
+/* Computed positions: -k'3,8' */
 
 #if !((' ' == 32) && ('!' == 33) && ('"' == 34) && ('#' == 35) \
       && ('%' == 37) && ('&' == 38) && ('\'' == 39) && ('(' == 40) \
@@ -37,12 +37,12 @@
 #line 6 "cutscene-gperf-mapping"
 struct cutsceneMappingData;
 
-#define TOTAL_KEYWORDS 6
+#define TOTAL_KEYWORDS 8
 #define MIN_WORD_LENGTH 3
 #define MAX_WORD_LENGTH 13
 #define MIN_HASH_VALUE 0
-#define MAX_HASH_VALUE 7
-/* maximum key range = 8, duplicates = 0 */
+#define MAX_HASH_VALUE 20
+/* maximum key range = 21, duplicates = 0 */
 
 #ifdef __GNUC__
 __inline
@@ -51,40 +51,54 @@ __inline
 inline
 #endif
 #endif
-/*ARGSUSED*/
 static unsigned int
 hash (register const char *str, register size_t len)
 {
   static unsigned char asso_values[] =
     {
-      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
-      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
-      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
-      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
-      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
-      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
-      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
-      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
-      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
-      8, 8, 8, 8, 8, 8, 8, 8, 8, 1,
-      8, 8, 4, 7, 8, 8, 8, 8, 8, 8,
-      8, 2, 8, 8, 8, 5, 0, 8, 8, 8,
-      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
-      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
-      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
-      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
-      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
-      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
-      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
-      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
-      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
-      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
-      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
-      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
-      8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
-      8, 8, 8, 8, 8, 8
+      21, 21, 21, 21, 21, 21, 21, 21, 21, 21,
+      21, 21, 21, 21, 21, 21, 21, 21, 21, 21,
+      21, 21, 21, 21, 21, 21, 21, 21, 21, 21,
+      21, 21, 21, 21, 21, 21, 21, 21, 21, 21,
+      21, 21, 21, 21, 21, 21, 21, 21, 21, 21,
+      21, 21, 21, 21, 21, 21, 21, 21, 21, 21,
+      21, 21, 21, 21, 21, 21, 21, 21, 21, 21,
+      21, 21, 21, 21, 21, 21, 21, 21, 21, 21,
+      21, 21, 21, 21, 21, 21, 21, 21, 21, 21,
+      21, 21, 21, 21, 21, 21, 21, 14, 21, 10,
+       9,  0, 21, 21, 21,  4, 21, 21, 21, 21,
+      10, 21, 21, 21,  5,  0, 10, 21, 21, 21,
+      21, 21, 21, 21, 21, 21, 21, 21, 21, 21,
+      21, 21, 21, 21, 21, 21, 21, 21, 21, 21,
+      21, 21, 21, 21, 21, 21, 21, 21, 21, 21,
+      21, 21, 21, 21, 21, 21, 21, 21, 21, 21,
+      21, 21, 21, 21, 21, 21, 21, 21, 21, 21,
+      21, 21, 21, 21, 21, 21, 21, 21, 21, 21,
+      21, 21, 21, 21, 21, 21, 21, 21, 21, 21,
+      21, 21, 21, 21, 21, 21, 21, 21, 21, 21,
+      21, 21, 21, 21, 21, 21, 21, 21, 21, 21,
+      21, 21, 21, 21, 21, 21, 21, 21, 21, 21,
+      21, 21, 21, 21, 21, 21, 21, 21, 21, 21,
+      21, 21, 21, 21, 21, 21, 21, 21, 21, 21,
+      21, 21, 21, 21, 21, 21, 21, 21, 21, 21,
+      21, 21, 21, 21, 21, 21
     };
-  return asso_values[(unsigned char)str[0]];
+  register unsigned int hval = 0;
+
+  switch (len)
+    {
+      default:
+        hval += asso_values[(unsigned char)str[7]];
+      /*FALLTHROUGH*/
+      case 7:
+      case 6:
+      case 5:
+      case 4:
+      case 3:
+        hval += asso_values[(unsigned char)str[2]];
+        break;
+    }
+  return hval;
 }
 
 struct cutsceneMappingData *
@@ -92,20 +106,26 @@ getCutsceneOffset (register const char *str, register size_t len)
 {
   static struct cutsceneMappingData wordlist[] =
     {
-#line 13 "cutscene-gperf-mapping"
-      {"test_scene",340},
-#line 8 "cutscene-gperf-mapping"
-      {"confrontation",0},
-#line 11 "cutscene-gperf-mapping"
-      {"odd",204},
-      {""},
+#line 14 "cutscene-gperf-mapping"
+      {"test_scene",408},
+      {""}, {""}, {""},
+#line 15 "cutscene-gperf-mapping"
+      {"third_rest",476},
 #line 9 "cutscene-gperf-mapping"
       {"first_rest",68},
-#line 12 "cutscene-gperf-mapping"
-      {"second_scene",272},
-      {""},
+      {""}, {""}, {""},
+#line 11 "cutscene-gperf-mapping"
+      {"odd",204},
+#line 13 "cutscene-gperf-mapping"
+      {"second_scene",340},
+      {""}, {""}, {""},
 #line 10 "cutscene-gperf-mapping"
-      {"grass",136}
+      {"grass",136},
+#line 12 "cutscene-gperf-mapping"
+      {"second_rest",272},
+      {""}, {""}, {""}, {""},
+#line 8 "cutscene-gperf-mapping"
+      {"confrontation",0}
     };
 
   if (len <= MAX_WORD_LENGTH && len >= MIN_WORD_LENGTH)

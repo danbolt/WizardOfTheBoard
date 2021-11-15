@@ -1,0 +1,87 @@
+[
+    {
+        "text": "Still no food?",
+        "speaker": "themouse",
+        "flags": []
+    },
+    {
+        "text": "Nope. I'm just resting my legs.",
+        "speaker": "zatt_neutral",
+        "flags": []
+    },
+    {
+        "text": "You're solving these all these complicated puzzles pretty quickly.",
+        "speaker": "themouse",
+        "flags": []
+    },
+    {
+        "text": "So far so good. It's been pretty by-the-book.",
+        "speaker": "zatt_neutral",
+        "flags": []
+    },
+    {
+        "text": "You'll be done these floors in no time.",
+        "speaker": "themouse",
+        "flags": []
+    },
+    {
+        "text": "More like a Wizard of the BORED!",
+        "speaker": "themouse",
+        "flags": []
+    },
+    {
+        "text": "HAH!!!",
+        "speaker": "themouse_hah",
+        "flags": []
+    },
+    {
+        "text": "...",
+        "speaker": "zatt_neutral",
+        "flags": []
+    },
+    {
+        "text": "...",
+        "speaker": "themouse",
+        "flags": []
+    },
+    {
+        "text": "Isn't it annoying moving that cursor around? You could be looking in any direction. Talk about disorienting!",
+        "speaker": "themouse",
+        "flags": []
+    },
+    {
+        "text": "It's not so bad. There's a special mystic arte trick you can do that helps.",
+        "speaker": "zatt_neutral",
+        "flags": []
+    },
+    {
+        "text": "What's that?",
+        "speaker": "themouse",
+        "flags": []
+    },
+    {
+        "text": "You have to imagine there's something called a \"Z-trigger\" in front of you.",
+        "speaker": "zatt_neutral",
+        "flags": []
+    },
+    {
+        "text": "Z-trigger? That sounds weird.",
+        "speaker": "themouse",
+        "flags": []
+    },
+    {
+        "text": "If you press down on this \"Z-trigger\" in your mind, the cursor will follow you around.",
+        "speaker": "zatt_neutral",
+        "flags": []
+    },
+    {
+        "text": "Wow! You sure know a lot about these mystic artes!",
+        "speaker": "themouse",
+        "flags": []
+    },
+    {
+        "text": "I mean, yeah. It's what I've been training to do.",
+        "speaker": "zatt_neutral",
+        "flags": []
+    }
+]

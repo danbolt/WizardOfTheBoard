@@ -1,0 +1,82 @@
+[
+    {
+        "text": "Hello again!",
+        "speaker": "themouse",
+        "flags": []
+    },
+    {
+        "text": "Hi there little mouse.",
+        "speaker": "zatt_neutral",
+        "flags": []
+    },
+    {
+        "text": "...",
+        "speaker": "themouse",
+        "flags": []
+    },
+    {
+        "text": "So... you see--",
+        "speaker": "themouse",
+        "flags": []
+    },
+    {
+        "text": "I still don't have any food.",
+        "speaker": "zatt_neutral",
+        "flags": []
+    },
+    {
+        "text": "Ah.",
+        "speaker": "themouse",
+        "flags": []
+    },
+    {
+        "text": "That's a shame.",
+        "speaker": "themouse",
+        "flags": []
+    },
+    {
+        "text": "To be honest, I don't think there's much to eat in a place like this.",
+        "speaker": "zatt_neutral",
+        "flags": []
+    },
+    {
+        "text": "You know, you just might be right.",
+        "speaker": "themouse",
+        "flags": []
+    },
+    {
+        "text": "If there isn't any food though, why are you hanging around?",
+        "speaker": "themouse",
+        "flags": []
+    },
+    {
+        "text": "I'm here to become a true warrior. I need to get to the top floor using the mystic artes.",
+        "speaker": "zatt_neutral",
+        "flags": []
+    },
+    {
+        "text": "If I can conquer this tower, I'll be a Wizard of the Board.",
+        "speaker": "zatt_neutral",
+        "flags": []
+    },
+    {
+        "text": "That sounds dangerous!",
+        "speaker": "themouse",
+        "flags": []
+    },
+    {
+        "text": "You think?",
+        "speaker": "zatt_neutral",
+        "flags": []
+    },
+    {
+        "text": "Yeah, I hope you don't get eaten!",
+        "speaker": "themouse",
+        "flags": []
+    },
+    {
+        "text": "Me too...",
+        "speaker": "zatt_sad",
+        "flags": []
+    }
+]
