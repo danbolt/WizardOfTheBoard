@@ -2339,7 +2339,11 @@ void updateGame00(void)
           nextStage = &cutsceneStage;
           cutsceneToLoad = "confrontation";
         } else {
-          nextStage = &betweenStagesStage;
+          if (gameState == GAME_STATE_PLAYER_LOSES) {
+            nextStage = &levelSelectStage;
+          } else {
+            nextStage = &betweenStagesStage;
+          }
         }
         changeScreensFlag = 1;
       }
