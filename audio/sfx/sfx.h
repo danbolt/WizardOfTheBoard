@@ -119,7 +119,10 @@
 /* 38_ogre_what.aifc  */
 #define SFX_38_OGRE_WHAT 38
 
-#define SFX_COUNT 39
+/* 39_charge.aifc  */
+#define SFX_39_CHARGE 39
+
+#define SFX_COUNT 40
 
 
 #endif

@@ -1090,6 +1090,34 @@ sound FX_38_ogre_whatSound
     keymap = FX_38_ogre_what_keymap;
     envelope = FX_38_ogre_what_env;
 }
+envelope FX_39_charge_env
+{
+    attackTime    = 0;
+    attackVolume  = 100;
+    decayTime   = 1694438;
+    decayVolume   = 90;
+    releaseTime   = 0;
+    
+}
+keymap FX_39_charge_keymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin      = 39;
+    keyMax      = 39;
+    keyBase     = 39;
+    detune      = 0;
+}
+
+sound FX_39_chargeSound
+{
+    use ("compressed/39_charge.aifc");
+    
+    pan    = 64;
+    volume = 127;
+    keymap = FX_39_charge_keymap;
+    envelope = FX_39_charge_env;
+}
 
 instrument sfx
 {
@@ -1135,6 +1163,7 @@ instrument sfx
     sound = FX_36_slainSound;
     sound = FX_37_queen_gruntSound;
     sound = FX_38_ogre_whatSound;
+    sound = FX_39_chargeSound;
 }
 
 bank sfxbank
