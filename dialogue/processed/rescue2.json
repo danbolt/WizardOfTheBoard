@@ -1,0 +1,69 @@
+[
+    {
+        "text": "Hey, are you alright?",
+        "speaker": "protag_neutral",
+        "flags": []
+    },
+    {
+        "text": "You're safe now. It looks like she's left us alone.",
+        "speaker": "protag_neutral",
+        "flags": []
+    },
+    {
+        "text": "Oof... I'm-- I'm okay.",
+        "speaker": "zatt_sad",
+        "flags": []
+    },
+    {
+        "text": "How did someone your age get all the way up here? We should be getting you home.",
+        "speaker": "protag_neutral",
+        "flags": []
+    },
+    {
+        "text": "I can never go home now...",
+        "speaker": "zatt_despair",
+        "flags": []
+    },
+    {
+        "text": "...not that I'd really want to if I could.",
+        "speaker": "zatt_sad",
+        "flags": []
+    },
+    {
+        "text": "I failed as a warrior. I couldn't drive away the Shadow Queen, unlike you. Your mystic artes are so powerful.",
+        "speaker": "zatt_sad",
+        "flags": []
+    },
+    {
+        "text": "Warrior? Mystic Artes? What are you talking about?",
+        "speaker": "protag_neutral",
+        "flags": []
+    },
+    {
+        "text": "Aren't you a warrior? Don't you protect us from demons that wander the earth?",
+        "speaker": "zatt_neutral",
+        "flags": []
+    },
+    {
+        "text": "Uh, no?",
+        "speaker": "protag_annoyed",
+        "flags": []
+    },
+    {
+        "text": "We're not on the Earth; we're on the Moon!  ",
+        "speaker": "protag_neutral",
+        "flags": [
+            "ik2"
+        ]
+    },
+    {
+        "text": "Didn't you see me align the Satellite Laser just now? I protect real-estate from Lunarbeasts. ",
+        "speaker": "protag_neutral",
+        "flags": []
+    },
+    {
+        "text": "What?!?",
+        "speaker": "zatt_screaming",
+        "flags": []
+    }
+]

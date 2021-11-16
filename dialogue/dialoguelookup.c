@@ -37,7 +37,7 @@
 #line 6 "map-gperf-mapping"
 struct dialogueMappingData;
 
-#define TOTAL_KEYWORDS 18
+#define TOTAL_KEYWORDS 19
 #define MIN_WORD_LENGTH 4
 #define MAX_WORD_LENGTH 14
 #define MIN_HASH_VALUE 0
@@ -61,13 +61,13 @@ hash (register const char *str, register size_t len)
       61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
       61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
       61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
-       3, 30, 61, 61, 61, 61, 61, 61, 61, 61,
+       5,  3, 61, 61, 61, 61, 61, 61, 61, 61,
       61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
       61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
       61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
-      61, 61, 61, 61, 61,  3, 61, 61, 61, 30,
-      61, 25, 61, 61,  0, 61, 61, 25, 30, 13,
-      15, 10, 15, 61,  5,  8,  3, 10, 15,  5,
+      61, 61, 61, 61, 61,  3, 61, 61, 61, 25,
+      61, 30, 61, 61,  5, 61, 61, 30,  8,  8,
+       0, 20, 20, 61, 30,  3,  3, 15, 10, 10,
       61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
       61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
       61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
@@ -101,40 +101,49 @@ getDialogueDataOffset (register const char *str, register size_t len)
 {
   static struct dialogueMappingData wordlist[] =
     {
-#line 25 "map-gperf-mapping"
-      {"uhhh",54208},
+#line 9 "map-gperf-mapping"
+      {"begin",2156},
       {""}, {""},
-#line 21 "map-gperf-mapping"
-      {"rest",34496},
-      {""},
-#line 14 "map-gperf-mapping"
-      {"flashback_war",21868},
 #line 22 "map-gperf-mapping"
-      {"rest2",40656},
+      {"rest",38500},
+      {""},
+#line 26 "map-gperf-mapping"
+      {"uhhh",58212},
+#line 24 "map-gperf-mapping"
+      {"rest3",49588},
       {""},
 #line 13 "map-gperf-mapping"
       {"flashback_loss",19404},
       {""},
-#line 8 "map-gperf-mapping"
-      {"approach",0},
+#line 23 "map-gperf-mapping"
+      {"rest2",44660},
       {""}, {""},
 #line 12 "map-gperf-mapping"
       {"flashback_form",17556},
       {""},
+#line 25 "map-gperf-mapping"
+      {"thequeen",54824},
+      {""}, {""},
+#line 15 "map-gperf-mapping"
+      {"individual",24640},
+      {""},
+#line 21 "map-gperf-mapping"
+      {"rescue2",34496},
+      {""}, {""}, {""}, {""},
+#line 8 "map-gperf-mapping"
+      {"approach",0},
+      {""}, {""}, {""}, {""},
 #line 19 "map-gperf-mapping"
       {"powpowpow",28644},
-      {""}, {""}, {""}, {""},
-#line 16 "map-gperf-mapping"
-      {"itsover",25256},
-      {""}, {""}, {""}, {""},
-#line 24 "map-gperf-mapping"
-      {"thequeen",50820},
       {""}, {""},
 #line 18 "map-gperf-mapping"
       {"meet_snake",26180},
       {""},
-#line 9 "map-gperf-mapping"
-      {"begin",2156},
+#line 14 "map-gperf-mapping"
+      {"flashback_war",21868},
+      {""}, {""}, {""}, {""},
+#line 16 "map-gperf-mapping"
+      {"itsover",25256},
       {""}, {""}, {""}, {""},
 #line 20 "map-gperf-mapping"
       {"rescue",29260},
@@ -142,17 +151,11 @@ getDialogueDataOffset (register const char *str, register size_t len)
 #line 17 "map-gperf-mapping"
       {"longpiece",25564},
       {""}, {""}, {""}, {""},
-#line 15 "map-gperf-mapping"
-      {"individual",24640},
-      {""}, {""}, {""}, {""},
-#line 11 "map-gperf-mapping"
-      {"check",9240},
-      {""}, {""}, {""}, {""},
 #line 10 "map-gperf-mapping"
       {"chance",3080},
       {""}, {""}, {""}, {""},
-#line 23 "map-gperf-mapping"
-      {"rest3",45584}
+#line 11 "map-gperf-mapping"
+      {"check",9240}
     };
 
   if (len <= MAX_WORD_LENGTH && len >= MIN_WORD_LENGTH)
