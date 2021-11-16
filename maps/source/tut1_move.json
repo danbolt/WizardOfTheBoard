@@ -43,7 +43,7 @@
         {
          "name":"dialogue",
          "type":"string",
-         "value":""
+         "value":"begin"
         }],
  "renderorder":"right-up",
  "tiledversion":"1.7.2",

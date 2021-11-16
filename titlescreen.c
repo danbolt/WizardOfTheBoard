@@ -3,6 +3,7 @@
 
 #include <nusys.h>
 
+#include "cutscene.h"
 #include "displaytext.h"
 #include "gamemath.h"
 #include "backgroundbuffers.h"
@@ -409,7 +410,8 @@ void updateTitleScreen() {
         stopLastPlayedSound();
       } else {
         if (menuIndex == 0) {
-          nextStage = &gameplayStage;
+          cutsceneToLoad = "intro";
+          nextStage = &cutsceneStage;
           currentLevel = 0;
           isTransitioningOut = 1;
         } else if (menuIndex == 1) {

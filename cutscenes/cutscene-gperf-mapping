@@ -8,8 +8,9 @@ struct cutsceneMappingData;
 confrontation,0
 first_rest,68
 grass,136
-odd,204
-second_rest,272
-second_scene,340
-test_scene,408
-third_rest,476
+intro,204
+odd,272
+second_rest,340
+second_scene,408
+test_scene,476
+third_rest,544

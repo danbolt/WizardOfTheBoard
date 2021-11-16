@@ -1,0 +1,37 @@
+[
+    {
+        "text": "...",
+        "speaker": "",
+        "flags": []
+    },
+    {
+        "text": "Whew, I've been walking for a while. The sun's already set.",
+        "speaker": "zatt_neutral",
+        "flags": []
+    },
+    {
+        "text": "I guess this is it. The Demon's Spire.",
+        "speaker": "zatt_neutral",
+        "flags": []
+    },
+    {
+        "text": "If I can get to the top, I'll be a true warrior and a Wizard of the Board.",
+        "speaker": "zatt_neutral",
+        "flags": []
+    },
+    {
+        "text": "Then they'll see...",
+        "speaker": "zatt_sad",
+        "flags": []
+    },
+    {
+        "text": "...",
+        "speaker": "zatt_sad",
+        "flags": []
+    },
+    {
+        "text": "Alright, onto the first floor!",
+        "speaker": "zatt_neutral",
+        "flags": []
+    }
+]

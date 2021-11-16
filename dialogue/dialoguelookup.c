@@ -37,12 +37,12 @@
 #line 6 "map-gperf-mapping"
 struct dialogueMappingData;
 
-#define TOTAL_KEYWORDS 14
+#define TOTAL_KEYWORDS 16
 #define MIN_WORD_LENGTH 4
 #define MAX_WORD_LENGTH 13
 #define MIN_HASH_VALUE 0
-#define MAX_HASH_VALUE 30
-/* maximum key range = 31, duplicates = 0 */
+#define MAX_HASH_VALUE 55
+/* maximum key range = 56, duplicates = 0 */
 
 #ifdef __GNUC__
 __inline
@@ -56,39 +56,39 @@ hash (register const char *str, register size_t len)
 {
   static unsigned char asso_values[] =
     {
-      31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
-      31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
-      31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
-      31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
-      31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
-       3, 14, 31, 31, 31, 31, 31, 31, 31, 31,
-      31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
-      31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
-      31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
-      31, 31, 31, 31, 31,  9, 31, 31, 31,  3,
-      31, 10, 31, 31,  0, 31, 31,  9,  4, 31,
-       4, 15, 10, 31, 31, 31, 10,  5, 10, 31,
-      31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
-      31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
-      31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
-      31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
-      31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
-      31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
-      31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
-      31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
-      31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
-      31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
-      31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
-      31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
-      31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
-      31, 31, 31, 31, 31, 31
+      56, 56, 56, 56, 56, 56, 56, 56, 56, 56,
+      56, 56, 56, 56, 56, 56, 56, 56, 56, 56,
+      56, 56, 56, 56, 56, 56, 56, 56, 56, 56,
+      56, 56, 56, 56, 56, 56, 56, 56, 56, 56,
+      56, 56, 56, 56, 56, 56, 56, 56, 56, 56,
+      56, 13,  8, 56, 56, 56, 56, 56, 56, 56,
+      56, 56, 56, 56, 56, 56, 56, 56, 56, 56,
+      56, 56, 56, 56, 56, 56, 56, 56, 56, 56,
+      56, 56, 56, 56, 56, 56, 56, 56, 56, 56,
+      56, 56, 56, 56, 56, 56,  3, 56, 56, 56,
+      30, 10, 56, 56, 25, 30, 56, 56, 20, 56,
+      25,  5,  0,  3, 56, 56, 15, 56, 10, 15,
+      56, 56, 56, 56, 56, 56, 56, 56, 56, 56,
+      56, 56, 56, 56, 56, 56, 56, 56, 56, 56,
+      56, 56, 56, 56, 56, 56, 56, 56, 56, 56,
+      56, 56, 56, 56, 56, 56, 56, 56, 56, 56,
+      56, 56, 56, 56, 56, 56, 56, 56, 56, 56,
+      56, 56, 56, 56, 56, 56, 56, 56, 56, 56,
+      56, 56, 56, 56, 56, 56, 56, 56, 56, 56,
+      56, 56, 56, 56, 56, 56, 56, 56, 56, 56,
+      56, 56, 56, 56, 56, 56, 56, 56, 56, 56,
+      56, 56, 56, 56, 56, 56, 56, 56, 56, 56,
+      56, 56, 56, 56, 56, 56, 56, 56, 56, 56,
+      56, 56, 56, 56, 56, 56, 56, 56, 56, 56,
+      56, 56, 56, 56, 56, 56, 56, 56, 56, 56,
+      56, 56, 56, 56, 56, 56, 56
     };
   register unsigned int hval = 0;
 
   switch (len)
     {
       default:
-        hval += asso_values[(unsigned char)str[4]];
+        hval += asso_values[(unsigned char)str[4]+1];
       /*FALLTHROUGH*/
       case 4:
       case 3:
@@ -104,40 +104,53 @@ getDialogueDataOffset (register const char *str, register size_t len)
 {
   static struct dialogueMappingData wordlist[] =
     {
-#line 21 "map-gperf-mapping"
-      {"uhhh",46816},
-      {""}, {""},
 #line 8 "map-gperf-mapping"
-      {"chance",0},
-#line 10 "map-gperf-mapping"
-      {"flashback_war",14476},
-#line 20 "map-gperf-mapping"
-      {"thequeen",43428},
-      {""}, {""}, {""},
-#line 9 "map-gperf-mapping"
-      {"check",6160},
-#line 17 "map-gperf-mapping"
-      {"rest",27104},
-      {""}, {""},
-#line 18 "map-gperf-mapping"
-      {"rest2",33264},
-#line 11 "map-gperf-mapping"
-      {"individual",17248},
-#line 16 "map-gperf-mapping"
-      {"rescue",21868},
-      {""}, {""}, {""},
-#line 14 "map-gperf-mapping"
-      {"meet_snake",18788},
-#line 12 "map-gperf-mapping"
-      {"itsover",17864},
-      {""}, {""}, {""},
-#line 19 "map-gperf-mapping"
-      {"rest3",38192},
-#line 13 "map-gperf-mapping"
-      {"longpiece",18172},
+      {"approach",0},
       {""}, {""}, {""}, {""},
+#line 17 "map-gperf-mapping"
+      {"powpowpow",24332},
+      {""}, {""},
 #line 15 "map-gperf-mapping"
-      {"powpowpow",21252}
+      {"longpiece",21252},
+      {""},
+#line 19 "map-gperf-mapping"
+      {"rest",30184},
+      {""}, {""},
+#line 16 "map-gperf-mapping"
+      {"meet_snake",21868},
+      {""},
+#line 9 "map-gperf-mapping"
+      {"begin",2156},
+      {""}, {""},
+#line 21 "map-gperf-mapping"
+      {"rest3",41272},
+      {""},
+#line 18 "map-gperf-mapping"
+      {"rescue",24948},
+      {""}, {""},
+#line 20 "map-gperf-mapping"
+      {"rest2",36344},
+      {""},
+#line 23 "map-gperf-mapping"
+      {"uhhh",49896},
+      {""}, {""}, {""}, {""},
+#line 14 "map-gperf-mapping"
+      {"itsover",20944},
+      {""}, {""}, {""}, {""},
+#line 22 "map-gperf-mapping"
+      {"thequeen",46508},
+      {""}, {""}, {""}, {""},
+#line 13 "map-gperf-mapping"
+      {"individual",20328},
+      {""}, {""}, {""}, {""},
+#line 11 "map-gperf-mapping"
+      {"check",9240},
+      {""}, {""}, {""}, {""},
+#line 12 "map-gperf-mapping"
+      {"flashback_war",17556},
+      {""}, {""}, {""}, {""},
+#line 10 "map-gperf-mapping"
+      {"chance",3080}
     };
 
   if (len <= MAX_WORD_LENGTH && len >= MIN_WORD_LENGTH)

@@ -37,12 +37,12 @@
 #line 6 "cutscene-gperf-mapping"
 struct cutsceneMappingData;
 
-#define TOTAL_KEYWORDS 8
+#define TOTAL_KEYWORDS 9
 #define MIN_WORD_LENGTH 3
 #define MAX_WORD_LENGTH 13
 #define MIN_HASH_VALUE 0
-#define MAX_HASH_VALUE 20
-/* maximum key range = 21, duplicates = 0 */
+#define MAX_HASH_VALUE 15
+/* maximum key range = 16, duplicates = 0 */
 
 #ifdef __GNUC__
 __inline
@@ -56,32 +56,32 @@ hash (register const char *str, register size_t len)
 {
   static unsigned char asso_values[] =
     {
-      21, 21, 21, 21, 21, 21, 21, 21, 21, 21,
-      21, 21, 21, 21, 21, 21, 21, 21, 21, 21,
-      21, 21, 21, 21, 21, 21, 21, 21, 21, 21,
-      21, 21, 21, 21, 21, 21, 21, 21, 21, 21,
-      21, 21, 21, 21, 21, 21, 21, 21, 21, 21,
-      21, 21, 21, 21, 21, 21, 21, 21, 21, 21,
-      21, 21, 21, 21, 21, 21, 21, 21, 21, 21,
-      21, 21, 21, 21, 21, 21, 21, 21, 21, 21,
-      21, 21, 21, 21, 21, 21, 21, 21, 21, 21,
-      21, 21, 21, 21, 21, 21, 21, 14, 21, 10,
-       9,  0, 21, 21, 21,  4, 21, 21, 21, 21,
-      10, 21, 21, 21,  5,  0, 10, 21, 21, 21,
-      21, 21, 21, 21, 21, 21, 21, 21, 21, 21,
-      21, 21, 21, 21, 21, 21, 21, 21, 21, 21,
-      21, 21, 21, 21, 21, 21, 21, 21, 21, 21,
-      21, 21, 21, 21, 21, 21, 21, 21, 21, 21,
-      21, 21, 21, 21, 21, 21, 21, 21, 21, 21,
-      21, 21, 21, 21, 21, 21, 21, 21, 21, 21,
-      21, 21, 21, 21, 21, 21, 21, 21, 21, 21,
-      21, 21, 21, 21, 21, 21, 21, 21, 21, 21,
-      21, 21, 21, 21, 21, 21, 21, 21, 21, 21,
-      21, 21, 21, 21, 21, 21, 21, 21, 21, 21,
-      21, 21, 21, 21, 21, 21, 21, 21, 21, 21,
-      21, 21, 21, 21, 21, 21, 21, 21, 21, 21,
-      21, 21, 21, 21, 21, 21, 21, 21, 21, 21,
-      21, 21, 21, 21, 21, 21
+      16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+      16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+      16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+      16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+      16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+      16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+      16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+      16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+      16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+      16, 16, 16, 16, 16, 16, 16,  8, 16, 10,
+       3,  0, 16, 16, 16, 14, 16, 16, 16, 16,
+       5, 16, 16, 16,  5,  0,  4, 16, 16, 16,
+      16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+      16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+      16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+      16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+      16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+      16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+      16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+      16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+      16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+      16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+      16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+      16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+      16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+      16, 16, 16, 16, 16, 16
     };
   register unsigned int hval = 0;
 
@@ -106,26 +106,27 @@ getCutsceneOffset (register const char *str, register size_t len)
 {
   static struct cutsceneMappingData wordlist[] =
     {
-#line 14 "cutscene-gperf-mapping"
-      {"test_scene",408},
-      {""}, {""}, {""},
 #line 15 "cutscene-gperf-mapping"
-      {"third_rest",476},
+      {"test_scene",476},
+      {""}, {""},
+#line 12 "cutscene-gperf-mapping"
+      {"odd",272},
+#line 11 "cutscene-gperf-mapping"
+      {"intro",204},
 #line 9 "cutscene-gperf-mapping"
       {"first_rest",68},
-      {""}, {""}, {""},
-#line 11 "cutscene-gperf-mapping"
-      {"odd",204},
-#line 13 "cutscene-gperf-mapping"
-      {"second_scene",340},
-      {""}, {""}, {""},
+      {""}, {""},
 #line 10 "cutscene-gperf-mapping"
       {"grass",136},
-#line 12 "cutscene-gperf-mapping"
-      {"second_rest",272},
-      {""}, {""}, {""}, {""},
 #line 8 "cutscene-gperf-mapping"
-      {"confrontation",0}
+      {"confrontation",0},
+#line 14 "cutscene-gperf-mapping"
+      {"second_scene",408},
+      {""}, {""}, {""},
+#line 16 "cutscene-gperf-mapping"
+      {"third_rest",544},
+#line 13 "cutscene-gperf-mapping"
+      {"second_rest",340}
     };
 
   if (len <= MAX_WORD_LENGTH && len >= MIN_WORD_LENGTH)
