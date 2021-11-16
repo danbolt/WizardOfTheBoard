@@ -74,18 +74,16 @@
         "flags": []
     },
     {
-        "text": "How can someone not be? It's so cool!   ",
+        "text": "How can someone not be? It's so cool!  ",
         "speaker": "protag_happy",
+        "flags": []
+    },
+    {
+        "text": "AUGH!!!   ",
+        "speaker": "queen",
         "flags": [
             "sound0",
             "ik3"
-        ]
-    },
-    {
-        "text": "AUGH!!!  ",
-        "speaker": "queen",
-        "flags": [
-            "sound37"
         ]
     },
     {
