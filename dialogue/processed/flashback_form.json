@@ -1,0 +1,32 @@
+[
+    {
+        "text": "(in the past)",
+        "speaker": "",
+        "flags": []
+    },
+    {
+        "text": "Work on your form, Zatt. Knights don't move that way.",
+        "speaker": "teach",
+        "flags": []
+    },
+    {
+        "text": "Ah darn. This is so confusing.",
+        "speaker": "zatt_sad",
+        "flags": []
+    },
+    {
+        "text": "This is your place as a warrior, Zatt. You need to be ready for it.",
+        "speaker": "teach",
+        "flags": []
+    },
+    {
+        "text": "You need to be in control of your life.",
+        "speaker": "teach",
+        "flags": []
+    },
+    {
+        "text": "...",
+        "speaker": "zatt_sad",
+        "flags": []
+    }
+]
