@@ -1198,6 +1198,7 @@ void initStage00(void)
 
   pieceInFrontOfPlayer = -1;
   selectedPiece = -1;
+  boardControlState = BOARD_CONTROL_NO_SELECTED;
 
   if (currentLevel == (NUMBER_OF_LEVELS - 1)) {
     sprintf(floorStartBanner, "SHADOW QUEEN!!!");
