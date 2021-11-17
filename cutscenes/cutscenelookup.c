@@ -37,7 +37,7 @@
 #line 6 "cutscene-gperf-mapping"
 struct cutsceneMappingData;
 
-#define TOTAL_KEYWORDS 10
+#define TOTAL_KEYWORDS 12
 #define MIN_WORD_LENGTH 3
 #define MAX_WORD_LENGTH 13
 #define MIN_HASH_VALUE 0
@@ -60,8 +60,8 @@ hash (register const char *str, register size_t len)
       20, 20, 20, 20, 20, 20, 20, 20, 20, 20,
       20, 20, 20, 20, 20, 20, 20, 20, 20, 20,
       20, 20, 20, 20, 20, 20, 20, 20, 20, 20,
-      20, 20, 20, 20, 20, 20, 20, 20, 20, 20,
-      20, 20, 20, 20, 20, 20, 20, 20, 20, 20,
+      20, 20, 20, 20, 20, 20, 20, 20, 20,  2,
+      13, 20, 20, 20, 20, 20, 20, 20, 20, 20,
       20, 20, 20, 20, 20, 20, 20, 20, 20, 20,
       20, 20, 20, 20, 20, 20, 20, 20, 20, 20,
       20, 20, 20, 20, 20, 20, 20, 20, 20, 20,
@@ -106,27 +106,31 @@ getCutsceneOffset (register const char *str, register size_t len)
 {
   static struct cutsceneMappingData wordlist[] =
     {
-#line 16 "cutscene-gperf-mapping"
-      {"test_scene",544},
+#line 18 "cutscene-gperf-mapping"
+      {"test_scene",680},
+      {""},
+#line 9 "cutscene-gperf-mapping"
+      {"fb1",68},
+#line 14 "cutscene-gperf-mapping"
+      {"odd",408},
+#line 19 "cutscene-gperf-mapping"
+      {"third_rest",748},
+#line 11 "cutscene-gperf-mapping"
+      {"first_rest",204},
       {""}, {""},
 #line 12 "cutscene-gperf-mapping"
-      {"odd",272},
+      {"grass",272},
+#line 15 "cutscene-gperf-mapping"
+      {"revelation",476},
 #line 17 "cutscene-gperf-mapping"
-      {"third_rest",612},
-#line 9 "cutscene-gperf-mapping"
-      {"first_rest",68},
+      {"second_scene",612},
       {""}, {""},
 #line 10 "cutscene-gperf-mapping"
-      {"grass",136},
+      {"fb2",136},
 #line 13 "cutscene-gperf-mapping"
-      {"revelation",340},
-#line 15 "cutscene-gperf-mapping"
-      {"second_scene",476},
-      {""}, {""}, {""},
-#line 11 "cutscene-gperf-mapping"
-      {"intro",204},
-#line 14 "cutscene-gperf-mapping"
-      {"second_rest",408},
+      {"intro",340},
+#line 16 "cutscene-gperf-mapping"
+      {"second_rest",544},
       {""}, {""}, {""},
 #line 8 "cutscene-gperf-mapping"
       {"confrontation",0}
