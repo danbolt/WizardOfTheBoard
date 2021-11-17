@@ -37,12 +37,12 @@
 #line 6 "texture-gperf-mapping"
 struct backgroundMappingData;
 
-#define TOTAL_KEYWORDS 16
+#define TOTAL_KEYWORDS 15
 #define MIN_WORD_LENGTH 5
 #define MAX_WORD_LENGTH 10
 #define MIN_HASH_VALUE 0
-#define MAX_HASH_VALUE 60
-/* maximum key range = 61, duplicates = 0 */
+#define MAX_HASH_VALUE 30
+/* maximum key range = 31, duplicates = 0 */
 
 #ifdef __GNUC__
 __inline
@@ -57,32 +57,32 @@ hash (register const char *str, register size_t len)
 {
   static unsigned char asso_values[] =
     {
-      61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
-      61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
-      61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
-      61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
-      61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
-      61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
-      61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
-      61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
-      61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
-      61, 61, 61, 61, 61, 61,  3, 15, 30, 61,
-      30, 25, 20, 25, 61, 61,  8, 61,  3,  5,
-      20,  5, 25, 61, 15, 30,  0, 20,  0, 61,
-      61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
-      61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
-      61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
-      61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
-      61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
-      61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
-      61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
-      61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
-      61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
-      61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
-      61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
-      61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
-      61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
-      61, 61, 61, 61, 61, 61, 61
+      31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
+      31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
+      31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
+      31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
+      31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
+      31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
+      31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
+      31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
+      31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
+      31, 31, 31, 31, 31, 31,  8,  5,  3, 31,
+       3,  4, 15, 14, 31, 31,  4, 31,  9,  4,
+      15,  5,  5, 31, 10, 10,  0, 10, 10, 31,
+      31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
+      31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
+      31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
+      31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
+      31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
+      31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
+      31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
+      31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
+      31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
+      31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
+      31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
+      31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
+      31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
+      31, 31, 31, 31, 31, 31, 31
     };
   return asso_values[(unsigned char)str[4]+1] + asso_values[(unsigned char)str[2]];
 }
@@ -92,53 +92,42 @@ getBackgroundTextureOffset (register const char *str, register size_t len)
 {
   static struct backgroundMappingData wordlist[] =
     {
-#line 23 "texture-gperf-mapping"
-      {"zatts_room",2304000},
-      {""}, {""},
-#line 10 "texture-gperf-mapping"
-      {"holdup",307200},
-      {""},
-#line 15 "texture-gperf-mapping"
-      {"revelation",1075200},
-      {""}, {""},
+#line 22 "texture-gperf-mapping"
+      {"zatts_room",2150400},
+      {""}, {""}, {""},
 #line 12 "texture-gperf-mapping"
       {"outside",614400},
-      {""},
-#line 16 "texture-gperf-mapping"
-      {"simplex",1228800},
-      {""}, {""}, {""}, {""},
-#line 19 "texture-gperf-mapping"
-      {"stars",1689600},
-      {""}, {""}, {""}, {""},
-#line 17 "texture-gperf-mapping"
-      {"slain",1382400},
-      {""}, {""}, {""}, {""},
 #line 18 "texture-gperf-mapping"
-      {"spotted",1536000},
-      {""}, {""}, {""}, {""},
+      {"stars",1536000},
+      {""}, {""},
+#line 8 "texture-gperf-mapping"
+      {"bedroom",0},
+#line 20 "texture-gperf-mapping"
+      {"themouse",1843200},
+#line 16 "texture-gperf-mapping"
+      {"slain",1228800},
+      {""}, {""},
+#line 14 "texture-gperf-mapping"
+      {"restarea",921600},
+#line 15 "texture-gperf-mapping"
+      {"revelation",1075200},
+#line 17 "texture-gperf-mapping"
+      {"spotted",1382400},
+      {""}, {""},
+#line 19 "texture-gperf-mapping"
+      {"test_a",1689600},
+#line 10 "texture-gperf-mapping"
+      {"holdup",307200},
 #line 13 "texture-gperf-mapping"
       {"rescued",768000},
-      {""}, {""},
-#line 20 "texture-gperf-mapping"
-      {"test_a",1843200},
-      {""},
+      {""}, {""}, {""},
+#line 11 "texture-gperf-mapping"
+      {"logotype",460800},
 #line 9 "texture-gperf-mapping"
       {"cornered",153600},
       {""}, {""}, {""}, {""},
-#line 22 "texture-gperf-mapping"
-      {"wandering",2150400},
-      {""}, {""}, {""}, {""},
-#line 11 "texture-gperf-mapping"
-      {"logotype",460800},
-      {""}, {""}, {""}, {""},
 #line 21 "texture-gperf-mapping"
-      {"themouse",1996800},
-      {""}, {""}, {""}, {""},
-#line 8 "texture-gperf-mapping"
-      {"bedroom",0},
-      {""}, {""}, {""}, {""},
-#line 14 "texture-gperf-mapping"
-      {"restarea",921600}
+      {"wandering",1996800}
     };
 
   if (len <= MAX_WORD_LENGTH && len >= MIN_WORD_LENGTH)
