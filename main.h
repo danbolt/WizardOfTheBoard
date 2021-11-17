@@ -23,6 +23,8 @@ extern OSTime time;
 extern OSTime delta;
 extern float deltaTimeSeconds;
 
+extern u32 wonGameFlag;
+
 #define FOV_60 60.f
 #define FOV_90 90.f
 

@@ -69,6 +69,8 @@ u8 flashingProjectiles;
 
 u32 currentLevel;
 
+u32 wonGameFlag;
+
 volatile u32 changeScreensFlag;
 
 void updateTime() {
@@ -88,6 +90,8 @@ void initalizeGameData() {
   cutsceneToLoad = "test_scene";
 
   currentLevel = 0;
+
+  wonGameFlag = 0;
 
   ingameFOV = FOV_60;
   flashingProjectiles = 1;

@@ -2346,6 +2346,7 @@ void updateGame00(void)
         } else if ((renderCommands[MONSTER_START_INDEX] == shadowqueen_commands) && monsterState[MONSTER_START_INDEX][1] == 1) {
           nextStage = &cutsceneStage;
           cutsceneToLoad = "confrontation";
+          wonGameFlag = 1;
         } else {
           if (gameState == GAME_STATE_PLAYER_LOSES) {
             nextStage = &levelSelectStage;

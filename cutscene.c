@@ -248,9 +248,17 @@ void updateCutsceneDone() {
 
   if (cutsceneTime > DONE_TIME) {
 
-    // TODO: handle the ending when the final stage finishes
-
-    nextStage = &gameplayStage;
+    if (wonGameFlag == 1) {
+      nextStage = &cutsceneStage;
+      cutsceneToLoad = "revelation";
+      wonGameFlag = 2;
+    } else if (wonGameFlag == 2) {
+      nextStage = &creditsStage;
+      wonGameFlag = 0;
+    } else {
+      nextStage = &gameplayStage;
+    }
+    
     changeScreensFlag = 1;
 
   }
