@@ -105,24 +105,24 @@ getDialogueDataOffset (register const char *str, register size_t len)
       {"begin",2156},
       {""}, {""},
 #line 22 "map-gperf-mapping"
-      {"rest",38500},
+      {"rest",46508},
       {""},
 #line 26 "map-gperf-mapping"
-      {"uhhh",58212},
+      {"uhhh",66220},
 #line 24 "map-gperf-mapping"
-      {"rest3",49588},
+      {"rest3",57596},
       {""},
 #line 13 "map-gperf-mapping"
       {"flashback_loss",19404},
       {""},
 #line 23 "map-gperf-mapping"
-      {"rest2",44660},
+      {"rest2",52668},
       {""}, {""},
 #line 12 "map-gperf-mapping"
       {"flashback_form",17556},
       {""},
 #line 25 "map-gperf-mapping"
-      {"thequeen",54824},
+      {"thequeen",62832},
       {""}, {""},
 #line 15 "map-gperf-mapping"
       {"individual",24640},

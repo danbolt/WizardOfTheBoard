@@ -25,7 +25,7 @@
         "flags": []
     },
     {
-        "text": "...not that I'd really want to if I could.",
+        "text": "...not that I'd really want to, even if I could.",
         "speaker": "zatt_sad",
         "flags": []
     },
@@ -50,7 +50,7 @@
         "flags": []
     },
     {
-        "text": "We're not on the Earth; we're on the Moon!  ",
+        "text": "We're not on the Earth. We're on the Moon!  ",
         "speaker": "protag_neutral",
         "flags": [
             "ik2"
@@ -62,8 +62,140 @@
         "flags": []
     },
     {
-        "text": "What?!?",
-        "speaker": "zatt_screaming",
+        "text": "What?!? ",
+        "speaker": "zatt_yelling",
+        "flags": []
+    },
+    {
+        "text": "Isn't that the Moon, up in the sky?",
+        "speaker": "zatt_neutral",
+        "flags": []
+    },
+    {
+        "text": "That's definitely the Earth. You can see lights from all the cities.",
+        "speaker": "protag_annoyed",
+        "flags": []
+    },
+    {
+        "text": "This is all so confusing...",
+        "speaker": "zatt_neutral",
+        "flags": []
+    },
+    {
+        "text": "(later, at the bottom of the tower) ",
+        "speaker": "",
+        "flags": [
+            "ik3"
+        ]
+    },
+    {
+        "text": "Okay, hold on.",
+        "speaker": "protag_neutral",
+        "flags": []
+    },
+    {
+        "text": "Let me get this straight.",
+        "speaker": "protag_neutral",
+        "flags": []
+    },
+    {
+        "text": "You've spent your life living in a remote town off the grid...",
+        "speaker": "protag_neutral",
+        "flags": []
+    },
+    {
+        "text": "...training to be some kind of magic knight that fights Lunarbeasts?",
+        "speaker": "protag_neutral",
+        "flags": []
+    },
+    {
+        "text": "No, not a knight. A Wizard of the Board.",
+        "speaker": "zatt_neutral",
+        "flags": []
+    },
+    {
+        "text": "Knights move in L-shapes.",
+        "speaker": "zatt_neutral",
+        "flags": []
+    },
+    {
+        "text": "Um, right.",
+        "speaker": "protag_annoyed",
+        "flags": []
+    },
+    {
+        "text": "I'll be honest with you Zatt. This sounds pretty messed up.",
+        "speaker": "protag_neutral",
+        "flags": []
+    },
+    {
+        "text": "Why do they need warriors when there's the satellite array? We don't live in some ancient fantasy land.",
+        "speaker": "protag_neutral",
+        "flags": []
+    },
+    {
+        "text": "You're not even allowed to go home because of this!",
+        "speaker": "protag_neutral",
+        "flags": []
+    },
+    {
+        "text": "...",
+        "speaker": "zatt_sad",
+        "flags": []
+    },
+    {
+        "text": "Ah, I'm sorry.",
+        "speaker": "protag_neutral",
+        "flags": []
+    },
+    {
+        "text": "This is probably all you've ever known.",
+        "speaker": "protag_neutral",
+        "flags": []
+    },
+    {
+        "text": "Hmm...",
+        "speaker": "protag_annoyed",
+        "flags": []
+    },
+    {
+        "text": "Hey, why don't you come stay with me for a little while?",
+        "speaker": "protag_happy",
+        "flags": []
+    },
+    {
+        "text": "Really? You'd let me come stay with you?",
+        "speaker": "zatt_neutral",
+        "flags": []
+    },
+    {
+        "text": "I can use a washboard really well. I'd make it worth your while!",
+        "speaker": "zatt_neutral",
+        "flags": []
+    },
+    {
+        "text": "Hm... I think we've got a washing machine for that back at the residence.",
+        "speaker": "protag_neutral",
+        "flags": []
+    },
+    {
+        "text": "What's a washing machine?",
+        "speaker": "zatt_neutral",
+        "flags": []
+    },
+    {
+        "text": "Don't worry about it for now.",
+        "speaker": "protag_neutral",
+        "flags": []
+    },
+    {
+        "text": "You know, given your skills, you could certainly get a part-time job at the Lunar Fufillment Site.",
+        "speaker": "protag_happy",
+        "flags": []
+    },
+    {
+        "text": "I think you're going to be okay, Zatt.",
+        "speaker": "protag_happy",
         "flags": []
     }
 ]
