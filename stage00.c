@@ -92,10 +92,10 @@ int tryToSpawnAProjectile(const Vec2* position, const Vec2* velocity) {
   return -1;
 }
 
-#define OGRE_WALK_SPEED 2.79f
-#define OGRE_MIN_NOTICE_TIME 2.2f
+#define OGRE_WALK_SPEED 2.19f
+#define OGRE_MIN_NOTICE_TIME 0.7f
 #define OGRE_FOV 0.15f
-#define OGRE_CHASING_FOV 0.05f
+#define OGRE_CHASING_FOV 0.08f
 void updateOgre(int index) {
   if (isKnockingBackStates[index]) {
     return;
@@ -1966,6 +1966,12 @@ void checkCollisionWithPieces() {
         playSound(monsterHurtSound[j]);
       } else {
         playSound(SFX_20_PLAYER_HURT_0);
+      }
+
+      // If an orgre is hurt, it should look at the chess piece that hit it
+      if ((j > 0) && (updateFunctions[j] == updateOgre)) {
+        orientations[j] = wrapMP(nu_atan2(pieceViewPos[i].y - positions[j].y, pieceViewPos[i].x - positions[j].x) + M_PI_2);
+        monsterState[j][0] = 0;
       }
 
       // Fly back away from the piece
