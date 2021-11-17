@@ -342,7 +342,7 @@ void updateShadowQueen(int index) {
 #define PLAYER_MAX_HEALTH 5
 #define INV_MAX_HEALTH (1.f / PLAYER_MAX_HEALTH)
 
-#define CHESS_PIECE_RADIUS 1.f
+#define CHESS_PIECE_RADIUS 0.5f
 #define CHESS_PIECE_RADIUS_SQ (CHESS_PIECE_RADIUS * CHESS_PIECE_RADIUS)
 
 #define KNOCKBACK_SPEED 7.5f
@@ -973,6 +973,7 @@ void initializeMonsters(const MapData* map) {
     } else if (type == MONSTER_TYPE_SNAKE) {
       updateFunctions[i + 1] = updateSnake;
       renderCommands[i + 1] = snake_commands;
+      radiiSquared[i + 1] = (1.f * 1.f);
       health[i + 1] = 1;
 
       // Fuzz the firing rate based off index
@@ -989,7 +990,7 @@ void initializeMonsters(const MapData* map) {
       updateFunctions[i + 1] = updateShadowQueen;
       renderCommands[i + 1] = shadowqueen_commands;
       health[i + 1] = 5;
-      radiiSquared[i + 1] = 0.23f * 0.23f;
+      radiiSquared[i + 1] = 0.8f * 0.8f;
       *((float*)(monsterState[i + 1])) = 0.f;
       monsterHurtSound[i + 1] = SFX_37_QUEEN_GRUNT;
     }
