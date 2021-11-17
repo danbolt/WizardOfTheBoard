@@ -1,6 +1,6 @@
 /* ANSI-C code produced by gperf version 3.1 */
 /* Command-line: gperf --no-strlen --lookup-function-name=getDialogueDataOffset --struct-type --output-file=dialoguelookup.c map-gperf-mapping  */
-/* Computed positions: -k'5,$' */
+/* Computed positions: -k'4,$' */
 
 #if !((' ' == 32) && ('!' == 33) && ('"' == 34) && ('#' == 35) \
       && ('%' == 37) && ('&' == 38) && ('\'' == 39) && ('(' == 40) \
@@ -37,12 +37,12 @@
 #line 6 "map-gperf-mapping"
 struct dialogueMappingData;
 
-#define TOTAL_KEYWORDS 19
+#define TOTAL_KEYWORDS 20
 #define MIN_WORD_LENGTH 4
 #define MAX_WORD_LENGTH 14
 #define MIN_HASH_VALUE 0
-#define MAX_HASH_VALUE 60
-/* maximum key range = 61, duplicates = 0 */
+#define MAX_HASH_VALUE 55
+/* maximum key range = 56, duplicates = 0 */
 
 #ifdef __GNUC__
 __inline
@@ -56,44 +56,34 @@ hash (register const char *str, register size_t len)
 {
   static unsigned char asso_values[] =
     {
-      61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
-      61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
-      61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
-      61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
-      61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
-       5,  3, 61, 61, 61, 61, 61, 61, 61, 61,
-      61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
-      61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
-      61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
-      61, 61, 61, 61, 61,  3, 61, 61, 61, 25,
-      61, 30, 61, 61,  5, 61, 61, 30,  8,  8,
-       0, 20, 20, 61, 30,  3,  3, 15, 10, 10,
-      61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
-      61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
-      61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
-      61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
-      61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
-      61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
-      61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
-      61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
-      61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
-      61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
-      61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
-      61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
-      61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
-      61, 61, 61, 61, 61, 61
+      56, 56, 56, 56, 56, 56, 56, 56, 56, 56,
+      56, 56, 56, 56, 56, 56, 56, 56, 56, 56,
+      56, 56, 56, 56, 56, 56, 56, 56, 56, 56,
+      56, 56, 56, 56, 56, 56, 56, 56, 56, 56,
+      56, 56, 56, 56, 56, 56, 56, 56, 56, 56,
+       3, 28, 56, 56, 56, 56, 56, 56, 56, 56,
+      56, 56, 56, 56, 56, 56, 56, 56, 56, 56,
+      56, 56, 56, 56, 56, 56, 56, 56, 56, 56,
+      56, 56, 56, 56, 56, 56, 56, 56, 56, 56,
+      56, 56, 56, 56, 56, 56, 56, 56, 56, 20,
+      56, 25, 56, 10,  5,  8, 56, 18,  0,  3,
+      25, 13,  5, 30, 15,  0, 15, 56, 56,  0,
+      56, 56, 56, 56, 56, 56, 56, 56, 56, 56,
+      56, 56, 56, 56, 56, 56, 56, 56, 56, 56,
+      56, 56, 56, 56, 56, 56, 56, 56, 56, 56,
+      56, 56, 56, 56, 56, 56, 56, 56, 56, 56,
+      56, 56, 56, 56, 56, 56, 56, 56, 56, 56,
+      56, 56, 56, 56, 56, 56, 56, 56, 56, 56,
+      56, 56, 56, 56, 56, 56, 56, 56, 56, 56,
+      56, 56, 56, 56, 56, 56, 56, 56, 56, 56,
+      56, 56, 56, 56, 56, 56, 56, 56, 56, 56,
+      56, 56, 56, 56, 56, 56, 56, 56, 56, 56,
+      56, 56, 56, 56, 56, 56, 56, 56, 56, 56,
+      56, 56, 56, 56, 56, 56, 56, 56, 56, 56,
+      56, 56, 56, 56, 56, 56, 56, 56, 56, 56,
+      56, 56, 56, 56, 56, 56
     };
-  register unsigned int hval = 0;
-
-  switch (len)
-    {
-      default:
-        hval += asso_values[(unsigned char)str[4]];
-      /*FALLTHROUGH*/
-      case 4:
-        break;
-    }
-  return hval + asso_values[(unsigned char)str[len - 1]];
+  return asso_values[(unsigned char)str[3]] + asso_values[(unsigned char)str[len - 1]];
 }
 
 struct dialogueMappingData *
@@ -101,61 +91,65 @@ getDialogueDataOffset (register const char *str, register size_t len)
 {
   static struct dialogueMappingData wordlist[] =
     {
-#line 9 "map-gperf-mapping"
-      {"begin",2156},
-      {""}, {""},
-#line 22 "map-gperf-mapping"
-      {"rest",46508},
-      {""},
-#line 26 "map-gperf-mapping"
-      {"uhhh",66220},
-#line 24 "map-gperf-mapping"
-      {"rest3",57596},
-      {""},
 #line 13 "map-gperf-mapping"
       {"flashback_loss",19404},
-      {""},
-#line 23 "map-gperf-mapping"
-      {"rest2",52668},
       {""}, {""},
 #line 12 "map-gperf-mapping"
       {"flashback_form",17556},
       {""},
-#line 25 "map-gperf-mapping"
-      {"thequeen",62832},
+#line 20 "map-gperf-mapping"
+      {"powpowpow",29568},
       {""}, {""},
 #line 15 "map-gperf-mapping"
       {"individual",24640},
       {""},
-#line 21 "map-gperf-mapping"
-      {"rescue2",34496},
+#line 27 "map-gperf-mapping"
+      {"uhhh",67144},
       {""}, {""}, {""}, {""},
-#line 8 "map-gperf-mapping"
-      {"approach",0},
-      {""}, {""}, {""}, {""},
-#line 19 "map-gperf-mapping"
-      {"powpowpow",28644},
-      {""}, {""},
-#line 18 "map-gperf-mapping"
-      {"meet_snake",26180},
-      {""},
 #line 14 "map-gperf-mapping"
       {"flashback_war",21868},
-      {""}, {""}, {""}, {""},
+      {""}, {""},
+#line 24 "map-gperf-mapping"
+      {"rest2",53592},
+      {""},
+#line 8 "map-gperf-mapping"
+      {"approach",0},
+      {""}, {""},
+#line 22 "map-gperf-mapping"
+      {"rescue2",35420},
+      {""},
+#line 19 "map-gperf-mapping"
+      {"meetog",28644},
+      {""}, {""},
 #line 16 "map-gperf-mapping"
       {"itsover",25256},
-      {""}, {""}, {""}, {""},
-#line 20 "map-gperf-mapping"
-      {"rescue",29260},
-      {""}, {""}, {""}, {""},
+      {""},
+#line 23 "map-gperf-mapping"
+      {"rest",47432},
+      {""}, {""},
+#line 9 "map-gperf-mapping"
+      {"begin",2156},
+      {""},
 #line 17 "map-gperf-mapping"
       {"longpiece",25564},
+      {""}, {""},
+#line 11 "map-gperf-mapping"
+      {"check",9240},
+      {""},
+#line 18 "map-gperf-mapping"
+      {"meet_snake",26180},
+      {""}, {""},
+#line 25 "map-gperf-mapping"
+      {"rest3",58520},
+      {""},
+#line 21 "map-gperf-mapping"
+      {"rescue",30184},
       {""}, {""}, {""}, {""},
 #line 10 "map-gperf-mapping"
       {"chance",3080},
       {""}, {""}, {""}, {""},
-#line 11 "map-gperf-mapping"
-      {"check",9240}
+#line 26 "map-gperf-mapping"
+      {"thequeen",63756}
     };
 
   if (len <= MAX_WORD_LENGTH && len >= MIN_WORD_LENGTH)

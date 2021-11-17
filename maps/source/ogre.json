@@ -54,7 +54,7 @@
         {
          "name":"dialogue",
          "type":"string",
-         "value":""
+         "value":"meetog"
         }],
  "renderorder":"right-up",
  "tiledversion":"1.7.2",
