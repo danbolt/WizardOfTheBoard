@@ -253,6 +253,10 @@ void updateCutsceneDone() {
       cutsceneToLoad = "revelation";
       wonGameFlag = 2;
     } else if (wonGameFlag == 2) {
+      cutsceneToLoad = "newness";
+      nextStage = &cutsceneStage;
+      wonGameFlag = 3;
+    } else if (wonGameFlag == 3) {
       nextStage = &creditsStage;
       wonGameFlag = 0;
     } else {

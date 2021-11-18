@@ -42,14 +42,14 @@ You've spent your life living in a remote town off the grid...@protag_neutral
 No, not a knight. A Wizard of the Board.@zatt_neutral
 Knights move in L-shapes.@zatt_neutral
 Um, right.@protag_annoyed
-I'll be honest with you Zatt. This sounds pretty messed up.@protag_neutral
+I'll be honest with you Zatt. This all sounds pretty messed up.@protag_neutral
 Why do they need warriors when there's the satellite array? We don't live in some ancient fantasy land.@protag_neutral
 You're not even allowed to go home because of this!@protag_neutral
 ...@zatt_sad
 Ah, I'm sorry.@protag_neutral
 This is probably all you've ever known.@protag_neutral
 Hmm...@protag_annoyed
-Hey, why don't you come stay with me for a little while?@protag_happy
+Hey, why don't you come stay with me for a little bit?@protag_happy
 Really? You'd let me come stay with you?@zatt_neutral
 I can use a washboard really well. I'd make it worth your while!@zatt_neutral
 Hm... I think we've got a washing machine for that back at the residence.@protag_neutral
@@ -57,3 +57,26 @@ What's a washing machine?@zatt_neutral
 Don't worry about it for now.@protag_neutral
 You know, given your skills, you could certainly get a part-time job at the Lunar Fufillment Site.@protag_happy
 I think you're going to be okay, Zatt.@protag_happy
+
+afterwards
+December 16th
+(Lunar Residence 14)
+...
+Welcome back!@protag_happy
+Hey, how did the job interview go?@protag_happy
+I dunno. It's so weird because you don't know if they like you or not.@zatt_neutral
+That's fair. Here's hoping though!@protag_happy
+Hey, Wren?@zatt_neutral
+What is it?@protag_neutral
+Thanks again for letting me stay here for a while. I think I've really been able to pull myself together.@zatt_neutral
+What do you mean?@protag_neutral
+Before, all I knew in life was being a warrior.@zatt_neutral
+It was the only thing I understood as good or important. I couldn't listen to myself because I didn't know how.@zatt_neutral
+But after I came here, I was away from that world. I had the space to stop and think about what I wanted.@zatt_neutral
+It's not always easy, but I think I'm starting to discover and know myself better.@zatt_neutral
+I'm grateful for that.@zatt_neutral
+Awww, well you make it easy. You're a very tidy guest!@protag_happy
+You know, hearing you say all that just now...@protag_annoyed
+...it's helped me understand life a little better too.@protag_neutral
+I'm glad.@zatt_neutral
+<< FIN >>

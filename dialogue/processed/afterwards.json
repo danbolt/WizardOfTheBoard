@@ -1,0 +1,107 @@
+[
+    {
+        "text": "December 16th",
+        "speaker": "",
+        "flags": []
+    },
+    {
+        "text": "(Lunar Residence 14)",
+        "speaker": "",
+        "flags": []
+    },
+    {
+        "text": "...",
+        "speaker": "",
+        "flags": []
+    },
+    {
+        "text": "Welcome back!",
+        "speaker": "protag_happy",
+        "flags": []
+    },
+    {
+        "text": "Hey, how did the job interview go?",
+        "speaker": "protag_happy",
+        "flags": []
+    },
+    {
+        "text": "I dunno. It's so weird because you don't know if they like you or not.",
+        "speaker": "zatt_neutral",
+        "flags": []
+    },
+    {
+        "text": "That's fair. Here's hoping though!",
+        "speaker": "protag_happy",
+        "flags": []
+    },
+    {
+        "text": "Hey, Wren?",
+        "speaker": "zatt_neutral",
+        "flags": []
+    },
+    {
+        "text": "What is it?",
+        "speaker": "protag_neutral",
+        "flags": []
+    },
+    {
+        "text": "Thanks again for letting me stay here for a while. I think I've really been able to pull myself together.",
+        "speaker": "zatt_neutral",
+        "flags": []
+    },
+    {
+        "text": "What do you mean?",
+        "speaker": "protag_neutral",
+        "flags": []
+    },
+    {
+        "text": "Before, all I knew in life was being a warrior.",
+        "speaker": "zatt_neutral",
+        "flags": []
+    },
+    {
+        "text": "It was the only thing I understood as good or important. I couldn't listen to myself because I didn't know how.",
+        "speaker": "zatt_neutral",
+        "flags": []
+    },
+    {
+        "text": "But after I came here, I was away from that world. I had the space to stop and think about what I wanted.",
+        "speaker": "zatt_neutral",
+        "flags": []
+    },
+    {
+        "text": "It's not always easy, but I think I'm starting to discover and know myself better.",
+        "speaker": "zatt_neutral",
+        "flags": []
+    },
+    {
+        "text": "I'm grateful for that.",
+        "speaker": "zatt_neutral",
+        "flags": []
+    },
+    {
+        "text": "Awww, well you make it easy. You're a very tidy guest!",
+        "speaker": "protag_happy",
+        "flags": []
+    },
+    {
+        "text": "You know, hearing you say all that just now...",
+        "speaker": "protag_annoyed",
+        "flags": []
+    },
+    {
+        "text": "...it's helped me understand life a little better too.",
+        "speaker": "protag_neutral",
+        "flags": []
+    },
+    {
+        "text": "I'm glad.",
+        "speaker": "zatt_neutral",
+        "flags": []
+    },
+    {
+        "text": "<< FIN >>",
+        "speaker": "",
+        "flags": []
+    }
+]
