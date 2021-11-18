@@ -17,8 +17,8 @@
 /* 05_overture.mid  */
 #define TRACK_05_OVERTURE 4
 
-/* 06_doomed_heroes.mid  */
-#define TRACK_06_DOOMED_HEROES 5
+/* 06_tomorrow.mid  */
+#define TRACK_06_TOMORROW 5
 
 /* 07_contemplation.mid  */
 #define TRACK_07_CONTEMPLATION 6
