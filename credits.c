@@ -29,7 +29,7 @@ static CreditsItem generalDev = {
   {
   "Daniel Savage",
   },
-  1.f
+  1.7f
 };
 
 static CreditsItem voiceActing = {
@@ -40,8 +40,32 @@ static CreditsItem voiceActing = {
     "Clayton Savage",
     "Daniel Savage"
   },
-  1.f
+  1.7f
 };
+
+static CreditsItem music = {
+  "MUSIC BY",
+
+  2,
+  {
+  "Morusque",
+  "Daniel Savage",
+  },
+  1.7f
+};
+
+static CreditsItem externalAssets = {
+  "EXTERNAL ASSETS",
+
+  3,
+  {
+  "Disc Drive Sound - Tairblenn",
+  "grunt - Reitanna",
+  "starfield - Sterne von K.F.",
+  },
+  1.7f
+};
+
 
 // This one's hacky but I like it
 static CreditsItem unfLoader = {
@@ -53,7 +77,17 @@ static CreditsItem unfLoader = {
   "",
   "Buu342",
   },
-  0.f
+  1.7f
+};
+
+static CreditsItem modernSDK = {
+  "MODERN SDK",
+
+  1,
+  {
+  "CrashOveride",
+  },
+  1.7f
 };
 
 static CreditsItem palTesting = {
@@ -64,28 +98,42 @@ static CreditsItem palTesting = {
   "kivan117",
   "gravatos",
   },
-  0.f
+  1.7f
 };
 
 static CreditsItem specialThanks = {
   "SPECIAL THANKS",
 
-  4,
+  5,
   {
   "Natasha Miner",
   "Mom, Dad, Alyssa, and Roro <3",
   "kivan117",
   "Hazematman",
+  "Meeq"
   },
-  0.f
+  1.7f
+};
+
+static CreditsItem verySpecialThanks = {
+  "THANKS FOR\n    PLAYING! ",
+
+  0,
+  {
+  },
+  3.7f
 };
 
 static CreditsItem* itemsToShow[] = {
   &generalDev,
   &voiceActing,
-  &unfLoader,
   &palTesting,
+  &music,
+  &externalAssets,
+  &unfLoader,
+  &modernSDK,
   &specialThanks,
+  &verySpecialThanks,
   NULL
 };
 
@@ -95,7 +143,7 @@ static u32 fadedOutMusic;
 static float creditsTime;
 
 int creditDuration(const CreditsItem* item) {
-  return item->extraLeadIn + MAX(3.6f, (2.4f + (item->numberOfItems * 0.4f)));
+  return item->extraLeadIn + MAX(6.1f, (6.0f + (item->numberOfItems * 0.4f)));
 }
 
 void initCredits() {
@@ -151,21 +199,8 @@ void makeCreditsDisplaylist() {
   gDPSetRenderMode(glistp++, G_RM_TEX_EDGE, G_RM_TEX_EDGE2);
 
 
-  if (itemsToShow[currentCreditIndex] && (creditsTime - itemsToShow[currentCreditIndex]->extraLeadIn) < CREDIT_FADE_TIME) {
-    float t = ((creditsTime - itemsToShow[currentCreditIndex]->extraLeadIn) / CREDIT_FADE_TIME);
-    int tVal = t * 255;
-    gDPSetPrimColor(glistp++, 0, 0, tVal, tVal, tVal, 255);
-    gDPSetCombineMode(glistp++,G_CC_MODULATEI_PRIM, G_CC_MODULATEI_PRIM);
-
-  } else if (itemsToShow[currentCreditIndex] && ((creditsTime ) > (creditDuration(itemsToShow[currentCreditIndex]) - CREDIT_FADE_TIME))) {
-    float t = 1.f - (((creditsTime - itemsToShow[currentCreditIndex]->extraLeadIn) - (creditDuration(itemsToShow[currentCreditIndex]) - CREDIT_FADE_TIME)) / CREDIT_FADE_TIME);
-    int tVal = t * 255;
-    gDPSetPrimColor(glistp++, 0, 0, tVal, tVal, tVal, 255);
-    gDPSetCombineMode(glistp++,G_CC_MODULATEI_PRIM, G_CC_MODULATEI_PRIM);
-
-  } else {
+  
     gDPSetCombineMode(glistp++,G_CC_DECALRGBA, G_CC_DECALRGBA);
-  }
 
 
   gSPClearGeometryMode(glistp++,0xFFFFFFFF);
