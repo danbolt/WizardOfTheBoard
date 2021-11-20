@@ -9,6 +9,7 @@ zatt_neutral,SFX_13_ZATT_BIP
 zatt_sad,SFX_13_ZATT_BIP
 zatt_yelling,SFX_14_ZATT_SCREAMING_BIP
 zatt_despair,SFX_13_ZATT_BIP
+zatt_smiling,SFX_13_ZATT_BIP
 snake,SFX_18_OGRE_BIP
 protag_annoyed,SFX_02_NOBODY_BIP
 protag_happy,SFX_02_NOBODY_BIP

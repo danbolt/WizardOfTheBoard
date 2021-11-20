@@ -22,4 +22,5 @@ wait,106496
 zatt_despair,114688
 zatt_neutral,122880
 zatt_sad,131072
-zatt_yelling,139264
+zatt_smiling,139264
+zatt_yelling,147456
