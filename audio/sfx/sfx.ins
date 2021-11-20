@@ -1118,6 +1118,34 @@ sound FX_39_chargeSound
     keymap = FX_39_charge_keymap;
     envelope = FX_39_charge_env;
 }
+envelope FX_40_monster_death_env
+{
+    attackTime    = 0;
+    attackVolume  = 100;
+    decayTime   = 435329;
+    decayVolume   = 90;
+    releaseTime   = 0;
+    
+}
+keymap FX_40_monster_death_keymap
+{
+    velocityMin = 0;
+    velocityMax = 127;
+    keyMin      = 40;
+    keyMax      = 40;
+    keyBase     = 40;
+    detune      = 0;
+}
+
+sound FX_40_monster_deathSound
+{
+    use ("compressed/40_monster_death.aifc");
+    
+    pan    = 64;
+    volume = 127;
+    keymap = FX_40_monster_death_keymap;
+    envelope = FX_40_monster_death_env;
+}
 
 instrument sfx
 {
@@ -1164,6 +1192,7 @@ instrument sfx
     sound = FX_37_queen_gruntSound;
     sound = FX_38_ogre_whatSound;
     sound = FX_39_chargeSound;
+    sound = FX_40_monster_deathSound;
 }
 
 bank sfxbank

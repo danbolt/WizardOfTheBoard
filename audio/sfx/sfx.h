@@ -122,7 +122,10 @@
 /* 39_charge.aifc  */
 #define SFX_39_CHARGE 39
 
-#define SFX_COUNT 40
+/* 40_monster_death.aifc  */
+#define SFX_40_MONSTER_DEATH 40
+
+#define SFX_COUNT 41
 
 
 #endif
