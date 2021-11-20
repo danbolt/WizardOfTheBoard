@@ -1999,6 +1999,7 @@ void updateKnockback() {
 
       if ((i > 0) && (health[i] < 1)) {
         isActive[i] = 0;
+        playSound(SFX_40_MONSTER_DEATH);
       }
     }
   }
