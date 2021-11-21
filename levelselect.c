@@ -53,6 +53,22 @@ static char textBuffer[32];
 static u8 transitioningState;
 static float transitionTime;
 
+const char* trackInfo[TRACK_COUNT] = {
+  "Puzzle Time\nby Daniel Savage",
+  "Odd Board\nby Daniel Savage",
+  "Tempo Test\nby Daniel Savage",
+  "Wood Block Test\nby Daniel Savage",
+  "Overture\nby Daniel Savage",
+  "Tomorrow\nby Daniel Savage",
+  "Contemplation\nby Daniel Savage",
+  "Credits\nby Daniel Savage",
+  "Between the Floors\nby Daniel Savage",
+  "Harbour\nby Morusque",
+  "Arena1\nby Morusque",
+  "Top of the Tower\nby Daniel Savage",
+  "Warming Up\nby Daniel Savage",
+};
+
 void initLevelSelect() {
   currentlySelectedLevel = currentLevel % NUMBER_OF_LEVELS;
   selectedLevelLerpValue = 0.f;
@@ -211,6 +227,30 @@ void makeLevelSelectDisplayList() {
         const sixtwelve_character_info* characterInfo = sixtwelve_get_character_info(str[i]);
 
         if (str[i] == '\n') {
+          xAdv = xInit;
+          y += SIXTWELVE_LINE_HEIGHT;
+          i++;
+          continue;
+        }
+
+        const int xLoc = xAdv + characterInfo->x_offset;
+        const int yLoc = y + characterInfo->y_offset;
+
+        gSPScisTextureRectangle(glistp++, (xLoc) << 2, (yLoc) << 2, (xLoc + characterInfo->width) << 2, (yLoc + characterInfo->height) << 2, 0, (characterInfo->x) << 5, (characterInfo->y) << 5, 1 << 10, 1 << 10);
+        xAdv += characterInfo->x_advance;
+        i++;
+      }
+    }
+
+    if (optionsIndex == OPTIONS_3_BGM_TEST) {
+      int i = 0;
+      int xInit = SCREEN_WD / 2 + 16;
+      int xAdv = xInit;
+      int y = TITLE_SAFE_VERTICAL + 2 + 96;
+      while (trackInfo[bgmIndex][i] != '\0') {
+        const sixtwelve_character_info* characterInfo = sixtwelve_get_character_info(trackInfo[bgmIndex][i]);
+
+        if (trackInfo[bgmIndex][i] == '\n') {
           xAdv = xInit;
           y += SIXTWELVE_LINE_HEIGHT;
           i++;
