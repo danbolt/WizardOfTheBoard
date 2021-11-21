@@ -17,6 +17,8 @@
 #include "nustdfuncs.h"
 #include "audio/bgm/sequence/tracknumbers.h"
 #include "segmentinfo.h"
+#include "sixtwelve.h"
+#include "sixtwelve_helpers.h"
 #include "stagekeys.h"
 #include "board.h"
 #include "pieces.h"
@@ -433,6 +435,22 @@ static Vtx puzzleSpaceVerts[] = {
   {  1, -1,  0, 0, 128 << 5,  0 << 5, 0x5B, 0xff, 0xff, 0xff },
   {  1,  1,  0, 0, 128 << 5, 32 << 5, 0x5B, 0xff, 0xff, 0xff },
   { -1,  1,  0, 0,  97 << 5, 32 << 5, 0x5B, 0xff, 0xff, 0xff },
+};
+
+#define NO_TUTORIAL_ACTIVE 0
+#define TUTORIAL_STEP_HIGHLIGHT_PAWN 1
+#define TUTORIAL_STEP_SELECT_PAWN 2
+#define TUTORIAL_STEP_MOVE_CURSOR 3
+#define TUTORIAL_STEP_CONFIRM_MOVE 4
+#define TUTORIAL_STEP_FINISH_BOARD 5
+u8 tutorialState;
+const char* tutorialStepStrings[] = {
+  "TUT0",
+  "Get close to the pawn to touch it.",
+  "Press A to select the pawn.",
+  "Use the C buttons to move the cursor to\nthe legal space in front of it.",
+  "Press A to confirm the move.",
+  "Good work! Move the pawn onto the magic\ncircle."
 };
 
 static Gfx renderPuzzleSpaceCommands[] = {
@@ -1208,6 +1226,11 @@ void initStage00(void)
   }
   bannerMessageText = floorStartBanner;
   bannerMessageTime = 0.f;
+
+  tutorialState = NO_TUTORIAL_ACTIVE;
+  if (currentLevel == 0) {
+    tutorialState = TUTORIAL_STEP_HIGHLIGHT_PAWN;
+  }
 }
 
 /* Make the display list and activate the task */
@@ -1605,6 +1628,32 @@ void makeDL00(void)
 
   renderDialogueToDisplayList();
 
+  if (tutorialState && (transitioningState == NOT_TRANSITIONING) && (dialogueState != DIALOGUE_STATE_SHOWING)) {
+    gDPPipeSync(glistp++);
+    gDPLoadTextureBlock_4b(glistp++, sixtwelve_tex, G_IM_FMT_IA, SIXTWELVE_TEXTURE_WIDTH, SIXTWELVE_TEXTURE_HEIGHT, 0, G_TX_MIRROR | G_TX_WRAP, G_TX_MIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
+
+    const char* tutorialTextToShow = tutorialStepStrings[tutorialState];
+    int i = 0;
+    int xSpot = TITLE_SAFE_HORIZONTAL + 2;
+    int ySpot = TITLE_SAFE_VERTICAL + 4 + (int)(sinf(gameplayTimePassed * 10.f) * 2.f);
+    while (tutorialTextToShow[i] != '\0') {
+      const unsigned char character = tutorialTextToShow[i];
+      const sixtwelve_character_info* characterInfo = sixtwelve_get_character_info(character);
+      i++;
+
+      if (character == '\n') {
+        xSpot = TITLE_SAFE_HORIZONTAL + 2;
+        ySpot += SIXTWELVE_LINE_HEIGHT;
+        continue;
+      }
+
+      const int xLoc = xSpot + characterInfo->x_offset;
+      const int yLoc = ySpot + characterInfo->y_offset;
+      gSPTextureRectangle(glistp++, (xLoc) << 2, (yLoc) << 2, (xLoc + characterInfo->width) << 2, (yLoc + characterInfo->height) << 2, 0, (characterInfo->x) << 5, (characterInfo->y) << 5, 1 << 10, 1 << 10);
+      xSpot += characterInfo->x_advance;
+    }
+  }
+
   if (transitioningState != NOT_TRANSITIONING) {
     gDPPipeSync(glistp++);
     gDPSetCycleType(glistp++, G_CYC_FILL);
@@ -1800,6 +1849,10 @@ void updateBoardControlInput() {
         boardControlState = BOARD_CONTROL_PIECE_SELECTED;
         selectedPiece = pieceInFrontOfPlayer;
 
+        if (tutorialState == TUTORIAL_STEP_SELECT_PAWN) {
+          tutorialState = TUTORIAL_STEP_MOVE_CURSOR;
+        }
+
         for (int i = 0; i < NUMBER_OF_BOARD_CELLS; i++) {
           legalDestinationState[i] = 0;
         }
@@ -1811,6 +1864,10 @@ void updateBoardControlInput() {
       selectedPiece = -1;
       boardControlState = BOARD_CONTROL_NO_SELECTED;
       playSound(SFX_06_MOVE_CURSOR);
+
+      if ((tutorialState == TUTORIAL_STEP_MOVE_CURSOR) || (tutorialState == TUTORIAL_STEP_CONFIRM_MOVE)) {
+        tutorialState = TUTORIAL_STEP_HIGHLIGHT_PAWN;
+      }
     } else if (contdata[0].trigger & A_BUTTON) {
       assert(selectedPiece >= 0); // we should have a selected piece here
       const int pieceAtCursorSpot = isSpaceOccupied(chessboardSpotHighlighted.x, chessboardSpotHighlighted.y);
@@ -1842,14 +1899,42 @@ void updateBoardControlInput() {
         } else {
           playSound(SFX_08_CONFIRM_MOVE);
         }
+
+        if (tutorialState == TUTORIAL_STEP_CONFIRM_MOVE) {
+          tutorialState = TUTORIAL_STEP_FINISH_BOARD;
+        }
         
       } else {
         playSound(SFX_05_ILLEGAL_MOVE);
+
+        if (tutorialState == TUTORIAL_STEP_MOVE_CURSOR) {
+          tutorialState = TUTORIAL_STEP_HIGHLIGHT_PAWN;
+        }
       }
 
       selectedPiece = -1;
       boardControlState = BOARD_CONTROL_NO_SELECTED;
     }
+  }
+
+  if ((tutorialState == TUTORIAL_STEP_CONFIRM_MOVE) && (!(legalDestinationState[(chessboardSpotHighlighted.x % BOARD_WIDTH) + (chessboardSpotHighlighted.y * BOARD_WIDTH)]))) {
+    tutorialState = TUTORIAL_STEP_MOVE_CURSOR;
+  }
+
+  if ((tutorialState == TUTORIAL_STEP_MOVE_CURSOR) && (legalDestinationState[(chessboardSpotHighlighted.x % BOARD_WIDTH) + (chessboardSpotHighlighted.y * BOARD_WIDTH)])) {
+    tutorialState = TUTORIAL_STEP_CONFIRM_MOVE;
+  }
+
+  if (tutorialState == TUTORIAL_STEP_MOVE_CURSOR) {
+    if (boardControlState == BOARD_CONTROL_NO_SELECTED) {
+      tutorialState = TUTORIAL_STEP_HIGHLIGHT_PAWN;
+    }
+  }
+
+  if ((tutorialState == TUTORIAL_STEP_HIGHLIGHT_PAWN) && (pieceInFrontOfPlayer > -1)) {
+    tutorialState = TUTORIAL_STEP_SELECT_PAWN;
+  } else if ((tutorialState == TUTORIAL_STEP_SELECT_PAWN) && (pieceInFrontOfPlayer == -1)) {
+    tutorialState = TUTORIAL_STEP_HIGHLIGHT_PAWN;
   }
 }
 
