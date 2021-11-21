@@ -18,11 +18,9 @@ LevelEntry levels[NUMBER_OF_LEVELS] = {
   { "snake", TRACK_02_ODD_BOARD, 0x0 },
   { "ogre", TRACK_02_ODD_BOARD, "test_scene" },
 
-  { "lines", TRACK_02_ODD_BOARD, 0x0 },
-
   { "twoogres", TRACK_02_ODD_BOARD, "grass" },
 
-  // We need 2-3 more stages here,
+  { "lines", TRACK_02_ODD_BOARD, "dreamscene" },
 
   // We need a cutscene here where Zatt has a bad dream
 

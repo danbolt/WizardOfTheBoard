@@ -1,0 +1,65 @@
+[
+    {
+        "text": "Kill or be killed, kid.  ",
+        "speaker": "ogre",
+        "flags": [
+            "sound40"
+        ]
+    },
+    {
+        "text": "You've wasted everyone's time, including yours.  ",
+        "speaker": "teach",
+        "flags": [
+            "ik2"
+        ]
+    },
+    {
+        "text": "Ahhh!    ",
+        "speaker": "zatt_yelling",
+        "flags": [
+            "sound36",
+            "blood",
+            "ik3"
+        ]
+    },
+    {
+        "text": "... ",
+        "speaker": "zatt_despair",
+        "flags": []
+    },
+    {
+        "text": "Hey, are you okay? ",
+        "speaker": "themouse",
+        "flags": []
+    },
+    {
+        "text": "Humans usually don't look so scared when they're asleep. ",
+        "speaker": "themouse",
+        "flags": []
+    },
+    {
+        "text": "I must have been dreaming. ",
+        "speaker": "zatt_despair",
+        "flags": []
+    },
+    {
+        "text": "This place sure seems to be making you sad.",
+        "speaker": "themouse",
+        "flags": []
+    },
+    {
+        "text": "Why don't you leave with me? We can go find some food.",
+        "speaker": "themouse",
+        "flags": []
+    },
+    {
+        "text": "No, not yet. I have to get to the top. ",
+        "speaker": "zatt_neutral",
+        "flags": []
+    },
+    {
+        "text": "If I can't, I'm not allowed to go home. ",
+        "speaker": "zatt_despair",
+        "flags": []
+    }
+]

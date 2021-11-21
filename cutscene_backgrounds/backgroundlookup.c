@@ -1,6 +1,6 @@
 /* ANSI-C code produced by gperf version 3.1 */
 /* Command-line: gperf --no-strlen --lookup-function-name=getBackgroundTextureOffset --struct-type --output-file=backgroundlookup.c texture-gperf-mapping  */
-/* Computed positions: -k'3,5' */
+/* Computed positions: -k'1,$' */
 
 #if !((' ' == 32) && ('!' == 33) && ('"' == 34) && ('#' == 35) \
       && ('%' == 37) && ('&' == 38) && ('\'' == 39) && ('(' == 40) \
@@ -37,12 +37,12 @@
 #line 6 "texture-gperf-mapping"
 struct backgroundMappingData;
 
-#define TOTAL_KEYWORDS 15
+#define TOTAL_KEYWORDS 17
 #define MIN_WORD_LENGTH 5
 #define MAX_WORD_LENGTH 10
 #define MIN_HASH_VALUE 0
-#define MAX_HASH_VALUE 30
-/* maximum key range = 31, duplicates = 0 */
+#define MAX_HASH_VALUE 60
+/* maximum key range = 61, duplicates = 0 */
 
 #ifdef __GNUC__
 __inline
@@ -51,40 +51,39 @@ __inline
 inline
 #endif
 #endif
-/*ARGSUSED*/
 static unsigned int
 hash (register const char *str, register size_t len)
 {
   static unsigned char asso_values[] =
     {
-      31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
-      31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
-      31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
-      31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
-      31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
-      31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
-      31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
-      31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
-      31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
-      31, 31, 31, 31, 31, 31,  8,  5,  3, 31,
-       3,  4, 15, 14, 31, 31,  4, 31,  9,  4,
-      15,  5,  5, 31, 10, 10,  0, 10, 10, 31,
-      31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
-      31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
-      31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
-      31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
-      31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
-      31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
-      31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
-      31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
-      31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
-      31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
-      31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
-      31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
-      31, 31, 31, 31, 31, 31, 31, 31, 31, 31,
-      31, 31, 31, 31, 31, 31, 31
+      61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
+      61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
+      61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
+      61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
+      61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
+      61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
+      61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
+      61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
+      61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
+      61, 61, 61, 61, 61, 61, 61, 30,  3,  3,
+      10, 20, 61,  3, 30, 61, 61, 61,  3, 30,
+       5, 15, 30, 61, 15,  0, 20, 61, 61,  0,
+      61, 61, 25, 61, 61, 61, 61, 61, 61, 61,
+      61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
+      61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
+      61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
+      61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
+      61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
+      61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
+      61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
+      61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
+      61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
+      61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
+      61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
+      61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
+      61, 61, 61, 61, 61, 61
     };
-  return asso_values[(unsigned char)str[4]+1] + asso_values[(unsigned char)str[2]];
+  return asso_values[(unsigned char)str[len - 1]] + asso_values[(unsigned char)str[0]];
 }
 
 struct backgroundMappingData *
@@ -92,42 +91,56 @@ getBackgroundTextureOffset (register const char *str, register size_t len)
 {
   static struct backgroundMappingData wordlist[] =
     {
-#line 22 "texture-gperf-mapping"
-      {"zatts_room",2150400},
-      {""}, {""}, {""},
-#line 12 "texture-gperf-mapping"
-      {"outside",614400},
+#line 20 "texture-gperf-mapping"
+      {"stars",1843200},
+      {""}, {""},
+#line 23 "texture-gperf-mapping"
+      {"wandering",2304000},
+      {""},
 #line 18 "texture-gperf-mapping"
-      {"stars",1536000},
+      {"slain",1536000},
+      {""}, {""}, {""}, {""},
+#line 19 "texture-gperf-mapping"
+      {"spotted",1689600},
+      {""}, {""},
+#line 9 "texture-gperf-mapping"
+      {"cornered",153600},
+      {""},
+#line 11 "texture-gperf-mapping"
+      {"dreamslain",460800},
+      {""}, {""}, {""}, {""},
+#line 17 "texture-gperf-mapping"
+      {"revelation",1382400},
+      {""}, {""},
+#line 13 "texture-gperf-mapping"
+      {"logotype",768000},
+      {""},
+#line 15 "texture-gperf-mapping"
+      {"rescued",1075200},
+      {""}, {""}, {""}, {""},
+#line 10 "texture-gperf-mapping"
+      {"dreamogre",307200},
       {""}, {""},
 #line 8 "texture-gperf-mapping"
       {"bedroom",0},
-#line 20 "texture-gperf-mapping"
-      {"themouse",1843200},
-#line 16 "texture-gperf-mapping"
-      {"slain",1228800},
-      {""}, {""},
+      {""},
 #line 14 "texture-gperf-mapping"
-      {"restarea",921600},
-#line 15 "texture-gperf-mapping"
-      {"revelation",1075200},
-#line 17 "texture-gperf-mapping"
-      {"spotted",1382400},
-      {""}, {""},
-#line 19 "texture-gperf-mapping"
-      {"test_a",1689600},
-#line 10 "texture-gperf-mapping"
-      {"holdup",307200},
-#line 13 "texture-gperf-mapping"
-      {"rescued",768000},
-      {""}, {""}, {""},
-#line 11 "texture-gperf-mapping"
-      {"logotype",460800},
-#line 9 "texture-gperf-mapping"
-      {"cornered",153600},
+      {"outside",921600},
+      {""}, {""}, {""}, {""},
+#line 22 "texture-gperf-mapping"
+      {"themouse",2150400},
+      {""}, {""}, {""}, {""},
+#line 16 "texture-gperf-mapping"
+      {"restarea",1228800},
       {""}, {""}, {""}, {""},
 #line 21 "texture-gperf-mapping"
-      {"wandering",1996800}
+      {"test_a",1996800},
+      {""}, {""}, {""}, {""},
+#line 24 "texture-gperf-mapping"
+      {"zatts_room",2457600},
+      {""}, {""}, {""}, {""},
+#line 12 "texture-gperf-mapping"
+      {"holdup",614400}
     };
 
   if (len <= MAX_WORD_LENGTH && len >= MIN_WORD_LENGTH)
