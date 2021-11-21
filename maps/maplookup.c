@@ -37,7 +37,7 @@
 #line 6 "map-gperf-mapping"
 struct dialogueMappingData;
 
-#define TOTAL_KEYWORDS 19
+#define TOTAL_KEYWORDS 20
 #define MIN_WORD_LENGTH 4
 #define MAX_WORD_LENGTH 14
 #define MIN_HASH_VALUE 0
@@ -66,7 +66,7 @@ hash (register const char *str, register size_t len)
       56, 56, 56, 56, 56, 56, 56, 56, 56, 56,
       56, 56, 56, 56, 56, 56, 56, 56, 56, 56,
       56, 56, 56, 56, 56, 56, 20,  5,  8, 56,
-      56, 20, 15, 20,  5, 56,  3,  3, 56, 56,
+      56, 20, 15, 20,  5, 56,  3,  3, 30, 56,
       56, 10,  0, 56, 56, 15,  0,  5, 25, 15,
       56, 56, 56, 56, 56, 56, 56, 56, 56, 56,
       56, 56, 56, 56, 56, 56, 56, 56, 56, 56,
@@ -109,22 +109,22 @@ getMapDataOffset (register const char *str, register size_t len)
 {
   static struct dialogueMappingData wordlist[] =
     {
-#line 22 "map-gperf-mapping"
-      {"tut2_rooks",2352},
+#line 23 "map-gperf-mapping"
+      {"tut2_rooks",2520},
       {""}, {""},
 #line 12 "map-gperf-mapping"
       {"jumper",672},
       {""},
 #line 9 "map-gperf-mapping"
       {"2toad",168},
-#line 23 "map-gperf-mapping"
-      {"tut3_bishops",2520},
-      {""},
-#line 20 "map-gperf-mapping"
-      {"test_map",2016},
+#line 24 "map-gperf-mapping"
+      {"tut3_bishops",2688},
       {""},
 #line 21 "map-gperf-mapping"
-      {"tut1_move",2184},
+      {"test_map",2184},
+      {""},
+#line 22 "map-gperf-mapping"
+      {"tut1_move",2352},
       {""}, {""},
 #line 10 "map-gperf-mapping"
       {"bishops",336},
@@ -132,8 +132,8 @@ getMapDataOffset (register const char *str, register size_t len)
 #line 8 "map-gperf-mapping"
       {"1toad",0},
       {""}, {""},
-#line 18 "map-gperf-mapping"
-      {"snake",1680},
+#line 19 "map-gperf-mapping"
+      {"snake",1848},
       {""},
 #line 11 "map-gperf-mapping"
       {"finale",504},
@@ -141,29 +141,32 @@ getMapDataOffset (register const char *str, register size_t len)
 #line 13 "map-gperf-mapping"
       {"jumper_test",840},
       {""},
+#line 27 "map-gperf-mapping"
+      {"twoogres",3192},
+      {""}, {""},
 #line 26 "map-gperf-mapping"
-      {"twoogres",3024},
+      {"tut5_king",3024},
+      {""},
+#line 15 "map-gperf-mapping"
+      {"ogre",1176},
       {""}, {""},
 #line 25 "map-gperf-mapping"
-      {"tut5_king",2856},
+      {"tut4_knights",2856},
       {""},
-#line 14 "map-gperf-mapping"
-      {"ogre",1008},
-      {""}, {""},
-#line 24 "map-gperf-mapping"
-      {"tut4_knights",2688},
-      {""},
-#line 16 "map-gperf-mapping"
-      {"other_test_map",1344},
-      {""}, {""}, {""}, {""},
-#line 15 "map-gperf-mapping"
-      {"oneweirdtrick",1176},
-      {""}, {""}, {""}, {""},
-#line 19 "map-gperf-mapping"
-      {"solveit",1848},
-      {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""},
 #line 17 "map-gperf-mapping"
-      {"singlefile",1512}
+      {"other_test_map",1512},
+      {""}, {""}, {""}, {""},
+#line 16 "map-gperf-mapping"
+      {"oneweirdtrick",1344},
+      {""}, {""}, {""}, {""},
+#line 20 "map-gperf-mapping"
+      {"solveit",2016},
+      {""}, {""}, {""}, {""},
+#line 14 "map-gperf-mapping"
+      {"lines",1008},
+      {""}, {""}, {""}, {""},
+#line 18 "map-gperf-mapping"
+      {"singlefile",1680}
     };
 
   if (len <= MAX_WORD_LENGTH && len >= MIN_WORD_LENGTH)

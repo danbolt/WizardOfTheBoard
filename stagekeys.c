@@ -18,7 +18,7 @@ LevelEntry levels[NUMBER_OF_LEVELS] = {
   { "snake", TRACK_02_ODD_BOARD, 0x0 },
   { "ogre", TRACK_02_ODD_BOARD, "test_scene" },
 
-  // We'll want 1-2 stages here
+  { "lines", TRACK_02_ODD_BOARD, 0x0 },
 
   { "twoogres", TRACK_02_ODD_BOARD, "grass" },
 

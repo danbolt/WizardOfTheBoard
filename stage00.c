@@ -1000,7 +1000,8 @@ void initializeMonsters(const MapData* map) {
       updateFunctions[i + 1] = updateJumper;
       renderCommands[i + 1] = jumper_commands;
       orientations[i + 1] = 0.f;
-      health[i + 1] = 2;
+      radiiSquared[i + 1] = (0.4f * 0.4f);
+      health[i + 1] = 1;
 
       *((u8*)(monsterState[i + 1])) = JUMPER_GOING_RIGHT;
       velocities[i + 1].x = JUMPER_WALK_SPEED;
