@@ -232,6 +232,7 @@ void renderDialogueToDisplayList() {
   // gDPSetCycleType(glistp++, G_CYC_1CYCLE);
 
   gDPPipeSync(glistp++);
+  gDPSetColorDither(glistp++, G_CD_MAGICSQ);
   gDPLoadTextureBlock(glistp++, OS_K0_TO_PHYSICAL(dialogueBackingBuffer), G_IM_FMT_I, G_IM_SIZ_8b, 64, 64, 0, G_TX_NOMIRROR, G_TX_NOMIRROR, 6, 6, G_TX_NOLOD, G_TX_NOLOD);
   gSPTextureRectangle(glistp++, (TITLE_SAFE_HORIZONTAL + 10) << 2, (dialogueBoxY - 4) << 2, (TITLE_SAFE_HORIZONTAL + 256 + 10) << 2, (dialogueBoxY + 64 + 4) << 2, 0, 0 << 5, 0 << 5, (0 << 10) | (2 << 7), (0 << 10) | (7 << 7));
 

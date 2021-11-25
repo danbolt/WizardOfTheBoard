@@ -201,9 +201,13 @@ void makeTitleScreenDL() {
   gSPDisplayList(glistp++, OS_K0_TO_PHYSICAL(gfx_Ground_None));
 
   gDPPipeSync(glistp++);
-  gDPSetRenderMode(glistp++, G_RM_ZB_XLU_SURF, G_RM_ZB_XLU_SURF2);
+  gDPSetRenderMode(glistp++, G_RM_ZB_XLU_SURF, G_RM_ZB_XLU_SURF);
+  gSPClearGeometryMode(glistp++,0xFFFFFFFF);
   gSPSetGeometryMode(glistp++,G_SHADE | G_ZBUFFER | G_SHADING_SMOOTH | G_CULL_BACK);
   gSPDisplayList(glistp++, OS_K0_TO_PHYSICAL(gfx_decorations_None));
+
+  gDPPipeSync(glistp++);
+  gDPSetRenderMode(glistp++, G_RM_ZB_OPA_SURF, G_RM_ZB_OPA_SURF2);
   gSPDisplayList(glistp++, OS_K0_TO_PHYSICAL(gfx_Tower_None));
 
   gDPPipeSync(glistp++);

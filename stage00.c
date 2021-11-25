@@ -1221,7 +1221,7 @@ void initStage00(void)
   boardControlState = BOARD_CONTROL_NO_SELECTED;
 
   if (currentLevel == (NUMBER_OF_LEVELS - 1)) {
-    sprintf(floorStartBanner, "SHADOW QUEEN!!!");
+    sprintf(floorStartBanner, "      TOP FLOOR");
   } else {
     sprintf(floorStartBanner, "FLOOR %d START!", (currentLevel + 1));
   }
@@ -1762,6 +1762,10 @@ void updatePlayerInput() {
 }
 
 void updateMovement() {
+  if (gameState != GAME_STATE_ACTIVE) {
+    return;
+  }
+
   for (int i = 0; i < NUMBER_OF_INGAME_ENTITIES; i++) {
     if (!(isActive[i])) {
       continue;
@@ -1778,6 +1782,8 @@ void updateMovement() {
       }
     }
 
+    desiredSpot.x = clamp(desiredSpot.x, 0.f, (float)BOARD_WIDTH - 0.0001f);
+
     // step y
     if (isSpaceOccupiedButIgnoreMovingPieces((int)(desiredSpot.x), (int)(desiredSpot.y)) > -1) {
       if (velocities[i].y > 0.f) {
@@ -1787,12 +1793,10 @@ void updateMovement() {
       }
     }
 
+    desiredSpot.y = clamp(desiredSpot.y, 0.f, (float)BOARD_HEIGHT - 0.0001f);
+
     positions[i].x = desiredSpot.x;
     positions[i].y = desiredSpot.y;
-
-    // Don't let the entity leave the playing area
-    positions[i].x = clamp(positions[i].x, 0.f, (float)BOARD_WIDTH);
-    positions[i].y = clamp(positions[i].y, 0.f, (float)BOARD_HEIGHT);
   }
 }
 
