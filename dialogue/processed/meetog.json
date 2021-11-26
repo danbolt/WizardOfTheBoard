@@ -1,17 +1,22 @@
 [
     {
-        "text": "...",
-        "speaker": "zatt_neutral",
-        "flags": []
-    },
-    {
-        "text": "Smells like human!",
+        "text": "Smell human!",
         "speaker": "ogre",
         "flags": []
     },
     {
-        "text": "Oh no!",
+        "text": "Ahh!",
         "speaker": "zatt_yelling",
+        "flags": []
+    },
+    {
+        "text": "Can't you just leave me alone?!?",
+        "speaker": "zatt_yelling",
+        "flags": []
+    },
+    {
+        "text": "Strong crush the weak. That's how world works.",
+        "speaker": "ogre",
         "flags": []
     }
 ]

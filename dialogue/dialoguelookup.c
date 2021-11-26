@@ -37,7 +37,7 @@
 #line 6 "map-gperf-mapping"
 struct dialogueMappingData;
 
-#define TOTAL_KEYWORDS 22
+#define TOTAL_KEYWORDS 24
 #define MIN_WORD_LENGTH 4
 #define MAX_WORD_LENGTH 14
 #define MIN_HASH_VALUE 0
@@ -65,9 +65,9 @@ hash (register const char *str, register size_t len)
       61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
       61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
       61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
-      61, 61, 61, 61, 61,  8, 61, 61, 61,  3,
-      61,  3, 61, 13, 25, 61, 61, 30, 23, 15,
-       0, 20,  5, 61,  3, 10,  5, 15,  0, 30,
+      61, 61, 61, 61, 61, 20, 61, 61, 61, 18,
+      23, 30, 61,  8, 25, 61, 61,  3,  8, 15,
+       0, 30,  3, 61,  3, 10,  5, 15,  0, 30,
       61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
       61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
       61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
@@ -105,64 +105,71 @@ getDialogueDataOffset (register const char *str, register size_t len)
       {"begin",8624},
       {""}, {""},
 #line 18 "map-gperf-mapping"
-      {"itsover",34804},
+      {"itsover",35112},
       {""},
-#line 25 "map-gperf-mapping"
-      {"rest",56980},
-#line 11 "map-gperf-mapping"
-      {"chance",9548},
+#line 27 "map-gperf-mapping"
+      {"rest",60368},
+#line 12 "map-gperf-mapping"
+      {"check",15400},
       {""},
-#line 19 "map-gperf-mapping"
-      {"longpiece",35112},
+#line 17 "map-gperf-mapping"
+      {"individual",34496},
       {""},
-#line 26 "map-gperf-mapping"
-      {"rest2",63140},
-#line 20 "map-gperf-mapping"
-      {"meet_snake",35728},
-      {""},
+#line 28 "map-gperf-mapping"
+      {"rest2",66528},
+      {""}, {""},
 #line 8 "map-gperf-mapping"
       {"afterwards",0},
       {""},
-#line 28 "map-gperf-mapping"
-      {"thequeen",73304},
-#line 27 "map-gperf-mapping"
-      {"rest3",68068},
-      {""},
-#line 23 "map-gperf-mapping"
-      {"rescue",39732},
-      {""},
-#line 24 "map-gperf-mapping"
-      {"rescue2",44968},
-      {""}, {""},
-#line 17 "map-gperf-mapping"
-      {"individual",34188},
-      {""},
+#line 30 "map-gperf-mapping"
+      {"thequeen",76692},
 #line 29 "map-gperf-mapping"
-      {"uhhh",76692},
+      {"rest3",71456},
+      {""}, {""}, {""},
+#line 26 "map-gperf-mapping"
+      {"rescue2",48356},
+      {""}, {""},
+#line 20 "map-gperf-mapping"
+      {"meet_jumper",36036},
+      {""},
+#line 31 "map-gperf-mapping"
+      {"uhhh",80080},
       {""}, {""},
 #line 16 "map-gperf-mapping"
-      {"flashback_war",31416},
+      {"flashback_war",31724},
       {""},
 #line 13 "map-gperf-mapping"
       {"dream",23716},
       {""}, {""},
-#line 21 "map-gperf-mapping"
-      {"meetog",38192},
+#line 19 "map-gperf-mapping"
+      {"longpiece",35420},
       {""},
 #line 15 "map-gperf-mapping"
-      {"flashback_loss",28952},
-      {""}, {""}, {""}, {""},
+      {"flashback_loss",29260},
+      {""}, {""},
+#line 23 "map-gperf-mapping"
+      {"meetog",41272},
+      {""},
 #line 14 "map-gperf-mapping"
-      {"flashback_form",27104},
+      {"flashback_form",27412},
+      {""}, {""},
+#line 22 "map-gperf-mapping"
+      {"meet_toad",39116},
+      {""},
+#line 25 "map-gperf-mapping"
+      {"rescue",43120},
+      {""}, {""},
+#line 11 "map-gperf-mapping"
+      {"chance",9548},
+      {""},
+#line 21 "map-gperf-mapping"
+      {"meet_snake",36652},
       {""}, {""}, {""}, {""},
 #line 9 "map-gperf-mapping"
       {"approach",6468},
       {""}, {""}, {""}, {""},
-#line 22 "map-gperf-mapping"
-      {"powpowpow",39116},
-      {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""},
-#line 12 "map-gperf-mapping"
-      {"check",15400}
+#line 24 "map-gperf-mapping"
+      {"powpowpow",42504}
     };
 
   if (len <= MAX_WORD_LENGTH && len >= MIN_WORD_LENGTH)

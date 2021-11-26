@@ -54,7 +54,7 @@
         {
          "name":"dialogue",
          "type":"string",
-         "value":""
+         "value":"meet_jumper"
         }],
  "renderorder":"right-up",
  "tiledversion":"1.7.2",

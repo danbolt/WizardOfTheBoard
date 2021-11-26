@@ -1,6 +1,6 @@
 [
     {
-        "text": "Kill or be killed, kid.  ",
+        "text": "Strong crush the weak. That's how world works.  ",
         "speaker": "ogre",
         "flags": [
             "sound40"
@@ -59,6 +59,11 @@
     },
     {
         "text": "If I can't, I'm not allowed to go home. ",
+        "speaker": "zatt_despair",
+        "flags": []
+    },
+    {
+        "text": "I have to be in control. ",
         "speaker": "zatt_despair",
         "flags": []
     }

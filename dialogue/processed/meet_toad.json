@@ -1,0 +1,37 @@
+[
+    {
+        "text": "KREEK KREKK!",
+        "speaker": "toad",
+        "flags": []
+    },
+    {
+        "text": "It's a monster!",
+        "speaker": "zatt_yelling",
+        "flags": []
+    },
+    {
+        "text": "KREEK KREKK! KREEK!",
+        "speaker": "toad",
+        "flags": []
+    },
+    {
+        "text": "...",
+        "speaker": "zatt_neutral",
+        "flags": []
+    },
+    {
+        "text": "KREEK...",
+        "speaker": "toad",
+        "flags": []
+    },
+    {
+        "text": "Huh.",
+        "speaker": "zatt_neutral",
+        "flags": []
+    },
+    {
+        "text": "I can't tell if it can't see me, or if it's just a little dumb.",
+        "speaker": "zatt_neutral",
+        "flags": []
+    }
+]
