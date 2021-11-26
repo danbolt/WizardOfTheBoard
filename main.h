@@ -25,6 +25,8 @@ extern float deltaTimeSeconds;
 
 extern u32 wonGameFlag;
 
+extern u32 stickDeadzone;
+
 #define FOV_60 60.f
 #define FOV_90 90.f
 

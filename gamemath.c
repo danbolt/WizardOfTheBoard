@@ -72,3 +72,11 @@ float dotProduct(const Vec2* a, const Vec2* b) {
 float cubic(float t) {
 	return t * t * t;
 }
+
+int absInteger(int x) {
+	if (x < 0) {
+		return -x;
+	}
+
+	return x;
+}

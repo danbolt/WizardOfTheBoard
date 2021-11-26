@@ -71,6 +71,8 @@ u32 currentLevel;
 
 u32 wonGameFlag;
 
+u32 stickDeadzone;
+
 volatile u32 changeScreensFlag;
 
 void updateTime() {
@@ -92,6 +94,8 @@ void initalizeGameData() {
   currentLevel = 0;
 
   wonGameFlag = 0;
+
+  stickDeadzone = DEFAULT_STICK_DEADZONE;
 
   ingameFOV = FOV_60;
   flashingProjectiles = 1;

@@ -43,4 +43,6 @@ float dotProduct(const Vec2* a, const Vec2* b);
 
 float cubic(float t);
 
+int absInteger(int x);
+
 #endif

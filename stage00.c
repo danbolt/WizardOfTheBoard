@@ -1736,10 +1736,11 @@ void updatePlayerInput() {
   }
 
 
-  if (contdata[0].stick_y > 7) {
-    inputDir.y = 1.f;
-  } else if (contdata[0].stick_y < -7) {
-    inputDir.y = -1.f;
+  if (absInteger(contdata[0].stick_y) > stickDeadzone) {
+    const float stickY = (float)(contdata[0].stick_y);
+    const float stickYClamped = clamp(stickY, -1.f * (float)STICK_MAX_VERTICAL_RANGE, (float)STICK_MAX_VERTICAL_RANGE);
+
+    inputDir.y = stickYClamped / (float)STICK_MAX_VERTICAL_RANGE;
   }
 
   // Update position
