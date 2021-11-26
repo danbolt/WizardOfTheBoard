@@ -277,9 +277,10 @@ void updateJumper(int index) {
   guRotate(&(monsterSpecificTransforms[index]), gameplayTimePassed * 300.f, 0.f, 0.f, 1.f);
 }
 
-#define SHADOW_QUEEN_MOVE_SPEED 5.f
-#define SHADOW_QUEEN_FIRE_PERIOD 0.75f
-#define SHADOW_QUEEN_PROJETILE_SPEED 3.1f
+#define SHADOW_QUEEN_MOVE_SPEED 4.5f
+#define SHADOW_QUEEN_FIRE_PERIOD 1.35f
+#define SHADOW_QUEEN_FIRE_PERIOD_LOW_HP 1.05f
+#define SHADOW_QUEEN_PROJETILE_SPEED 1.3f
 
 void updateShadowQueen(int index) {
   const Vec2* ourPosition = &(positions[index]);
@@ -314,13 +315,27 @@ void updateShadowQueen(int index) {
       } else if (dialogueState == DIALOGUE_STATE_OFF) {
         transitioningState = TRANSITIONING_OUT;
         transitionTime = 0.f;
-
-        // TODO: hack in some completion logic
       }
     }
   }
 
   orientations[index] = lerpAngle(orientations[index], nu_atan2(playerPosition.y - ourPosition->y, playerPosition.x - ourPosition->x) + M_PI_2, 0.11f);
+
+  if ((pieceData[0].type == ROOK) && (health[index] == 4) && (!(isKnockingBackStates[index]))) {
+    pieceData[0].type = BISHOP;
+    pieceData[0].renderCommands = bishop_commands;
+    pieceData[0].legalCheck = bishopLegalMove;
+    pieceData[0].displayName = "BISHOP";
+
+    playSoundAtDoublePitch(SFX_08_CONFIRM_MOVE);
+  } else if ((pieceData[0].type == BISHOP) && (health[index] == 3) && (!(isKnockingBackStates[index]))) {
+    pieceData[0].type = QUEEN;
+    pieceData[0].renderCommands = queen_commands;
+    pieceData[0].legalCheck = queenLegalMove;
+    pieceData[0].displayName = "QUEEN";
+
+    playSoundAtDoublePitch(SFX_08_CONFIRM_MOVE);
+  }
 
   if (isKnockingBackStates[index] || health[index] <= 2 ) {
     return;
@@ -330,7 +345,7 @@ void updateShadowQueen(int index) {
   float* timePassed = (float*)(monsterState[index]);
   *timePassed += deltaTimeSeconds;
 
-  if (*timePassed > SHADOW_QUEEN_FIRE_PERIOD) {
+  if (*timePassed > (health[index] >= 3 ? SHADOW_QUEEN_FIRE_PERIOD : SHADOW_QUEEN_FIRE_PERIOD_LOW_HP)) {
     *timePassed = 0.f;
     const Vec2 firingDirection = (Vec2){ cosf(orientations[index] - M_PI_2) * SHADOW_QUEEN_PROJETILE_SPEED, sinf(orientations[index] - M_PI_2) * SHADOW_QUEEN_PROJETILE_SPEED};
     tryToSpawnAProjectile(&(positions[index]), &firingDirection);

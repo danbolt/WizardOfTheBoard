@@ -88,7 +88,7 @@ void playSound(u32 soundId) {
 
 void playSoundAtDoublePitch(u32 soundId) {
   nuAuSndPlayerPlay(soundId % SFX_COUNT);
-  nuAuSndPlayerSetPitch(2.f);
+  nuAuSndPlayerSetPitch(1.f + (0.0578f * 2.f));
 }
 
 void stopLastPlayedSound() {
