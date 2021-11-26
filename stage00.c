@@ -278,8 +278,8 @@ void updateJumper(int index) {
 }
 
 #define SHADOW_QUEEN_MOVE_SPEED 4.5f
-#define SHADOW_QUEEN_FIRE_PERIOD 1.35f
-#define SHADOW_QUEEN_FIRE_PERIOD_LOW_HP 1.05f
+#define SHADOW_QUEEN_FIRE_PERIOD 1.45f
+#define SHADOW_QUEEN_FIRE_PERIOD_LOW_HP 1.25f
 #define SHADOW_QUEEN_PROJETILE_SPEED 1.3f
 
 void updateShadowQueen(int index) {
