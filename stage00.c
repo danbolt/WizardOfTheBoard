@@ -289,8 +289,8 @@ void updateShadowQueen(int index) {
 
   Vec2 ourTargetLocation = { (playerDirectionToBoardCenter.x * BOARD_WIDTH * 0.4f) + (((float)BOARD_WIDTH) * 0.5f), (playerDirectionToBoardCenter.y * BOARD_HEIGHT * 0.4f)  + (((float)BOARD_HEIGHT) * 0.5f ) };
   if (health[index] <= 2) {
-    ourTargetLocation.x = playerPosition.x + (2.f * sinCameraRot);
-    ourTargetLocation.y = playerPosition.y + (2.f * cosCameraRot);
+    ourTargetLocation.x = (playerPosition.x - (sinCameraRot * 1.51f));
+    ourTargetLocation.y = (playerPosition.y + (cosCameraRot * 1.51f));
 
     health[index] = 2;
   }
