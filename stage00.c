@@ -1691,6 +1691,7 @@ void makeDL00(void)
 
 void updatePlayerInput() {
   Vec2 inputDir = { 0.f, 0.f };
+  float turnDir = 0.f;
 
   // Update rotation
   if (
@@ -1710,23 +1711,32 @@ void updatePlayerInput() {
     chessboardSpotHighlighted.x = MAX(0, MIN(chessboardSpotHighlighted.x, BOARD_WIDTH - 1));
     chessboardSpotHighlighted.y = MAX(0, MIN(chessboardSpotHighlighted.y, BOARD_HEIGHT - 1));
 
-  } else if((contdata[0].button & L_TRIG) || (contdata[0].stick_x < -7)) {
-    playerOrientation += PLAYER_TURN_SPEED * deltaTimeSeconds;
+  } else if (contdata[0].button & L_TRIG) {
+    turnDir = 1.f;
 
-    if (playerOrientation > M_PI) {
-      playerOrientation = -M_PI;
-    }
     cursorRotation = lerpAngle(cursorRotation, 0.f, 0.34f);
-  } else if((contdata[0].button & R_TRIG) || (contdata[0].stick_x > 7)) {
-    playerOrientation -= PLAYER_TURN_SPEED * deltaTimeSeconds;
+  } else if (contdata[0].button & R_TRIG) {
+    turnDir = -1.f;
 
-    if (playerOrientation < -M_PI) {
-      playerOrientation = M_PI;
-    }
+    cursorRotation = lerpAngle(cursorRotation, 0.f, 0.34f);
+  } else if (absInteger(contdata[0].stick_x) > stickDeadzone) {
+    const float stickX = (float)(contdata[0].stick_x);
+    const float stickXClamped = clamp(stickX, -1.f * (float)STICK_MAX_HORIZONTAL_RANGE, (float)STICK_MAX_HORIZONTAL_RANGE);
+    turnDir = stickXClamped / (float)STICK_MAX_HORIZONTAL_RANGE * -1.f;
+
     cursorRotation = lerpAngle(cursorRotation, 0.f, 0.34f);
   } else {
     cursorRotation = lerpAngle(cursorRotation, 0.f, 0.34f);
   }
+
+  playerOrientation += PLAYER_TURN_SPEED * deltaTimeSeconds * turnDir;
+  if (playerOrientation > M_PI) {
+    playerOrientation -= 2.f * M_PI;
+  }
+  if (playerOrientation < -M_PI) {
+    playerOrientation += 2.f * M_PI;
+  }
+
   cosCameraRot = cosf(playerOrientation);
   sinCameraRot = sinf(playerOrientation);
 
@@ -1750,9 +1760,9 @@ void updatePlayerInput() {
     inputDir.y = -1.f;
   }
 
-  if((contdata[0].button & R_JPAD) || (((contdata[0].button & Z_TRIG) || ((contdata[0].button & (L_TRIG | R_TRIG)) == (L_TRIG | R_TRIG))) && (contdata[0].stick_x > 7))) {
+  if((contdata[0].button & R_JPAD) || (((contdata[0].button & Z_TRIG) || ((contdata[0].button & (L_TRIG | R_TRIG)) == (L_TRIG | R_TRIG))) && (absInteger(contdata[0].stick_x) > stickDeadzone && contdata[0].stick_x > 0))) {
     inputDir.x = 1.f;
-  } else if((contdata[0].button & L_JPAD) || (((contdata[0].button & Z_TRIG) || ((contdata[0].button & (L_TRIG | R_TRIG)) == (L_TRIG | R_TRIG))) && (contdata[0].stick_x < -7))) {
+  } else if((contdata[0].button & L_JPAD) || (((contdata[0].button & Z_TRIG) || ((contdata[0].button & (L_TRIG | R_TRIG)) == (L_TRIG | R_TRIG))) && (absInteger(contdata[0].stick_x) > stickDeadzone&& contdata[0].stick_x < 0))) {
     inputDir.x = -1.f;
   }
 
