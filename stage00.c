@@ -487,6 +487,48 @@ int isPointLOSToTorch(const Vec2* pos, const Vec2* torchPos) {
   return 1;
 }
 
+// As described here:
+// https://www.rapidtables.com/convert/color/hsv-to-rgb.html
+void hsvToRGB(u32 degrees, float s, float v, u8* rgbResult) {
+  const float c = s * v;
+  const float x = c * ( 1.f - fabsf( ((float)(((int)(((float)degrees) / 60.f)) % 2)) - 1.f ) );
+  const float m = v - c;
+
+  float r = 0.f;
+  float g = 0.f;
+  float b = 0.f;
+
+  if (degrees < 60) {
+    r = c;
+    g = x;
+    b = 0;
+  } else if (degrees < 120) {
+    r = x;
+    g = c;
+    b = 0;
+  } else if (degrees < 180) {
+    r = 0;
+    g = c;
+    b = x;
+  } else if (degrees < 240) {
+    r = 0;
+    g = x;
+    b = c;
+  } else if (degrees < 300) {
+    r = x;
+    g = 0;
+    b = c;
+  } else {
+    r = c;
+    g = 0;
+    b = x;
+  }
+
+  rgbResult[0] = (u8)((r + m) * 255.f);
+  rgbResult[1] = (u8)((g + m) * 255.f);
+  rgbResult[2] = (u8)((b + m) * 255.f);
+}
+
 // TODO: let us customize/randomize the textures for this on init time
 void generateFloorTiles() {
   Gfx* commands = floorDL;
@@ -546,11 +588,14 @@ void generateWalls() {
   Vtx* verts = wallVerts;
   Vtx* lastLoad = verts;
 
+  u8 wallRgb[3] = { 0, 0, 0 };
+  hsvToRGB((216 + (currentLevel * 75)) % 360, 0.35f, 0.42f, wallRgb);
+
   for (int i = 0; i < BOARD_WIDTH; i++) {
-    *(verts++) = (Vtx){ i + 1, 0,  0, 0,  64 << 5,  0 << 5, 0x46, 0x55, 0x6b, 0xff };
-    *(verts++) = (Vtx){ i + 0, 0,  0, 0,  96 << 5,  0 << 5, 0x46, 0x55, 0x6b, 0xff };
-    *(verts++) = (Vtx){ i + 0, 0,  WALL_HEIGHT, 0,  96 << 5, 32 << 5, 0x46, 0x55, 0x6b, 0xff };
-    *(verts++) = (Vtx){ i + 1, 0,  WALL_HEIGHT, 0,  64 << 5, 32 << 5, 0x46, 0x55, 0x6b, 0xff };
+    *(verts++) = (Vtx){ i + 1, 0,  0, 0,  64 << 5,  0 << 5, wallRgb[0], wallRgb[1], wallRgb[2], 0xff };
+    *(verts++) = (Vtx){ i + 0, 0,  0, 0,  96 << 5,  0 << 5, wallRgb[0], wallRgb[1], wallRgb[2], 0xff };
+    *(verts++) = (Vtx){ i + 0, 0,  WALL_HEIGHT, 0,  96 << 5, 32 << 5, wallRgb[0], wallRgb[1], wallRgb[2], 0xff };
+    *(verts++) = (Vtx){ i + 1, 0,  WALL_HEIGHT, 0,  64 << 5, 32 << 5, wallRgb[0], wallRgb[1], wallRgb[2], 0xff };
   }
   gSPVertex(commands++, &(lastLoad[0]), (BOARD_WIDTH * 4), 0);
   for (int j = 0; j < (BOARD_WIDTH * 4); j += 4) {
@@ -559,10 +604,10 @@ void generateWalls() {
   lastLoad = verts;
 
   for (int i = 0; i < BOARD_WIDTH; i++) {
-    *(verts++) = (Vtx){ i + 0, BOARD_HEIGHT,  0, 0,  64 << 5,  0 << 5, 0x46, 0x55, 0x6b, 0xff };
-    *(verts++) = (Vtx){ i + 1, BOARD_HEIGHT,  0, 0,  96 << 5,  0 << 5, 0x46, 0x55, 0x6b, 0xff };
-    *(verts++) = (Vtx){ i + 1, BOARD_HEIGHT,  WALL_HEIGHT, 0,  96 << 5, 32 << 5, 0x46, 0x55, 0x6b, 0xff };
-    *(verts++) = (Vtx){ i + 0, BOARD_HEIGHT,  WALL_HEIGHT, 0,  64 << 5, 32 << 5, 0x46, 0x55, 0x6b, 0xff };
+    *(verts++) = (Vtx){ i + 0, BOARD_HEIGHT,  0, 0,  64 << 5,  0 << 5, wallRgb[0], wallRgb[1], wallRgb[2], 0xff };
+    *(verts++) = (Vtx){ i + 1, BOARD_HEIGHT,  0, 0,  96 << 5,  0 << 5, wallRgb[0], wallRgb[1], wallRgb[2], 0xff };
+    *(verts++) = (Vtx){ i + 1, BOARD_HEIGHT,  WALL_HEIGHT, 0,  96 << 5, 32 << 5, wallRgb[0], wallRgb[1], wallRgb[2], 0xff };
+    *(verts++) = (Vtx){ i + 0, BOARD_HEIGHT,  WALL_HEIGHT, 0,  64 << 5, 32 << 5, wallRgb[0], wallRgb[1], wallRgb[2], 0xff };
   }
   gSPVertex(commands++, &(lastLoad[0]), (BOARD_WIDTH * 4), 0);
   for (int j = 0; j < (BOARD_WIDTH * 4); j += 4) {
@@ -571,10 +616,10 @@ void generateWalls() {
   lastLoad = verts;
 
   for (int i = 0; i < BOARD_HEIGHT; i++) {
-    *(verts++) = (Vtx){ 0, i + 0,  0, 0,  64 << 5,  0 << 5, 0x46, 0x55, 0x6b, 0xff };
-    *(verts++) = (Vtx){ 0, i + 1,  0, 0,  96 << 5,  0 << 5, 0x46, 0x55, 0x6b, 0xff };
-    *(verts++) = (Vtx){ 0, i + 1,  WALL_HEIGHT, 0,  96 << 5, 32 << 5, 0x46, 0x55, 0x6b, 0xff };
-    *(verts++) = (Vtx){ 0, i + 0,  WALL_HEIGHT, 0,  64 << 5, 32 << 5, 0x46, 0x55, 0x6b, 0xff };
+    *(verts++) = (Vtx){ 0, i + 0,  0, 0,  64 << 5,  0 << 5, wallRgb[0], wallRgb[1], wallRgb[2], 0xff };
+    *(verts++) = (Vtx){ 0, i + 1,  0, 0,  96 << 5,  0 << 5, wallRgb[0], wallRgb[1], wallRgb[2], 0xff };
+    *(verts++) = (Vtx){ 0, i + 1,  WALL_HEIGHT, 0,  96 << 5, 32 << 5, wallRgb[0], wallRgb[1], wallRgb[2], 0xff };
+    *(verts++) = (Vtx){ 0, i + 0,  WALL_HEIGHT, 0,  64 << 5, 32 << 5, wallRgb[0], wallRgb[1], wallRgb[2], 0xff };
   }
   gSPVertex(commands++, &(lastLoad[0]), (BOARD_HEIGHT * 4), 0);
   for (int j = 0; j < (BOARD_HEIGHT * 4); j += 4) {
@@ -583,10 +628,10 @@ void generateWalls() {
   lastLoad = verts;
 
   for (int i = 0; i < BOARD_HEIGHT; i++) {
-    *(verts++) = (Vtx){ BOARD_WIDTH, i + 1,  0, 0,  64 << 5,  0 << 5, 0x46, 0x55, 0x6b, 0xff };
-    *(verts++) = (Vtx){ BOARD_WIDTH, i + 0,  0, 0,  96 << 5,  0 << 5, 0x46, 0x55, 0x6b, 0xff };
-    *(verts++) = (Vtx){ BOARD_WIDTH, i + 0,  WALL_HEIGHT, 0,  96 << 5, 32 << 5, 0x46, 0x55, 0x6b, 0xff };
-    *(verts++) = (Vtx){ BOARD_WIDTH, i + 1,  WALL_HEIGHT, 0,  64 << 5, 32 << 5, 0x46, 0x55, 0x6b, 0xff };
+    *(verts++) = (Vtx){ BOARD_WIDTH, i + 1,  0, 0,  64 << 5,  0 << 5, wallRgb[0], wallRgb[1], wallRgb[2], 0xff };
+    *(verts++) = (Vtx){ BOARD_WIDTH, i + 0,  0, 0,  96 << 5,  0 << 5, wallRgb[0], wallRgb[1], wallRgb[2], 0xff };
+    *(verts++) = (Vtx){ BOARD_WIDTH, i + 0,  WALL_HEIGHT, 0,  96 << 5, 32 << 5, wallRgb[0], wallRgb[1], wallRgb[2], 0xff };
+    *(verts++) = (Vtx){ BOARD_WIDTH, i + 1,  WALL_HEIGHT, 0,  64 << 5, 32 << 5, wallRgb[0], wallRgb[1], wallRgb[2], 0xff };
   }
   gSPVertex(commands++, &(lastLoad[0]), (BOARD_HEIGHT * 4), 0);
   for (int j = 0; j < (BOARD_HEIGHT * 4); j += 4) {
@@ -1120,48 +1165,6 @@ void initializeMapFromROM(const char* mapKey) {
   }
 
   // TODO: Maybe we should stub this in some way?
-}
-
-// As described here:
-// https://www.rapidtables.com/convert/color/hsv-to-rgb.html
-void hsvToRGB(u32 degrees, float s, float v, u8* rgbResult) {
-  const float c = s * v;
-  const float x = c * ( 1.f - fabsf( ((float)(((int)(((float)degrees) / 60.f)) % 2)) - 1.f ) );
-  const float m = v - c;
-
-  float r = 0.f;
-  float g = 0.f;
-  float b = 0.f;
-
-  if (degrees < 60) {
-    r = c;
-    g = x;
-    b = 0;
-  } else if (degrees < 120) {
-    r = x;
-    g = c;
-    b = 0;
-  } else if (degrees < 180) {
-    r = 0;
-    g = c;
-    b = x;
-  } else if (degrees < 240) {
-    r = 0;
-    g = x;
-    b = c;
-  } else if (degrees < 300) {
-    r = x;
-    g = 0;
-    b = c;
-  } else {
-    r = c;
-    g = 0;
-    b = x;
-  }
-
-  rgbResult[0] = (u8)(r * 255.f);
-  rgbResult[1] = (u8)(g * 255.f);
-  rgbResult[2] = (u8)(b * 255.f);
 }
 
 /* The initialization of stage 0 */
