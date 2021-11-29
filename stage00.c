@@ -63,7 +63,7 @@ static Vec2 projectileVelocity[NUMBER_OF_PROJECTILES];
 #define playerKnockbackTimeRemaining (knockbackTimesRemaining[0])
 #define playerRadiusSquared (radiiSquared[0])
 
-static u8 playerPortraitStep;
+static float playerPortraitStep;
 static u8 portraitIndex;
 
 static u8 hudBackgroundColor[3];
@@ -1219,7 +1219,7 @@ void initStage00(void)
   playerKnockbackTimeRemaining = 0.f;
   playerRadiusSquared = PLAYER_RADIUS * PLAYER_RADIUS;
 
-  playerPortraitStep = 0;
+  playerPortraitStep = 0.f;
   portraitIndex = 0;
 
   cosCameraRot = cosf(playerOrientation);
@@ -1641,7 +1641,7 @@ void makeDL00(void)
 
   gDPPipeSync(glistp++);
   gDPSetCombineMode(glistp++, G_CC_DECALRGBA, G_CC_DECALRGBA);
-  gDPLoadTextureBlock(glistp++, OS_K0_TO_PHYSICAL(hudZattPortraits + (576 - ((playerPortraitStep >> 1) * 48 * 2)) + (48 * 48 * 2 * portraitIndex)), G_IM_FMT_RGBA, G_IM_SIZ_16b, 48, 42, 0, G_TX_MIRROR | G_TX_WRAP, G_TX_MIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
+  gDPLoadTextureBlock(glistp++, OS_K0_TO_PHYSICAL(hudZattPortraits + (576 - ((((int)(sinf(playerPortraitStep) * 11.9f)) >> 1) * 48 * 2)) + (48 * 48 * 2 * portraitIndex)), G_IM_FMT_RGBA, G_IM_SIZ_16b, 48, 42, 0, G_TX_MIRROR | G_TX_WRAP, G_TX_MIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
   
   gSPTextureRectangle(glistp++, (TITLE_SAFE_HORIZONTAL << 2), ((SCREEN_HT - TITLE_SAFE_VERTICAL - 42 - 4) << 2), ((TITLE_SAFE_HORIZONTAL + 48) << 2), ((SCREEN_HT - TITLE_SAFE_VERTICAL - 4) << 2), 0, (0 << 5), (0 << 5), (1 << 10), (1 << 10));
 
@@ -2048,7 +2048,10 @@ void updateHUDInformation() {
     portraitIndex = 0;
 
     if (lengthSq(&playerVelocity) > 0.01f) {
-      playerPortraitStep = (playerPortraitStep + 1) % 12;
+      playerPortraitStep = (playerPortraitStep + 0.12f);
+      if (playerPortraitStep >= M_PI) {
+        playerPortraitStep -= M_PI;
+      }
     }
   }
 }
