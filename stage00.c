@@ -1207,7 +1207,13 @@ void initStage00(void)
 
   hudBackgroundTextureIndex = currentLevel % NUMBER_OF_HUD_BACKGROUND_TILES;
 
-  hsvToRGB((165 + (currentLevel * 170)) % 360, 0.4f, 0.6f, hudBackgroundColor);
+  if (currentLevel < (NUMBER_OF_LEVELS - 1)) {
+    hsvToRGB((165 + (currentLevel * 170)) % 360, 0.4f, 0.6f, hudBackgroundColor);
+  } else {
+    hudBackgroundColor[0] = 0x99;
+    hudBackgroundColor[1] = 0x42;
+    hudBackgroundColor[2] = 0x8C;
+  }
   
 
   hasStartedMusic = 0;
