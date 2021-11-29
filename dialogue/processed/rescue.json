@@ -37,16 +37,16 @@
         ]
     },
     {
-        "text": "Huh?",
+        "text": "Huh? ",
         "speaker": "queen",
-        "flags": []
-    },
-    {
-        "text": "I'm actually kind of curious if this will work or not. ",
-        "speaker": "protag_neutral",
         "flags": [
             "ik2"
         ]
+    },
+    {
+        "text": "I'm actually kind of curious if this will work or not.",
+        "speaker": "protag_neutral",
+        "flags": []
     },
     {
         "text": "Like, you command all the Lunarbeasts, right? Will the Satellite Laser affect you? The positron inflection matches up.",
@@ -69,7 +69,7 @@
         "flags": []
     },
     {
-        "text": "Are you always spewing technobabble?",
+        "text": "Are you always spewing this sort of nonsense?",
         "speaker": "queen",
         "flags": []
     },

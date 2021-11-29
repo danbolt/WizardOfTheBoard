@@ -57,7 +57,12 @@
         ]
     },
     {
-        "text": "Didn't you see me align the Satellite Laser just now? I protect real-estate from Lunarbeasts. ",
+        "text": "Didn't you see me fire the Satellite Laser just now?  ",
+        "speaker": "protag_neutral",
+        "flags": []
+    },
+    {
+        "text": "I protect the moon's real-estate from the creatures that come out here. ",
         "speaker": "protag_neutral",
         "flags": []
     },
@@ -72,8 +77,13 @@
         "flags": []
     },
     {
-        "text": "That's definitely the Earth. You can see lights from all the cities.",
+        "text": "That's definitely the Earth.",
         "speaker": "protag_annoyed",
+        "flags": []
+    },
+    {
+        "text": "Can you see all the lights from the cities?",
+        "speaker": "protag_neutral",
         "flags": []
     },
     {
@@ -129,7 +139,12 @@
         "flags": []
     },
     {
-        "text": "Why do they need warriors when there's the satellite array? We don't live in some ancient fantasy land.",
+        "text": "Why do they need warriors when there's the satellite array? ",
+        "speaker": "protag_neutral",
+        "flags": []
+    },
+    {
+        "text": "We don't live in some ancient fantasy land.",
         "speaker": "protag_neutral",
         "flags": []
     },

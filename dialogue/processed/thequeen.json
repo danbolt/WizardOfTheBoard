@@ -1,11 +1,16 @@
 [
     {
-        "text": "Well... this is it. This is the top of the Demon's Spire. ",
+        "text": "Well... this is it. ",
         "speaker": "zatt_neutral",
         "flags": []
     },
     {
-        "text": "It's kind of hard to believe. ",
+        "text": "The top of the Demon's Spire. ",
+        "speaker": "zatt_neutral",
+        "flags": []
+    },
+    {
+        "text": "It's kind of hard to believe I'm at the last floor. ",
         "speaker": "zatt_neutral",
         "flags": []
     },
@@ -25,7 +30,7 @@
         "flags": []
     },
     {
-        "text": "What is it with you humans? You're always running around wrecking my stuff. ",
+        "text": "What is it with you humans? You're always running around wrecking my stuff.",
         "speaker": "queen",
         "flags": []
     },
@@ -35,7 +40,12 @@
         "flags": []
     },
     {
-        "text": "It takes just one goddamn day for you to break into my home, kill all my staff, and even rearrange my furniture. The nerve! ",
+        "text": "It takes just one goddamn day for you to break into my home, kill all my staff, and even rearrange my furniture.",
+        "speaker": "queen",
+        "flags": []
+    },
+    {
+        "text": "The nerve! ",
         "speaker": "queen",
         "flags": []
     },
@@ -45,7 +55,12 @@
         "flags": []
     },
     {
-        "text": "Eat you? That's disguisting. Why would I eat something as foolish and misguided as you? ",
+        "text": "Eat you? That's disguisting.",
+        "speaker": "queen",
+        "flags": []
+    },
+    {
+        "text": "Why would I eat something as foolish and misguided as you?",
         "speaker": "queen",
         "flags": []
     },

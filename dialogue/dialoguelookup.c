@@ -102,74 +102,74 @@ getDialogueDataOffset (register const char *str, register size_t len)
   static struct dialogueMappingData wordlist[] =
     {
 #line 10 "map-gperf-mapping"
-      {"begin",8624},
+      {"begin",8932},
       {""}, {""},
 #line 18 "map-gperf-mapping"
-      {"itsover",35112},
+      {"itsover",35420},
       {""},
 #line 27 "map-gperf-mapping"
-      {"rest",60368},
+      {"rest",61600},
 #line 12 "map-gperf-mapping"
-      {"check",15400},
+      {"check",15708},
       {""},
 #line 17 "map-gperf-mapping"
-      {"individual",34496},
+      {"individual",34804},
       {""},
 #line 28 "map-gperf-mapping"
-      {"rest2",66528},
+      {"rest2",67760},
       {""}, {""},
 #line 8 "map-gperf-mapping"
       {"afterwards",0},
       {""},
 #line 30 "map-gperf-mapping"
-      {"thequeen",76692},
+      {"thequeen",77924},
 #line 29 "map-gperf-mapping"
-      {"rest3",71456},
+      {"rest3",72688},
       {""}, {""}, {""},
 #line 26 "map-gperf-mapping"
-      {"rescue2",48356},
+      {"rescue2",48664},
       {""}, {""},
 #line 20 "map-gperf-mapping"
-      {"meet_jumper",36036},
+      {"meet_jumper",36344},
       {""},
 #line 31 "map-gperf-mapping"
-      {"uhhh",80080},
+      {"uhhh",82236},
       {""}, {""},
 #line 16 "map-gperf-mapping"
-      {"flashback_war",31724},
+      {"flashback_war",32032},
       {""},
 #line 13 "map-gperf-mapping"
-      {"dream",23716},
+      {"dream",24024},
       {""}, {""},
 #line 19 "map-gperf-mapping"
-      {"longpiece",35420},
+      {"longpiece",35728},
       {""},
 #line 15 "map-gperf-mapping"
-      {"flashback_loss",29260},
+      {"flashback_loss",29568},
       {""}, {""},
 #line 23 "map-gperf-mapping"
-      {"meetog",41272},
+      {"meetog",41580},
       {""},
 #line 14 "map-gperf-mapping"
-      {"flashback_form",27412},
+      {"flashback_form",27720},
       {""}, {""},
 #line 22 "map-gperf-mapping"
-      {"meet_toad",39116},
+      {"meet_toad",39424},
       {""},
 #line 25 "map-gperf-mapping"
-      {"rescue",43120},
+      {"rescue",43428},
       {""}, {""},
 #line 11 "map-gperf-mapping"
-      {"chance",9548},
+      {"chance",9856},
       {""},
 #line 21 "map-gperf-mapping"
-      {"meet_snake",36652},
+      {"meet_snake",36960},
       {""}, {""}, {""}, {""},
 #line 9 "map-gperf-mapping"
-      {"approach",6468},
+      {"approach",6776},
       {""}, {""}, {""}, {""},
 #line 24 "map-gperf-mapping"
-      {"powpowpow",42504}
+      {"powpowpow",42812}
     };
 
   if (len <= MAX_WORD_LENGTH && len >= MIN_WORD_LENGTH)

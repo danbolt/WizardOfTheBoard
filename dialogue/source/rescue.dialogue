@@ -6,13 +6,13 @@ Ugh...@zatt_despair
 ...I don't want to be a warrior anymore...@zatt_despair
 Warrior? You're a weird kid.@queen
 You're pretty strange yourself, you know. Why would you hold a child that way? @protag_neutral #sound3
-Huh?@queen
-I'm actually kind of curious if this will work or not.@protag_neutral #ik2
+Huh?@queen #ik2
+I'm actually kind of curious if this will work or not.@protag_neutral
 Like, you command all the Lunarbeasts, right? Will the Satellite Laser affect you? The positron inflection matches up.@protag_happy
 The beam doesn't hurt people, but you should still emit a quantum lunar substate.  @protag_happy
 Hmm, maybe I should try realigning the diatonic tachyon meter before firing-- @protag_annoyed
 Holy shit, please shut up the hell up.@queen
-Are you always spewing technobabble?@queen
+Are you always spewing this sort of nonsense?@queen
 How can someone not be? It's so cool! #sound39 @protag_happy 
 AUGH!!! @queen #sound0 #ik3
 Don't think this is over kid... @queen
@@ -29,10 +29,12 @@ Warrior? Mystic Artes? What are you talking about?@protag_neutral
 Aren't you a warrior? Don't you protect us from demons that wander the earth?@zatt_neutral
 Uh, no?@protag_annoyed
 We're not on the Earth. We're on the Moon! #ik2 @protag_neutral
-Didn't you see me align the Satellite Laser just now? I protect real-estate from Lunarbeasts. @protag_neutral
+Didn't you see me fire the Satellite Laser just now? @protag_neutral 
+I protect the moon's real-estate from the creatures that come out here. @protag_neutral
 What?!? @zatt_yelling
 Isn't that the Moon, up in the sky?@zatt_neutral
-That's definitely the Earth. You can see lights from all the cities.@protag_annoyed
+That's definitely the Earth.@protag_annoyed
+Can you see all the lights from the cities?@protag_neutral
 This is all so confusing...@zatt_neutral
 (later, at the bottom of the tower) #ik3
 Okay, hold on.@protag_neutral
@@ -43,7 +45,8 @@ No, not a knight. A Wizard of the Board.@zatt_neutral
 Knights move in L-shapes.@zatt_neutral
 Um, right.@protag_annoyed
 I'll be honest with you Zatt. This all sounds pretty messed up.@protag_neutral
-Why do they need warriors when there's the satellite array? We don't live in some ancient fantasy land.@protag_neutral
+Why do they need warriors when there's the satellite array? @protag_neutral
+We don't live in some ancient fantasy land.@protag_neutral
 You're not even allowed to go home because of this!@protag_neutral
 ...@zatt_sad
 Ah, I'm sorry.@protag_neutral
@@ -71,7 +74,8 @@ What is it?@protag_neutral
 Thanks again for letting me stay here for a while. I think I've really been able to pull myself together.@zatt_neutral
 What do you mean?@protag_neutral
 Before, all I knew in life was being a warrior.@zatt_neutral
-It was the only thing I understood as good or important. I couldn't listen to myself because I didn't know how.@zatt_neutral
+It was the only thing I understood as good or important.@zatt_neutral
+It wasn't right for me, but I couldn't listen to my conscience because I didn't know how.@zatt_neutral
 But after I came here, I was away from that world. I had the space to stop and think about what I wanted.@zatt_neutral
 It's not always easy, but I think I'm starting to discover and know myself better.@zatt_neutral
 I'm grateful for that.@zatt_neutral

@@ -60,7 +60,12 @@
         "flags": []
     },
     {
-        "text": "It was the only thing I understood as good or important. I couldn't listen to myself because I didn't know how.",
+        "text": "It was the only thing I understood as good or important.",
+        "speaker": "zatt_neutral",
+        "flags": []
+    },
+    {
+        "text": "It wasn't right for me, but I couldn't listen to my conscience because I didn't know how.",
         "speaker": "zatt_neutral",
         "flags": []
     },
