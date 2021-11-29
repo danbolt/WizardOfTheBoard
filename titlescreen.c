@@ -401,10 +401,12 @@ void updateTitleScreen() {
     if (upPressed) {
       upPressed = 0;
       menuIndex = (menuIndex + 1) % NUMBER_OF_TITLE_MENU_ITEMS;
+      playSound(SFX_02_NOBODY_BIP);
     }
     if (downPressed) {
       downPressed = 1;
       menuIndex = (menuIndex - 1 + NUMBER_OF_TITLE_MENU_ITEMS) % NUMBER_OF_TITLE_MENU_ITEMS;
+      playSound(SFX_02_NOBODY_BIP);
     }
 
     if (contdata[0].trigger & A_BUTTON) {
@@ -414,14 +416,17 @@ void updateTitleScreen() {
         stopLastPlayedSound();
       } else {
         if (menuIndex == 0) {
+          playSound(SFX_11_MENU_CONFIRM);
           cutsceneToLoad = "intro";
           nextStage = &cutsceneStage;
           currentLevel = 0;
           isTransitioningOut = 1;
         } else if (menuIndex == 1) {
+          playSound(SFX_11_MENU_CONFIRM);
           nextStage = &levelSelectStage;
           isTransitioningOut = 1;
         } else if (menuIndex == 2) {
+          playSound(SFX_11_MENU_CONFIRM);
           nextStage = &creditsStage;
           isTransitioningOut = 1;
         }
