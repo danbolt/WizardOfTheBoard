@@ -22,6 +22,8 @@ LevelEntry levels[NUMBER_OF_LEVELS] = {
 
   { "lines", TRACK_02_ODD_BOARD, "dreamscene" },
 
+  { "hop", TRACK_02_ODD_BOARD, 0x0 },
+
   // We need a cutscene here where Zatt has a bad dream
 
 
