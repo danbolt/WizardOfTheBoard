@@ -183,8 +183,8 @@ void updateToad(int index) {
   }
 }
 
-#define SNAKE_FIRE_RATE 0.8f
-#define SNAKE_SHOT_SPEED 2.f
+#define SNAKE_FIRE_RATE 2.f
+#define SNAKE_SHOT_SPEED 0.9f
 #define SNAKE_TURN_SPEED 1.714f
 void updateSnake(int index) {
   if (isKnockingBackStates[index]) {
