@@ -1421,10 +1421,11 @@ void makeDL00(void)
     if (flashingProjectiles) {
 
       gDPPipeSync(glistp++);
-      if (((u32)(gameplayTimePassed * 3.161f) % 2) == 0) {
-        gDPSetPrimColor(glistp++, 0, 0, 0xf1, 0xf7, 0xab, 0xff);
+      // 0.2126*R + 0.7152*G + 0.0722*B
+      if (((u32)(gameplayTimePassed * 2.161f) % 2) == 0) {
+        gDPSetPrimColor(glistp++, 0, 0, 0xe5, 0xeb, 0xa0, 0xff);
       } else {
-        gDPSetPrimColor(glistp++, 0, 0, 0xeb, 0xdb, 0x2d, 0xff);
+        gDPSetPrimColor(glistp++, 0, 0, 0xed, 0xe4, 0xa6, 0xff);
       }
       gDPSetCombineMode(glistp++, G_CC_PRIMITIVE, G_CC_PRIMITIVE);
     }
