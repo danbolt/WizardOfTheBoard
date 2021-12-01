@@ -32,25 +32,14 @@
                 }, 
                 {
                  "height":0,
-                 "id":4,
-                 "name":"snake",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":112.5,
-                 "y":14
-                }, 
-                {
-                 "height":0,
                  "id":5,
                  "name":"snake",
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":112.5,
-                 "y":53.25
+                 "x":112.25,
+                 "y":41.5
                 }, 
                 {
                  "height":0,
