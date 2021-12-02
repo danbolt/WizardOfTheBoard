@@ -133,6 +133,12 @@ SECTIONS
    }
    END_SEG(floor_tiles)
 
+   BEGIN_SEG(floor_tiles2, __romPos)
+   {
+      sprites/floor_tiles2.bino(.data);
+   }
+   END_SEG(floor_tiles2)
+
    BEGIN_SEG(noise_backgrounds, __romPos)
    {
       sprites/noise_backgrounds.bino(.data);

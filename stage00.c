@@ -998,9 +998,15 @@ static Vtx playerFOVHUDVerts[] = {
 
 void loadInTextures() {
   nuPiReadRom((u32)(_hud_iconsSegmentRomStart), (void*)(hudIconsTexture), TMEM_SIZE_BYTES);
-  nuPiReadRom((u32)(_floor_tilesSegmentRomStart), (void*)(floorTexture), TMEM_SIZE_BYTES);
   nuPiReadRom((u32)(_noise_backgroundsSegmentRomStart), (void*)(hudNoiseBackgroundsTextre), TMEM_SIZE_BYTES);
   nuPiReadRom((u32)(_zatt_potraitsSegmentRomStart), (void*)(hudZattPortraits), 48 * 48 * 2 * 4);
+
+  if ((currentLevel > 8) && (currentLevel < (NUMBER_OF_LEVELS - 1))) {
+    nuPiReadRom((u32)(_floor_tiles2SegmentRomStart), (void*)(floorTexture), TMEM_SIZE_BYTES);
+  } else {
+    nuPiReadRom((u32)(_floor_tilesSegmentRomStart), (void*)(floorTexture), TMEM_SIZE_BYTES);
+  }
+  
 }
 
 void initMonsterStates() {

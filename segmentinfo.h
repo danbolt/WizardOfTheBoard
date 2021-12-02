@@ -24,6 +24,8 @@ extern u8 _hud_iconsSegmentRomStart[];
 extern u8 _hud_iconsSegmentRomEnd[];
 extern u8 _floor_tilesSegmentRomStart[];
 extern u8 _floor_tilesSegmentRomEnd[];
+extern u8 _floor_tiles2SegmentRomStart[];
+extern u8 _floor_tiles2SegmentRomEnd[];
 extern u8 _noise_backgroundsSegmentRomStart[];
 extern u8 _noise_backgroundsSegmentRomEnd[];
 extern u8 _display_textSegmentRomStart[];

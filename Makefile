@@ -73,7 +73,7 @@ CODESEGMENT =	codesegment.o
 
 OBJECTS =	$(ASMOBJECTS) $(BOOT_OBJ) $(CODESEGMENT) $(DATAOBJECTS)
 
-RAWDATAOBJ = sprites/hud_icons.bino sprites/level_select_icons.bino sprites/zatt_potraits.bino sprites/floor_tiles.bino sprites/stairs_anim.bino sprites/dialogue_backing.bino sprites/idea.bino sprites/noise_backgrounds.bino sprites/display_text.bino dialogue/dialogueBuffers.bino cast_sprites/packedtextures.bino maps/mapbuffers.bino sprites/level_select_background.bino cutscene_backgrounds/packedbackgrounds.bino cutscenes/cutscenebuffers.bino
+RAWDATAOBJ = sprites/hud_icons.bino sprites/level_select_icons.bino sprites/zatt_potraits.bino sprites/floor_tiles.bino sprites/floor_tiles2.bino sprites/stairs_anim.bino sprites/dialogue_backing.bino sprites/idea.bino sprites/noise_backgrounds.bino sprites/display_text.bino dialogue/dialogueBuffers.bino cast_sprites/packedtextures.bino maps/mapbuffers.bino sprites/level_select_background.bino cutscene_backgrounds/packedbackgrounds.bino cutscenes/cutscenebuffers.bino
 
 default:        $(TARGETS)
 
