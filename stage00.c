@@ -546,8 +546,8 @@ void generateFloorTiles() {
 
     u8 mod[4] = {0, 0, 0, 0};
     const Vec2 boardPoints[4] = { {x + 0, y + 0}, { x + 1, y + 0 }, { x + 1, y + 1 }, { x + 0, y + 1 } };
-    for (int i = 0; i < 4; i++) {
-      for (int j = 0; j < 4; j++) {
+    for (int i = 2; i < 4; i++) {
+      for (int j = 2; j < 4; j++) {
         int pointHasLOSToTorch = isPointLOSToTorch(&(boardPoints[i]), &(torchPoints[j]));
         if (!pointHasLOSToTorch) {
           mod[i] += 0x18;
@@ -920,10 +920,10 @@ static Vtx fireVerts2[] = {
 
 
 static Gfx fireCommands[] = {
-  gsSP2Triangles(0, 1, 2, 0, 0, 2, 3, 0),
+  // gsSP2Triangles(0, 1, 2, 0, 0, 2, 3, 0),
   gsSP2Triangles(4, 5, 6, 0, 4, 6, 7, 0),
   gsSP2Triangles(8, 9,10, 0, 8,10,11, 0),
-  gsSP2Triangles(12,13,14, 0,12,14,15, 0),
+  // gsSP2Triangles(12,13,14, 0,12,14,15, 0),
   gsSPEndDisplayList()
 };
 
