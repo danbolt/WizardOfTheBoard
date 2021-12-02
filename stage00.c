@@ -698,35 +698,38 @@ void generateTopOfTheTowerWalls() {
   gSPEndDisplayList(commands++);
 }
 
+#define TOP_BACKING_COLOR0 0x40
+#define MID_BACKING_COLOR0 0x20
+#define BOTTOM_BACKING_COLOR0 0x00
 
 static Vtx HUDBackgroundVerts[] = {
-  {             ACTION_SAFE_HORIZONTAL,                    0,  0, 0,               ACTION_SAFE_HORIZONTAL << 5,  0 << 5, 0x99, 0x42, 0x8C, 0xff },
-  { SCREEN_WD - ACTION_SAFE_HORIZONTAL,                    0,  0, 0, (SCREEN_WD - ACTION_SAFE_HORIZONTAL) << 5,  0 << 5, 0x99, 0x42, 0x8C, 0xff },
-  { SCREEN_WD - ACTION_SAFE_HORIZONTAL, ACTION_SAFE_VERTICAL,  0, 0, (SCREEN_WD - ACTION_SAFE_HORIZONTAL) << 5, (ACTION_SAFE_VERTICAL) << 5, 0x99, 0x42, 0x8C, 0xff },
-  {             ACTION_SAFE_HORIZONTAL, ACTION_SAFE_VERTICAL,  0, 0,               ACTION_SAFE_HORIZONTAL << 5, (ACTION_SAFE_VERTICAL) << 5, 0x99, 0x42, 0x8C, 0xff },
+  {             0,                    0,  0, 0,               ACTION_SAFE_HORIZONTAL << 5,  0 << 5, TOP_BACKING_COLOR0, TOP_BACKING_COLOR0, TOP_BACKING_COLOR0, 0xff },
+  {     SCREEN_WD,                    0,  0, 0, (SCREEN_WD - ACTION_SAFE_HORIZONTAL) << 5,  0 << 5, TOP_BACKING_COLOR0, TOP_BACKING_COLOR0, TOP_BACKING_COLOR0, 0xff },
+  {     SCREEN_WD, ACTION_SAFE_VERTICAL,  0, 0, (SCREEN_WD - ACTION_SAFE_HORIZONTAL) << 5, (ACTION_SAFE_VERTICAL) << 5, MID_BACKING_COLOR0, MID_BACKING_COLOR0, MID_BACKING_COLOR0, 0xff },
+  {             0, ACTION_SAFE_VERTICAL,  0, 0,               ACTION_SAFE_HORIZONTAL << 5, (ACTION_SAFE_VERTICAL) << 5, MID_BACKING_COLOR0, MID_BACKING_COLOR0, MID_BACKING_COLOR0, 0xff },
 
-  {                      0,                0,  0, 0,  0 << 5,         0 << 5, 0x99, 0x42, 0x8C, 0xff },
-  { ACTION_SAFE_HORIZONTAL,                0,  0, 0, 16 << 5,         0 << 5, 0x99, 0x42, 0x8C, 0xff },
-  { ACTION_SAFE_HORIZONTAL,        SCREEN_HT,  0, 0, 16 << 5, SCREEN_HT << 5, 0x99, 0x42, 0x8C, 0xff },
-  {                      0,        SCREEN_HT,  0, 0,  0 << 5, SCREEN_HT << 5, 0x99, 0x42, 0x8C, 0xff },
+  {                      0,                0,  0, 0,  0 << 5,         0 << 5, MID_BACKING_COLOR0, MID_BACKING_COLOR0, MID_BACKING_COLOR0, 0xff },
+  { ACTION_SAFE_HORIZONTAL,                0,  0, 0, 16 << 5,         0 << 5, MID_BACKING_COLOR0, MID_BACKING_COLOR0, MID_BACKING_COLOR0, 0xff },
+  { ACTION_SAFE_HORIZONTAL,        SCREEN_HT,  0, 0, 16 << 5, SCREEN_HT << 5, MID_BACKING_COLOR0, MID_BACKING_COLOR0, MID_BACKING_COLOR0, 0xff },
+  {                      0,        SCREEN_HT,  0, 0,  0 << 5, SCREEN_HT << 5, MID_BACKING_COLOR0, MID_BACKING_COLOR0, MID_BACKING_COLOR0, 0xff },
 
-  { SCREEN_WD - ACTION_SAFE_HORIZONTAL,                0,  0, 0,  0 << 5,         0 << 5, 0x99, 0x42, 0x8C, 0xff },
-  { SCREEN_WD                         ,                0,  0, 0, 16 << 5,         0 << 5, 0x99, 0x42, 0x8C, 0xff },
-  { SCREEN_WD                         ,        SCREEN_HT,  0, 0, 16 << 5, SCREEN_HT << 5, 0x99, 0x42, 0x8C, 0xff },
-  { SCREEN_WD - ACTION_SAFE_HORIZONTAL,        SCREEN_HT,  0, 0,  0 << 5, SCREEN_HT << 5, 0x99, 0x42, 0x8C, 0xff },
+  { SCREEN_WD - ACTION_SAFE_HORIZONTAL,                0,  0, 0,  0 << 5,         0 << 5, MID_BACKING_COLOR0, MID_BACKING_COLOR0, MID_BACKING_COLOR0, 0xff },
+  { SCREEN_WD                         ,                0,  0, 0, 16 << 5,         0 << 5, MID_BACKING_COLOR0, MID_BACKING_COLOR0, MID_BACKING_COLOR0, 0xff },
+  { SCREEN_WD                         ,        SCREEN_HT,  0, 0, 16 << 5, SCREEN_HT << 5, MID_BACKING_COLOR0, MID_BACKING_COLOR0, MID_BACKING_COLOR0, 0xff },
+  { SCREEN_WD - ACTION_SAFE_HORIZONTAL,        SCREEN_HT,  0, 0,  0 << 5, SCREEN_HT << 5, MID_BACKING_COLOR0, MID_BACKING_COLOR0, MID_BACKING_COLOR0, 0xff },
 
-  {         0,   SCREEN_HT - 80,  0, 0,         0 << 5,         (SCREEN_HT - 80) << 5, 0x99, 0x42, 0x8C, 0xff },
-  { SCREEN_WD,   SCREEN_HT - 80,  0, 0, SCREEN_WD << 5,         (SCREEN_HT - 80) << 5, 0x99, 0x42, 0x8C, 0xff },
-  { SCREEN_WD,        SCREEN_HT,  0, 0, SCREEN_WD << 5, SCREEN_HT << 5, 0x99, 0x42, 0x8C, 0xff },
-  {         0,        SCREEN_HT,  0, 0,         0 << 5, SCREEN_HT << 5, 0x99, 0x42, 0x8C, 0xff },
+  {         0,   SCREEN_HT - 80,  0, 0,         0 << 5,         (SCREEN_HT - 80) << 5, MID_BACKING_COLOR0, MID_BACKING_COLOR0, MID_BACKING_COLOR0, 0xff },
+  { SCREEN_WD,   SCREEN_HT - 80,  0, 0, SCREEN_WD << 5,         (SCREEN_HT - 80) << 5, MID_BACKING_COLOR0, MID_BACKING_COLOR0, MID_BACKING_COLOR0, 0xff },
+  { SCREEN_WD,        SCREEN_HT,  0, 0, SCREEN_WD << 5, SCREEN_HT << 5, BOTTOM_BACKING_COLOR0, BOTTOM_BACKING_COLOR0, BOTTOM_BACKING_COLOR0, 0xff },
+  {         0,        SCREEN_HT,  0, 0,         0 << 5, SCREEN_HT << 5, BOTTOM_BACKING_COLOR0, BOTTOM_BACKING_COLOR0, BOTTOM_BACKING_COLOR0, 0xff },
 };
 
 static Gfx renderHudBackgroundCommands[] = {
   gsSPVertex(HUDBackgroundVerts, 16, 0),
-  gsSP2Triangles(0, 2, 1, 0, 0, 3, 2, 0),
   gsSP2Triangles(4, 6, 5, 0, 4, 7, 6, 0),
   gsSP2Triangles(8, 10, 9, 0, 8, 11, 10, 0),
   gsSP2Triangles(12, 14, 13, 0, 12, 15, 14, 0),
+  gsSP2Triangles(0, 2, 1, 0, 0, 3, 2, 0),
   gsSPEndDisplayList()
 };
 
@@ -1208,7 +1211,7 @@ void initStage00(void)
   hudBackgroundTextureIndex = currentLevel % NUMBER_OF_HUD_BACKGROUND_TILES;
 
   if (currentLevel < (NUMBER_OF_LEVELS - 1)) {
-    hsvToRGB((165 + (currentLevel * 170)) % 360, 0.4f, 0.6f, hudBackgroundColor);
+    hsvToRGB((165 + (currentLevel * 170)) % 360, 0.4f, 0.4f, hudBackgroundColor);
   } else {
     hudBackgroundColor[0] = 0x99;
     hudBackgroundColor[1] = 0x42;
@@ -1466,7 +1469,7 @@ void makeDL00(void)
 
   gDPPipeSync(glistp++);
   gDPSetPrimColor(glistp++, 0, 0, hudBackgroundColor[0], hudBackgroundColor[1], hudBackgroundColor[2], 0xff);
-  gDPSetCombineMode(glistp++, G_CC_MODULATEI_PRIM, G_CC_MODULATEI_PRIM);
+  gDPSetCombineLERP(glistp++, TEXEL0, 0, PRIMITIVE, SHADE, 0, 0, 0, PRIMITIVE, TEXEL0, 0, PRIMITIVE, SHADE, 0, 0, 0, PRIMITIVE);
   gDPSetRenderMode(glistp++, G_RM_TEX_EDGE, G_RM_TEX_EDGE2);
   gDPSetTexturePersp(glistp++, G_TP_NONE);
   gDPLoadTextureTile(glistp++,  OS_K0_TO_PHYSICAL(hudNoiseBackgroundsTextre + (16 * 16 * hudBackgroundTextureIndex)), G_IM_FMT_I, G_IM_SIZ_8b, 16, 16, 0 << 2, 0 << 2, (0 + 15) << 2, (15) << 2, 0, G_TX_NOMIRROR, G_TX_NOMIRROR, 4, 4, G_TX_NOLOD, G_TX_NOLOD);
