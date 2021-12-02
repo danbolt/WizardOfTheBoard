@@ -733,6 +733,37 @@ static Gfx renderHudBackgroundCommands[] = {
   gsSPEndDisplayList()
 };
 
+static Vtx RedHUDBackgroundVerts[] = {
+  {             0,                    0,  0, 0,               ACTION_SAFE_HORIZONTAL << 5,  0 << 5, TOP_BACKING_COLOR0, 0x00, 0x00, 0xff },
+  {     SCREEN_WD,                    0,  0, 0, (SCREEN_WD - ACTION_SAFE_HORIZONTAL) << 5,  0 << 5, TOP_BACKING_COLOR0, 0x00, 0x00, 0xff },
+  {     SCREEN_WD, ACTION_SAFE_VERTICAL,  0, 0, (SCREEN_WD - ACTION_SAFE_HORIZONTAL) << 5, (ACTION_SAFE_VERTICAL) << 5, MID_BACKING_COLOR0, 0x00, 0x00, 0xff },
+  {             0, ACTION_SAFE_VERTICAL,  0, 0,               ACTION_SAFE_HORIZONTAL << 5, (ACTION_SAFE_VERTICAL) << 5, MID_BACKING_COLOR0, 0x00, 0x00, 0xff },
+
+  {                      0,                0,  0, 0,  0 << 5,         0 << 5, MID_BACKING_COLOR0, 0x00, 0x00, 0xff },
+  { ACTION_SAFE_HORIZONTAL,                0,  0, 0, 16 << 5,         0 << 5, MID_BACKING_COLOR0, 0x00, 0x00, 0xff },
+  { ACTION_SAFE_HORIZONTAL,        SCREEN_HT,  0, 0, 16 << 5, SCREEN_HT << 5, MID_BACKING_COLOR0, 0x00, 0x00, 0xff },
+  {                      0,        SCREEN_HT,  0, 0,  0 << 5, SCREEN_HT << 5, MID_BACKING_COLOR0, 0x00, 0x00, 0xff },
+
+  { SCREEN_WD - ACTION_SAFE_HORIZONTAL,                0,  0, 0,  0 << 5,         0 << 5, MID_BACKING_COLOR0, 0x00, 0x00, 0xff },
+  { SCREEN_WD                         ,                0,  0, 0, 16 << 5,         0 << 5, MID_BACKING_COLOR0, 0x00, 0x00, 0xff },
+  { SCREEN_WD                         ,        SCREEN_HT,  0, 0, 16 << 5, SCREEN_HT << 5, MID_BACKING_COLOR0, 0x00, 0x00, 0xff },
+  { SCREEN_WD - ACTION_SAFE_HORIZONTAL,        SCREEN_HT,  0, 0,  0 << 5, SCREEN_HT << 5, MID_BACKING_COLOR0, 0x00, 0x00, 0xff },
+
+  {         0,   SCREEN_HT - 80,  0, 0,         0 << 5,         (SCREEN_HT - 80) << 5, MID_BACKING_COLOR0, 0x00, 0x00, 0xff },
+  { SCREEN_WD,   SCREEN_HT - 80,  0, 0, SCREEN_WD << 5,         (SCREEN_HT - 80) << 5, MID_BACKING_COLOR0, 0x00, 0x00, 0xff },
+  { SCREEN_WD,        SCREEN_HT,  0, 0, SCREEN_WD << 5, SCREEN_HT << 5, BOTTOM_BACKING_COLOR0, 0x00, 0x00, 0xff },
+  {         0,        SCREEN_HT,  0, 0,         0 << 5, SCREEN_HT << 5, BOTTOM_BACKING_COLOR0, 0x00, 0x00, 0xff },
+};
+
+static Gfx renderRedHudBackgroundCommands[] = {
+  gsSPVertex(RedHUDBackgroundVerts, 16, 0),
+  gsSP2Triangles(4, 6, 5, 0, 4, 7, 6, 0),
+  gsSP2Triangles(8, 10, 9, 0, 8, 11, 10, 0),
+  gsSP2Triangles(12, 14, 13, 0, 12, 15, 14, 0),
+  gsSP2Triangles(0, 2, 1, 0, 0, 3, 2, 0),
+  gsSPEndDisplayList()
+};
+
 #define HUD_CELL_WIDTH 16
 #define HUD_CELL_HEIGHT 10
 
@@ -1480,7 +1511,7 @@ void makeDL00(void)
   gDPSetTexturePersp(glistp++, G_TP_NONE);
   gDPLoadTextureTile(glistp++,  OS_K0_TO_PHYSICAL(hudNoiseBackgroundsTextre + (16 * 16 * hudBackgroundTextureIndex)), G_IM_FMT_I, G_IM_SIZ_8b, 16, 16, 0 << 2, 0 << 2, (0 + 15) << 2, (15) << 2, 0, G_TX_NOMIRROR, G_TX_NOMIRROR, 4, 4, G_TX_NOLOD, G_TX_NOLOD);
   gSPTexture(glistp++, 0xffff, 0xffff, 0, G_TX_RENDERTILE, G_ON);
-  gSPDisplayList(glistp++, OS_K0_TO_PHYSICAL(renderHudBackgroundCommands));
+  gSPDisplayList(glistp++, OS_K0_TO_PHYSICAL(isPlayerKnockingBack ? renderRedHudBackgroundCommands : renderHudBackgroundCommands));
 
 
   gDPPipeSync(glistp++);
