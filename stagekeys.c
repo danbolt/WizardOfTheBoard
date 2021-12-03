@@ -20,17 +20,15 @@ LevelEntry levels[NUMBER_OF_LEVELS] = {
 
   { "twoogres", TRACK_02_ODD_BOARD, "grass" },
 
+  // One here
+
   { "lines", TRACK_02_ODD_BOARD, "dreamscene" },
 
   { "hop", TRACK_02_ODD_BOARD, 0x0 },
 
-  // We need a cutscene here where Zatt has a bad dream
-
-
   { "oneweirdtrick", TRACK_02_ODD_BOARD, "odd" },
 
-  // also include flashback
-
+  // And one here
 
   { "finale", TRACK_12_TOP_OF_THE_TOWER, 0x0 },
 };
