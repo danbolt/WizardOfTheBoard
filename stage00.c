@@ -94,7 +94,7 @@ int tryToSpawnAProjectile(const Vec2* position, const Vec2* velocity) {
   return -1;
 }
 
-#define OGRE_WALK_SPEED 2.19f
+#define OGRE_WALK_SPEED 1.9f
 #define OGRE_MIN_NOTICE_TIME 0.7f
 #define OGRE_FOV 0.15f
 #define OGRE_CHASING_FOV 0.08f
