@@ -112,5 +112,5 @@ $(CP_LD_SCRIPT): $(LD_SCRIPT)
 
 $(TARGETS): $(OBJECTS) $(CP_LD_SCRIPT) $(RAWDATAOBJ)
 	$(LD) -L. -T $(CP_LD_SCRIPT) -Map $(MAP) -o $(ELF) 
-	$(OBJCOPY) --pad-to=0x200000 --gap-fill=0xFF $(ELF) $(TARGETS) -O binary
+	$(OBJCOPY) --pad-to=0x800000 --gap-fill=0xFF $(ELF) $(TARGETS) -O binary
 	makemask $(TARGETS)
