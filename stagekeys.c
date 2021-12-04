@@ -28,7 +28,7 @@ LevelEntry levels[NUMBER_OF_LEVELS] = {
 
   { "oneweirdtrick", TRACK_02_ODD_BOARD, "odd" },
 
-  // And one here
+  { "adv", TRACK_02_ODD_BOARD, 0x0 },
 
   { "finale", TRACK_12_TOP_OF_THE_TOWER, 0x0 },
 };
