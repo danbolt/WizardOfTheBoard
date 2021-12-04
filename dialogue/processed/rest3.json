@@ -10,7 +10,7 @@
         "flags": []
     },
     {
-        "text": "You're solving these all these complicated puzzles pretty quickly.",
+        "text": "You're solving all these puzzles pretty quickly!",
         "speaker": "themouse",
         "flags": []
     },
@@ -45,12 +45,17 @@
         "flags": []
     },
     {
-        "text": "Isn't it annoying moving that cursor around? You could be looking in any direction. Talk about disorienting!",
+        "text": "Isn't it annoying moving that cursor around?",
         "speaker": "themouse",
         "flags": []
     },
     {
-        "text": "It's not so bad. There's a special mystic arte trick you can do that helps.",
+        "text": "You could be looking in any direction. Talk about disorienting!",
+        "speaker": "themouse",
+        "flags": []
+    },
+    {
+        "text": "It's not so bad. There's a special mystic arte trick you can use that helps.",
         "speaker": "zatt_neutral",
         "flags": []
     },

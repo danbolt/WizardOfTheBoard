@@ -108,7 +108,7 @@ getDialogueDataOffset (register const char *str, register size_t len)
       {"itsover",35420},
       {""},
 #line 27 "map-gperf-mapping"
-      {"rest",61600},
+      {"rest",62216},
 #line 12 "map-gperf-mapping"
       {"check",15708},
       {""},
@@ -116,24 +116,24 @@ getDialogueDataOffset (register const char *str, register size_t len)
       {"individual",34804},
       {""},
 #line 28 "map-gperf-mapping"
-      {"rest2",67760},
+      {"rest2",68376},
       {""}, {""},
 #line 8 "map-gperf-mapping"
       {"afterwards",0},
       {""},
 #line 30 "map-gperf-mapping"
-      {"thequeen",77924},
+      {"thequeen",78848},
 #line 29 "map-gperf-mapping"
-      {"rest3",72688},
+      {"rest3",73304},
       {""}, {""}, {""},
 #line 26 "map-gperf-mapping"
-      {"rescue2",48664},
+      {"rescue2",49280},
       {""}, {""},
 #line 20 "map-gperf-mapping"
       {"meet_jumper",36344},
       {""},
 #line 31 "map-gperf-mapping"
-      {"uhhh",82236},
+      {"uhhh",83160},
       {""}, {""},
 #line 16 "map-gperf-mapping"
       {"flashback_war",32032},
@@ -148,7 +148,7 @@ getDialogueDataOffset (register const char *str, register size_t len)
       {"flashback_loss",29568},
       {""}, {""},
 #line 23 "map-gperf-mapping"
-      {"meetog",41580},
+      {"meetog",42196},
       {""},
 #line 14 "map-gperf-mapping"
       {"flashback_form",27720},
@@ -157,7 +157,7 @@ getDialogueDataOffset (register const char *str, register size_t len)
       {"meet_toad",39424},
       {""},
 #line 25 "map-gperf-mapping"
-      {"rescue",43428},
+      {"rescue",44044},
       {""}, {""},
 #line 11 "map-gperf-mapping"
       {"chance",9856},
@@ -169,7 +169,7 @@ getDialogueDataOffset (register const char *str, register size_t len)
       {"approach",6776},
       {""}, {""}, {""}, {""},
 #line 24 "map-gperf-mapping"
-      {"powpowpow",42812}
+      {"powpowpow",43428}
     };
 
   if (len <= MAX_WORD_LENGTH && len >= MIN_WORD_LENGTH)

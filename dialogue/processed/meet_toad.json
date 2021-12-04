@@ -33,5 +33,15 @@
         "text": "I can't tell if it can't see me, or if it's just a little dumb.",
         "speaker": "zatt_neutral",
         "flags": []
+    },
+    {
+        "text": "... ",
+        "speaker": "zatt_despair",
+        "flags": []
+    },
+    {
+        "text": "I won't be able to the top if I can't get past that thing.",
+        "speaker": "zatt_neutral",
+        "flags": []
     }
 ]
