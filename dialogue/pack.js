@@ -89,8 +89,11 @@ const STRUCT_FLAG_BLOOD = 'blood'
 const structDialogueItems = rawDialogueItems.map((item) => {
 	const struct = structs.dialogue();
 
+	const convertedBuffer = Buffer.from(item.text, 'latin1');
+	struct.text.fill(convertedBuffer, 0, item.text.length)
+
 	strings.encode(item.speaker, struct.speaker);
-	strings.encode(item.text, struct.text); // TODO: does this support latin characters for old ISO?
+	// strings.encode(item.text, struct.text); // TODO: does this support latin characters for old ISO?
 	struct.nextAddress = ReverseEndian(item.nextAddress);
 
 	if (item.flags.indexOf(FLAG_SHOW_BG_1) > -1) {

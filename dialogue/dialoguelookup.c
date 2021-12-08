@@ -105,35 +105,35 @@ getDialogueDataOffset (register const char *str, register size_t len)
       {"begin",8932},
       {""}, {""},
 #line 18 "map-gperf-mapping"
-      {"itsover",35420},
+      {"itsover",32956},
       {""},
 #line 27 "map-gperf-mapping"
-      {"rest",62216},
+      {"rest",59752},
 #line 12 "map-gperf-mapping"
       {"check",15708},
       {""},
 #line 17 "map-gperf-mapping"
-      {"individual",34804},
+      {"individual",32340},
       {""},
 #line 28 "map-gperf-mapping"
-      {"rest2",68376},
+      {"rest2",65912},
       {""}, {""},
 #line 8 "map-gperf-mapping"
       {"afterwards",0},
       {""},
 #line 30 "map-gperf-mapping"
-      {"thequeen",78848},
+      {"thequeen",76384},
 #line 29 "map-gperf-mapping"
-      {"rest3",73304},
+      {"rest3",70840},
       {""}, {""}, {""},
 #line 26 "map-gperf-mapping"
-      {"rescue2",49280},
+      {"rescue2",46816},
       {""}, {""},
 #line 20 "map-gperf-mapping"
-      {"meet_jumper",36344},
+      {"meet_jumper",33880},
       {""},
 #line 31 "map-gperf-mapping"
-      {"uhhh",83160},
+      {"uhhh",80696},
       {""}, {""},
 #line 16 "map-gperf-mapping"
       {"flashback_war",32032},
@@ -142,34 +142,34 @@ getDialogueDataOffset (register const char *str, register size_t len)
       {"dream",24024},
       {""}, {""},
 #line 19 "map-gperf-mapping"
-      {"longpiece",35728},
+      {"longpiece",33264},
       {""},
 #line 15 "map-gperf-mapping"
       {"flashback_loss",29568},
       {""}, {""},
 #line 23 "map-gperf-mapping"
-      {"meetog",42196},
+      {"meetog",39732},
       {""},
 #line 14 "map-gperf-mapping"
       {"flashback_form",27720},
       {""}, {""},
 #line 22 "map-gperf-mapping"
-      {"meet_toad",39424},
+      {"meet_toad",36960},
       {""},
 #line 25 "map-gperf-mapping"
-      {"rescue",44044},
+      {"rescue",41580},
       {""}, {""},
 #line 11 "map-gperf-mapping"
       {"chance",9856},
       {""},
 #line 21 "map-gperf-mapping"
-      {"meet_snake",36960},
+      {"meet_snake",34496},
       {""}, {""}, {""}, {""},
 #line 9 "map-gperf-mapping"
       {"approach",6776},
       {""}, {""}, {""}, {""},
 #line 24 "map-gperf-mapping"
-      {"powpowpow",43428}
+      {"powpowpow",40964}
     };
 
   if (len <= MAX_WORD_LENGTH && len >= MIN_WORD_LENGTH)
