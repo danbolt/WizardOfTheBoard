@@ -67,6 +67,7 @@ const char* trackInfo[TRACK_COUNT] = {
   "Arena1\nby Morusque",
   "Top of the Tower\nby Daniel Savage",
   "Warming Up\nby Daniel Savage",
+  "Jingle\nby Daniel Savage",
 };
 
 void initLevelSelect() {

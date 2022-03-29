@@ -41,7 +41,10 @@
 /* 13_warming_up.mid  */
 #define TRACK_13_WARMING_UP 12
 
-#define TRACK_COUNT 13
+/* 14_jingle.mid  */
+#define TRACK_14_JINGLE 13
+
+#define TRACK_COUNT 14
 
 
 #endif
