@@ -8,8 +8,8 @@
 #include "main.h"
 #include "audio/bgm/sequence/tracknumbers.h"
 
-#define SPLASH_SCREEN_DURATION 5.f
-#define BUFFER_TIME 1.015f
+#define SPLASH_SCREEN_DURATION 9.f
+#define BUFFER_TIME 1.815f
 
 static float splashScreenTime;
 
@@ -1476,7 +1476,6 @@ unsigned char logotype_240p_bin[] __attribute__((aligned(8))) = {
 unsigned int logotype_240p_bin_len = 17472;
 
 
-
 void initJingleScreen() {
   splashScreenTime = 0.f;
   hasPlayedLoadingSound = 0;
@@ -1517,8 +1516,8 @@ void makeJingleScreenDL() {
   gDPSetCycleType(glistp++,G_CYC_1CYCLE);
   gDPSetTexturePersp(glistp++, G_TP_NONE);
   gDPSetTextureFilter(glistp++, G_TF_POINT);
-  gDPSetCombineMode(glistp++,G_CC_DECALRGBA, G_CC_DECALRGBA);
-  gDPSetRenderMode(glistp++, G_RM_TEX_EDGE, G_RM_TEX_EDGE2);
+  gDPSetCombineMode(glistp++,G_CC_DECALRGB, G_CC_DECALRGB);
+  gDPSetRenderMode(glistp++, G_RM_OPA_SURF, G_RM_OPA_SURF2);
   gSPClearGeometryMode(glistp++,0xFFFFFFFF);
   gSPSetGeometryMode(glistp++,G_SHADE | G_SHADING_SMOOTH | G_CULL_BACK);
   gSPTexture(glistp++, 0xffff, 0xffff, 0, G_TX_RENDERTILE, G_ON);
@@ -1541,10 +1540,17 @@ void makeJingleScreenDL() {
   gDPSetCycleType(glistp++, G_CYC_1CYCLE);
 
   if ((splashScreenTime > BUFFER_TIME) && (splashScreenTime < (SPLASH_SCREEN_DURATION - BUFFER_TIME))) {
-    for (int i = 0; i < 6; i++) {
+
+    float tVal = 1.0;
+    if ((splashScreenTime - BUFFER_TIME) < 0.75) {
+      tVal = (splashScreenTime - BUFFER_TIME) / 0.75;
+    }
+
+    int numberOfRows = (int)(tVal * 91);
+    for (int i = 0; i < numberOfRows; i++) {
       gDPPipeSync(glistp++);
-      gDPLoadTextureTile(glistp++, logotype_240p_bin, G_IM_FMT_I, G_IM_SIZ_8b, 192, 91, (0), (i * 18), (192), ((i * 18) + 18), 0, G_TX_NOMIRROR, G_TX_NOMIRROR, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
-      gSPTextureRectangle(glistp++, 0 << 2, (i * 18) << 2, 192 << 2, (MIN(91, (i * 18) + 18)) << 2, 0, 0 << 5, (i * 18) << 5, 1 << 10, 1 << 10);
+      gDPLoadTextureTile(glistp++, logotype_240p_bin, G_IM_FMT_I, G_IM_SIZ_8b, 192, 91, (0), (i), (192), ((i + 1)), 0, G_TX_NOMIRROR, G_TX_NOMIRROR, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
+      gSPTextureRectangle(glistp++, 64 << 2, (70 + i * 1) << 2, (64 + 192) << 2, (70 + MIN(91, (i * 1) + 1)) << 2, 0, 0 << 5, (i * 1) << 5, 1 << 10, 1 << 10);
     }
   }
 
