@@ -13,6 +13,7 @@
 #include "stage00.h"
 #include "splashscreen.h"
 #include "titlescreen.h"
+#include "jinglescreen.h"
 
 #include <segmentinfo.h>
 
@@ -51,6 +52,11 @@ ScreenInfo splashScreenStage = {
   updateSplashScreen,
   makeSplashScreenDL
 };
+ScreenInfo jingleScreenStage = {
+  initJingleScreen,
+  updateJingleScreen,
+  makeJingleScreenDL
+};
 
 
 ScreenInfo* currentStage;
@@ -85,7 +91,7 @@ void updateTime() {
 void initalizeGameData() {
   changeScreensFlag = 1;
   currentStage = NULL;
-  nextStage = &splashScreenStage;
+  nextStage = &jingleScreenStage;
 
   loadDisplayText();
 

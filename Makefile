@@ -34,7 +34,7 @@ MAP		= jam2.map
 LD_SCRIPT	= jam2.ld
 CP_LD_SCRIPT	= jam2_cp.ld
 
-HFILES =	main.h nustdfuncs.h stagekeys.h graphic.h audio/sfx/sfx.h splashscreen.h gameaudio.h backgroundbuffers.h levelselect.h stage00.h credits.h displaytext.h cutscene.h titlescreen.h sixtwelve.h sixtwelve_helpers.h constants.h gamemath.h dialogue.h segmentinfo.h audio/bgm/sequence/tracknumbers.h pieces.h board.h monsters.h betweenstages.h mapdata.h dialogue/dialoguelookup.h cast_sprites/castlookup.h map/maplookup.h cutscene_backgrounds/backgroundlookup.h cutscenes/cutscenelookup.h opening/envtexture.h opening/tower.h opening/ground.h bip-mapping/bipmapping.h
+HFILES =	main.h nustdfuncs.h stagekeys.h graphic.h audio/sfx/sfx.h splashscreen.h jinglescreen.h gameaudio.h backgroundbuffers.h levelselect.h stage00.h credits.h displaytext.h cutscene.h titlescreen.h sixtwelve.h sixtwelve_helpers.h constants.h gamemath.h dialogue.h segmentinfo.h audio/bgm/sequence/tracknumbers.h pieces.h board.h monsters.h betweenstages.h mapdata.h dialogue/dialoguelookup.h cast_sprites/castlookup.h map/maplookup.h cutscene_backgrounds/backgroundlookup.h cutscenes/cutscenelookup.h opening/envtexture.h opening/tower.h opening/ground.h bip-mapping/bipmapping.h
 
 ifdef NO_COMPILED_AUDIO
 LCDEFS += -DNO_COMPILED_AUDIO
@@ -55,7 +55,7 @@ BOOT		= /usr/lib/n64/PR/bootcode/boot.6102
 
 BOOT_OBJ	= boot.6102.o
 
-CODEFILES   = 	main.c nustdfuncs.c backgroundbuffers.c splashscreen.c gameaudio.c stagekeys.c stage00.c levelselect.c displaytext.c titlescreen.c credits.c cutscene.c graphic.c sixtwelve.c sixtwelve_tex.c sixtwelve_helpers.c gfxinit.c gamemath.c dialogue.c pieces.c pawn.c rook.c bishop.c queen.c knight.c king.c betweenstages.c wall.c board.c cursor.c toad.c projectile.c shadowqueen.c ogre.c jumper.c snake.c dialogue/dialoguelookup.c cast_sprites/castlookup.c maps/maplookup.c cutscene_backgrounds/backgroundlookup.c cutscenes/cutscenelookup.c opening/envtexture.c bip-mapping/bipmapping.c
+CODEFILES   = 	main.c nustdfuncs.c backgroundbuffers.c splashscreen.c jinglescreen.c gameaudio.c stagekeys.c stage00.c levelselect.c displaytext.c titlescreen.c credits.c cutscene.c graphic.c sixtwelve.c sixtwelve_tex.c sixtwelve_helpers.c gfxinit.c gamemath.c dialogue.c pieces.c pawn.c rook.c bishop.c queen.c knight.c king.c betweenstages.c wall.c board.c cursor.c toad.c projectile.c shadowqueen.c ogre.c jumper.c snake.c dialogue/dialoguelookup.c cast_sprites/castlookup.c maps/maplookup.c cutscene_backgrounds/backgroundlookup.c cutscenes/cutscenelookup.c opening/envtexture.c bip-mapping/bipmapping.c
 
 ifdef USB_DEBUGGING
 CODEFILES += usb.c debug.c
@@ -112,5 +112,5 @@ $(CP_LD_SCRIPT): $(LD_SCRIPT)
 
 $(TARGETS): $(OBJECTS) $(CP_LD_SCRIPT) $(RAWDATAOBJ)
 	$(LD) -L. -T $(CP_LD_SCRIPT) -Map $(MAP) -o $(ELF) 
-	$(OBJCOPY) --pad-to=0x800000 --gap-fill=0xFF $(ELF) $(TARGETS) -O binary
+	$(OBJCOPY) $(ELF) $(TARGETS) -O binary
 	makemask $(TARGETS)
