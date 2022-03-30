@@ -91,12 +91,15 @@ static CreditsItem modernSDK = {
 };
 
 static CreditsItem palTesting = {
-  "PAL TESTING",
+  "TESTING",
 
-  2,
+  5,
   {
   "kivan117",
   "gravatos",
+  "Immorpher",
+  "AMdon",
+  "Iman Col"
   },
   1.7f
 };
