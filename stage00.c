@@ -1293,9 +1293,6 @@ void initStage00(void)
   bannerMessageTime = 0.f;
 
   tutorialState = NO_TUTORIAL_ACTIVE;
-  if (currentLevel == 0) {
-    tutorialState = TUTORIAL_STEP_HIGHLIGHT_PAWN;
-  }
 }
 
 /* Make the display list and activate the task */
