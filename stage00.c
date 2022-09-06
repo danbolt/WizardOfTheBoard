@@ -71,6 +71,9 @@ static u8 hudBackgroundColor[3];
 static float cosCameraRot;
 static float sinCameraRot;
 
+static u32 moveCount;
+static float activeStageTime;
+
 #define TRANSITION_DURATION 1.7f
 #define NOT_TRANSITIONING 0
 #define TRANSITIONING_IN 1
@@ -376,7 +379,7 @@ static float puzzleGlyphRotation;
 static float cursorRotation;
 
 
-#define FADE_OUT_TIME 1.f
+#define FADE_OUT_TIME 2.8f
 
 #define GAME_STATE_ACTIVE 0
 #define GAME_STATE_PLAYER_WINS 1
@@ -1032,11 +1035,7 @@ void loadInTextures() {
   nuPiReadRom((u32)(_noise_backgroundsSegmentRomStart), (void*)(hudNoiseBackgroundsTextre), TMEM_SIZE_BYTES);
   nuPiReadRom((u32)(_zatt_potraitsSegmentRomStart), (void*)(hudZattPortraits), 48 * 48 * 2 * 4);
 
-  if ((currentLevel > 8) && (currentLevel < (NUMBER_OF_LEVELS - 1))) {
-    nuPiReadRom((u32)(_floor_tiles2SegmentRomStart), (void*)(floorTexture), TMEM_SIZE_BYTES);
-  } else {
-    nuPiReadRom((u32)(_floor_tilesSegmentRomStart), (void*)(floorTexture), TMEM_SIZE_BYTES);
-  }
+  nuPiReadRom((u32)(_floor_tiles2SegmentRomStart), (void*)(floorTexture), TMEM_SIZE_BYTES);
   
 }
 
@@ -1213,6 +1212,7 @@ void initStage00(void)
   isStagePaused = 0;
   pauseMenuIndex = 0;
   gameplayTimePassed = 0.f;
+  activeStageTime = 0.f;
   downPressed = 0;
   upPressed = 0;
   stickInDeadzone = 0;
@@ -1234,26 +1234,19 @@ void initStage00(void)
   initializeMonsters(&mapInformation);
   initializePuzzleSpots(&mapInformation);
   initializeStartingPieces(&mapInformation);
-  if (currentLevel == (NUMBER_OF_LEVELS - 1)) {
-    generateTopOfTheTowerWalls();
-  } else {
-    generateWalls();
-  }
+  generateWalls();
   generateHUDChessboard();
   generateFloorTiles();
   loadInTextures();
+
+  moveCount = 0;
 
   highlightedPieceText = "";
 
   hudBackgroundTextureIndex = currentLevel % NUMBER_OF_HUD_BACKGROUND_TILES;
 
-  if (currentLevel < (NUMBER_OF_LEVELS - 1)) {
-    hsvToRGB((165 + (currentLevel * 170)) % 360, 0.4f, 0.4f, hudBackgroundColor);
-  } else {
-    hudBackgroundColor[0] = 0x99;
-    hudBackgroundColor[1] = 0x42;
-    hudBackgroundColor[2] = 0x8C;
-  }
+
+  hsvToRGB((165 + (currentLevel * 170)) % 360, 0.4f, 0.4f, hudBackgroundColor);
   
 
   hasStartedMusic = 0;
@@ -1284,11 +1277,7 @@ void initStage00(void)
   selectedPiece = -1;
   boardControlState = BOARD_CONTROL_NO_SELECTED;
 
-  if (currentLevel == (NUMBER_OF_LEVELS - 1)) {
-    sprintf(floorStartBanner, "      TOP FLOOR");
-  } else {
-    sprintf(floorStartBanner, "FLOOR %d START!", (currentLevel + 1));
-  }
+  sprintf(floorStartBanner, "LEVEL %02d", (currentLevel + 1));
   bannerMessageText = floorStartBanner;
   bannerMessageTime = 0.f;
 
@@ -1658,7 +1647,35 @@ void makeDL00(void)
   if (gameState == GAME_STATE_PLAYER_LOSES) {
     renderDisplayText(SCREEN_WD / 2 - ((5 * 13) / 2), SCREEN_HT / 2, "DEATH");
   } else if (gameState == GAME_STATE_PLAYER_WINS) {
-    renderDisplayText(SCREEN_WD / 2 - ((11 * 13) / 2), SCREEN_HT / 2, "FLOOR CLEAR!");
+    renderDisplayText(SCREEN_WD / 2 - ((11 * 13) / 2), SCREEN_HT / 2, "CLEAR!");
+
+    char moveCountText[128];
+    sprintf(moveCountText, "Moves: %u\nSeconds: %3.3f", moveCount, activeStageTime);
+    moveCountText[127] = '\0';
+
+    gDPPipeSync(glistp++);
+    gDPLoadTextureBlock_4b(glistp++, sixtwelve_tex, G_IM_FMT_IA, SIXTWELVE_TEXTURE_WIDTH, SIXTWELVE_TEXTURE_HEIGHT, 0, G_TX_MIRROR | G_TX_WRAP, G_TX_MIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
+
+    const char* tutorialTextToShow = moveCountText;
+    int i = 0;
+    int xSpot = TITLE_SAFE_HORIZONTAL + 2;
+    int ySpot = TITLE_SAFE_VERTICAL + 16 + (int)(sinf(gameplayTimePassed * 10.f) * 2.f);
+    while (tutorialTextToShow[i] != '\0') {
+      const unsigned char character = tutorialTextToShow[i];
+      const sixtwelve_character_info* characterInfo = sixtwelve_get_character_info(character);
+      i++;
+
+      if (character == '\n') {
+        xSpot = TITLE_SAFE_HORIZONTAL + 2;
+        ySpot += SIXTWELVE_LINE_HEIGHT;
+        continue;
+      }
+
+      const int xLoc = xSpot + characterInfo->x_offset;
+      const int yLoc = ySpot + characterInfo->y_offset;
+      gSPTextureRectangle(glistp++, (xLoc) << 2, (yLoc) << 2, (xLoc + characterInfo->width) << 2, (yLoc + characterInfo->height) << 2, 0, (characterInfo->x) << 5, (characterInfo->y) << 5, 1 << 10, 1 << 10);
+      xSpot += characterInfo->x_advance;
+    }
   } else if (isStagePaused) {
     renderDisplayText(SCREEN_WD / 2 - ((6 * 13) / 2), (SCREEN_HT / 2) - 64, "PAUSED");
 
@@ -1690,32 +1707,6 @@ void makeDL00(void)
   gSPTextureRectangle(glistp++, (TITLE_SAFE_HORIZONTAL << 2), ((SCREEN_HT - TITLE_SAFE_VERTICAL - 42 - 4) << 2), ((TITLE_SAFE_HORIZONTAL + 48) << 2), ((SCREEN_HT - TITLE_SAFE_VERTICAL - 4) << 2), 0, (0 << 5), (0 << 5), (1 << 10), (1 << 10));
 
   renderDialogueToDisplayList();
-
-  if (tutorialState && (transitioningState == NOT_TRANSITIONING) && (dialogueState != DIALOGUE_STATE_SHOWING)) {
-    gDPPipeSync(glistp++);
-    gDPLoadTextureBlock_4b(glistp++, sixtwelve_tex, G_IM_FMT_IA, SIXTWELVE_TEXTURE_WIDTH, SIXTWELVE_TEXTURE_HEIGHT, 0, G_TX_MIRROR | G_TX_WRAP, G_TX_MIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
-
-    const char* tutorialTextToShow = tutorialStepStrings[tutorialState];
-    int i = 0;
-    int xSpot = TITLE_SAFE_HORIZONTAL + 2;
-    int ySpot = TITLE_SAFE_VERTICAL + 4 + (int)(sinf(gameplayTimePassed * 10.f) * 2.f);
-    while (tutorialTextToShow[i] != '\0') {
-      const unsigned char character = tutorialTextToShow[i];
-      const sixtwelve_character_info* characterInfo = sixtwelve_get_character_info(character);
-      i++;
-
-      if (character == '\n') {
-        xSpot = TITLE_SAFE_HORIZONTAL + 2;
-        ySpot += SIXTWELVE_LINE_HEIGHT;
-        continue;
-      }
-
-      const int xLoc = xSpot + characterInfo->x_offset;
-      const int yLoc = ySpot + characterInfo->y_offset;
-      gSPTextureRectangle(glistp++, (xLoc) << 2, (yLoc) << 2, (xLoc + characterInfo->width) << 2, (yLoc + characterInfo->height) << 2, 0, (characterInfo->x) << 5, (characterInfo->y) << 5, 1 << 10, 1 << 10);
-      xSpot += characterInfo->x_advance;
-    }
-  }
 
   if (transitioningState != NOT_TRANSITIONING) {
     gDPPipeSync(glistp++);
@@ -1977,6 +1968,8 @@ void updateBoardControlInput() {
         } else {
           playSound(SFX_08_CONFIRM_MOVE);
         }
+
+        moveCount = MIN(99, moveCount + 1);
 
         if (tutorialState == TUTORIAL_STEP_CONFIRM_MOVE) {
           tutorialState = TUTORIAL_STEP_FINISH_BOARD;
@@ -2539,6 +2532,8 @@ void updateGame00(void)
 
     updatePlayerInput();
     updateBoardControlInput();
+    activeStageTime += deltaTimeSeconds;
+    deltaTimeSeconds = MIN(999.0, deltaTimeSeconds);
   }
   updateMonsters();
   updateProjectiles();

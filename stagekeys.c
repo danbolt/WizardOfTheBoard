@@ -5,30 +5,30 @@
 
 LevelEntry levels[NUMBER_OF_LEVELS] = {
   { "tut1_move", TRACK_13_WARMING_UP, 0x0 },
-  { "tut2_rooks", TRACK_13_WARMING_UP, "first_rest" },
-  { "tut3_bishops", TRACK_13_WARMING_UP, "second_rest" },
+  { "tut2_rooks", TRACK_13_WARMING_UP, 0x0 },
+  { "tut3_bishops", TRACK_13_WARMING_UP, 0x0 },
   { "tut4_knights", TRACK_13_WARMING_UP, 0x0 },
-  { "tut5_king", TRACK_13_WARMING_UP, "third_rest" },
-  { "solveit", TRACK_01_PUZZLE_TIME, 0x0 },
-  { "singlefile", TRACK_01_PUZZLE_TIME, "fb1" },
+  { "tut5_king", TRACK_13_WARMING_UP, 0x0 },
+  { "solveit", TRACK_13_WARMING_UP, 0x0 },
+  { "singlefile", TRACK_13_WARMING_UP, 0x0 },
 
-  { "1toad", TRACK_01_PUZZLE_TIME, 0x0 },
-  { "2toad", TRACK_01_PUZZLE_TIME, "fb2" },
-  { "jumper", TRACK_01_PUZZLE_TIME, 0x0 },
-  { "snake", TRACK_02_ODD_BOARD, 0x0 },
-  { "ogre", TRACK_02_ODD_BOARD, "test_scene" },
+  { "1toad", TRACK_13_WARMING_UP, 0x0 },
+  { "2toad", TRACK_13_WARMING_UP, 0x0 },
+  { "jumper", TRACK_13_WARMING_UP, 0x0 },
+  { "snake", TRACK_13_WARMING_UP, 0x0 },
+  { "ogre", TRACK_13_WARMING_UP, 0x0 },
 
-  { "twoogres", TRACK_02_ODD_BOARD, "grass" },
+  { "twoogres", TRACK_13_WARMING_UP, 0x0 },
 
   // One here
 
-  { "lines", TRACK_02_ODD_BOARD, "dreamscene" },
+  { "lines", TRACK_13_WARMING_UP, 0x0 },
 
-  { "hop", TRACK_02_ODD_BOARD, 0x0 },
+  { "hop", TRACK_13_WARMING_UP, 0x0 },
 
-  { "oneweirdtrick", TRACK_02_ODD_BOARD, "odd" },
+  { "oneweirdtrick", TRACK_13_WARMING_UP, 0x0 },
 
-  { "adv", TRACK_02_ODD_BOARD, 0x0 },
+  { "adv", TRACK_13_WARMING_UP, 0x0 },
 
   { "finale", TRACK_12_TOP_OF_THE_TOWER, 0x0 },
 };
