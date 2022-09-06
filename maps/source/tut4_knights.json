@@ -3,7 +3,14 @@
  "infinite":false,
  "layers":[
         {
-         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 14, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 15, 15, 15, 15, 15, 15, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0],
+         "data":[0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0,
+            14, 15, 0, 0, 0, 0, 15, 14,
+            0, 15, 0, 0, 0, 0, 15, 0,
+            0, 15, 4, 0, 0, 4, 15, 0,
+            0, 15, 0, 0, 0, 0, 15, 0,
+            0, 15, 0, 0, 0, 0, 15, 0,
+            0, 15, 0, 0, 0, 0, 15, 0],
          "height":8,
          "id":2,
          "name":"board",
@@ -29,6 +36,39 @@
                  "width":0,
                  "x":57.75,
                  "y":95.25
+                }, 
+                {
+                 "height":0,
+                 "id":7,
+                 "name":"snake",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":56.5,
+                 "y":8.75
+                }, 
+                {
+                 "height":0,
+                 "id":8,
+                 "name":"snake",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":24.5,
+                 "y":10
+                }, 
+                {
+                 "height":0,
+                 "id":9,
+                 "name":"snake",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":104.5,
+                 "y":9.5
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -37,7 +77,7 @@
          "y":0
         }],
  "nextlayerid":6,
- "nextobjectid":4,
+ "nextobjectid":10,
  "orientation":"orthogonal",
  "properties":[
         {
@@ -46,7 +86,7 @@
          "value":""
         }],
  "renderorder":"right-up",
- "tiledversion":"1.7.2",
+ "tiledversion":"1.8.5",
  "tileheight":16,
  "tilesets":[
         {
@@ -64,6 +104,6 @@
         }],
  "tilewidth":16,
  "type":"map",
- "version":"1.6",
+ "version":"1.8",
  "width":8
 }
