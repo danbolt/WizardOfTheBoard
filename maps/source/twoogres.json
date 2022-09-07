@@ -3,7 +3,14 @@
  "infinite":false,
  "layers":[
         {
-         "data":[0, 0, 14, 0, 0, 0, 2, 0, 0, 0, 15, 0, 0, 15, 15, 0, 0, 0, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 15, 15, 0, 15, 15, 0, 0, 2, 15, 0, 0, 14, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "data":[0, 0, 15, 0, 0, 0, 2, 0,
+            0, 0, 0, 14, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 4, 0,
+            0, 2, 0, 0, 0, 0, 0, 14,
+            0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 14, 0],
          "height":8,
          "id":2,
          "name":"board",
@@ -23,34 +30,12 @@
                  "height":0,
                  "id":3,
                  "name":"",
-                 "rotation":358.973144653206,
+                 "rotation":27.2594208189361,
                  "type":"player",
                  "visible":true,
                  "width":0,
-                 "x":67.75,
-                 "y":115.75
-                }, 
-                {
-                 "height":0,
-                 "id":4,
-                 "name":"ogre",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":24.5,
-                 "y":51.75
-                }, 
-                {
-                 "height":0,
-                 "id":5,
-                 "name":"ogre",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":95.25,
-                 "y":50.25
+                 "x":22.5,
+                 "y":109.75
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -68,7 +53,7 @@
          "value":""
         }],
  "renderorder":"right-up",
- "tiledversion":"1.7.2",
+ "tiledversion":"1.8.5",
  "tileheight":16,
  "tilesets":[
         {
@@ -86,6 +71,6 @@
         }],
  "tilewidth":16,
  "type":"map",
- "version":"1.6",
+ "version":"1.8",
  "width":8
 }

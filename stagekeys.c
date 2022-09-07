@@ -4,7 +4,7 @@
 #include "audio/bgm/sequence/tracknumbers.h"
 
 LevelEntry levels[NUMBER_OF_LEVELS] = {
-  { "tut1_move", TRACK_13_WARMING_UP, 0x0 },
+  { "twoogres", TRACK_13_WARMING_UP, 0x0 },
   { "tut2_rooks", TRACK_13_WARMING_UP, 0x0 },
   { "tut3_bishops", TRACK_13_WARMING_UP, 0x0 },
   { "tut4_knights", TRACK_13_WARMING_UP, 0x0 },
@@ -18,7 +18,7 @@ LevelEntry levels[NUMBER_OF_LEVELS] = {
   { "snake", TRACK_13_WARMING_UP, 0x0 },
   { "ogre", TRACK_13_WARMING_UP, 0x0 },
 
-  { "twoogres", TRACK_13_WARMING_UP, 0x0 },
+  { "tut1_move", TRACK_13_WARMING_UP, 0x0 },
 
   // One here
 
