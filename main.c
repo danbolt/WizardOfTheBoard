@@ -91,13 +91,13 @@ void updateTime() {
 void initalizeGameData() {
   changeScreensFlag = 1;
   currentStage = NULL;
-  nextStage = &jingleScreenStage;
+  nextStage = &gameplayStage;
 
   loadDisplayText();
 
   cutsceneToLoad = "test_scene";
 
-  currentLevel = 0;
+  currentLevel = 5;
 
   wonGameFlag = 0;
 
