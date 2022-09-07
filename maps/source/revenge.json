@@ -4,11 +4,11 @@
  "layers":[
         {
          "data":[0, 0, 0, 0, 0, 0, 0, 0,
-            0, 15, 0, 0, 0, 0, 15, 0,
-            0, 3, 0, 0, 0, 0, 4, 0,
             0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 15, 0, 0, 15, 0, 0,
-            0, 0, 14, 0, 0, 14, 0, 0,
+            0, 2, 15, 0, 15, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 2, 0,
+            0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 15, 0, 15, 0,
             0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0],
          "height":8,
@@ -30,12 +30,12 @@
                  "height":0,
                  "id":3,
                  "name":"",
-                 "rotation":358.973144653206,
+                 "rotation":180,
                  "type":"player",
                  "visible":true,
                  "width":0,
-                 "x":67.75,
-                 "y":115.75
+                 "x":53.2045454545454,
+                 "y":10.4772727272727
                 }, 
                 {
                  "height":0,
@@ -45,8 +45,19 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":62,
-                 "y":28.25
+                 "x":58.5454545454545,
+                 "y":57.1590909090909
+                }, 
+                {
+                 "height":0,
+                 "id":5,
+                 "name":"ogre",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":86.1818181818182,
+                 "y":104.613636363636
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -55,13 +66,13 @@
          "y":0
         }],
  "nextlayerid":6,
- "nextobjectid":5,
+ "nextobjectid":6,
  "orientation":"orthogonal",
  "properties":[
         {
          "name":"dialogue",
          "type":"string",
-         "value":"meetog"
+         "value":""
         }],
  "renderorder":"right-up",
  "tiledversion":"1.8.5",

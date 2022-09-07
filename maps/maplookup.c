@@ -61,13 +61,13 @@ hash (register const char *str, register size_t len)
       61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
       61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
       61, 61, 61, 61, 61, 61, 61, 61, 61, 30,
-      20, 20,  1, 15, 61, 61, 61, 61, 61, 61,
+      20, 30,  1, 20, 61, 61, 61, 61, 61, 61,
       61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
       61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
       61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
       61, 61, 61, 61, 61, 61,  5,  0, 10, 61,
-      61,  8,  3, 20,  5, 61, 23, 30, 15, 61,
-      61,  5,  5, 61, 61, 20,  0,  5, 20, 15,
+      61, 30,  3, 20,  5, 61,  8,  3, 25, 61,
+      61,  5,  5, 61,  0, 20,  0, 15, 10, 15,
       61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
       61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
       61, 61, 61, 61, 61, 61, 61, 61, 61, 61,
@@ -126,51 +126,51 @@ getMapDataOffset (register const char *str, register size_t len)
 #line 23 "map-gperf-mapping"
       {"test_map",2520},
       {""}, {""},
-#line 17 "map-gperf-mapping"
-      {"ogre",1512},
+#line 14 "map-gperf-mapping"
+      {"jumper",1008},
       {""},
 #line 11 "map-gperf-mapping"
       {"bishops",504},
       {""}, {""},
-#line 19 "map-gperf-mapping"
-      {"other_test_map",1848},
+#line 15 "map-gperf-mapping"
+      {"jumper_test",1176},
       {""},
 #line 9 "map-gperf-mapping"
       {"2toad",168},
       {""}, {""},
-#line 16 "map-gperf-mapping"
-      {"lines",1344},
+#line 21 "map-gperf-mapping"
+      {"snake",2184},
       {""},
 #line 25 "map-gperf-mapping"
       {"tut2_rooks",2856},
       {""}, {""},
-#line 14 "map-gperf-mapping"
-      {"jumper",1008},
+#line 28 "map-gperf-mapping"
+      {"tut5_king",3360},
       {""},
 #line 8 "map-gperf-mapping"
       {"1toad",0},
       {""}, {""},
-#line 15 "map-gperf-mapping"
-      {"jumper_test",1176},
+#line 19 "map-gperf-mapping"
+      {"revenge",1848},
       {""},
 #line 24 "map-gperf-mapping"
       {"tut1_move",2688},
       {""}, {""},
-#line 28 "map-gperf-mapping"
-      {"tut5_king",3360},
-      {""},
-#line 18 "map-gperf-mapping"
-      {"oneweirdtrick",1680},
-      {""}, {""},
 #line 26 "map-gperf-mapping"
       {"tut3_bishops",3024},
       {""},
+#line 17 "map-gperf-mapping"
+      {"oneweirdtrick",1512},
+      {""}, {""}, {""}, {""},
 #line 22 "map-gperf-mapping"
       {"solveit",2352},
       {""}, {""}, {""}, {""},
-#line 21 "map-gperf-mapping"
-      {"snake",2184},
-      {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""},
+#line 18 "map-gperf-mapping"
+      {"other_test_map",1680},
+      {""}, {""}, {""}, {""},
+#line 16 "map-gperf-mapping"
+      {"lines",1344},
+      {""}, {""}, {""}, {""},
 #line 20 "map-gperf-mapping"
       {"singlefile",2016}
     };
