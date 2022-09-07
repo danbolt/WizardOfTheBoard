@@ -3,7 +3,14 @@
  "infinite":false,
  "layers":[
         {
-         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 14, 0, 0, 0, 0, 14, 0, 0, 4, 0, 0, 0, 0, 3, 0, 0, 15, 0, 0, 0, 0, 15, 0, 15, 0, 0, 0, 0, 0, 0, 15, 0, 0, 0, 0, 0, 0, 0, 0],
+         "data":[0, 0, 0, 0, 0, 0, 14, 0,
+            14, 0, 0, 0, 0, 2, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 4, 15, 0, 2, 0,
+            0, 0, 0, 0, 0, 0, 15, 0,
+            0, 15, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 14],
          "height":8,
          "id":2,
          "name":"board",
@@ -38,8 +45,30 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":62,
-                 "y":28.25
+                 "x":24.5,
+                 "y":23
+                }, 
+                {
+                 "height":0,
+                 "id":5,
+                 "name":"snake",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":104.75,
+                 "y":26.5
+                }, 
+                {
+                 "height":0,
+                 "id":6,
+                 "name":"snake",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":103.75,
+                 "y":104.5
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -48,16 +77,16 @@
          "y":0
         }],
  "nextlayerid":6,
- "nextobjectid":5,
+ "nextobjectid":7,
  "orientation":"orthogonal",
  "properties":[
         {
          "name":"dialogue",
          "type":"string",
-         "value":"meet_snake"
+         "value":""
         }],
  "renderorder":"right-up",
- "tiledversion":"1.7.2",
+ "tiledversion":"1.8.5",
  "tileheight":16,
  "tilesets":[
         {
@@ -75,6 +104,6 @@
         }],
  "tilewidth":16,
  "type":"map",
- "version":"1.6",
+ "version":"1.8",
  "width":8
 }
