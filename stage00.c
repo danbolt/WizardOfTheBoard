@@ -1649,33 +1649,7 @@ void makeDL00(void)
   } else if (gameState == GAME_STATE_PLAYER_WINS) {
     renderDisplayText(SCREEN_WD / 2 - ((11 * 13) / 2), SCREEN_HT / 2, "CLEAR!");
 
-    char moveCountText[128];
-    sprintf(moveCountText, "Moves: %u\nSeconds: %3.3f", moveCount, activeStageTime);
-    moveCountText[127] = '\0';
-
-    gDPPipeSync(glistp++);
-    gDPLoadTextureBlock_4b(glistp++, sixtwelve_tex, G_IM_FMT_IA, SIXTWELVE_TEXTURE_WIDTH, SIXTWELVE_TEXTURE_HEIGHT, 0, G_TX_MIRROR | G_TX_WRAP, G_TX_MIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
-
-    const char* tutorialTextToShow = moveCountText;
-    int i = 0;
-    int xSpot = TITLE_SAFE_HORIZONTAL + 2;
-    int ySpot = TITLE_SAFE_VERTICAL + 16 + (int)(sinf(gameplayTimePassed * 10.f) * 2.f);
-    while (tutorialTextToShow[i] != '\0') {
-      const unsigned char character = tutorialTextToShow[i];
-      const sixtwelve_character_info* characterInfo = sixtwelve_get_character_info(character);
-      i++;
-
-      if (character == '\n') {
-        xSpot = TITLE_SAFE_HORIZONTAL + 2;
-        ySpot += SIXTWELVE_LINE_HEIGHT;
-        continue;
-      }
-
-      const int xLoc = xSpot + characterInfo->x_offset;
-      const int yLoc = ySpot + characterInfo->y_offset;
-      gSPTextureRectangle(glistp++, (xLoc) << 2, (yLoc) << 2, (xLoc + characterInfo->width) << 2, (yLoc + characterInfo->height) << 2, 0, (characterInfo->x) << 5, (characterInfo->y) << 5, 1 << 10, 1 << 10);
-      xSpot += characterInfo->x_advance;
-    }
+    
   } else if (isStagePaused) {
     renderDisplayText(SCREEN_WD / 2 - ((6 * 13) / 2), (SCREEN_HT / 2) - 64, "PAUSED");
 
@@ -1699,6 +1673,34 @@ void makeDL00(void)
       renderDisplayText(SCREEN_WD / 2 - (((_nstrlen(bannerMessageText)) * 13) / 2), SCREEN_HT / 2, bannerMessageText);
     }
   }
+
+  char moveCountText[128];
+    sprintf(moveCountText, "Moves: %u\nSeconds: %3.3f", moveCount, activeStageTime);
+    moveCountText[127] = '\0';
+
+    gDPPipeSync(glistp++);
+    gDPLoadTextureBlock_4b(glistp++, sixtwelve_tex, G_IM_FMT_IA, SIXTWELVE_TEXTURE_WIDTH, SIXTWELVE_TEXTURE_HEIGHT, 0, G_TX_MIRROR | G_TX_WRAP, G_TX_MIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
+
+    const char* tutorialTextToShow = moveCountText;
+    int i = 0;
+    int xSpot = TITLE_SAFE_HORIZONTAL + 2;
+    int ySpot = TITLE_SAFE_VERTICAL + 16;
+    while (tutorialTextToShow[i] != '\0') {
+      const unsigned char character = tutorialTextToShow[i];
+      const sixtwelve_character_info* characterInfo = sixtwelve_get_character_info(character);
+      i++;
+
+      if (character == '\n') {
+        xSpot = TITLE_SAFE_HORIZONTAL + 2;
+        ySpot += SIXTWELVE_LINE_HEIGHT;
+        continue;
+      }
+
+      const int xLoc = xSpot + characterInfo->x_offset;
+      const int yLoc = ySpot + characterInfo->y_offset;
+      gSPTextureRectangle(glistp++, (xLoc) << 2, (yLoc) << 2, (xLoc + characterInfo->width) << 2, (yLoc + characterInfo->height) << 2, 0, (characterInfo->x) << 5, (characterInfo->y) << 5, 1 << 10, 1 << 10);
+      xSpot += characterInfo->x_advance;
+    }
 
   gDPPipeSync(glistp++);
   gDPSetCombineMode(glistp++, G_CC_DECALRGBA, G_CC_DECALRGBA);

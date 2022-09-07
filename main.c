@@ -97,7 +97,7 @@ void initalizeGameData() {
 
   cutsceneToLoad = "test_scene";
 
-  currentLevel = 5;
+  currentLevel = 0;
 
   wonGameFlag = 0;
 
