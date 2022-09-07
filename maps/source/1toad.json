@@ -3,7 +3,14 @@
  "infinite":false,
  "layers":[
         {
-         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 15, 0, 0, 0, 0, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "data":[14, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 1,
+            0, 0, 0, 0, 0, 0, 0, 0],
          "height":8,
          "id":2,
          "name":"board",
@@ -27,8 +34,63 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":53.2559480894016,
-                 "y":41.6231074260995
+                 "x":55.6553713049748,
+                 "y":39.777397260274
+                }, 
+                {
+                 "height":0,
+                 "id":11,
+                 "name":"toad",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":88.8781542898342,
+                 "y":8.40032444124009
+                }, 
+                {
+                 "height":0,
+                 "id":7,
+                 "name":"toad",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":10.8046142754146,
+                 "y":86.6584354722423
+                }, 
+                {
+                 "height":0,
+                 "id":10,
+                 "name":"toad",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":25.7548666186013,
+                 "y":73.553893294881
+                }, 
+                {
+                 "height":0,
+                 "id":5,
+                 "name":"toad",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":71.7130497476568,
+                 "y":24.2734318673396
+                }, 
+                {
+                 "height":0,
+                 "id":8,
+                 "name":"toad",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":39.4131218457102,
+                 "y":56.3887887527037
                 }, 
                 {
                  "height":0,
@@ -38,8 +100,8 @@
                  "type":"player",
                  "visible":true,
                  "width":0,
-                 "x":62.1836697909156,
-                 "y":110.245133381399
+                 "x":9.39635904830565,
+                 "y":119.842826243692
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -48,16 +110,16 @@
          "y":0
         }],
  "nextlayerid":6,
- "nextobjectid":5,
+ "nextobjectid":12,
  "orientation":"orthogonal",
  "properties":[
         {
          "name":"dialogue",
          "type":"string",
-         "value":"meet_toad"
+         "value":""
         }],
  "renderorder":"right-up",
- "tiledversion":"1.7.2",
+ "tiledversion":"1.8.5",
  "tileheight":16,
  "tilesets":[
         {
@@ -75,6 +137,6 @@
         }],
  "tilewidth":16,
  "type":"map",
- "version":"1.6",
+ "version":"1.8",
  "width":8
 }

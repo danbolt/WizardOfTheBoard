@@ -3,7 +3,14 @@
  "infinite":false,
  "layers":[
         {
-         "data":[0, 0, 0, 0, 0, 0, 14, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 15, 0, 0, 0, 0, 15, 0, 0, 0, 0, 0, 0, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "data":[0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0,
+            15, 0, 15, 14, 15, 0, 15, 0,
+            0, 0, 15, 15, 15, 0, 0, 15,
+            0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 15, 0, 0, 0, 0, 0,
+            3, 15, 15, 0, 15, 15, 15, 0],
          "height":8,
          "id":2,
          "name":"board",
@@ -21,36 +28,36 @@
          "objects":[
                 {
                  "height":0,
-                 "id":4,
-                 "name":"toad",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":58.8320115356885,
-                 "y":38.0908435472242
-                }, 
-                {
-                 "height":0,
                  "id":5,
                  "name":"toad",
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":25.0555155010815,
-                 "y":57.4708002883922
+                 "x":75.4434030281183,
+                 "y":103.982696467195
+                }, 
+                {
+                 "height":0,
+                 "id":6,
+                 "name":"toad",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":23.7635183850036,
+                 "y":22.9560201874549
                 }, 
                 {
                  "height":0,
                  "id":3,
                  "name":"",
-                 "rotation":317.542812203791,
+                 "rotation":0,
                  "type":"player",
                  "visible":true,
                  "width":0,
-                 "x":109.433850036049,
-                 "y":111.906272530642
+                 "x":23.7928983417447,
+                 "y":86.4354722422498
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -59,7 +66,7 @@
          "y":0
         }],
  "nextlayerid":6,
- "nextobjectid":6,
+ "nextobjectid":7,
  "orientation":"orthogonal",
  "properties":[
         {
@@ -68,7 +75,7 @@
          "value":""
         }],
  "renderorder":"right-up",
- "tiledversion":"1.7.2",
+ "tiledversion":"1.8.5",
  "tileheight":16,
  "tilesets":[
         {
@@ -86,6 +93,6 @@
         }],
  "tilewidth":16,
  "type":"map",
- "version":"1.6",
+ "version":"1.8",
  "width":8
 }

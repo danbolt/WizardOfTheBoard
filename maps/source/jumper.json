@@ -3,7 +3,14 @@
  "infinite":false,
  "layers":[
         {
-         "data":[0, 0, 15, 0, 0, 15, 0, 0, 15, 15, 0, 0, 0, 0, 15, 15, 2, 0, 0, 0, 0, 0, 0, 14, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 15, 15, 0, 0, 0, 0, 15, 15, 0, 0, 15, 0, 0, 15, 0, 0, 0, 0, 15, 0, 0, 15, 0, 0],
+         "data":[0, 0, 0, 15, 15, 0, 0, 0,
+            0, 14, 0, 0, 0, 0, 2, 0,
+            0, 0, 0, 15, 15, 0, 0, 0,
+            15, 0, 15, 0, 0, 15, 0, 15,
+            0, 0, 0, 0, 15, 0, 0, 0,
+            0, 2, 0, 0, 0, 0, 14, 0,
+            0, 0, 0, 0, 15, 0, 0, 0,
+            0, 0, 0, 0, 0, 15, 0, 15],
          "height":8,
          "id":2,
          "name":"board",
@@ -27,19 +34,41 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":54.1788031723144,
-                 "y":85.5510093727469
+                 "x":87.9552992069215,
+                 "y":9.50775054073537
+                }, 
+                {
+                 "height":0,
+                 "id":6,
+                 "name":"jumper",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":6.55948089401592,
+                 "y":8.58489545782261
+                }, 
+                {
+                 "height":0,
+                 "id":5,
+                 "name":"jumper",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":88.8781542898342,
+                 "y":70.7853280461427
                 }, 
                 {
                  "height":0,
                  "id":3,
                  "name":"",
-                 "rotation":338.049660608078,
+                 "rotation":0,
                  "type":"player",
                  "visible":true,
                  "width":0,
-                 "x":66.982516222062,
-                 "y":120.027397260274
+                 "x":23.7928983417448,
+                 "y":115.966834895458
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -48,16 +77,16 @@
          "y":0
         }],
  "nextlayerid":6,
- "nextobjectid":5,
+ "nextobjectid":7,
  "orientation":"orthogonal",
  "properties":[
         {
          "name":"dialogue",
          "type":"string",
-         "value":"meet_jumper"
+         "value":""
         }],
  "renderorder":"right-up",
- "tiledversion":"1.7.2",
+ "tiledversion":"1.8.5",
  "tileheight":16,
  "tilesets":[
         {
@@ -75,6 +104,6 @@
         }],
  "tilewidth":16,
  "type":"map",
- "version":"1.6",
+ "version":"1.8",
  "width":8
 }
