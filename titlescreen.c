@@ -418,7 +418,7 @@ void updateTitleScreen() {
         if (menuIndex == 0) {
           playSound(SFX_11_MENU_CONFIRM);
           cutsceneToLoad = "intro";
-          nextStage = &cutsceneStage;
+          nextStage = &gameplayStage;
           currentLevel = 0;
           isTransitioningOut = 1;
         } else if (menuIndex == 1) {
