@@ -130,11 +130,11 @@ void makeLevelSelectDisplayList() {
 
   gDPPipeSync(glistp++);
   gDPLoadTextureBlock(glistp++, OS_K0_TO_PHYSICAL(backgroundTexture), G_IM_FMT_I, G_IM_SIZ_8b, 64, 64, 0, G_TX_NOMIRROR, G_TX_NOMIRROR, 6, 6, G_TX_NOLOD, G_TX_NOLOD);
-  gDPSetPrimColor(glistp++, 0, 0, 0x00, 0x33, 0x61, 0xff);
+  gDPSetPrimColor(glistp++, 0, 0, 0x20, 0x0a, 0x21, 0xff);
   gSPTextureRectangle(glistp++, (0) << 2, (0) << 2, (SCREEN_WD) << 2, (SCREEN_HT) << 2, 0, ((u32)(timePassed * 1.f * 64.f)) << 5, ((u32)(timePassed * 0.7f * 64.f)) << 5, 1 << 10, 1 << 10);
   
   // Options pane
-  gDPSetPrimColor(glistp++, 0, 0, 0x00, 0x23, 0x41, 0xff);
+  gDPSetPrimColor(glistp++, 0, 0, 0x16, 0x06, 0x18, 0xff);
   gSPScisTextureRectangle(glistp++, (-128 + ((int)swipeOffset)) << 2, (0) << 2, (-128 + ((int)swipeOffset) + 164) << 2, (SCREEN_HT) << 2, 0, ((u32)(timePassed * 1.f * 64.f)) << 5, ((u32)(timePassed * 0.7f * 64.f)) << 5, 1 << 10, 1 << 10);
 
   gDPPipeSync(glistp++);

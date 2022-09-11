@@ -21,5 +21,4 @@ LevelEntry levels[NUMBER_OF_LEVELS] = {
   { "hop", TRACK_13_WARMING_UP, 0x0 },
   { "oneweirdtrick", TRACK_13_WARMING_UP, 0x0 },
   { "adv", TRACK_13_WARMING_UP, 0x0 },
-  { "finale", TRACK_12_TOP_OF_THE_TOWER, 0x0 },
 };

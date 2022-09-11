@@ -1324,14 +1324,6 @@ void makeDL00(void)
   gDPSetRenderMode(glistp++, G_RM_TEX_EDGE, G_RM_TEX_EDGE2);
   gSPTexture(glistp++, 0xffff, 0xffff, 0, G_TX_RENDERTILE, G_ON);
 
-  if (currentLevel == (NUMBER_OF_LEVELS - 1)) {
-    for (int i = 0; i < (240 / 6); i++) {
-      gDPPipeSync(glistp++);
-      gDPLoadTextureTile(glistp++, backgroundBuffers[0], G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, 240, 0, (i * 6), 320 - 1, ((i + 1) * 6) - 1, 0, G_TX_WRAP, G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD );
-      gSPTextureRectangle(glistp++, 0 << 2, (0 + (i * 6)) << 2, (0 + 320) << 2, (0 + ((i + 1) * 6)) << 2, 0, 0 << 5, (i * 6) << 5, 1 << 10, 1 << 10);
-    }
-  }
-
   gDPPipeSync(glistp++);
   gDPSetTexturePersp(glistp++, G_TP_PERSP);
   gDPSetCombineMode(glistp++, G_CC_MODULATEIA, G_CC_MODULATEIA);
@@ -1341,8 +1333,6 @@ void makeDL00(void)
   gSPSetGeometryMode(glistp++,G_SHADE | G_SHADING_SMOOTH | G_CULL_BACK);
   gSPClipRatio(glistp++, FRUSTRATIO_6);
   gSPTexture(glistp++, 0xffff, 0xffff, 0, G_TX_RENDERTILE, G_ON);
-
-
 
   if (currentLevel != (NUMBER_OF_LEVELS - 1)) {
     gSPDisplayList(glistp++, OS_K0_TO_PHYSICAL(decorCommands));
@@ -2511,6 +2501,9 @@ void updateGame00(void)
           wonGameFlag = 1;
         } else {
           if (gameState == GAME_STATE_PLAYER_LOSES) {
+            nextStage = &levelSelectStage;
+          } else if (currentLevel == (NUMBER_OF_LEVELS - 1)) {
+            // TODO: Track best times
             nextStage = &levelSelectStage;
           } else {
             nextStage = &betweenStagesStage;
