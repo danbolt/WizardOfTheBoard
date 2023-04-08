@@ -50,12 +50,10 @@ static u8 menuIndex;
 static u8 isTransitioningOut;
 static float transitionOutTime;
 
-#define NUMBER_OF_TITLE_MENU_ITEMS 3
+#define NUMBER_OF_TITLE_MENU_ITEMS 2
 static const char* menuItems[NUMBER_OF_TITLE_MENU_ITEMS] = {
   "START GAME",
-  "LEVEL SELECT",
-  // TODO: Marathon mode?
-  "CREDITS"
+  "LEVEL SELECT"
 };
 static float menuItemHorizontalOffsets[NUMBER_OF_TITLE_MENU_ITEMS];
 
@@ -256,7 +254,7 @@ void makeTitleScreenDL() {
       } else {
         gDPSetPrimColor(glistp++, 0, 0, 0xff, 0xff, 0xff, 0xff);
       }
-      renderDisplayText(112 + ((int)menuItemHorizontalOffsets[i]), 160 + (16 * i), item);
+      renderDisplayText(112 + ((int)menuItemHorizontalOffsets[i]), 172 + (16 * i), item);
     }
   }
 
