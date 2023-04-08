@@ -266,6 +266,35 @@ void makeLevelSelectDisplayList() {
         i++;
       }
     }
+  } else {
+    char recordBuffer[128];
+    sprintf(recordBuffer, "Best time: %3.2f\nBest move count: %2d", best_times[currentlySelectedLevel], best_move_count[currentlySelectedLevel]);
+
+    gDPPipeSync(glistp++);
+    gDPSetPrimColor(glistp++, 0, 0, 0xff, 0xff, 0xff, 0xff);
+    gDPLoadTextureBlock_4b(glistp++, sixtwelve_tex, G_IM_FMT_IA, SIXTWELVE_TEXTURE_WIDTH, SIXTWELVE_TEXTURE_HEIGHT, 0, G_TX_MIRROR | G_TX_WRAP, G_TX_MIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD);
+
+    int i = 0;
+    int xInit = SCREEN_WD / 4 + 16;
+    int xAdv = xInit;
+    int y = TITLE_SAFE_VERTICAL + 2;
+    while (recordBuffer[i] != '\0') {
+      const sixtwelve_character_info* characterInfo = sixtwelve_get_character_info(recordBuffer[i]);
+
+      if (recordBuffer[i] == '\n') {
+        xAdv = xInit;
+        y += SIXTWELVE_LINE_HEIGHT;
+        i++;
+        continue;
+      }
+
+      const int xLoc = xAdv + characterInfo->x_offset;
+      const int yLoc = y + characterInfo->y_offset;
+
+      gSPScisTextureRectangle(glistp++, (xLoc) << 2, (yLoc) << 2, (xLoc + characterInfo->width) << 2, (yLoc + characterInfo->height) << 2, 0, (characterInfo->x) << 5, (characterInfo->y) << 5, 1 << 10, 1 << 10);
+      xAdv += characterInfo->x_advance;
+      i++;
+    }
   }
 
   if (transitioningState != NOT_TRANSITIONING) {

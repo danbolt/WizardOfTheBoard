@@ -2346,6 +2346,9 @@ void checkGameState() {
   if ((!monstersAlive) && allPuzzleSpacesAreCovered) {
     gameState = GAME_STATE_PLAYER_WINS;
 
+    best_times[currentLevel] = MIN(activeStageTime, best_times[currentLevel]);
+    best_move_count[currentLevel] = MIN(moveCount, best_move_count[currentLevel]);
+
     stopPlayingMusic();
     playSound(SFX_09_FLOOR_CLEAR);
   }

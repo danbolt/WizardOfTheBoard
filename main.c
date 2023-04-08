@@ -14,6 +14,7 @@
 #include "splashscreen.h"
 #include "titlescreen.h"
 #include "jinglescreen.h"
+#include "stagekeys.h"
 
 #include <segmentinfo.h>
 
@@ -92,6 +93,11 @@ void initalizeGameData() {
   changeScreensFlag = 1;
   currentStage = NULL;
   nextStage = &titleScreenStage;
+
+  for (int i = 0; i < NUMBER_OF_LEVELS; i++) {
+    best_times[i] = 929.9f;
+    best_move_count[i] = 99;
+  }
 
   loadDisplayText();
 
