@@ -15,7 +15,7 @@ static float splashScreenTime;
 
 static u8 hasPlayedLoadingSound;
 
-const char* loadingText = "DISC READ ERROR";
+const char* loadingText = "DISC READ ERR.";
 
 void initSplashScreen() {
   splashScreenTime = 0.f;

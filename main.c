@@ -92,7 +92,7 @@ void updateTime() {
 void initalizeGameData() {
   changeScreensFlag = 1;
   currentStage = NULL;
-  nextStage = &titleScreenStage;
+  nextStage = &splashScreenStage;
 
   for (int i = 0; i < NUMBER_OF_LEVELS; i++) {
     best_times[i] = 929.9f;
