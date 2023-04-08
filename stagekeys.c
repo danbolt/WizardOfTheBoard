@@ -22,3 +22,6 @@ LevelEntry levels[NUMBER_OF_LEVELS] = {
   { "oneweirdtrick", TRACK_13_WARMING_UP, 0x0 },
   { "adv", TRACK_13_WARMING_UP, 0x0 },
 };
+
+float best_times[NUMBER_OF_LEVELS] = { 9999.f };
+u32 best_move_count[NUMBER_OF_LEVELS] = { 100 };
