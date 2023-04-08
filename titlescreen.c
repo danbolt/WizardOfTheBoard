@@ -65,7 +65,7 @@ static Spot spots[] = {
   { 6.f, { -59.3667f, -110.643f, 67.314f }, { -59.3667f, -45.484f, 67.314f }, "A ROM full of\n  weird floors\n     made in a fever dream.", -1 },
 
   { 6.0f, { 83.7952f, -115.326f, 37.987f }, { 6.07872f, 11.4772f, -9.87373f }, "Times are tracked,\n    and moves are counted.", -1 },
-  { 5.0f, { 178.037f, 90.7114f, 76.2756f }, { 6.07872f, 19.6313f, 15.6789f }, "Good level design\n  is not guarunteed.", -1 },
+  { 5.0f, { 178.037f, 90.7114f, 76.2756f }, { 6.07872f, 19.6313f, 15.6789f }, "Good level design\n  is not guaranteed.", -1 },
   { 5.0f, { 76.7275f, 80.2299f, 76.2756f }, { 5.48971f, 23.1654f, 14.9429f }, "",  -1},
 
   // Midpoint
